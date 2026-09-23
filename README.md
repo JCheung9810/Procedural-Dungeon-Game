@@ -11,7 +11,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room to room camera control
 - 8 direction movement
 
-#To Do
+# To Do
 - COMBAT
   - improve shooting mechanics
   - offset projectile starting location
