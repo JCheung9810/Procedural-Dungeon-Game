@@ -2,13 +2,6 @@
 #include <raymath.h>
 #include <string.h>
 
-//------------------------------VARS------------------------------
-#define MAX_PROJECTILES 5
-#define PLAYER_SIZE 40.0f
-#define PLAYER_SPEED 600.0f//600.0f
-
-#define PROJECTILE_LIFESPAN 5.0f
-
 //------------------------------STRUCTS------------------------------
 typedef struct Projectile {
     Vector2 position;
@@ -1344,6 +1337,13 @@ void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoo
 //------------------------------MAIN------------------------------
 int main(void){
     
+    //Debugging
+    bool debugKeys = true;
+    
+    bool debugSpeed = false;
+    bool debugWall = false;
+    bool debugCam = false;
+    
     //Initial screen size
     int screenWidth = 800;
     int screenHeight = 450;
@@ -1365,18 +1365,18 @@ int main(void){
     SetTargetFPS(60);
     
     //Player
-    Rectangle player = {-PLAYER_SIZE/2, -PLAYER_SIZE/2, PLAYER_SIZE, PLAYER_SIZE};
-    Vector2 playerCenter = (Vector2){player.x + PLAYER_SIZE/2 ,player.y + PLAYER_SIZE/2};
+    float playerSize = 40.0f;
+    float playerSpeed = 600.0f;
+
+    float projectileLifespan = 5.0f;
+    Rectangle player = {-playerSize/2, -playerSize/2, playerSize, playerSize};
+    Vector2 playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
     
     //Camera
     Camera2D camera = {0};
     camera.target = playerCenter;
     camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
     camera.zoom = 1.0f;
-    
-    bool debugKeys = true;
-    bool debugWall = false;
-    bool debugCam = true;
     
     //Movement
     float xDir,yDir;
@@ -1395,9 +1395,10 @@ int main(void){
     Texture2D halfHeartTexture = LoadTexture("assets/HalfHeart.png");
     
     //Projectile
-    static Projectile projectile[MAX_PROJECTILES] = {0};
+    int maxProjectiles = 5;
+    Projectile projectile[maxProjectiles] = {0};
     
-    for(int i = 0; i < MAX_PROJECTILES; i++){
+    for(int i = 0; i < maxProjectiles; i++){
         projectile[i].position = (Vector2){0,0};
         projectile[i].speed = (Vector2){0,0};
         projectile[i].size = {8,8};
@@ -1441,6 +1442,12 @@ int main(void){
         xDir = 0;
         yDir = 0;
         
+        if(debugSpeed){
+            playerSpeed = 1800.0f;
+        } else {
+            playerSpeed = 600.0f;
+        }
+        
         if(IsKeyDown(KEY_D))
             xDir += 1.0f;
         
@@ -1457,7 +1464,7 @@ int main(void){
         direction = Vector2Normalize({xDir,yDir});
         
         //Scale
-        direction = Vector2Scale(direction, PLAYER_SPEED);
+        direction = Vector2Scale(direction, playerSpeed);
         
         //Translate player, detect collision (x)
         player.x += direction.x * GetFrameTime();
@@ -1496,7 +1503,7 @@ int main(void){
         }
         
         //Update player center
-        playerCenter = (Vector2){player.x + PLAYER_SIZE/2 ,player.y + PLAYER_SIZE/2};
+        playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
 
         
         //------------------------------PROJECTILES------------------------------
@@ -1506,10 +1513,10 @@ int main(void){
         
         //Fire projectile       
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            for (int i = 0; i < MAX_PROJECTILES; i++){
+            for (int i = 0; i < maxProjectiles; i++){
                 if (!projectile[i].active){
                     projectile[i].active = true;
-                    projectile[i].lifeSpan = PROJECTILE_LIFESPAN; 
+                    projectile[i].lifeSpan = projectileLifespan; 
                     
                     projectile[i].rotation = playerToMouseRotation;
                     projectile[i].speed.x = cos(projectile[i].rotation) * 400;
@@ -1524,7 +1531,7 @@ int main(void){
         }
         
         //Translate projectile
-        for(int i = 0; i < MAX_PROJECTILES; i++){
+        for(int i = 0; i < maxProjectiles; i++){
             if(projectile[i].active){
                 
                 projectile[i].position = {
@@ -1538,7 +1545,7 @@ int main(void){
         }
         
         //Projectile despawn
-        for(int i = 0; i < MAX_PROJECTILES; i++){
+        for(int i = 0; i < maxProjectiles; i++){
             if(projectile[i].active){
                 for(int j = 0; j < numRoomLocs; j++){
                     if(rooms[j].exists == true){
@@ -1647,6 +1654,9 @@ int main(void){
                 SetRandomSeed(seed);
                 GenerateDungeon(rooms, currentRooms, maxRooms, numRoomLocs, roomSize, wallDepth, doorSize, straight, turn, threeWay, fourWay, bossRoomIndex);
             }
+            if(IsKeyPressed(KEY_SEVEN)){
+                debugSpeed = debugSpeed ^ true;
+            }
             if(IsKeyPressed(KEY_EIGHT)){
                 debugCam = debugCam ^ true;
             }
@@ -1728,7 +1738,7 @@ int main(void){
                     //              texture     source      dest               origin/pivot             rotation  color
                     
                     //Draw projectiles
-                    for (int i = 0; i < MAX_PROJECTILES; i++){
+                    for (int i = 0; i < maxProjectiles; i++){
                         if (projectile[i].active) 
                             //DrawRectanglePro(projectile[i].proj, (Vector2){projectile[i].size.x / 2.0f, projectile[i].size.y / 2.0f}, projectile[i].rotation * RAD2DEG, projectile[i].color);
                             DrawRectangleRec(projectile[i].proj, RED);
