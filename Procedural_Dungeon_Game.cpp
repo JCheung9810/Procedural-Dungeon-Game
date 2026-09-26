@@ -1368,7 +1368,6 @@ int main(void){
     float playerSize = 40.0f;
     float playerSpeed = 600.0f;
 
-    float projectileLifespan = 5.0f;
     Rectangle player = {-playerSize/2, -playerSize/2, playerSize, playerSize};
     Vector2 playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
     
@@ -1381,6 +1380,10 @@ int main(void){
     //Movement
     float xDir,yDir;
     Vector2 direction;
+    bool canMove = true;
+    bool dashing = false;
+    Vector2 tempDirection;
+    float dashTime;
     
     //Mouse
     Vector2 mouseWorldPos;
@@ -1388,13 +1391,18 @@ int main(void){
     
     //Images
     Texture2D gunTexture = LoadTexture("assets/Pistol.png");
-    float gunSize = 40.0f;
+    float gunSize = 100.0f;
     char* gunType = (char*)"Pistol";
     
+    Vector2 gunPos;
+    Rectangle gunRect;
+    Rectangle gunDest;
+    float gunAngle;
+    
     Texture2D heartTexture = LoadTexture("assets/Heart.png");
-    Texture2D halfHeartTexture = LoadTexture("assets/HalfHeart.png");
     
     //Projectile
+    float projectileLifespan = 5.0f;
     int maxProjectiles = 5;
     Projectile projectile[maxProjectiles] = {0};
     
@@ -1448,17 +1456,19 @@ int main(void){
             playerSpeed = 600.0f;
         }
         
-        if(IsKeyDown(KEY_D))
-            xDir += 1.0f;
-        
-        if(IsKeyDown(KEY_A))
-            xDir -= 1.0f;
-        
-        if(IsKeyDown(KEY_S))
-            yDir += 1.0f;
-        
-        if(IsKeyDown(KEY_W))
-            yDir -= 1.0f;
+        if(canMove){
+            if(IsKeyDown(KEY_D))
+                xDir += 1.0f;
+            
+            if(IsKeyDown(KEY_A))
+                xDir -= 1.0f;
+            
+            if(IsKeyDown(KEY_S))
+                yDir += 1.0f;
+            
+            if(IsKeyDown(KEY_W))
+                yDir -= 1.0f;
+        }
         
         //Normalize
         direction = Vector2Normalize({xDir,yDir});
@@ -1501,6 +1511,58 @@ int main(void){
                 }
             }
         }
+                
+        //Dashing/roll
+        if(IsKeyPressed(KEY_SPACE) && dashing == false){
+            dashing = true;
+            canMove = false;
+            tempDirection = Vector2Scale(direction, 2.0f);
+            dashTime = 0.2f;
+        }
+        
+        if(dashing){                        
+            //Translate player, detect collision (x)
+            player.x += tempDirection.x * GetFrameTime();
+            if(!debugWall){
+                for(int i = 0; i < numRoomLocs; i++){
+                    if(rooms[i].exists == true){
+                        for(int j = 0; j < rooms[i].numWalls; j++){
+                            if(CheckCollisionRecs(player,rooms[i].walls[j])){
+                                if (tempDirection.x > 0){
+                                    player.x = rooms[i].walls[j].x - player.width;
+                                } else if (tempDirection.x < 0){
+                                    player.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            //Translate player, detect collision (y)
+            player.y += tempDirection.y * GetFrameTime();
+            if(!debugWall){
+                for(int i = 0; i < numRoomLocs; i++){
+                    if(rooms[i].exists == true){
+                        for(int j = 0; j < rooms[i].numWalls; j++){
+                            if(CheckCollisionRecs(player,rooms[i].walls[j])){
+                                if (tempDirection.y > 0){
+                                    player.y = rooms[i].walls[j].y - player.height;
+                                } else if (tempDirection.y < 0){
+                                    player.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        
+            dashTime -= GetFrameTime();
+            if(dashTime <= 0){
+                dashing = false;
+                canMove = true;
+            }
+        }
         
         //Update player center
         playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
@@ -1522,7 +1584,9 @@ int main(void){
                     projectile[i].speed.x = cos(projectile[i].rotation) * 400;
                     projectile[i].speed.y = sin(projectile[i].rotation) * 400;
                     
-                    projectile[i].position = (Vector2){playerCenter.x + cos(projectile[i].rotation) * gunSize, playerCenter.y + sin(projectile[i].rotation) * gunSize};
+                    if(TextIsEqual(gunType, "Pistol")){
+                        projectile[i].position = (Vector2){playerCenter.x + cos(projectile[i].rotation) * gunSize/1.5f, playerCenter.y + sin(projectile[i].rotation) * gunSize/1.5f};
+                    }
                     
                     projectile[i].proj = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
                     break;
@@ -1614,12 +1678,14 @@ int main(void){
             );
         }    
 
-        bool isBoss;
-        isBoss =
-        (TextIsEqual(rooms[playerRoom].type, "BossN") ||
-         TextIsEqual(rooms[playerRoom].type, "BossE") ||
-         TextIsEqual(rooms[playerRoom].type, "BossS") ||
-         TextIsEqual(rooms[playerRoom].type, "BossW"));
+        bool isBoss = false;
+        if(playerRoom != -1){
+            isBoss =
+            (TextIsEqual(rooms[playerRoom].type, "BossN") ||
+             TextIsEqual(rooms[playerRoom].type, "BossE") ||
+             TextIsEqual(rooms[playerRoom].type, "BossS") ||
+             TextIsEqual(rooms[playerRoom].type, "BossW"));
+        }
 
         //Camera mode
         if(debugCam){
@@ -1724,25 +1790,26 @@ int main(void){
                     //Draw player
                     DrawRectangleRec(player, BLUE);      
                     
-                    //Draw gun
-                    Vector2 gunPos = playerCenter;
-                    Rectangle gunSource = {0,0,(float)gunTexture.width,(float)gunTexture.height};
-                    Rectangle gunDest = {gunPos.x,gunPos.y,gunSize,gunSize};
-                    float gunAngle = playerToMouseRotation * RAD2DEG;
-                    
-                    if (gunAngle < -90 || gunAngle > 90){
-                        gunSource.height = -gunSource.height;
-                    }
-
-                    DrawTexturePro(gunTexture, gunSource, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
-                    //              texture     source      dest               origin/pivot             rotation  color
-                    
                     //Draw projectiles
                     for (int i = 0; i < maxProjectiles; i++){
                         if (projectile[i].active) 
                             //DrawRectanglePro(projectile[i].proj, (Vector2){projectile[i].size.x / 2.0f, projectile[i].size.y / 2.0f}, projectile[i].rotation * RAD2DEG, projectile[i].color);
                             DrawRectangleRec(projectile[i].proj, RED);
                     } 
+                    
+                    //Draw gun
+                    gunPos = playerCenter;
+                    gunRect = {0,0,(float)gunTexture.width / 6.0f,(float)gunTexture.height - 30.0f};
+                    gunDest = {gunPos.x,gunPos.y,gunSize,gunSize};
+                    gunAngle = playerToMouseRotation * RAD2DEG;
+                    
+                    if (gunAngle < -90 || gunAngle > 90){
+                        gunRect.height = -gunRect.height;
+                    }
+                    
+
+                    DrawTexturePro(gunTexture, gunRect, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
+                    //              texture     source      dest               origin/pivot             rotation  color
               
                 EndMode2D();
             } else {  
