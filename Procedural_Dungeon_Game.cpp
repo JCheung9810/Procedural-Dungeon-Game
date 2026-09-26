@@ -19,10 +19,25 @@ typedef struct Projectile {
     
     Color color;
     
-    Rectangle proj;
+    Rectangle hitBox;
     //add 8 circles for detection so it can be "rotated" (4 corners 4 sides)
     //detect collision with the array of corners
 } Projectile;
+
+typedef struct Enemy {
+    char* name;
+    
+    Vector2 size;
+    Vector2 position;
+    
+    float health;
+    
+    Rectangle hitBox;
+    
+    bool active;
+    Texture2D sprite;
+    
+} Enemy;
 
 typedef struct Room {
     char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
@@ -38,6 +53,22 @@ typedef struct Room {
     Rectangle doors[4];
     
 } Room;
+
+void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
+    if(TextIsEqual(name, "Dummy")){
+        enemies[numEnemies].name = (char*)"Dummy";
+        enemies[numEnemies].position = (Vector2){300,-300};
+        enemies[numEnemies].health = 100.0f;
+        enemies[numEnemies].size = (Vector2){40.0f,40.0f};
+        
+        enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
+        Vector2 dummyCenter = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
+        
+        enemies[numEnemies].active = true;
+    }
+    
+    numEnemies++;
+}
 
 bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs){
     
@@ -1312,7 +1343,7 @@ void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoo
         
     
         deadEnds = TestDeadEnd(rooms, rooms[i], numRoomLocs);
-        for(int j = 0; j < TextLength(deadEnds); j++){
+        for(int j = 0; j < (int)TextLength(deadEnds); j++){
             if(deadEnds[j] == 'N'){
                 rooms[i].numWalls++;
                 rooms[i].walls[rooms[i].numWalls - 1] = topWall;
@@ -1367,9 +1398,16 @@ int main(void){
     //Player
     float playerSize = 40.0f;
     float playerSpeed = 600.0f;
+    float playerHealth = 100.0f;
 
     Rectangle player = {-playerSize/2, -playerSize/2, playerSize, playerSize};
     Vector2 playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
+    
+    //Enemy dummy
+    int numEnemies = 0;
+    Enemy enemies[30] = {0};
+    
+    AddEnemy(enemies, "Dummy", numEnemies);
     
     //Camera
     Camera2D camera = {0};
@@ -1403,7 +1441,7 @@ int main(void){
     
     //Projectile
     float projectileLifespan = 5.0f;
-    int maxProjectiles = 5;
+    int maxProjectiles = 100;
     Projectile projectile[maxProjectiles] = {0};
     
     for(int i = 0; i < maxProjectiles; i++){
@@ -1413,9 +1451,9 @@ int main(void){
         projectile[i].active = false;
         projectile[i].lifeSpan = 0.0f;
         projectile[i].color = RED;
-        projectile[i].proj = {projectile[i].position.x, projectile[i].position.y, projectile[i].size.x, projectile[i].size.y};
+        projectile[i].hitBox = {projectile[i].position.x, projectile[i].position.y, projectile[i].size.x, projectile[i].size.y};
         
-    }
+    }    
     
     //Dungeon Rooms
     int seed = GetRandomValue(100000, 999999);
@@ -1588,7 +1626,7 @@ int main(void){
                         projectile[i].position = (Vector2){playerCenter.x + cos(projectile[i].rotation) * gunSize/1.5f, playerCenter.y + sin(projectile[i].rotation) * gunSize/1.5f};
                     }
                     
-                    projectile[i].proj = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                    projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
                     break;
                 }
             }
@@ -1603,21 +1641,34 @@ int main(void){
                     projectile[i].position.y + projectile[i].speed.y * GetFrameTime()
                 };    
 
-                projectile[i].proj = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
                 
             }
         }
         
-        //Projectile despawn
+        //Projectile collision/despawn
         for(int i = 0; i < maxProjectiles; i++){
             if(projectile[i].active){
+                //Check walls
                 for(int j = 0; j < numRoomLocs; j++){
                     if(rooms[j].exists == true){
                         for(int k = 0; k < rooms[j].numWalls; k++){
-                            if(CheckCollisionRecs(rooms[j].walls[k],projectile[i].proj)){
+                            if(CheckCollisionRecs(rooms[j].walls[k],projectile[i].hitBox)){
                                 projectile[i].active = false;
                                 projectile[i].lifeSpan = 0.0f;
                             }
+                        }
+                    }
+                }
+                //Check enemies
+                for(int j = 0; j < numEnemies; j++){
+                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectile[i].hitBox)){
+                        projectile[i].active = false;
+                        projectile[i].lifeSpan = 0.0f;
+                        
+                        enemies[j].health -= 10.0f;
+                        if(enemies[j].health <= 0.0f){
+                            enemies[j].active = false;
                         }
                     }
                 }
@@ -1699,20 +1750,6 @@ int main(void){
             }                
         }
         
-        
-        //Exit confirmation
-        if(WindowShouldClose() || IsKeyPressed(KEY_ESCAPE)) 
-            exitWindowRequested = true;
-        
-        if (exitWindowRequested){
-            if (IsKeyPressed(KEY_Y)){ 
-                exitWindow = true;
-                break;
-            
-            }else if (IsKeyPressed(KEY_N)) 
-                exitWindowRequested = false;
-        }
-        
         //Debug
         if(debugKeys){
             if(IsKeyPressed(KEY_ZERO)){
@@ -1729,7 +1766,20 @@ int main(void){
             if(IsKeyPressed(KEY_NINE)){
                 debugWall = debugWall ^ true;
             }
-        }            
+        }   
+
+        //Exit confirmation
+        if(WindowShouldClose() || IsKeyPressed(KEY_ESCAPE)) 
+            exitWindowRequested = true;
+        
+        if (exitWindowRequested){
+            if (IsKeyPressed(KEY_Y)){ 
+                exitWindow = true;
+                break;
+            
+            }else if (IsKeyPressed(KEY_N)) 
+                exitWindowRequested = false;
+        }
 
         //------------------------------DRAW------------------------------
         BeginDrawing();
@@ -1786,15 +1836,37 @@ int main(void){
                             BLACK
                         ); 
                     }
-                    
+                                       
                     //Draw player
                     DrawRectangleRec(player, BLUE);      
+                    
+                    //Draw dummy
+                    for (int i = 0; i < numEnemies; i++){
+                        if (enemies[i].active){
+                            int fontSize = 15;
+                            int textWidth = MeasureText(enemies[i].name, fontSize);
+                            DrawText(
+                                enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                                enemies[i].position.y - fontSize*2, 
+                                fontSize, 
+                                BLACK
+                            );   
+                            textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
+                            DrawText(
+                                TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                                enemies[i].position.y - fontSize*1, 
+                                fontSize, 
+                                BLACK
+                            );   
+                            DrawRectangleRec(enemies[i].hitBox, RED);
+                        }
+                    }
                     
                     //Draw projectiles
                     for (int i = 0; i < maxProjectiles; i++){
                         if (projectile[i].active) 
-                            //DrawRectanglePro(projectile[i].proj, (Vector2){projectile[i].size.x / 2.0f, projectile[i].size.y / 2.0f}, projectile[i].rotation * RAD2DEG, projectile[i].color);
-                            DrawRectangleRec(projectile[i].proj, RED);
+                            //DrawRectanglePro(projectile[i].hitBox, (Vector2){projectile[i].size.x / 2.0f, projectile[i].size.y / 2.0f}, projectile[i].rotation * RAD2DEG, projectile[i].color);
+                            DrawRectangleRec(projectile[i].hitBox, YELLOW);
                     } 
                     
                     //Draw gun
