@@ -18,11 +18,23 @@ typedef struct Projectile {
     char* type;
     
     Color color;
+    Texture2D sprite;
     
     Rectangle hitBox;
     //add 8 circles for detection so it can be "rotated" (4 corners 4 sides)
     //detect collision with the array of corners
 } Projectile;
+
+typedef struct Player {
+    Vector2 position;
+    Vector2 center;
+    Vector2 size;
+    float speed;
+    float health;
+    
+    Rectangle hitBox;
+    
+} Player;
 
 typedef struct Enemy {
     char* name;
@@ -47,9 +59,9 @@ typedef struct Room {
     int distance;
     bool exists = false;
     
-    int numWalls = 0;
+    int numWalls;
     Rectangle walls[12];
-    int numDoors = 0;
+    int numDoors;
     Rectangle doors[4];
     
 } Room;
@@ -1396,12 +1408,14 @@ int main(void){
     SetTargetFPS(60);
     
     //Player
-    float playerSize = 40.0f;
-    float playerSpeed = 600.0f;
-    float playerHealth = 100.0f;
-
-    Rectangle player = {-playerSize/2, -playerSize/2, playerSize, playerSize};
-    Vector2 playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
+    Player player;
+    player.size = {40.0f, 40.0f};
+    player.speed = 600.0f;
+    player.health = 100.0f;
+    
+    player.center = {0,0};
+    player.position = {-player.center.x/2.0f, -player.center.y/2.0f};
+    player.hitBox = {player.position.x, player.position.y, player.size.x, player.size.y};
     
     //Enemy dummy
     int numEnemies = 0;
@@ -1409,9 +1423,11 @@ int main(void){
     
     AddEnemy(enemies, "Dummy", numEnemies);
     
+    float projectileCD = 1.0f;
+    
     //Camera
     Camera2D camera = {0};
-    camera.target = playerCenter;
+    camera.target = player.center;
     camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
     camera.zoom = 1.0f;
     
@@ -1489,9 +1505,9 @@ int main(void){
         yDir = 0;
         
         if(debugSpeed){
-            playerSpeed = 1800.0f;
+            player.speed = 1800.0f;
         } else {
-            playerSpeed = 600.0f;
+            player.speed = 600.0f;
         }
         
         if(canMove){
@@ -1512,20 +1528,22 @@ int main(void){
         direction = Vector2Normalize({xDir,yDir});
         
         //Scale
-        direction = Vector2Scale(direction, playerSpeed);
+        direction = Vector2Scale(direction, player.speed);
         
         //Translate player, detect collision (x)
-        player.x += direction.x * GetFrameTime();
+        player.position.x += direction.x * GetFrameTime();
+        player.hitBox.x = player.position.x;
         if(!debugWall){
             for(int i = 0; i < numRoomLocs; i++){
                 if(rooms[i].exists == true){
                     for(int j = 0; j < rooms[i].numWalls; j++){
-                        if(CheckCollisionRecs(player,rooms[i].walls[j])){
+                        if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
                             if (direction.x > 0){
-                                player.x = rooms[i].walls[j].x - player.width;
+                                player.position.x = rooms[i].walls[j].x - player.hitBox.width;
                             } else if (direction.x < 0){
-                                player.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
+                                player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
                             }
+                            player.hitBox.x = player.position.x;
                         }
                     }
                 }
@@ -1533,17 +1551,19 @@ int main(void){
         }
         
         //Translate player, detect collision (y)
-        player.y += direction.y * GetFrameTime();
+        player.position.y += direction.y * GetFrameTime();
+        player.hitBox.y = player.position.y;
         if(!debugWall){
             for(int i = 0; i < numRoomLocs; i++){
                 if(rooms[i].exists == true){
                     for(int j = 0; j < rooms[i].numWalls; j++){
-                        if(CheckCollisionRecs(player,rooms[i].walls[j])){
+                        if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
                             if (direction.y > 0){
-                                player.y = rooms[i].walls[j].y - player.height;
+                                player.position.y = rooms[i].walls[j].y - player.hitBox.height;
                             } else if (direction.y < 0){
-                                player.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
+                                player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
                             }
+                            player.hitBox.y = player.position.y;
                         }
                     }
                 }
@@ -1560,17 +1580,19 @@ int main(void){
         
         if(dashing){                        
             //Translate player, detect collision (x)
-            player.x += tempDirection.x * GetFrameTime();
+            player.position.x += tempDirection.x * GetFrameTime();
+            player.hitBox.x = player.position.x;
             if(!debugWall){
                 for(int i = 0; i < numRoomLocs; i++){
                     if(rooms[i].exists == true){
                         for(int j = 0; j < rooms[i].numWalls; j++){
-                            if(CheckCollisionRecs(player,rooms[i].walls[j])){
+                            if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
                                 if (tempDirection.x > 0){
-                                    player.x = rooms[i].walls[j].x - player.width;
+                                    player.position.x = rooms[i].walls[j].x - player.hitBox.width;
                                 } else if (tempDirection.x < 0){
-                                    player.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
+                                    player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
                                 }
+                                player.hitBox.x = player.position.x;
                             }
                         }
                     }
@@ -1578,17 +1600,19 @@ int main(void){
             }
             
             //Translate player, detect collision (y)
-            player.y += tempDirection.y * GetFrameTime();
+            player.position.y += tempDirection.y * GetFrameTime();
+            player.hitBox.y = player.position.y;
             if(!debugWall){
                 for(int i = 0; i < numRoomLocs; i++){
                     if(rooms[i].exists == true){
                         for(int j = 0; j < rooms[i].numWalls; j++){
-                            if(CheckCollisionRecs(player,rooms[i].walls[j])){
+                            if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
                                 if (tempDirection.y > 0){
-                                    player.y = rooms[i].walls[j].y - player.height;
+                                    player.position.y = rooms[i].walls[j].y - player.hitBox.height;
                                 } else if (tempDirection.y < 0){
-                                    player.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
+                                    player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
                                 }
+                                player.hitBox.y = player.position.y;
                             }
                         }
                     }
@@ -1603,13 +1627,13 @@ int main(void){
         }
         
         //Update player center
-        playerCenter = (Vector2){player.x + playerSize/2 ,player.y + playerSize/2};
+        player.center = {player.position.x + player.size.x/2.0f, player.position.y + player.size.y/2.0f};
 
         
         //------------------------------PROJECTILES------------------------------
         //Update mouse
         mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
-        playerToMouseRotation = atan2(mouseWorldPos.y - playerCenter.y, mouseWorldPos.x - playerCenter.x);
+        playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);
         
         //Fire projectile       
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
@@ -1623,10 +1647,13 @@ int main(void){
                     projectile[i].speed.y = sin(projectile[i].rotation) * 400;
                     
                     if(TextIsEqual(gunType, "Pistol")){
-                        projectile[i].position = (Vector2){playerCenter.x + cos(projectile[i].rotation) * gunSize/1.5f, playerCenter.y + sin(projectile[i].rotation) * gunSize/1.5f};
+                        projectile[i].position = (Vector2){player.center.x + cos(projectile[i].rotation) * gunSize/1.5f, player.center.y + sin(projectile[i].rotation) * gunSize/1.5f};
                     }
                     
                     projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                    
+                    projectile[i].team = (char*)"Player";
+                    projectile[i].type = (char*)"Pistol";
                     break;
                 }
             }
@@ -1660,9 +1687,10 @@ int main(void){
                         }
                     }
                 }
-                //Check enemies
+                
+                //Check enemy collision
                 for(int j = 0; j < numEnemies; j++){
-                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectile[i].hitBox)){
+                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Player")){
                         projectile[i].active = false;
                         projectile[i].lifeSpan = 0.0f;
                         
@@ -1673,6 +1701,14 @@ int main(void){
                     }
                 }
                 
+                //Check player collision
+                if(CheckCollisionRecs(player.hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Enemy")){
+                    projectile[i].active = false;
+                    projectile[i].lifeSpan = 0.0f;
+                    
+                    player.health -= 10.0f;
+                }
+                
                 projectile[i].lifeSpan -= GetFrameTime(); 
                
                 if(projectile[i].lifeSpan <= 0.0f){
@@ -1680,6 +1716,33 @@ int main(void){
                 }
             }                    
         }
+        
+        
+        //Test enemy projectile
+        //Fire projectile       
+        projectileCD -= GetFrameTime();
+        if(projectileCD <= 0.0f){
+            for (int i = 0; i < maxProjectiles; i++){
+                if (!projectile[i].active){
+                    projectile[i].active = true;
+                    projectile[i].lifeSpan = projectileLifespan; 
+                    
+                    projectile[i].rotation = 180.0f;
+                    projectile[i].speed.x = cos(projectile[i].rotation) * 400;
+                    projectile[i].speed.y = 0;
+                    
+                    projectile[i].position = (Vector2){enemies[0].position.x + enemies[0].size.x/2.0f, enemies[0].position.y + enemies[0].size.y/2.0f};
+                    
+                    projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                    
+                    projectile[i].team = (char*)"Enemy";
+                    projectile[i].type = (char*)"Pistol";
+                    projectileCD = 1.0f;
+                    break;
+                }
+            }
+        }
+        
         
 
         //------------------------------CAMERA------------------------------
@@ -1696,7 +1759,7 @@ int main(void){
                     rooms[i].size.y
                 };
 
-                if (CheckCollisionPointRec(playerCenter, roomRect)){
+                if (CheckCollisionPointRec(player.center, roomRect)){
                     playerRoom = i;
                     break;
                 }
@@ -1717,13 +1780,13 @@ int main(void){
 
             //Clamp
             camera.target.x = Clamp(
-                playerCenter.x,
+                player.center.x,
                 roomLeft + halfCameraWidth,
                 roomRight - halfCameraWidth
             );
 
             camera.target.y = Clamp(
-                playerCenter.y,
+                player.center.y,
                 roomTop + halfCameraHeight,
                 roomBottom - halfCameraHeight
             );
@@ -1740,7 +1803,7 @@ int main(void){
 
         //Camera mode
         if(debugCam){
-            camera.target = playerCenter;
+            camera.target = player.center;
             camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
         } else {
             if(!isBoss){
@@ -1790,6 +1853,9 @@ int main(void){
                 
                 BeginMode2D(camera);
                 
+                    int fontSize;
+                    int textWidth;
+                
                     //Draw rooms
                     for(int i = 0; i < numRoomLocs; i++){
                         if(rooms[i].exists == true){
@@ -1802,9 +1868,9 @@ int main(void){
                                 DrawRectangleRec(rooms[i].walls[j], BLACK);                                 
                             }
                         }
-                        int fontSize = 30;
+                        fontSize = 30;
                         //Text Type
-                        int textWidth = MeasureText(rooms[i].type, fontSize);
+                        textWidth = MeasureText(rooms[i].type, fontSize);
                         DrawText(
                             rooms[i].type, rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
                             rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2, 
@@ -1838,13 +1904,29 @@ int main(void){
                     }
                                        
                     //Draw player
-                    DrawRectangleRec(player, BLUE);      
+                    DrawRectangleRec(player.hitBox, BLUE);   
+                    
+                    fontSize = 15;
+                    textWidth = MeasureText("Player", fontSize);
+                    DrawText(
+                        "Player", player.center.x - textWidth/2, 
+                        player.hitBox.y - fontSize*2, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
+                    DrawText(
+                        TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
+                        player.hitBox.y - fontSize*1, 
+                        fontSize, 
+                        BLACK
+                    );   
                     
                     //Draw dummy
                     for (int i = 0; i < numEnemies; i++){
                         if (enemies[i].active){
-                            int fontSize = 15;
-                            int textWidth = MeasureText(enemies[i].name, fontSize);
+                            fontSize = 15;
+                            textWidth = MeasureText(enemies[i].name, fontSize);
                             DrawText(
                                 enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
                                 enemies[i].position.y - fontSize*2, 
@@ -1870,7 +1952,7 @@ int main(void){
                     } 
                     
                     //Draw gun
-                    gunPos = playerCenter;
+                    gunPos = player.center;
                     gunRect = {0,0,(float)gunTexture.width / 6.0f,(float)gunTexture.height - 30.0f};
                     gunDest = {gunPos.x,gunPos.y,gunSize,gunSize};
                     gunAngle = playerToMouseRotation * RAD2DEG;
