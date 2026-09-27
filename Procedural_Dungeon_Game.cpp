@@ -28,7 +28,7 @@ typedef struct Projectile {
 typedef struct Player {
     Vector2 position;
     Vector2 center;
-    Vector2 size;
+
     float speed;
     float health;
     float iFrames;
@@ -1410,14 +1410,14 @@ int main(void){
     
     //Player
     Player player;
-    player.size = {40.0f, 40.0f};
+    Vector2 playerSize = {35.0f, 45.0f};
     player.speed = 600.0f;
     player.health = 100.0f;
     player.iFrames = 0.0f;
     
     player.center = {0,0};
     player.position = {-player.center.x/2.0f, -player.center.y/2.0f};
-    player.hitBox = {player.position.x, player.position.y, player.size.x, player.size.y};
+    player.hitBox = {player.position.x, player.position.y, playerSize.x, playerSize.y};
     
     //Enemy dummy
     int numEnemies = 0;
@@ -1448,15 +1448,20 @@ int main(void){
     
     //Images
     Texture2D gunTexture = LoadTexture("assets/Pistol.png");
-    float gunSize = 100.0f;
-    char* gunType = (char*)"Pistol";
-    
+    float gunSize = 80.0f;
+    float gunOffset = 20.0f;
+    char* gunType = (char*)"Pistol";    
     Vector2 gunPos;
-    Rectangle gunRect;
+    Rectangle gunRec;
     Rectangle gunDest;
     float gunAngle;
     
     Texture2D heartTexture = LoadTexture("assets/Heart.png");
+    
+    Texture2D playerTexture = LoadTexture("assets/Player.png");
+    Rectangle playerDest;    
+    Rectangle playerRec;
+    Vector2 playerTextureSize = {80.0f, 80.0f};
     
     //Projectile
     float projectileLifespan = 5.0f;
@@ -1481,9 +1486,9 @@ int main(void){
       
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
-    int currentRooms;
+    int currentRooms = 0;
     int maxRooms = 20;
-    int numRoomLocs;
+    int numRoomLocs = 0;
     int roomSize = 1998;
     float wallDepth = 100;
     int doorSize = 250;
@@ -1631,11 +1636,13 @@ int main(void){
             }
         }
         
-        dashCD -= GetFrameTime();
+        if(dashCD > 0.0f){
+            dashCD -= GetFrameTime();
+        }
         
         
         //Update player center
-        player.center = {player.position.x + player.size.x/2.0f, player.position.y + player.size.y/2.0f};
+        player.center = {player.position.x + playerSize.x/2.0f, player.position.y + playerSize.y/2.0f};
 
         
         //------------------------------PROJECTILES------------------------------
@@ -1651,11 +1658,11 @@ int main(void){
                     projectile[i].lifeSpan = projectileLifespan; 
                     
                     projectile[i].rotation = playerToMouseRotation;
-                    projectile[i].speed.x = cos(projectile[i].rotation) * 400;
-                    projectile[i].speed.y = sin(projectile[i].rotation) * 400;
+                    projectile[i].speed.x = cos(projectile[i].rotation) * 1000;
+                    projectile[i].speed.y = sin(projectile[i].rotation) * 1000;
                     
                     if(TextIsEqual(gunType, "Pistol")){
-                        projectile[i].position = (Vector2){player.center.x + cos(projectile[i].rotation) * gunSize/1.5f, player.center.y + sin(projectile[i].rotation) * gunSize/1.5f};
+                        projectile[i].position = (Vector2){player.center.x + cos(projectile[i].rotation) * gunSize - (cos(projectile[i].rotation) * gunOffset*2.3f), player.center.y + sin(projectile[i].rotation) * gunSize - (sin(projectile[i].rotation) * gunOffset*2.3f)};
                     }
                     
                     projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
@@ -1739,9 +1746,9 @@ int main(void){
                     projectile[i].active = true;
                     projectile[i].lifeSpan = projectileLifespan; 
                     
-                    projectile[i].rotation = 180.0f;
-                    projectile[i].speed.x = cos(projectile[i].rotation) * 400;
-                    projectile[i].speed.y = 0;
+                    projectile[i].rotation = 180.0f * DEG2RAD;
+                    projectile[i].speed.x = cos(projectile[i].rotation) * 1000;
+                    projectile[i].speed.y = sin(projectile[i].rotation) * 1000;
                     
                     projectile[i].position = (Vector2){enemies[0].position.x + enemies[0].size.x/2.0f, enemies[0].position.y + enemies[0].size.y/2.0f};
                     
@@ -1916,20 +1923,24 @@ int main(void){
                     }
                                        
                     //Draw player
-                    DrawRectangleRec(player.hitBox, BLUE);   
+                    DrawRectangleRec(player.hitBox, BLUE);  
+                    
+                    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
+                    playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+                    DrawTexturePro(playerTexture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
                     
                     fontSize = 15;
                     textWidth = MeasureText("Player", fontSize);
                     DrawText(
                         "Player", player.center.x - textWidth/2, 
-                        player.hitBox.y - fontSize*2, 
+                        player.hitBox.y - fontSize*2.2f, 
                         fontSize, 
                         BLACK
                     );   
                     textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
                     DrawText(
                         TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
-                        player.hitBox.y - fontSize*1, 
+                        player.hitBox.y - fontSize*1.1f, 
                         fontSize, 
                         BLACK
                     );   
@@ -1941,14 +1952,14 @@ int main(void){
                             textWidth = MeasureText(enemies[i].name, fontSize);
                             DrawText(
                                 enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                                enemies[i].position.y - fontSize*2, 
+                                enemies[i].position.y - fontSize*2.2f, 
                                 fontSize, 
                                 BLACK
                             );   
                             textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
                             DrawText(
                                 TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                                enemies[i].position.y - fontSize*1, 
+                                enemies[i].position.y - fontSize*1.1f, 
                                 fontSize, 
                                 BLACK
                             );   
@@ -1964,17 +1975,17 @@ int main(void){
                     } 
                     
                     //Draw gun
-                    gunPos = player.center;
-                    gunRect = {0,0,(float)gunTexture.width / 6.0f,(float)gunTexture.height - 30.0f};
+                    gunPos = {player.center.x - cos(playerToMouseRotation) * gunOffset,player.center.y - sin(playerToMouseRotation) * gunOffset};
+                    gunRec = {0,0,(float)gunTexture.width / 6.0f,(float)gunTexture.height - 30.0f};
                     gunDest = {gunPos.x,gunPos.y,gunSize,gunSize};
                     gunAngle = playerToMouseRotation * RAD2DEG;
                     
                     if (gunAngle < -90 || gunAngle > 90){
-                        gunRect.height = -gunRect.height;
+                        gunRec.height = -gunRec.height;
                     }
                     
 
-                    DrawTexturePro(gunTexture, gunRect, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
+                    DrawTexturePro(gunTexture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
                     //              texture     source      dest               origin/pivot             rotation  color
               
                 EndMode2D();
