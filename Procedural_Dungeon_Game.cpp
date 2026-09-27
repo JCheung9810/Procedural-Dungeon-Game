@@ -31,6 +31,7 @@ typedef struct Player {
     Vector2 size;
     float speed;
     float health;
+    float iFrames;
     
     Rectangle hitBox;
     
@@ -1412,6 +1413,7 @@ int main(void){
     player.size = {40.0f, 40.0f};
     player.speed = 600.0f;
     player.health = 100.0f;
+    player.iFrames = 0.0f;
     
     player.center = {0,0};
     player.position = {-player.center.x/2.0f, -player.center.y/2.0f};
@@ -1438,6 +1440,7 @@ int main(void){
     bool dashing = false;
     Vector2 tempDirection;
     float dashTime;
+    float dashCD;
     
     //Mouse
     Vector2 mouseWorldPos;
@@ -1571,11 +1574,12 @@ int main(void){
         }
                 
         //Dashing/roll
-        if(IsKeyPressed(KEY_SPACE) && dashing == false){
+        if(IsKeyPressed(KEY_SPACE) && dashCD <= 0.0f && dashing == false){
             dashing = true;
             canMove = false;
             tempDirection = Vector2Scale(direction, 2.0f);
             dashTime = 0.2f;
+            player.iFrames = dashTime;
         }
         
         if(dashing){                        
@@ -1623,8 +1627,12 @@ int main(void){
             if(dashTime <= 0){
                 dashing = false;
                 canMove = true;
+                dashCD = 1.0f;
             }
         }
+        
+        dashCD -= GetFrameTime();
+        
         
         //Update player center
         player.center = {player.position.x + player.size.x/2.0f, player.position.y + player.size.y/2.0f};
@@ -1702,11 +1710,12 @@ int main(void){
                 }
                 
                 //Check player collision
-                if(CheckCollisionRecs(player.hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Enemy")){
+                if(CheckCollisionRecs(player.hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Enemy") && player.iFrames <= 0.0f){
                     projectile[i].active = false;
                     projectile[i].lifeSpan = 0.0f;
                     
                     player.health -= 10.0f;
+                    player.iFrames = 1.0f;
                 }
                 
                 projectile[i].lifeSpan -= GetFrameTime(); 
@@ -1716,6 +1725,9 @@ int main(void){
                 }
             }                    
         }
+        
+        //Player iFrames
+        player.iFrames -= GetFrameTime();
         
         
         //Test enemy projectile
