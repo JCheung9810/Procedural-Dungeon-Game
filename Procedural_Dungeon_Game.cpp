@@ -1444,7 +1444,17 @@ int main(void){
     
     //Mouse
     Vector2 mouseWorldPos;
+    Vector2 mouseScreenPos = GetMousePosition();
     float playerToMouseRotation;
+    float cursorSize = 60.0f;
+    Rectangle cursorRec;
+    Rectangle cursorDestination;
+    Vector2 cursorOrigin;
+    
+    HideCursor();
+    
+    //Cursor Image
+    Texture2D cursorTexture = LoadTexture("assets/Cursor.png");
     
     //Images
     Texture2D gunTexture = LoadTexture("assets/Pistol.png");
@@ -1460,7 +1470,7 @@ int main(void){
     
     Texture2D playerTexture = LoadTexture("assets/Player.png");
     Rectangle playerDest;    
-    Rectangle playerRec;
+    Rectangle playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
     Vector2 playerTextureSize = {80.0f, 80.0f};
     
     //Projectile
@@ -1926,7 +1936,11 @@ int main(void){
                     DrawRectangleRec(player.hitBox, BLUE);  
                     
                     playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
-                    playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+                    if(direction.x < 0){
+                        playerRec = {0,0,(float)-playerTexture.width / 4.0f,(float)playerTexture.height};
+                    } else if(direction.x > 0){
+                        playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+                    }
                     DrawTexturePro(playerTexture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
                     
                     fontSize = 15;
@@ -1989,6 +2003,14 @@ int main(void){
                     //              texture     source      dest               origin/pivot             rotation  color
               
                 EndMode2D();
+                
+                mouseScreenPos = GetMousePosition();
+                cursorRec = {0, 0, (float)cursorTexture.width, (float)cursorTexture.height};
+                cursorDestination = {mouseScreenPos.x + (float)cursorTexture.width/2.0f - cursorSize/2.0f, mouseScreenPos.y + (float)cursorTexture.height/2.0f - cursorSize/2.0f, cursorSize, cursorSize};
+
+                cursorOrigin = {cursorTexture.width / 2.0f, cursorTexture.height / 2.0f};
+
+                DrawTexturePro(cursorTexture, cursorRec, cursorDestination, cursorOrigin, 0.0f, WHITE);
             } else {  
             
                 //Exit menu
@@ -2000,6 +2022,8 @@ int main(void){
             }
         EndDrawing();
     }
+    
+    ShowCursor();
 
     CloseWindow();
 
