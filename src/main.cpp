@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "Player.h"
+#include "Room.h"
 
 //------------------------------STRUCTS------------------------------
 typedef struct Projectile {
@@ -41,21 +42,6 @@ typedef struct Enemy {
     Texture2D sprite;
     
 } Enemy;
-
-typedef struct Room {
-    char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
-    Vector2 size;
-    Vector2 position;
-    Vector2 gridPos;
-    int distance;
-    bool exists = false;
-    
-    int numWalls;
-    Rectangle walls[12];
-    int numDoors;
-    Rectangle doors[4];
-    
-} Room;
 
 void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
     if(TextIsEqual(name, "Dummy")){
@@ -1371,13 +1357,6 @@ void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoo
 //------------------------------MAIN------------------------------
 int main(void){
     
-    //Debugging
-    bool debugKeys = true;
-    
-    bool debugSpeed = false;
-    bool debugWall = false;
-    bool debugCam = false;
-    
     //Initial screen size
     int screenWidth = 800;
     int screenHeight = 450;
@@ -1386,11 +1365,6 @@ int main(void){
     InitWindow(screenWidth, screenHeight, "Procedural Dungeon Game");
     ToggleBorderlessWindowed();
     
-    //Disable escape key to close window
-    SetExitKey(KEY_NULL);
-    bool exitWindowRequested = false;
-    bool exitWindow = false;
-
     //Update screen size param with monitor resolution
     screenWidth = GetScreenWidth();
     screenHeight = GetScreenHeight();
@@ -1398,6 +1372,19 @@ int main(void){
     //FPS
     SetTargetFPS(60);
     
+    //Debugging
+    bool debugKeys = true;
+    
+    bool debugSpeed = false;
+    bool debugWall = false;
+    bool debugCam = false;
+    
+    //Disable escape key to close window
+    SetExitKey(KEY_NULL);
+    bool exitWindowRequested = false;
+    bool exitWindow = false;
+    
+    //Player
     Player player;
     InitializePlayer(player);
     
@@ -1414,15 +1401,6 @@ int main(void){
     camera.target = player.center;
     camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
     camera.zoom = 1.0f;
-    
-    //Movement
-    float xDir,yDir;
-    Vector2 direction;
-    bool canMove = true;
-    bool dashing = false;
-    Vector2 tempDirection;
-    float dashTime;
-    float dashCD;
     
     //Mouse
     Vector2 mouseWorldPos;
@@ -1449,11 +1427,6 @@ int main(void){
     float gunAngle;
     
     Texture2D heartTexture = LoadTexture("../assets/Heart.png");
-    
-    Texture2D playerTexture = LoadTexture("../assets/Player.png");
-    Rectangle playerDest;    
-    Rectangle playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
-    Vector2 playerTextureSize = {80.0f, 80.0f};
     
     //Projectile
     float projectileLifespan = 5.0f;
@@ -1499,142 +1472,7 @@ int main(void){
     //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
     while (!exitWindow){
         
-        //------------------------------MOVEMENT------------------------------
-        //Player movement
-        xDir = 0;
-        yDir = 0;
-        
-        if(debugSpeed){
-            player.speed = 1800.0f;
-        } else {
-            player.speed = 600.0f;
-        }
-        
-        if(canMove){
-            if(IsKeyDown(KEY_D))
-                xDir += 1.0f;
-            
-            if(IsKeyDown(KEY_A))
-                xDir -= 1.0f;
-            
-            if(IsKeyDown(KEY_S))
-                yDir += 1.0f;
-            
-            if(IsKeyDown(KEY_W))
-                yDir -= 1.0f;
-        }
-        
-        //Normalize
-        direction = Vector2Normalize({xDir,yDir});
-        
-        //Scale
-        direction = Vector2Scale(direction, player.speed);
-        
-        //Translate player, detect collision (x)
-        player.position.x += direction.x * GetFrameTime();
-        player.hitBox.x = player.position.x;
-        if(!debugWall){
-            for(int i = 0; i < numRoomLocs; i++){
-                if(rooms[i].exists == true){
-                    for(int j = 0; j < rooms[i].numWalls; j++){
-                        if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
-                            if (direction.x > 0){
-                                player.position.x = rooms[i].walls[j].x - player.hitBox.width;
-                            } else if (direction.x < 0){
-                                player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
-                            }
-                            player.hitBox.x = player.position.x;
-                        }
-                    }
-                }
-            }
-        }
-        
-        //Translate player, detect collision (y)
-        player.position.y += direction.y * GetFrameTime();
-        player.hitBox.y = player.position.y;
-        if(!debugWall){
-            for(int i = 0; i < numRoomLocs; i++){
-                if(rooms[i].exists == true){
-                    for(int j = 0; j < rooms[i].numWalls; j++){
-                        if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
-                            if (direction.y > 0){
-                                player.position.y = rooms[i].walls[j].y - player.hitBox.height;
-                            } else if (direction.y < 0){
-                                player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
-                            }
-                            player.hitBox.y = player.position.y;
-                        }
-                    }
-                }
-            }
-        }
-                
-        //Dashing/roll
-        if(IsKeyPressed(KEY_SPACE) && dashCD <= 0.0f && dashing == false){
-            dashing = true;
-            canMove = false;
-            tempDirection = Vector2Scale(direction, 2.0f);
-            dashTime = 0.2f;
-            player.iFrames = dashTime;
-        }
-        
-        if(dashing){                        
-            //Translate player, detect collision (x)
-            player.position.x += tempDirection.x * GetFrameTime();
-            player.hitBox.x = player.position.x;
-            if(!debugWall){
-                for(int i = 0; i < numRoomLocs; i++){
-                    if(rooms[i].exists == true){
-                        for(int j = 0; j < rooms[i].numWalls; j++){
-                            if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
-                                if (tempDirection.x > 0){
-                                    player.position.x = rooms[i].walls[j].x - player.hitBox.width;
-                                } else if (tempDirection.x < 0){
-                                    player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
-                                }
-                                player.hitBox.x = player.position.x;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            //Translate player, detect collision (y)
-            player.position.y += tempDirection.y * GetFrameTime();
-            player.hitBox.y = player.position.y;
-            if(!debugWall){
-                for(int i = 0; i < numRoomLocs; i++){
-                    if(rooms[i].exists == true){
-                        for(int j = 0; j < rooms[i].numWalls; j++){
-                            if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
-                                if (tempDirection.y > 0){
-                                    player.position.y = rooms[i].walls[j].y - player.hitBox.height;
-                                } else if (tempDirection.y < 0){
-                                    player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
-                                }
-                                player.hitBox.y = player.position.y;
-                            }
-                        }
-                    }
-                }
-            }
-        
-            dashTime -= GetFrameTime();
-            if(dashTime <= 0){
-                dashing = false;
-                canMove = true;
-                dashCD = 1.0f;
-            }
-        }
-        
-        if(dashCD > 0.0f){
-            dashCD -= GetFrameTime();
-        }
-        
-        
-        //Update player center
-        player.center = {player.position.x + player.hitBox.width/2.0f, player.position.y + player.hitBox.height/2.0f};
+        UpdatePlayer(player, rooms, numRoomLocs, debugSpeed, debugWall);
 
         
         //------------------------------PROJECTILES------------------------------
@@ -1913,33 +1751,8 @@ int main(void){
                             BLACK
                         ); 
                     }
-                                       
-                    //Draw player
-                    DrawRectangleRec(player.hitBox, BLUE);  
-                    
-                    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
-                    if(direction.x < 0){
-                        playerRec = {0,0,(float)-playerTexture.width / 4.0f,(float)playerTexture.height};
-                    } else if(direction.x > 0){
-                        playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
-                    }
-                    DrawTexturePro(playerTexture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
-                    
-                    fontSize = 15;
-                    textWidth = MeasureText("Player", fontSize);
-                    DrawText(
-                        "Player", player.center.x - textWidth/2, 
-                        player.hitBox.y - fontSize*2.2f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
-                    DrawText(
-                        TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
-                        player.hitBox.y - fontSize*1.1f, 
-                        fontSize, 
-                        BLACK
-                    );   
+
+                    DrawPlayer(player);
                     
                     //Draw dummy
                     for (int i = 0; i < numEnemies; i++){
