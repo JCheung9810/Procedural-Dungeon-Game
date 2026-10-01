@@ -1,0 +1,2013 @@
+#include "raylib.h" //C:\raylib\raylib\src\raylib.h
+#include <raymath.h>
+#include <string.h>
+
+#include "Player.h"
+
+//------------------------------STRUCTS------------------------------
+typedef struct Projectile {
+    Vector2 position;
+    Vector2 speed;
+    
+    Vector2 size;
+    float rotation;
+    
+    float lifeSpan;
+    
+    bool active;
+    
+    char* team;
+    char* type;
+    
+    Color color;
+    Texture2D sprite;
+    
+    Rectangle hitBox;
+    //add 8 circles for detection so it can be "rotated" (4 corners 4 sides)
+    //detect collision with the array of corners
+} Projectile;
+
+typedef struct Enemy {
+    char* name;
+    
+    Vector2 size;
+    Vector2 position;
+    
+    float health;
+    
+    Rectangle hitBox;
+    
+    bool active;
+    Texture2D sprite;
+    
+} Enemy;
+
+typedef struct Room {
+    char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
+    Vector2 size;
+    Vector2 position;
+    Vector2 gridPos;
+    int distance;
+    bool exists = false;
+    
+    int numWalls;
+    Rectangle walls[12];
+    int numDoors;
+    Rectangle doors[4];
+    
+} Room;
+
+void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
+    if(TextIsEqual(name, "Dummy")){
+        enemies[numEnemies].name = (char*)"Dummy";
+        enemies[numEnemies].position = (Vector2){300,-300};
+        enemies[numEnemies].health = 100.0f;
+        enemies[numEnemies].size = (Vector2){40.0f,40.0f};
+        
+        enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
+        Vector2 dummyCenter = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
+        
+        enemies[numEnemies].active = true;
+    }
+    
+    numEnemies++;
+}
+
+bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs){
+    
+    bool available = true;
+    
+    if(TextIsEqual(emptyRoom.type, "EmptyN")){
+        for(int i = 0; i < numRoomLocs; i++){
+            available = available && (rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){-1,-2} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){0,-2} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,-2} + emptyRoom.gridPos || !rooms[i].exists);
+        }
+    } else if(TextIsEqual(emptyRoom.type, "EmptyE")){
+        for(int i = 0; i < numRoomLocs; i++){
+            available = available && (rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){2,1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){2,0} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){2,-1} + emptyRoom.gridPos || !rooms[i].exists);
+        }
+    } else if(TextIsEqual(emptyRoom.type, "EmptyS")){
+        for(int i = 0; i < numRoomLocs; i++){
+            available = available && (rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){-1,2} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){0,2} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){1,2} + emptyRoom.gridPos || !rooms[i].exists);
+        }
+    } else if(TextIsEqual(emptyRoom.type, "EmptyW")){
+        for(int i = 0; i < numRoomLocs; i++){
+            available = available && (rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos  || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos  || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos  || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos  || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            
+            available = available && (rooms[i].gridPos != (Vector2){-2,1} + emptyRoom.gridPos  || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){-2,0} + emptyRoom.gridPos  || !rooms[i].exists);
+            available = available && (rooms[i].gridPos != (Vector2){-2,-1} + emptyRoom.gridPos  || !rooms[i].exists);
+        }
+    }
+    
+    return available;
+}
+
+bool ValidRoomInDirection(Room currentRoom, char direction){
+    bool valid = false;
+    bool isBoss;
+    
+    isBoss =
+        (TextIsEqual(currentRoom.type, "BossN") ||
+         TextIsEqual(currentRoom.type, "BossE") ||
+         TextIsEqual(currentRoom.type, "BossS") ||
+         TextIsEqual(currentRoom.type, "BossW"));
+    
+    if(TextIsEqual(currentRoom.type,"4DNESW") || TextIsEqual(currentRoom.type,"Spawn") || isBoss){
+        return true;
+    }
+    
+    if(direction == 'N'){
+        valid = ( 
+            TextIsEqual(currentRoom.type,"2DNS") || 
+            TextIsEqual(currentRoom.type,"2DES") || 
+            TextIsEqual(currentRoom.type,"2DSW") || 
+            TextIsEqual(currentRoom.type,"3DESW") || 
+            TextIsEqual(currentRoom.type,"3DNES") || 
+            TextIsEqual(currentRoom.type,"3DNSW"));
+    } else if(direction == 'E'){
+        valid = (
+            TextIsEqual(currentRoom.type,"2DEW") || 
+            TextIsEqual(currentRoom.type,"2DSW") || 
+            TextIsEqual(currentRoom.type,"2DNW") || 
+            TextIsEqual(currentRoom.type,"3DNSW") || 
+            TextIsEqual(currentRoom.type,"3DESW") || 
+            TextIsEqual(currentRoom.type,"3DNEW"));
+    } else if(direction == 'S'){
+        valid = (
+            TextIsEqual(currentRoom.type,"2DNS") || 
+            TextIsEqual(currentRoom.type,"2DNW") || 
+            TextIsEqual(currentRoom.type,"2DNE") || 
+            TextIsEqual(currentRoom.type,"3DNEW") || 
+            TextIsEqual(currentRoom.type,"3DNSW") || 
+            TextIsEqual(currentRoom.type,"3DNES"));
+    } else if(direction == 'W'){
+        valid = (
+            TextIsEqual(currentRoom.type,"2DEW") || 
+            TextIsEqual(currentRoom.type,"2DNE") || 
+            TextIsEqual(currentRoom.type,"2DES") || 
+            TextIsEqual(currentRoom.type,"3DNES") || 
+            TextIsEqual(currentRoom.type,"3DNEW") || 
+            TextIsEqual(currentRoom.type,"3DESW"));
+    }
+    
+    return valid;
+}
+
+void AddDirection(char directions[], char direction){
+    int len = TextLength(directions);
+    directions[len] = direction;
+    directions[len + 1] = '\0';
+}
+
+char* TestDeadEnd(Room rooms[], Room currentRoom, int numRoomLocs){
+    
+    static char directions[5] = "";
+    
+    // Reset directions
+    directions[0] = '\0';
+    
+    for(int i = 0; i < numRoomLocs; i++){
+        // 2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW,
+        // 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
+        
+        if(TextIsEqual(currentRoom.type, "2DNS")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "2DEW")){
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "2DNE")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "2DES")){
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "2DSW")){
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "2DNW")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "3DNEW")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "3DNES")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "3DESW")){
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "3DNSW")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "4DNESW")){
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N')){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'E')){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S')){
+                AddDirection(directions, 'S');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+    }
+    
+    return directions;
+}
+
+void SortRooms(Room rooms[], int numRoomLocs){
+    int unsorted = numRoomLocs;
+    
+    for(int i = 0; i < numRoomLocs - 1; i++){
+        for(int j = 0; j < unsorted - 1; j++){
+            if(rooms[j].distance > rooms[j+1].distance){
+                Room tempRoom = rooms[j+1];
+                rooms[j+1] = rooms[j];
+                rooms[j] = tempRoom;
+                
+                
+            }
+            
+        }
+        unsorted--;
+    }
+    
+}
+
+void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize){   
+    
+    Vector2 roomPositionOffset;
+    int CurrentRoomIndex;
+    float doorSide;
+    bool isEmpty;
+    bool isBoss;
+    
+    isEmpty =
+        (TextIsEqual(type, "EmptyN") ||
+         TextIsEqual(type, "EmptyE") ||
+         TextIsEqual(type, "EmptyS") ||
+         TextIsEqual(type, "EmptyW"));
+         
+    isBoss =
+        (TextIsEqual(type, "BossN") ||
+         TextIsEqual(type, "BossE") ||
+         TextIsEqual(type, "BossS") ||
+         TextIsEqual(type, "BossW"));
+    
+
+    //Set room position offset
+    roomPositionOffset = (Vector2){-roomSize/2.0f, -roomSize/2.0f};
+    
+    CurrentRoomIndex = numRoomLocs;
+    
+    //Set current room up
+    rooms[CurrentRoomIndex].gridPos = position;
+    rooms[CurrentRoomIndex].type = type; 
+    rooms[CurrentRoomIndex].size = (Vector2){(float)roomSize, (float)roomSize};
+    if(!isBoss){  
+        rooms[CurrentRoomIndex].position = (position * roomSize) + roomPositionOffset;
+    } else {
+        if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossN")){
+                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f) + roomPositionOffset + (Vector2){0,-roomSize/3.0f};
+            } else if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossE")){
+                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f)+ roomPositionOffset + (Vector2){roomSize/3.0f,0};
+            } else if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossS")){
+                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f)+ roomPositionOffset + (Vector2){0,roomSize/3.0f};
+            } else if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossW")){
+                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f)+ roomPositionOffset + (Vector2){-roomSize/3.0f,0};
+            }
+    }
+    rooms[CurrentRoomIndex].distance = abs(rooms[CurrentRoomIndex].gridPos.x) + abs(rooms[CurrentRoomIndex].gridPos.y);  
+
+    //Wall width on each side of the door
+    doorSide = (rooms[CurrentRoomIndex].size.x - doorSize) / 2.0f;    
+    
+    //--------------------------------------------------------------------------
+    //WALL RECTANGLES
+    
+    //Top
+    Rectangle topLeft = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y,
+        doorSide,
+        wallDepth
+    };
+    
+    Rectangle topRight = {
+        rooms[CurrentRoomIndex].position.x + doorSide + doorSize,
+        rooms[CurrentRoomIndex].position.y,
+        doorSide,
+        wallDepth
+    };
+    
+    Rectangle topWall = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y,
+        rooms[CurrentRoomIndex].size.x,
+        wallDepth
+    };
+    
+    //Bottom
+    Rectangle bottomLeft = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
+        doorSide,
+        wallDepth
+    };
+    
+    Rectangle bottomRight = {
+        rooms[CurrentRoomIndex].position.x + doorSide + doorSize,
+        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
+        doorSide,
+        wallDepth
+    };
+    
+    Rectangle bottomWall = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
+        rooms[CurrentRoomIndex].size.x,
+        wallDepth
+    };
+    
+    //Left
+    Rectangle leftTop = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y,
+        wallDepth,
+        doorSide
+    };
+    
+    Rectangle leftBottom = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y + doorSide + doorSize,
+        wallDepth,
+        doorSide
+    };
+    
+    Rectangle leftWall = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y,
+        wallDepth,
+        rooms[CurrentRoomIndex].size.y
+    };
+    
+    //Right
+    Rectangle rightTop = {
+        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
+        rooms[CurrentRoomIndex].position.y,
+        wallDepth,
+        doorSide
+    };
+    
+    Rectangle rightBottom = {
+        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
+        rooms[CurrentRoomIndex].position.y + doorSide + doorSize,
+        wallDepth,
+        doorSide
+    };
+    
+    Rectangle rightWall = {
+        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
+        rooms[CurrentRoomIndex].position.y,
+        wallDepth,
+        rooms[CurrentRoomIndex].size.y
+    };
+    
+    //--------------------------------------------------------------------------
+    // DOOR RECTANGLES
+    
+    Rectangle topDoor = {
+        rooms[CurrentRoomIndex].position.x + doorSide,
+        rooms[CurrentRoomIndex].position.y,
+        (float)doorSize,
+        wallDepth
+    };
+    
+    Rectangle rightDoor = {
+        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
+        rooms[CurrentRoomIndex].position.y + doorSide,
+        wallDepth,
+        (float)doorSize
+    };
+    
+    Rectangle bottomDoor = {
+        rooms[CurrentRoomIndex].position.x + doorSide,
+        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
+        (float)doorSize,
+        wallDepth
+    };
+    
+    Rectangle leftDoor = {
+        rooms[CurrentRoomIndex].position.x,
+        rooms[CurrentRoomIndex].position.y + doorSide,
+        wallDepth,
+        (float)doorSize
+    };
+    
+    //--------------------------------------------------------------------------
+    // ROOM TYPE
+    
+    //Check if empty type
+    if(isEmpty){
+        
+        rooms[CurrentRoomIndex].exists = false;
+        
+        numRoomLocs++;
+        
+    } else if(isBoss){ 
+        //Add boss room
+        rooms[CurrentRoomIndex].exists = true;
+        rooms[CurrentRoomIndex].numWalls = 0;
+        rooms[CurrentRoomIndex].numDoors = 0;
+        
+        if(TextIsEqual(type, "BossN")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    rooms[CurrentRoomIndex].gridPos + (Vector2){0,-3}, roomSize/3.0f, wallDepth, doorSize);
+                    
+        } else if(TextIsEqual(type, "BossE")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    rooms[CurrentRoomIndex].gridPos + (Vector2){3,0}, roomSize/3.0f, wallDepth, doorSize);
+        } else if(TextIsEqual(type, "BossS")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    rooms[CurrentRoomIndex].gridPos + (Vector2){0,3}, roomSize/3.0f, wallDepth, doorSize);
+                    
+        } else if(TextIsEqual(type, "BossW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    rooms[CurrentRoomIndex].gridPos + (Vector2){-3,0}, roomSize/3.0f, wallDepth, doorSize);
+        }
+        
+    }else if(currentRooms < maxRooms){
+        //Add the room 
+        rooms[CurrentRoomIndex].exists = true;
+        rooms[CurrentRoomIndex].numWalls = 0;
+        rooms[CurrentRoomIndex].numDoors = 0;
+        
+        //--------------------------------------------------------------------------
+        // 4 DOORS
+        
+        if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 3 DOORS - N/S/W
+        
+        } 
+        else if(TextIsEqual(type, "3DNSW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 3 DOORS - E/S/W
+        
+        } 
+        else if(TextIsEqual(type, "3DESW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 3 DOORS - N/E/S
+        
+        } 
+        else if(TextIsEqual(type, "3DNES")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 3 DOORS - N/E/W
+        
+        } 
+        else if(TextIsEqual(type, "3DNEW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 2 DOORS - N/W
+        
+        } 
+        else if(TextIsEqual(type, "2DNW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 2 DOORS - S/W
+        
+        } 
+        else if(TextIsEqual(type, "2DSW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 2 DOORS - E/S
+        
+        } 
+        else if(TextIsEqual(type, "2DES")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 2 DOORS - N/E
+        
+        } 
+        else if(TextIsEqual(type, "2DNE")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 2 DOORS - E/W
+        
+        } 
+        else if(TextIsEqual(type, "2DEW")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Right
+            AddRoom(rooms, (char*)"EmptyE", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+            //Left
+            AddRoom(rooms, (char*)"EmptyW", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            
+        //--------------------------------------------------------------------------
+        // 2 DOORS - N/S
+        
+        } 
+        else if(TextIsEqual(type, "2DNS")){
+            
+            //TOP
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            
+            //BOTTOM
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            
+            //LEFT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            
+            //RIGHT
+            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            
+            //Doors
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            
+            numRoomLocs++;
+
+            //Add possible room locations
+            //Top
+            AddRoom(rooms, (char*)"EmptyN", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
+            
+            //Bottom
+            AddRoom(rooms, (char*)"EmptyS", currentRooms, maxRooms, numRoomLocs,
+                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+        }
+        
+        currentRooms++;
+    }
+    
+    //Purge dupe locations
+    for(int i = 0; i < numRoomLocs; i++){
+        for(int j = i + 1; j < numRoomLocs; j++){
+            
+            if(rooms[i].gridPos == rooms[j].gridPos &&
+               (rooms[i].exists == false || rooms[j].exists == false)){
+                
+                if(rooms[i].exists == false){
+                    rooms[i] = rooms[numRoomLocs - 1];
+                    numRoomLocs--;
+                    
+                    //Recheck swapped room
+                    i--;
+                    break;
+                    
+                } else {
+                    rooms[j] = rooms[numRoomLocs - 1];
+                    numRoomLocs--;
+                    
+                    //Recheck swapped room
+                    j--;
+                }
+            }
+        }
+    }
+    
+    SortRooms(rooms, numRoomLocs);   
+}
+
+void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoomLocs, int roomSize, float wallDepth, int doorSize, float straight, float turn, float threeWay, float fourWay, int& bossRoomIndex){
+    
+    char* deadEnds;
+    int chosenEmptyRoom;
+    int chosenRoomType;
+    
+    currentRooms = 0;
+    numRoomLocs = 0;
+    
+    Vector2 straightChance = (Vector2){1,straight};
+    Vector2 turnChance = (Vector2){straightChance.y + 1,straightChance.y + turn};
+    Vector2 threeWayChance = (Vector2){turnChance.y + 1,turnChance.y + threeWay};
+    Vector2 fourWayChance = (Vector2){threeWayChance.y + 1,threeWayChance.y + fourWay};
+    
+    bool generateDungeon = true;
+    
+    
+    AddRoom(rooms, (char*)"Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+    
+    while(generateDungeon){
+        
+        while(currentRooms < maxRooms){
+            
+            chosenEmptyRoom = -1;
+            
+            //Choose closest empty room
+            for(int i = 0; i < numRoomLocs; i++){
+                if(rooms[i].exists == false){
+                    chosenEmptyRoom = i;
+                    break;
+                }
+                
+            }
+            
+            //If not stuck
+            if(chosenEmptyRoom != -1){
+                chosenRoomType = GetRandomValue(1, 100);
+                
+                //Spawn corresponding room
+                if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyN")){    
+                    if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
+                        //Straight
+                        AddRoom(rooms, (char*)"2DNS", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                    } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                            //Right
+                            AddRoom(rooms, (char*)"2DES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Left
+                            AddRoom(rooms, (char*)"2DSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                            //Split Left Right
+                            AddRoom(rooms, (char*)"3DESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            //Split Front Right
+                            AddRoom(rooms, (char*)"3DNES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Split Front Left
+                            AddRoom(rooms, (char*)"3DNSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    }
+                } else if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyE")){    
+                    if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
+                        //Straight
+                        AddRoom(rooms, (char*)"2DEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                    } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                            //Right
+                            AddRoom(rooms, (char*)"2DSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Left
+                            AddRoom(rooms, (char*)"2DNW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                            //Split Left Right
+                            AddRoom(rooms, (char*)"3DNSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            //Split Front Right
+                            AddRoom(rooms, (char*)"3DESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Split Front Left
+                            AddRoom(rooms, (char*)"3DNEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    }
+                } else if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyS")){    
+                    if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
+                        //Straight
+                        AddRoom(rooms, (char*)"2DNS", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                    } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                            //Right
+                            AddRoom(rooms, (char*)"2DNW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Left
+                            AddRoom(rooms, (char*)"2DNE", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                            //Split Left Right
+                            AddRoom(rooms, (char*)"3DNEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            //Split Front Right
+                            AddRoom(rooms, (char*)"3DNSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Split Front Left
+                            AddRoom(rooms, (char*)"3DNES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    }
+                } else if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyW")){    
+                    if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
+                        //Straight
+                        AddRoom(rooms, (char*)"2DEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                    } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                            //Right
+                            AddRoom(rooms, (char*)"2DNE", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Left
+                            AddRoom(rooms, (char*)"2DES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                            //Split Left Right
+                            AddRoom(rooms, (char*)"3DNES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            //Split Front Right
+                            AddRoom(rooms, (char*)"3DNEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        } else {
+                            //Split Front Left
+                            AddRoom(rooms, (char*)"3DESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                        }
+                    }
+                }
+                
+                
+                //Wall empty rooms can have the same 4 way
+                if(chosenRoomType >= fourWayChance.x && chosenRoomType <= fourWayChance.y){
+                    //4 Way intersection
+                    AddRoom(rooms, (char*)"4DNESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                }
+                
+            } else {
+                
+                //Reset generation because we are stuck
+                currentRooms = 0;
+                numRoomLocs = 0;
+                AddRoom(rooms, (char*)"Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+                break;
+                
+            }            
+        }   
+        
+        bossRoomIndex = -1;
+    
+        //Choose boss room
+        for(int i = numRoomLocs - 1; i > -1; i--){
+            if(rooms[i].exists == false && RoomForBoss(rooms, rooms[i], numRoomLocs)){
+                bossRoomIndex = i;
+                break;
+            }
+            
+        }
+        
+        //If valid
+        if(bossRoomIndex != -1){
+            generateDungeon = false;  
+            if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyN")){
+                AddRoom(rooms, (char*)"BossN", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+            } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyE")){
+                AddRoom(rooms, (char*)"BossE", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+            } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyS")){
+                AddRoom(rooms, (char*)"BossS", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+            } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyW")){
+                AddRoom(rooms, (char*)"BossW", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+            }
+        } else {
+            //Reset generation because we cant spawn boss room
+                currentRooms = 0;
+                numRoomLocs = 0;
+                AddRoom(rooms, (char*)"Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+                break;
+        }
+    }
+    
+    //Make dead ends    
+    for(int i = 0; i < numRoomLocs; i++){
+        //Wall width on each side of the door
+        float doorSide = (rooms[i].size.x - doorSize) / 2.0f; 
+    
+        Rectangle topWall = {
+            rooms[i].position.x + doorSide,
+            rooms[i].position.y,
+            (float)doorSize,
+            wallDepth
+        };
+    
+        Rectangle rightWall = {
+            rooms[i].position.x + rooms[i].size.x - wallDepth,
+            rooms[i].position.y + doorSide,
+            wallDepth,
+            (float)doorSize
+        };
+        
+        Rectangle bottomWall = {
+            rooms[i].position.x + doorSide,
+            rooms[i].position.y + rooms[i].size.y - wallDepth,
+            (float)doorSize,
+            wallDepth
+        };
+        
+        Rectangle leftWall = {
+            rooms[i].position.x,
+            rooms[i].position.y + doorSide,
+            wallDepth,
+            (float)doorSize
+        };
+        
+        
+    
+        deadEnds = TestDeadEnd(rooms, rooms[i], numRoomLocs);
+        for(int j = 0; j < (int)TextLength(deadEnds); j++){
+            if(deadEnds[j] == 'N'){
+                rooms[i].numWalls++;
+                rooms[i].walls[rooms[i].numWalls - 1] = topWall;
+            }
+            if(deadEnds[j] == 'E'){
+                rooms[i].numWalls++;
+                rooms[i].walls[rooms[i].numWalls - 1] = rightWall;
+            }
+            if(deadEnds[j] == 'S'){
+                rooms[i].numWalls++;
+                rooms[i].walls[rooms[i].numWalls - 1] = bottomWall;
+            }
+            if(deadEnds[j] == 'W'){
+                rooms[i].numWalls++;
+                rooms[i].walls[rooms[i].numWalls - 1] = leftWall;
+            }
+            
+        }
+    }
+}
+
+//------------------------------MAIN------------------------------
+int main(void){
+    
+    //Debugging
+    bool debugKeys = true;
+    
+    bool debugSpeed = false;
+    bool debugWall = false;
+    bool debugCam = false;
+    
+    //Initial screen size
+    int screenWidth = 800;
+    int screenHeight = 450;
+
+    //Window creation
+    InitWindow(screenWidth, screenHeight, "Procedural Dungeon Game");
+    ToggleBorderlessWindowed();
+    
+    //Disable escape key to close window
+    SetExitKey(KEY_NULL);
+    bool exitWindowRequested = false;
+    bool exitWindow = false;
+
+    //Update screen size param with monitor resolution
+    screenWidth = GetScreenWidth();
+    screenHeight = GetScreenHeight();
+
+    //FPS
+    SetTargetFPS(60);
+    
+    Player player;
+    InitializePlayer(player);
+    
+    //Enemy dummy
+    int numEnemies = 0;
+    Enemy enemies[30] = {0};
+    
+    AddEnemy(enemies, "Dummy", numEnemies);
+    
+    float projectileCD = 1.0f;
+    
+    //Camera
+    Camera2D camera = {0};
+    camera.target = player.center;
+    camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
+    camera.zoom = 1.0f;
+    
+    //Movement
+    float xDir,yDir;
+    Vector2 direction;
+    bool canMove = true;
+    bool dashing = false;
+    Vector2 tempDirection;
+    float dashTime;
+    float dashCD;
+    
+    //Mouse
+    Vector2 mouseWorldPos;
+    Vector2 mouseScreenPos = GetMousePosition();
+    float playerToMouseRotation;
+    float cursorSize = 60.0f;
+    Rectangle cursorRec;
+    Rectangle cursorDestination;
+    Vector2 cursorOrigin;
+    
+    HideCursor();
+    
+    //Cursor Image
+    Texture2D cursorTexture = LoadTexture("../assets/Cursor.png");
+    
+    //Images
+    Texture2D gunTexture = LoadTexture("../assets/Pistol.png");
+    float gunSize = 80.0f;
+    float gunOffset = 20.0f;
+    char* gunType = (char*)"Pistol";    
+    Vector2 gunPos;
+    Rectangle gunRec;
+    Rectangle gunDest;
+    float gunAngle;
+    
+    Texture2D heartTexture = LoadTexture("../assets/Heart.png");
+    
+    Texture2D playerTexture = LoadTexture("../assets/Player.png");
+    Rectangle playerDest;    
+    Rectangle playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+    Vector2 playerTextureSize = {80.0f, 80.0f};
+    
+    //Projectile
+    float projectileLifespan = 5.0f;
+    int maxProjectiles = 100;
+    Projectile projectile[maxProjectiles] = {0};
+    
+    for(int i = 0; i < maxProjectiles; i++){
+        projectile[i].position = (Vector2){0,0};
+        projectile[i].speed = (Vector2){0,0};
+        projectile[i].size = {8,8};
+        projectile[i].active = false;
+        projectile[i].lifeSpan = 0.0f;
+        projectile[i].color = RED;
+        projectile[i].hitBox = {projectile[i].position.x, projectile[i].position.y, projectile[i].size.x, projectile[i].size.y};
+        
+    }    
+    
+    //Dungeon Rooms
+    int seed = GetRandomValue(100000, 999999);
+    //seed = 100000;
+    SetRandomSeed(seed);
+      
+    TraceLog(LOG_INFO, "Current Seed: %i",seed);
+    
+    int currentRooms = 0;
+    int maxRooms = 20;
+    int numRoomLocs = 0;
+    int roomSize = 1998;
+    float wallDepth = 100;
+    int doorSize = 250;
+    
+    float straight = 30;
+    float turn = 30;
+    float threeWay = 30;
+    float fourWay = 10;  
+
+    int bossRoomIndex;    
+    
+    Room rooms[500] = {};
+    
+    GenerateDungeon(rooms, currentRooms, maxRooms, numRoomLocs, roomSize, wallDepth, doorSize, straight, turn, threeWay, fourWay, bossRoomIndex);
+        
+    //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
+    while (!exitWindow){
+        
+        //------------------------------MOVEMENT------------------------------
+        //Player movement
+        xDir = 0;
+        yDir = 0;
+        
+        if(debugSpeed){
+            player.speed = 1800.0f;
+        } else {
+            player.speed = 600.0f;
+        }
+        
+        if(canMove){
+            if(IsKeyDown(KEY_D))
+                xDir += 1.0f;
+            
+            if(IsKeyDown(KEY_A))
+                xDir -= 1.0f;
+            
+            if(IsKeyDown(KEY_S))
+                yDir += 1.0f;
+            
+            if(IsKeyDown(KEY_W))
+                yDir -= 1.0f;
+        }
+        
+        //Normalize
+        direction = Vector2Normalize({xDir,yDir});
+        
+        //Scale
+        direction = Vector2Scale(direction, player.speed);
+        
+        //Translate player, detect collision (x)
+        player.position.x += direction.x * GetFrameTime();
+        player.hitBox.x = player.position.x;
+        if(!debugWall){
+            for(int i = 0; i < numRoomLocs; i++){
+                if(rooms[i].exists == true){
+                    for(int j = 0; j < rooms[i].numWalls; j++){
+                        if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
+                            if (direction.x > 0){
+                                player.position.x = rooms[i].walls[j].x - player.hitBox.width;
+                            } else if (direction.x < 0){
+                                player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
+                            }
+                            player.hitBox.x = player.position.x;
+                        }
+                    }
+                }
+            }
+        }
+        
+        //Translate player, detect collision (y)
+        player.position.y += direction.y * GetFrameTime();
+        player.hitBox.y = player.position.y;
+        if(!debugWall){
+            for(int i = 0; i < numRoomLocs; i++){
+                if(rooms[i].exists == true){
+                    for(int j = 0; j < rooms[i].numWalls; j++){
+                        if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
+                            if (direction.y > 0){
+                                player.position.y = rooms[i].walls[j].y - player.hitBox.height;
+                            } else if (direction.y < 0){
+                                player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
+                            }
+                            player.hitBox.y = player.position.y;
+                        }
+                    }
+                }
+            }
+        }
+                
+        //Dashing/roll
+        if(IsKeyPressed(KEY_SPACE) && dashCD <= 0.0f && dashing == false){
+            dashing = true;
+            canMove = false;
+            tempDirection = Vector2Scale(direction, 2.0f);
+            dashTime = 0.2f;
+            player.iFrames = dashTime;
+        }
+        
+        if(dashing){                        
+            //Translate player, detect collision (x)
+            player.position.x += tempDirection.x * GetFrameTime();
+            player.hitBox.x = player.position.x;
+            if(!debugWall){
+                for(int i = 0; i < numRoomLocs; i++){
+                    if(rooms[i].exists == true){
+                        for(int j = 0; j < rooms[i].numWalls; j++){
+                            if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
+                                if (tempDirection.x > 0){
+                                    player.position.x = rooms[i].walls[j].x - player.hitBox.width;
+                                } else if (tempDirection.x < 0){
+                                    player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
+                                }
+                                player.hitBox.x = player.position.x;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            //Translate player, detect collision (y)
+            player.position.y += tempDirection.y * GetFrameTime();
+            player.hitBox.y = player.position.y;
+            if(!debugWall){
+                for(int i = 0; i < numRoomLocs; i++){
+                    if(rooms[i].exists == true){
+                        for(int j = 0; j < rooms[i].numWalls; j++){
+                            if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
+                                if (tempDirection.y > 0){
+                                    player.position.y = rooms[i].walls[j].y - player.hitBox.height;
+                                } else if (tempDirection.y < 0){
+                                    player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
+                                }
+                                player.hitBox.y = player.position.y;
+                            }
+                        }
+                    }
+                }
+            }
+        
+            dashTime -= GetFrameTime();
+            if(dashTime <= 0){
+                dashing = false;
+                canMove = true;
+                dashCD = 1.0f;
+            }
+        }
+        
+        if(dashCD > 0.0f){
+            dashCD -= GetFrameTime();
+        }
+        
+        
+        //Update player center
+        player.center = {player.position.x + player.hitBox.width/2.0f, player.position.y + player.hitBox.height/2.0f};
+
+        
+        //------------------------------PROJECTILES------------------------------
+        //Update mouse
+        mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
+        playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);
+        
+        //Fire projectile       
+        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            for (int i = 0; i < maxProjectiles; i++){
+                if (!projectile[i].active){
+                    projectile[i].active = true;
+                    projectile[i].lifeSpan = projectileLifespan; 
+                    
+                    projectile[i].rotation = playerToMouseRotation;
+                    projectile[i].speed.x = cos(projectile[i].rotation) * 1000;
+                    projectile[i].speed.y = sin(projectile[i].rotation) * 1000;
+                    
+                    if(TextIsEqual(gunType, "Pistol")){
+                        projectile[i].position = (Vector2){player.center.x + cos(projectile[i].rotation) * gunSize - (cos(projectile[i].rotation) * gunOffset*2.3f), player.center.y + sin(projectile[i].rotation) * gunSize - (sin(projectile[i].rotation) * gunOffset*2.3f)};
+                    }
+                    
+                    projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                    
+                    projectile[i].team = (char*)"Player";
+                    projectile[i].type = (char*)"Pistol";
+                    break;
+                }
+            }
+        }
+        
+        //Translate projectile
+        for(int i = 0; i < maxProjectiles; i++){
+            if(projectile[i].active){
+                
+                projectile[i].position = {
+                    projectile[i].position.x + projectile[i].speed.x * GetFrameTime(), 
+                    projectile[i].position.y + projectile[i].speed.y * GetFrameTime()
+                };    
+
+                projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                
+            }
+        }
+        
+        //Projectile collision/despawn
+        for(int i = 0; i < maxProjectiles; i++){
+            if(projectile[i].active){
+                //Check walls
+                for(int j = 0; j < numRoomLocs; j++){
+                    if(rooms[j].exists == true){
+                        for(int k = 0; k < rooms[j].numWalls; k++){
+                            if(CheckCollisionRecs(rooms[j].walls[k],projectile[i].hitBox)){
+                                projectile[i].active = false;
+                                projectile[i].lifeSpan = 0.0f;
+                            }
+                        }
+                    }
+                }
+                
+                //Check enemy collision
+                for(int j = 0; j < numEnemies; j++){
+                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Player")){
+                        projectile[i].active = false;
+                        projectile[i].lifeSpan = 0.0f;
+                        
+                        enemies[j].health -= 10.0f;
+                        if(enemies[j].health <= 0.0f){
+                            enemies[j].active = false;
+                        }
+                    }
+                }
+                
+                //Check player collision
+                if(CheckCollisionRecs(player.hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Enemy") && player.iFrames <= 0.0f){
+                    projectile[i].active = false;
+                    projectile[i].lifeSpan = 0.0f;
+                    
+                    player.health -= 10.0f;
+                    player.iFrames = 1.0f;
+                }
+                
+                projectile[i].lifeSpan -= GetFrameTime(); 
+               
+                if(projectile[i].lifeSpan <= 0.0f){
+                   projectile[i].active = false;
+                }
+            }                    
+        }
+        
+        //Player iFrames
+        player.iFrames -= GetFrameTime();
+        
+        
+        //Test enemy projectile
+        //Fire projectile       
+        projectileCD -= GetFrameTime();
+        if(projectileCD <= 0.0f){
+            for (int i = 0; i < maxProjectiles; i++){
+                if (!projectile[i].active){
+                    projectile[i].active = true;
+                    projectile[i].lifeSpan = projectileLifespan; 
+                    
+                    projectile[i].rotation = 180.0f * DEG2RAD;
+                    projectile[i].speed.x = cos(projectile[i].rotation) * 1000;
+                    projectile[i].speed.y = sin(projectile[i].rotation) * 1000;
+                    
+                    projectile[i].position = (Vector2){enemies[0].position.x + enemies[0].size.x/2.0f, enemies[0].position.y + enemies[0].size.y/2.0f};
+                    
+                    projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                    
+                    projectile[i].team = (char*)"Enemy";
+                    projectile[i].type = (char*)"Pistol";
+                    projectileCD = 1.0f;
+                    break;
+                }
+            }
+        }
+        
+        
+
+        //------------------------------CAMERA------------------------------
+        //Camera
+        int playerRoom = -1;
+
+        //Find the room that the player is in
+        for (int i = 0; i < numRoomLocs; i++){
+            if (rooms[i].exists){
+                Rectangle roomRect = {
+                    rooms[i].position.x,
+                    rooms[i].position.y,
+                    rooms[i].size.x,
+                    rooms[i].size.y
+                };
+
+                if (CheckCollisionPointRec(player.center, roomRect)){
+                    playerRoom = i;
+                    break;
+                }
+            }
+        }
+        
+        //If found
+        if (playerRoom != -1){
+            float roomLeft = rooms[playerRoom].position.x;
+            float roomRight = roomLeft + rooms[playerRoom].size.x;
+
+            float roomTop = rooms[playerRoom].position.y;
+            float roomBottom = roomTop + rooms[playerRoom].size.y;
+
+            float halfCameraWidth = GetScreenWidth() / (2.0f * camera.zoom);
+
+            float halfCameraHeight = GetScreenHeight() / (2.0f * camera.zoom);
+
+            //Clamp
+            camera.target.x = Clamp(
+                player.center.x,
+                roomLeft + halfCameraWidth,
+                roomRight - halfCameraWidth
+            );
+
+            camera.target.y = Clamp(
+                player.center.y,
+                roomTop + halfCameraHeight,
+                roomBottom - halfCameraHeight
+            );
+        }    
+
+        bool isBoss = false;
+        if(playerRoom != -1){
+            isBoss =
+            (TextIsEqual(rooms[playerRoom].type, "BossN") ||
+             TextIsEqual(rooms[playerRoom].type, "BossE") ||
+             TextIsEqual(rooms[playerRoom].type, "BossS") ||
+             TextIsEqual(rooms[playerRoom].type, "BossW"));
+        }
+
+        //Camera mode
+        if(debugCam){
+            camera.target = player.center;
+            camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
+        } else {
+            if(!isBoss){
+                camera.zoom = 1.5f; 
+            } else {
+                camera.zoom = 0.5f;
+            }                
+        }
+        
+        //Debug
+        if(debugKeys){
+            if(IsKeyPressed(KEY_ZERO)){
+                seed = GetRandomValue(100000, 999999);
+                SetRandomSeed(seed);
+                GenerateDungeon(rooms, currentRooms, maxRooms, numRoomLocs, roomSize, wallDepth, doorSize, straight, turn, threeWay, fourWay, bossRoomIndex);
+            }
+            if(IsKeyPressed(KEY_SEVEN)){
+                debugSpeed = debugSpeed ^ true;
+            }
+            if(IsKeyPressed(KEY_EIGHT)){
+                debugCam = debugCam ^ true;
+            }
+            if(IsKeyPressed(KEY_NINE)){
+                debugWall = debugWall ^ true;
+            }
+        }   
+
+        //Exit confirmation
+        if(WindowShouldClose() || IsKeyPressed(KEY_ESCAPE)) 
+            exitWindowRequested = true;
+        
+        if (exitWindowRequested){
+            if (IsKeyPressed(KEY_Y)){ 
+                exitWindow = true;
+                break;
+            
+            }else if (IsKeyPressed(KEY_N)) 
+                exitWindowRequested = false;
+        }
+
+        //------------------------------DRAW------------------------------
+        BeginDrawing();
+
+            ClearBackground(RAYWHITE);
+
+            if (!exitWindowRequested){
+                
+                BeginMode2D(camera);
+                
+                    int fontSize;
+                    int textWidth;
+                
+                    //Draw rooms
+                    for(int i = 0; i < numRoomLocs; i++){
+                        if(rooms[i].exists == true){
+                            //Draw doors
+                            for(int j = 0; j < rooms[i].numDoors; j++){
+                                DrawRectangleRec(rooms[i].doors[j], MAROON);                                 
+                            }
+                            //Draw walls
+                            for(int j = 0; j < rooms[i].numWalls; j++){
+                                DrawRectangleRec(rooms[i].walls[j], BLACK);                                 
+                            }
+                        }
+                        fontSize = 30;
+                        //Text Type
+                        textWidth = MeasureText(rooms[i].type, fontSize);
+                        DrawText(
+                            rooms[i].type, rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                            rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2, 
+                            fontSize, 
+                            BLACK
+                        );                       
+                        //Text Dist
+                        textWidth = MeasureText(TextFormat("Dist: %i", rooms[i].distance), fontSize);
+                        DrawText(
+                            TextFormat("Dist: %i", rooms[i].distance), rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                            rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize, 
+                            fontSize, 
+                            BLACK
+                        ); 
+                        //Text Index
+                        textWidth = MeasureText(TextFormat("Index: %i", i), fontSize);
+                        DrawText(
+                            TextFormat("Index: %i", i), rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                            rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 2, 
+                            fontSize, 
+                            BLACK
+                        );   
+                        //Text Grid Position
+                        textWidth = MeasureText(TextFormat("Grid Position: {%f,%f}", rooms[i].gridPos.x, rooms[i].gridPos.y), fontSize);
+                        DrawText(
+                            TextFormat("Grid Position: {%f,%f}", rooms[i].gridPos.x, rooms[i].gridPos.y), rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                            rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 3, 
+                            fontSize, 
+                            BLACK
+                        ); 
+                    }
+                                       
+                    //Draw player
+                    DrawRectangleRec(player.hitBox, BLUE);  
+                    
+                    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
+                    if(direction.x < 0){
+                        playerRec = {0,0,(float)-playerTexture.width / 4.0f,(float)playerTexture.height};
+                    } else if(direction.x > 0){
+                        playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+                    }
+                    DrawTexturePro(playerTexture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
+                    
+                    fontSize = 15;
+                    textWidth = MeasureText("Player", fontSize);
+                    DrawText(
+                        "Player", player.center.x - textWidth/2, 
+                        player.hitBox.y - fontSize*2.2f, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
+                    DrawText(
+                        TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
+                        player.hitBox.y - fontSize*1.1f, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    
+                    //Draw dummy
+                    for (int i = 0; i < numEnemies; i++){
+                        if (enemies[i].active){
+                            fontSize = 15;
+                            textWidth = MeasureText(enemies[i].name, fontSize);
+                            DrawText(
+                                enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                                enemies[i].position.y - fontSize*2.2f, 
+                                fontSize, 
+                                BLACK
+                            );   
+                            textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
+                            DrawText(
+                                TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                                enemies[i].position.y - fontSize*1.1f, 
+                                fontSize, 
+                                BLACK
+                            );   
+                            DrawRectangleRec(enemies[i].hitBox, RED);
+                        }
+                    }
+                    
+                    //Draw projectiles
+                    for (int i = 0; i < maxProjectiles; i++){
+                        if (projectile[i].active) 
+                            //DrawRectanglePro(projectile[i].hitBox, (Vector2){projectile[i].size.x / 2.0f, projectile[i].size.y / 2.0f}, projectile[i].rotation * RAD2DEG, projectile[i].color);
+                            DrawRectangleRec(projectile[i].hitBox, YELLOW);
+                    } 
+                    
+                    //Draw gun
+                    gunPos = {player.center.x - cos(playerToMouseRotation) * gunOffset,player.center.y - sin(playerToMouseRotation) * gunOffset};
+                    gunRec = {0,0,(float)gunTexture.width / 6.0f,(float)gunTexture.height - 30.0f};
+                    gunDest = {gunPos.x,gunPos.y,gunSize,gunSize};
+                    gunAngle = playerToMouseRotation * RAD2DEG;
+                    
+                    if (gunAngle < -90 || gunAngle > 90){
+                        gunRec.height = -gunRec.height;
+                    }
+                    
+
+                    DrawTexturePro(gunTexture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
+                    //              texture     source      dest               origin/pivot             rotation  color
+              
+                EndMode2D();
+                
+                mouseScreenPos = GetMousePosition();
+                cursorRec = {0, 0, (float)cursorTexture.width, (float)cursorTexture.height};
+                cursorDestination = {mouseScreenPos.x + (float)cursorTexture.width/2.0f - cursorSize/2.0f, mouseScreenPos.y + (float)cursorTexture.height/2.0f - cursorSize/2.0f, cursorSize, cursorSize};
+
+                cursorOrigin = {cursorTexture.width / 2.0f, cursorTexture.height / 2.0f};
+
+                DrawTexturePro(cursorTexture, cursorRec, cursorDestination, cursorOrigin, 0.0f, WHITE);
+            } else {  
+            
+                //Exit menu
+                DrawRectangle(0, screenHeight/2 - 100, screenWidth, 200, BLACK);
+                int fontSize = 30;
+                int textWidth = MeasureText("Are you sure you want to exit program? [Y/N]", fontSize);
+                DrawText("Are you sure you want to exit program? [Y/N]", screenWidth/2 - textWidth/2, screenHeight/2 - fontSize/2, 30, WHITE);
+            
+            }
+        EndDrawing();
+    }
+    
+    ShowCursor();
+
+    CloseWindow();
+
+    return 0;
+}
