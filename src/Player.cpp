@@ -3,13 +3,6 @@
 
 #include <raymath.h>
 
-//Movement
-float xDir,yDir;
-Vector2 direction;
-
-int fontSize;
-int textWidth;
-
 void InitializePlayer(Player& player){
 
     Vector2 playerSize = {35.0f, 45.0f};
@@ -34,6 +27,7 @@ void InitializePlayer(Player& player){
     player.canMove = true;
     player.dashing = false;
     player.tempDirection = {0, 0};
+    player.facingDirection = 1;
 
     player.dashTime = 0.0f;
     player.dashCD = 0.0f;
@@ -46,8 +40,8 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     
     //------------------------------MOVEMENT------------------------------
         //Player movement
-        xDir = 0;
-        yDir = 0;
+        float xDir = 0;
+        float yDir = 0;
         
         if(debugSpeed){
             player.speed = 1800.0f;
@@ -70,22 +64,30 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
         }
         
         //Normalize
-        direction = Vector2Normalize({xDir,yDir});
+        player.direction = Vector2Normalize({xDir,yDir});
         
         //Scale
-        direction = Vector2Scale(direction, player.speed);
+        player.direction = Vector2Scale(player.direction, player.speed);
+        
+        //Update facing player.direction
+        if(player.direction.x > 0){
+            player.facingDirection = 1;
+        }
+        else if(player.direction.x < 0){
+            player.facingDirection = -1;
+        }
         
         //Translate player, detect collision (x)
-        player.position.x += direction.x * GetFrameTime();
+        player.position.x += player.direction.x * GetFrameTime();
         player.hitBox.x = player.position.x;
         if(!debugWall){
             for(int i = 0; i < numRoomLocs; i++){
                 if(rooms[i].exists == true){
                     for(int j = 0; j < rooms[i].numWalls; j++){
                         if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
-                            if (direction.x > 0){
+                            if (player.direction.x > 0){
                                 player.position.x = rooms[i].walls[j].x - player.hitBox.width;
-                            } else if (direction.x < 0){
+                            } else if (player.direction.x < 0){
                                 player.position.x = rooms[i].walls[j].x + rooms[i].walls[j].width;
                             }
                             player.hitBox.x = player.position.x;
@@ -96,16 +98,16 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
         }
         
         //Translate player, detect collision (y)
-        player.position.y += direction.y * GetFrameTime();
+        player.position.y += player.direction.y * GetFrameTime();
         player.hitBox.y = player.position.y;
         if(!debugWall){
             for(int i = 0; i < numRoomLocs; i++){
                 if(rooms[i].exists == true){
                     for(int j = 0; j < rooms[i].numWalls; j++){
                         if(CheckCollisionRecs(player.hitBox,rooms[i].walls[j])){
-                            if (direction.y > 0){
+                            if (player.direction.y > 0){
                                 player.position.y = rooms[i].walls[j].y - player.hitBox.height;
-                            } else if (direction.y < 0){
+                            } else if (player.direction.y < 0){
                                 player.position.y = rooms[i].walls[j].y + rooms[i].walls[j].height;
                             }
                             player.hitBox.y = player.position.y;
@@ -119,7 +121,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
         if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.dashing == false){
             player.dashing = true;
             player.canMove = false;
-            player.tempDirection = Vector2Scale(direction, 2.0f);
+            player.tempDirection = Vector2Scale(player.direction, 2.0f);
             player.dashTime = 0.2f;
             player.iFrames = player.dashTime;
         }
@@ -188,6 +190,9 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
 
 void DrawPlayer(const Player& player){
     
+    int fontSize;
+    int textWidth;
+    
     Rectangle playerDest; 
     Rectangle playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
     Vector2 playerTextureSize = {80.0f, 80.0f};
@@ -196,9 +201,9 @@ void DrawPlayer(const Player& player){
     DrawRectangleRec(player.hitBox, BLUE);  
     
     playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
-    if(direction.x < 0){
+    if(player.facingDirection == -1){
         playerRec = {0,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
-    } else if(direction.x > 0){
+    } else if(player.facingDirection == 1){
         playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
     }
     DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);

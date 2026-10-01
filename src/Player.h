@@ -19,9 +19,11 @@ struct Player {
     bool canMove;
     bool dashing;
     Vector2 tempDirection;
+    int facingDirection;
 
     float dashTime;
     float dashCD;
+    
     
     Texture2D texture;
 };
