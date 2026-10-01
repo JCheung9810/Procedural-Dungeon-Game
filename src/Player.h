@@ -22,6 +22,8 @@ struct Player {
 
     float dashTime;
     float dashCD;
+    
+    Texture2D texture;
 };
 
 void InitializePlayer(Player& player);

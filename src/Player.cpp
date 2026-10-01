@@ -10,8 +10,6 @@ Vector2 direction;
 int fontSize;
 int textWidth;
 
-Texture2D playerTexture;
-
 void InitializePlayer(Player& player){
 
     Vector2 playerSize = {35.0f, 45.0f};
@@ -40,7 +38,7 @@ void InitializePlayer(Player& player){
     player.dashTime = 0.0f;
     player.dashCD = 0.0f;
     
-    playerTexture = LoadTexture("../assets/Player.png"); 
+    player.texture = LoadTexture("../assets/Player.png"); 
     
 }
 
@@ -191,7 +189,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
 void DrawPlayer(const Player& player){
     
     Rectangle playerDest; 
-    Rectangle playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+    Rectangle playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
     Vector2 playerTextureSize = {80.0f, 80.0f};
     //Draw player
     
@@ -199,11 +197,11 @@ void DrawPlayer(const Player& player){
     
     playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
     if(direction.x < 0){
-        playerRec = {0,0,(float)-playerTexture.width / 4.0f,(float)playerTexture.height};
+        playerRec = {0,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
     } else if(direction.x > 0){
-        playerRec = {0,0,(float)playerTexture.width / 4.0f,(float)playerTexture.height};
+        playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
     }
-    DrawTexturePro(playerTexture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
+    DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
     
     fontSize = 15;
     textWidth = MeasureText("Player", fontSize);
