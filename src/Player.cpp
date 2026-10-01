@@ -118,7 +118,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
         }
                 
         //Dashing/roll
-        if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.dashing == false){
+        if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.dashing == false && (player.direction.x != 0 || player.direction.y != 0)){
             player.dashing = true;
             player.canMove = false;
             player.tempDirection = Vector2Scale(player.direction, 2.0f);
