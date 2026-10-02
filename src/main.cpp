@@ -4,60 +4,8 @@
 
 #include "Player.h"
 #include "Room.h"
-
-//------------------------------STRUCTS------------------------------
-typedef struct Projectile {
-    Vector2 position;
-    Vector2 speed;
-    
-    Vector2 size;
-    float rotation;
-    
-    float lifeSpan;
-    
-    bool active;
-    
-    char* team;
-    char* type;
-    
-    Color color;
-    Texture2D sprite;
-    
-    Rectangle hitBox;
-    //add 8 circles for detection so it can be "rotated" (4 corners 4 sides)
-    //detect collision with the array of corners
-} Projectile;
-
-typedef struct Enemy {
-    char* name;
-    
-    Vector2 size;
-    Vector2 position;
-    
-    float health;
-    
-    Rectangle hitBox;
-    
-    bool active;
-    Texture2D sprite;
-    
-} Enemy;
-
-void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
-    if(TextIsEqual(name, "Dummy")){
-        enemies[numEnemies].name = (char*)"Dummy";
-        enemies[numEnemies].position = (Vector2){300,-300};
-        enemies[numEnemies].health = 100.0f;
-        enemies[numEnemies].size = (Vector2){40.0f,40.0f};
-        
-        enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
-        Vector2 dummyCenter = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
-        
-        enemies[numEnemies].active = true;
-    }
-    
-    numEnemies++;
-}
+#include "Enemy.h"
+#include "Projectile.h"
 
 //------------------------------MAIN------------------------------
 int main(void){
@@ -136,16 +84,16 @@ int main(void){
     //Projectile
     float projectileLifespan = 5.0f;
     int maxProjectiles = 100;
-    Projectile projectile[maxProjectiles] = {0};
+    Projectile projectiles[maxProjectiles] = {0};
     
     for(int i = 0; i < maxProjectiles; i++){
-        projectile[i].position = (Vector2){0,0};
-        projectile[i].speed = (Vector2){0,0};
-        projectile[i].size = {8,8};
-        projectile[i].active = false;
-        projectile[i].lifeSpan = 0.0f;
-        projectile[i].color = RED;
-        projectile[i].hitBox = {projectile[i].position.x, projectile[i].position.y, projectile[i].size.x, projectile[i].size.y};
+        projectiles[i].position = (Vector2){0,0};
+        projectiles[i].speed = (Vector2){0,0};
+        projectiles[i].size = {8,8};
+        projectiles[i].active = false;
+        projectiles[i].lifeSpan = 0.0f;
+        projectiles[i].color = RED;
+        projectiles[i].hitBox = {projectiles[i].position.x, projectiles[i].position.y, projectiles[i].size.x, projectiles[i].size.y};
         
     }    
     
@@ -185,88 +133,11 @@ int main(void){
         mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
         playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);
         
-        //Fire projectile       
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            for (int i = 0; i < maxProjectiles; i++){
-                if (!projectile[i].active){
-                    projectile[i].active = true;
-                    projectile[i].lifeSpan = projectileLifespan; 
-                    
-                    projectile[i].rotation = playerToMouseRotation;
-                    projectile[i].speed.x = cos(projectile[i].rotation) * 1000;
-                    projectile[i].speed.y = sin(projectile[i].rotation) * 1000;
-                    
-                    if(TextIsEqual(gunType, "Pistol")){
-                        projectile[i].position = (Vector2){player.center.x + cos(projectile[i].rotation) * gunSize - (cos(projectile[i].rotation) * gunOffset*2.3f), player.center.y + sin(projectile[i].rotation) * gunSize - (sin(projectile[i].rotation) * gunOffset*2.3f)};
-                    }
-                    
-                    projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
-                    
-                    projectile[i].team = (char*)"Player";
-                    projectile[i].type = (char*)"Pistol";
-                    break;
-                }
-            }
+            FirePlayerProjectile(projectiles,maxProjectiles, playerToMouseRotation, gunType, gunSize, projectileLifespan, player, gunOffset);
         }
         
-        //Translate projectile
-        for(int i = 0; i < maxProjectiles; i++){
-            if(projectile[i].active){
-                
-                projectile[i].position = {
-                    projectile[i].position.x + projectile[i].speed.x * GetFrameTime(), 
-                    projectile[i].position.y + projectile[i].speed.y * GetFrameTime()
-                };    
-
-                projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
-                
-            }
-        }
-        
-        //Projectile collision/despawn
-        for(int i = 0; i < maxProjectiles; i++){
-            if(projectile[i].active){
-                //Check walls
-                for(int j = 0; j < numRoomLocs; j++){
-                    if(rooms[j].exists == true){
-                        for(int k = 0; k < rooms[j].numWalls; k++){
-                            if(CheckCollisionRecs(rooms[j].walls[k],projectile[i].hitBox)){
-                                projectile[i].active = false;
-                                projectile[i].lifeSpan = 0.0f;
-                            }
-                        }
-                    }
-                }
-                
-                //Check enemy collision
-                for(int j = 0; j < numEnemies; j++){
-                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Player")){
-                        projectile[i].active = false;
-                        projectile[i].lifeSpan = 0.0f;
-                        
-                        enemies[j].health -= 10.0f;
-                        if(enemies[j].health <= 0.0f){
-                            enemies[j].active = false;
-                        }
-                    }
-                }
-                
-                //Check player collision
-                if(CheckCollisionRecs(player.hitBox,projectile[i].hitBox) && TextIsEqual(projectile[i].team, "Enemy") && player.iFrames <= 0.0f){
-                    projectile[i].active = false;
-                    projectile[i].lifeSpan = 0.0f;
-                    
-                    player.health -= 10.0f;
-                    player.iFrames = 1.0f;
-                }
-                
-                projectile[i].lifeSpan -= GetFrameTime(); 
-               
-                if(projectile[i].lifeSpan <= 0.0f){
-                   projectile[i].active = false;
-                }
-            }                    
-        }
+        UpdateProjectile(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
         
         //Player iFrames
         player.iFrames -= GetFrameTime();
@@ -277,20 +148,20 @@ int main(void){
         projectileCD -= GetFrameTime();
         if(projectileCD <= 0.0f){
             for (int i = 0; i < maxProjectiles; i++){
-                if (!projectile[i].active){
-                    projectile[i].active = true;
-                    projectile[i].lifeSpan = projectileLifespan; 
+                if (!projectiles[i].active){
+                    projectiles[i].active = true;
+                    projectiles[i].lifeSpan = projectileLifespan; 
                     
-                    projectile[i].rotation = 180.0f * DEG2RAD;
-                    projectile[i].speed.x = cos(projectile[i].rotation) * 1000;
-                    projectile[i].speed.y = sin(projectile[i].rotation) * 1000;
+                    projectiles[i].rotation = 180.0f * DEG2RAD;
+                    projectiles[i].speed.x = cos(projectiles[i].rotation) * 1000;
+                    projectiles[i].speed.y = sin(projectiles[i].rotation) * 1000;
                     
-                    projectile[i].position = (Vector2){enemies[0].position.x + enemies[0].size.x/2.0f, enemies[0].position.y + enemies[0].size.y/2.0f};
+                    projectiles[i].position = (Vector2){enemies[0].position.x + enemies[0].size.x/2.0f, enemies[0].position.y + enemies[0].size.y/2.0f};
                     
-                    projectile[i].hitBox = {projectile[i].position.x - projectile[i].size.x/2.0f, projectile[i].position.y  - projectile[i].size.y/2.0f, projectile[i].size.x, projectile[i].size.y};
+                    projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
                     
-                    projectile[i].team = (char*)"Enemy";
-                    projectile[i].type = (char*)"Pistol";
+                    projectiles[i].team = (char*)"Enemy";
+                    projectiles[i].type = (char*)"Pistol";
                     projectileCD = 1.0f;
                     break;
                 }
@@ -483,9 +354,9 @@ int main(void){
                     
                     //Draw projectiles
                     for (int i = 0; i < maxProjectiles; i++){
-                        if (projectile[i].active) 
-                            //DrawRectanglePro(projectile[i].hitBox, (Vector2){projectile[i].size.x / 2.0f, projectile[i].size.y / 2.0f}, projectile[i].rotation * RAD2DEG, projectile[i].color);
-                            DrawRectangleRec(projectile[i].hitBox, YELLOW);
+                        if (projectiles[i].active) 
+                            //DrawRectanglePro(projectiles[i].hitBox, (Vector2){projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
+                            DrawRectangleRec(projectiles[i].hitBox, YELLOW);
                     } 
                     
                     //Draw gun

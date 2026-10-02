@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "raylib.h"
-
 #include "Room.h"
+
+#include "raylib.h"
 
 struct Player {
     Vector2 position;
