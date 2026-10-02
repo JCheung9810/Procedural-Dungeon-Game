@@ -180,12 +180,17 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
             player.dashCD -= GetFrameTime();
         }
         
+    //Player iFrames
+    player.iFrames -= GetFrameTime();
+        
         
     //Update player center    
     player.center = {
         player.position.x + player.hitBox.width/2.0f, 
         player.position.y + player.hitBox.height/2.0f
     };
+    
+    
     
 }
 

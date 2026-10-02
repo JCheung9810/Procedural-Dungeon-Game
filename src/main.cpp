@@ -139,9 +139,6 @@ int main(void){
         
         UpdateProjectile(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
         
-        //Player iFrames
-        player.iFrames -= GetFrameTime();
-        
         
         //Test enemy projectile
         //Fire projectile       
