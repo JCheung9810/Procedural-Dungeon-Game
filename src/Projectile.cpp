@@ -6,6 +6,19 @@
 
 #include <raymath.h>
 
+void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
+    for(int i = 0; i < maxProjectiles; i++){
+        projectiles[i].position = (Vector2){0,0};
+        projectiles[i].speed = (Vector2){0,0};
+        projectiles[i].size = {8,8};
+        projectiles[i].active = false;
+        projectiles[i].lifeSpan = 0.0f;
+        projectiles[i].color = RED;
+        projectiles[i].hitBox = {projectiles[i].position.x, projectiles[i].position.y, projectiles[i].size.x, projectiles[i].size.y};
+        
+    }    
+}
+
 void FirePlayerProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* gunType, float gunSize, float projectileLifespan, Player player, float gunOffset){       
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
