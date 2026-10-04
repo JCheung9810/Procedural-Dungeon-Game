@@ -8,7 +8,7 @@ void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
         enemies[numEnemies].size = (Vector2){40.0f,40.0f};
         
         enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
-        Vector2 dummyCenter = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
+        enemies[numEnemies].center = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
         
         enemies[numEnemies].active = true;
     }

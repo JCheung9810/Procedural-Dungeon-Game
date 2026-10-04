@@ -9,7 +9,10 @@
 #include <raymath.h>
 
 void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
-            Texture2D gunTexture, float gunSize, float gunOffset, float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, int screenWidth, int screenHeight, bool exitWindowRequested){
+            Texture2D gunTexture, float gunSize, float gunOffset, 
+            Texture2D heartTexture,
+            float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
+            int screenWidth, int screenHeight, bool exitWindowRequested){
                 
                 
     Vector2 gunPos;
@@ -133,6 +136,12 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
         cursorOrigin = {cursorTexture.width / 2.0f, cursorTexture.height / 2.0f};
 
         DrawTexturePro(cursorTexture, cursorRec, cursorDestination, cursorOrigin, 0.0f, WHITE);
+        
+        Vector2 heartPos = {25,25};
+        Vector2 heartSize = {100,100};
+        Rectangle heartTextureRec = {0,0,(float)heartTexture.width / 3.0f, (float)heartTexture.height};
+        Rectangle heartTextureDest = {heartPos.x,heartPos.y, heartSize.x, heartSize.y};
+        DrawTexturePro(heartTexture, heartTextureRec, heartTextureDest, {0,0}, 0, WHITE);
     } else {  
     
         //Exit menu

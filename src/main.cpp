@@ -47,7 +47,7 @@ int main(void){
     int numEnemies = 0;
     Enemy enemies[30] = {0};
     
-    AddEnemy(enemies, "Dummy", numEnemies);
+    AddEnemy(enemies, (char*)"Dummy", numEnemies);
     
     float projectileCD = 1.0f;
     
@@ -190,7 +190,10 @@ int main(void){
 
         //------------------------------DRAW------------------------------
         DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles, 
-            gunTexture, gunSize, gunOffset, playerToMouseRotation, cursorTexture, cursorSize, screenWidth, screenHeight, exitWindowRequested);
+            gunTexture, gunSize, gunOffset, 
+            heartTexture,
+            playerToMouseRotation, cursorTexture, cursorSize, 
+            screenWidth, screenHeight, exitWindowRequested);
     }
     
     ShowCursor();

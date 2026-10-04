@@ -8,13 +8,14 @@ struct Enemy {
     
     Vector2 size;
     Vector2 position;
+    Vector2 center;
     
     float health;
     
     Rectangle hitBox;
     
     bool active;
-    Texture2D sprite;
+    Texture2D texture;
     
 };
 

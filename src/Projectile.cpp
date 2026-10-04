@@ -30,7 +30,7 @@ void FirePlayerProjectile(Projectile projectiles[], int maxProjectiles, float pl
             projectiles[i].speed.y = sin(projectiles[i].rotation) * 1000;
             
             if(TextIsEqual(gunType, "Pistol")){
-                projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * gunSize - (cos(projectiles[i].rotation) * gunOffset*2.3f), player.center.y + sin(projectiles[i].rotation) * gunSize - (sin(projectiles[i].rotation) * gunOffset*2.3f)};
+                projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * gunSize - (cos(projectiles[i].rotation) * gunOffset*2.8f), player.center.y + sin(projectiles[i].rotation) * gunSize - (sin(projectiles[i].rotation) * gunOffset*2.3f)};
             }
             
             projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
