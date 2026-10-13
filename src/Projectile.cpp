@@ -13,6 +13,7 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
         projectiles[i].size = {8,8};
         projectiles[i].active = false;
         projectiles[i].lifeSpan = 0.0f;
+        projectiles[i].damage = 0.0f;
         projectiles[i].color = RED;
         projectiles[i].hitBox = {projectiles[i].position.x, projectiles[i].position.y, projectiles[i].size.x, projectiles[i].size.y};
         
@@ -31,6 +32,7 @@ void FirePlayerProjectile(Projectile projectiles[], int maxProjectiles, float pl
             
             if(TextIsEqual(gunType, "Pistol")){
                 projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * gunSize - (cos(projectiles[i].rotation) * gunOffset*2.8f), player.center.y + sin(projectiles[i].rotation) * gunSize - (sin(projectiles[i].rotation) * gunOffset*2.3f)};
+                projectiles[i].damage = 1.0f;
             }
             
             projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
@@ -90,7 +92,7 @@ void UpdateProjectile(Projectile projectiles[], int maxProjectiles, Room rooms[]
                     projectiles[i].active = false;
                     projectiles[i].lifeSpan = 0.0f;
                     
-                    player.health -= 10.0f;
+                    player.health -= projectiles[i].damage;
                     player.iFrames = 1.0f;
                 }
                 

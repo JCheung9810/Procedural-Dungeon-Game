@@ -146,6 +146,7 @@ int main(void){
                     
                     projectiles[i].team = (char*)"Enemy";
                     projectiles[i].type = (char*)"Pistol";
+                    projectiles[i].damage = 1.0f;
                     projectileCD = 1.0f;
                     break;
                 }

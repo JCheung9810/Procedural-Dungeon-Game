@@ -82,6 +82,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
                 ); 
             }
 
+            //Draw player
             DrawPlayer(player);
             
             //Draw dummy
@@ -137,11 +138,23 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
 
         DrawTexturePro(cursorTexture, cursorRec, cursorDestination, cursorOrigin, 0.0f, WHITE);
         
-        Vector2 heartPos = {25,25};
         Vector2 heartSize = {100,100};
-        Rectangle heartTextureRec = {0,0,(float)heartTexture.width / 3.0f, (float)heartTexture.height};
-        Rectangle heartTextureDest = {heartPos.x,heartPos.y, heartSize.x, heartSize.y};
-        DrawTexturePro(heartTexture, heartTextureRec, heartTextureDest, {0,0}, 0, WHITE);
+        
+        for(int i = 0; i < (player.maxHealth / 2.0f); i++){
+            
+            Rectangle heartTextureRec;
+            Vector2 heartPos = {25 + (float)i * 100, 25};
+            if(player.health >= 2 * (i + 1)){
+                heartTextureRec = {(float)heartTexture.width / 3.0f * 0.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
+            } else if(player.health == 2 * (i + 1) - 1){
+                heartTextureRec = {(float)heartTexture.width / 3.0f * 1.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
+            } else {
+                heartTextureRec = {(float)heartTexture.width / 3.0f * 2.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
+            }
+            
+            Rectangle heartTextureDest = {heartPos.x,heartPos.y, heartSize.x, heartSize.y};
+            DrawTexturePro(heartTexture, heartTextureRec, heartTextureDest, {0,0}, 0, WHITE);
+        }
     } else {  
     
         //Exit menu
@@ -153,4 +166,44 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
     }
     
     EndDrawing();
+}
+
+void DrawPlayer(const Player& player){
+    
+    int fontSize;
+    int textWidth;
+    
+    Rectangle playerDest; 
+    Rectangle playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
+    Vector2 playerTextureSize = {80.0f, 80.0f};
+    //Draw player
+    
+    DrawRectangleRec(player.hitBox, BLUE);  
+    
+    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
+    if(player.facingDirection == -1){
+        playerRec = {0,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
+    } else if(player.facingDirection == 1){
+        playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
+    }
+    DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
+    
+    fontSize = 15;
+    textWidth = MeasureText("Player", fontSize);
+    DrawText(
+        "Player", player.center.x - textWidth/2, 
+        player.hitBox.y - fontSize*2.2f, 
+        fontSize, 
+        BLACK
+    );   
+    textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
+    DrawText(
+        TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
+        player.hitBox.y - fontSize*1.1f, 
+        fontSize, 
+        BLACK
+    );  
+    
+    
+    
 }

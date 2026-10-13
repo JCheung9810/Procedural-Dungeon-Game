@@ -16,4 +16,6 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             int screenWidth, int screenHeight, bool exitWindowRequested
 );
 
+void DrawPlayer(const Player& player);
+
 #endif

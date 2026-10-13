@@ -8,7 +8,8 @@ void InitializePlayer(Player& player){
 
     Vector2 playerSize = {35.0f, 45.0f};
     player.speed = 600.0f;
-    player.health = 100.0f;
+    player.maxHealth = 6.0f;
+    player.health = player.maxHealth;
     player.iFrames = 0.0f;
     
     player.center = {0,0};
@@ -194,42 +195,3 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     
 }
 
-void DrawPlayer(const Player& player){
-    
-    int fontSize;
-    int textWidth;
-    
-    Rectangle playerDest; 
-    Rectangle playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
-    Vector2 playerTextureSize = {80.0f, 80.0f};
-    //Draw player
-    
-    DrawRectangleRec(player.hitBox, BLUE);  
-    
-    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
-    if(player.facingDirection == -1){
-        playerRec = {0,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
-    } else if(player.facingDirection == 1){
-        playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
-    }
-    DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
-    
-    fontSize = 15;
-    textWidth = MeasureText("Player", fontSize);
-    DrawText(
-        "Player", player.center.x - textWidth/2, 
-        player.hitBox.y - fontSize*2.2f, 
-        fontSize, 
-        BLACK
-    );   
-    textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
-    DrawText(
-        TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
-        player.hitBox.y - fontSize*1.1f, 
-        fontSize, 
-        BLACK
-    );  
-    
-    
-    
-}

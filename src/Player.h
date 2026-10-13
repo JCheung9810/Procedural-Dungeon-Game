@@ -11,6 +11,7 @@ struct Player {
     Vector2 direction;
 
     float speed;
+    float maxHealth;
     float health;
     float iFrames;
 
@@ -30,6 +31,5 @@ struct Player {
 
 void InitializePlayer(Player& player);
 void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpeed, bool debugWall);
-void DrawPlayer(const Player& player);
 
 #endif

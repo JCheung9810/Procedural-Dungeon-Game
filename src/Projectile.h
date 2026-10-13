@@ -21,6 +21,8 @@ struct Projectile {
     char* team;
     char* type;
     
+    float damage;
+    
     Color color;
     Texture2D sprite;
     
