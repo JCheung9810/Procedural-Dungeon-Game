@@ -14,6 +14,9 @@ struct Enemy {
     
     Rectangle hitBox;
     
+    float attackRate;
+    float attackCD;
+    
     bool active;
     Texture2D texture;
     

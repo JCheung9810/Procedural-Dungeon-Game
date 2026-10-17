@@ -20,31 +20,41 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     }    
 }
 
-void FirePlayerProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* gunType, float gunSize, float projectileLifespan, Player player, float gunOffset){       
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* team, char* gunType, float gunSize, float projectileLifespan, Player player, Enemy enemy, float gunOffset){       
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
             projectiles[i].active = true;
             projectiles[i].lifeSpan = projectileLifespan; 
             
-            projectiles[i].rotation = playerToMouseRotation;
-            projectiles[i].speed.x = cos(projectiles[i].rotation) * 1000;
-            projectiles[i].speed.y = sin(projectiles[i].rotation) * 1000;
-            
-            if(TextIsEqual(gunType, "Pistol")){
-                projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * gunSize - (cos(projectiles[i].rotation) * gunOffset*2.8f), player.center.y + sin(projectiles[i].rotation) * gunSize - (sin(projectiles[i].rotation) * gunOffset*2.3f)};
+            if(TextIsEqual(team,"Player")){
+                projectiles[i].team = (char*)"Player";
+                projectiles[i].rotation = playerToMouseRotation;
+                
+                if(TextIsEqual(gunType, "Pistol")){
+                    projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * gunSize - (cos(projectiles[i].rotation) * gunOffset*2.8f), player.center.y + sin(projectiles[i].rotation) * gunSize - (sin(projectiles[i].rotation) * gunOffset*2.3f)};
+                    projectiles[i].damage = 1.0f;
+                    projectiles[i].type = (char*)"Pistol";
+                }
+                
+            } else if(TextIsEqual(team,"Enemy")){
+                projectiles[i].team = (char*)"Enemy";
+                projectiles[i].rotation = atan2(player.center.y - enemy.center.y, player.center.x - enemy.center.x);
+                
+                projectiles[i].position = enemy.center;
                 projectiles[i].damage = 1.0f;
+                projectiles[i].type = (char*)"Pistol";
             }
+            projectiles[i].speed.x = cos(projectiles[i].rotation) * 100;
+            projectiles[i].speed.y = sin(projectiles[i].rotation) * 100;
             
             projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
             
-            projectiles[i].team = (char*)"Player";
-            projectiles[i].type = (char*)"Pistol";
             break;
         }
     }    
 }
 
-void UpdateProjectile(Projectile projectiles[], int maxProjectiles, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Player& player){
+void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Player& player){
     //Translate projectile
         for(int i = 0; i < maxProjectiles; i++){
             if(projectiles[i].active){

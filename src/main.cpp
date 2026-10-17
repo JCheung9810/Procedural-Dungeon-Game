@@ -49,8 +49,6 @@ int main(void){
     
     AddEnemy(enemies, (char*)"Dummy", numEnemies);
     
-    float projectileCD = 1.0f;
-    
     //Camera
     Camera2D camera = {0};
     camera.target = player.center;
@@ -120,40 +118,21 @@ int main(void){
         mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
         playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);
         
+        //Fire player projectile
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            FirePlayerProjectile(projectiles,maxProjectiles, playerToMouseRotation, gunType, gunSize, projectileLifespan, player, gunOffset);
+            FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Player", gunType, gunSize, projectileLifespan, player, enemies[0], gunOffset);
         }
         
-        UpdateProjectile(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
-        
-        
-        //Test enemy projectile
-        //Fire projectile       
-        projectileCD -= GetFrameTime();
-        if(projectileCD <= 0.0f){
-            for (int i = 0; i < maxProjectiles; i++){
-                if (!projectiles[i].active){
-                    projectiles[i].active = true;
-                    projectiles[i].lifeSpan = projectileLifespan; 
-                    
-                    projectiles[i].rotation = 180.0f * DEG2RAD;
-                    projectiles[i].speed.x = cos(projectiles[i].rotation) * 1000;
-                    projectiles[i].speed.y = sin(projectiles[i].rotation) * 1000;
-                    
-                    projectiles[i].position = (Vector2){enemies[0].position.x + enemies[0].size.x/2.0f, enemies[0].position.y + enemies[0].size.y/2.0f};
-                    
-                    projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
-                    
-                    projectiles[i].team = (char*)"Enemy";
-                    projectiles[i].type = (char*)"Pistol";
-                    projectiles[i].damage = 1.0f;
-                    projectileCD = 1.0f;
-                    break;
-                }
+        //Fire test enemy projectile     
+        for(int i = 0; i < numEnemies; i++){
+            enemies[i].attackCD -= GetFrameTime();
+            if(enemies[i].attackCD <= 0.0f){
+                FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Enemy", gunType, gunSize, projectileLifespan, player, enemies[i], gunOffset);
+                enemies[i].attackCD = enemies[i].attackRate;
             }
         }
         
-        
+        UpdateProjectiles(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
 
         //------------------------------CAMERA------------------------------      
         UpdateGameCamera(rooms, numRoomLocs, player, camera, debugCam);

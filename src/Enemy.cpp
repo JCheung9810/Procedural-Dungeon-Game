@@ -10,6 +10,9 @@ void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
         enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
         enemies[numEnemies].center = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
         
+        enemies[numEnemies].attackRate = 1.0f;
+        enemies[numEnemies].attackCD = enemies[numEnemies].attackRate;
+        
         enemies[numEnemies].active = true;
     }
     
