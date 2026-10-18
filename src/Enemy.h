@@ -1,6 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include "Player.h"
+#include "Room.h"
+
 #include "raylib.h"
 
 struct Enemy {
@@ -11,6 +14,7 @@ struct Enemy {
     Vector2 center;
     
     float health;
+    float speed;
     
     Rectangle hitBox;
     
@@ -23,5 +27,6 @@ struct Enemy {
 };
 
 void AddEnemy(Enemy enemies[], char* name, int& numEnemies);
+void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[], int numRoomLocs);
 
 #endif

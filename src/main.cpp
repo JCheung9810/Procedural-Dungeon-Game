@@ -111,7 +111,10 @@ int main(void){
         //------------------------------PLAYER------------------------------
         //Update player
         UpdatePlayer(player, rooms, numRoomLocs, debugSpeed, debugWall);
-
+        
+        //------------------------------ENEMY------------------------------
+        //Update enemies
+        UpdateEnemies(enemies, numEnemies, player, rooms, numRoomLocs);
         
         //------------------------------PROJECTILES------------------------------
         //Update mouse

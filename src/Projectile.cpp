@@ -31,7 +31,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].rotation = playerToMouseRotation;
                 
                 if(TextIsEqual(gunType, "Pistol")){
-                    projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * gunSize - (cos(projectiles[i].rotation) * gunOffset*2.8f), player.center.y + sin(projectiles[i].rotation) * gunSize - (sin(projectiles[i].rotation) * gunOffset*2.3f)};
+                    projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * (gunSize - 45), player.center.y + sin(projectiles[i].rotation) * (gunSize - 45)};
                     projectiles[i].damage = 1.0f;
                     projectiles[i].type = (char*)"Pistol";
                 }
@@ -44,8 +44,8 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].damage = 1.0f;
                 projectiles[i].type = (char*)"Pistol";
             }
-            projectiles[i].speed.x = cos(projectiles[i].rotation) * 100;
-            projectiles[i].speed.y = sin(projectiles[i].rotation) * 100;
+            projectiles[i].speed.x = cos(projectiles[i].rotation) * 500;
+            projectiles[i].speed.y = sin(projectiles[i].rotation) * 500;
             
             projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
             
