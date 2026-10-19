@@ -10,25 +10,24 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Wall and projectile collision detection
 - Room to room camera control
 - 8 direction movement
+- health
+- damage
+- enemy dummy
+- simple enemy ai
+- dodge/roll/dash
 
 # To Do
 - COMBAT
-  - improve shooting mechanics
-  - offset projectile starting location
+  - different guns
   - mag size
   - better projectile hitbox
-  - health
-  - damage
-  - enemy dummy
-  - enemy ai
+  - advanced enemy ai
 - UI
   - mag
   - reload
-  - health
   - current weapon
   - minimap
 - MECHANICS
-  - dodge/roll/dash
   - different weapon types
   - pickups
   - weapon swap
