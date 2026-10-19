@@ -5,6 +5,13 @@
 
 #include <raymath.h>
 
+void InitializeCamera(Camera2D& camera, Player player, int screenHeight, int screenWidth){
+    camera.target = player.center;
+    camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
+    camera.zoom = 1.0f;
+    
+}
+
 void UpdateGameCamera(Room rooms[], int numRoomLocs, Player player, Camera2D& camera, bool debugCam){
     //Camera
         int playerRoom = -1;

@@ -21,6 +21,11 @@ struct Player {
     bool dashing;
     Vector2 tempDirection;
     int facingDirection;
+    
+    char* gunType;
+    Texture2D gunTexture;
+    float gunSize;
+    float gunOffset; 
 
     float dashTime;
     float dashCD;

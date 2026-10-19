@@ -30,6 +30,11 @@ void InitializePlayer(Player& player){
     player.dashing = false;
     player.tempDirection = {0, 0};
     player.facingDirection = 1;
+    
+    player.gunType = (char*)"Pistol";
+    player.gunTexture = LoadTexture("../assets/Pistol.png");
+    player.gunSize = 80.0f;
+    player.gunOffset = 20.0f; 
 
     player.dashTime = 0.0f;
     player.dashCD = 0.0f;

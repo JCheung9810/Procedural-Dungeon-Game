@@ -43,17 +43,15 @@ int main(void){
     Player player;
     InitializePlayer(player);
     
-    //Enemy dummy
+    //Enemies
     int numEnemies = 0;
-    Enemy enemies[30] = {0};
+    Enemy enemies[100] = {0};
     
     AddEnemy(enemies, (char*)"Dummy", numEnemies);
     
     //Camera
     Camera2D camera = {0};
-    camera.target = player.center;
-    camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
-    camera.zoom = 1.0f;
+    InitializeCamera(camera, player, screenHeight, screenWidth);
     
     //Mouse
     Vector2 mouseWorldPos;
@@ -66,11 +64,6 @@ int main(void){
     Texture2D cursorTexture = LoadTexture("../assets/Cursor.png");
     
     //Images
-    Texture2D gunTexture = LoadTexture("../assets/Pistol.png");
-    float gunSize = 80.0f;
-    float gunOffset = 20.0f;
-    char* gunType = (char*)"Pistol";    
-    
     Texture2D heartTexture = LoadTexture("../assets/Heart.png");
     
     //Projectile
@@ -123,14 +116,14 @@ int main(void){
         
         //Fire player projectile
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Player", gunType, gunSize, projectileLifespan, player, enemies[0], gunOffset);
+            FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Player", player.gunType, player.gunSize, projectileLifespan, player, enemies[0], player.gunOffset);
         }
         
         //Fire test enemy projectile     
         for(int i = 0; i < numEnemies; i++){
             enemies[i].attackCD -= GetFrameTime();
             if(enemies[i].attackCD <= 0.0f){
-                FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Enemy", gunType, gunSize, projectileLifespan, player, enemies[i], gunOffset);
+                FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Enemy", player.gunType, player.gunSize, projectileLifespan, player, enemies[i], player.gunOffset);
                 enemies[i].attackCD = enemies[i].attackRate;
             }
         }
@@ -173,7 +166,7 @@ int main(void){
 
         //------------------------------DRAW------------------------------
         DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles, 
-            gunTexture, gunSize, gunOffset, 
+            player.gunTexture, player.gunSize, player.gunOffset, 
             heartTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight, exitWindowRequested);
