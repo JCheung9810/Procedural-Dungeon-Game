@@ -80,23 +80,24 @@ int main(void){
       
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
-    int currentRooms = 0;
-    int maxRooms = 20;
-    int numRoomLocs = 0;
-    int roomSize = 1998;
-    float wallDepth = 100;
-    int doorSize = 250;
+    DungeonConfig config;
     
-    float straight = 30;
-    float turn = 30;
-    float threeWay = 30;
-    float fourWay = 10;  
+    config.maxRooms = 20;
+    config.roomSize = 1998;
+    config.wallDepth = 100;
+    config.doorSize = 250;
 
-    int bossRoomIndex;    
+    config.straight = 30;
+    config.turn = 30;
+    config.threeWay = 30;
+    config.fourWay = 10;
+    
+    int currentRooms = 0;
+    int numRoomLocs = 0;
     
     Room rooms[500] = {};
     
-    GenerateDungeon(rooms, currentRooms, maxRooms, numRoomLocs, roomSize, wallDepth, doorSize, straight, turn, threeWay, fourWay, bossRoomIndex);
+    GenerateDungeon(rooms, config, currentRooms, numRoomLocs);
         
     //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
     while (!exitWindow){
@@ -138,7 +139,7 @@ int main(void){
             if(IsKeyPressed(KEY_ZERO)){
                 seed = GetRandomValue(100000, 999999);
                 SetRandomSeed(seed);
-                GenerateDungeon(rooms, currentRooms, maxRooms, numRoomLocs, roomSize, wallDepth, doorSize, straight, turn, threeWay, fourWay, bossRoomIndex);
+                GenerateDungeon(rooms, config, currentRooms, numRoomLocs);
             }
             if(IsKeyPressed(KEY_SEVEN)){
                 debugSpeed = debugSpeed ^ true;

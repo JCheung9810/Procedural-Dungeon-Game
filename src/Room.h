@@ -18,12 +18,25 @@ struct Room {
     
 };
 
+struct DungeonConfig {
+    int maxRooms;
+    int roomSize;
+    float wallDepth;
+    int doorSize;
+
+    float straight;
+    float turn;
+    float threeWay;
+    float fourWay;
+};
+
 bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs);
 bool ValidRoomInDirection(Room currentRoom, char direction);
 void AddDirection(char directions[], char direction);
 char* TestDeadEnd(Room rooms[], Room currentRoom, int numRoomLocs);
 void SortRooms(Room rooms[], int numRoomLocs);
 void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize);
-void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoomLocs, int roomSize, float wallDepth, int doorSize, float straight, float turn, float threeWay, float fourWay, int& bossRoomIndex);
+void GenerateEndRoom(Room rooms[], int& numRoomLocs);
+void GenerateDungeon(Room rooms[], DungeonConfig config, int& currentRooms, int& numRoomLocs);
 
 #endif

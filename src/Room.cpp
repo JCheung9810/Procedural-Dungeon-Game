@@ -73,7 +73,7 @@ bool ValidRoomInDirection(Room currentRoom, char direction){
          TextIsEqual(currentRoom.type, "BossS") ||
          TextIsEqual(currentRoom.type, "BossW"));
     
-    if(TextIsEqual(currentRoom.type,"4DNESW") || TextIsEqual(currentRoom.type,"Spawn") || isBoss){
+    if(TextIsEqual(currentRoom.type,"4DNESW") || TextIsEqual(currentRoom.type,"Spawn") || isBoss || TextIsEqual(currentRoom.type,"End")){
         return true;
     }
     
@@ -272,6 +272,40 @@ char* TestDeadEnd(Room rooms[], Room currentRoom, int numRoomLocs){
             }
             if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(rooms[i], 'W')){
+                AddDirection(directions, 'W');
+            }
+        }
+        
+        else if(TextIsEqual(currentRoom.type, "End")){
+            //Find boss gridPos
+            Vector2 bossGridPos;
+            for(int j = 0; j < numRoomLocs; j++){
+                bool isBoss =
+                (TextIsEqual(rooms[j].type, "BossN") ||
+                 TextIsEqual(rooms[j].type, "BossE") ||
+                 TextIsEqual(rooms[j].type, "BossS") ||
+                 TextIsEqual(rooms[j].type, "BossW"));
+                 
+                if(isBoss){
+                    bossGridPos = rooms[j].gridPos;
+                }
+                
+            }
+            
+            if((rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(rooms[i], 'N') && (bossGridPos != currentRoom.gridPos + (Vector2){0,-3})){
+                AddDirection(directions, 'N');
+            }
+            if((rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'E') && (bossGridPos != currentRoom.gridPos + (Vector2){3,0})){
+                AddDirection(directions, 'E');
+            }
+            if((rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'S') && (bossGridPos != currentRoom.gridPos + (Vector2){0,3})){
+                AddDirection(directions, 'S');
+            }
+            if((rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(rooms[i], 'W') && (bossGridPos != currentRoom.gridPos + (Vector2){-3,0})){
                 AddDirection(directions, 'W');
             }
         }
@@ -593,6 +627,8 @@ void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& num
                     rooms[CurrentRoomIndex].gridPos + (Vector2){-3,0}, roomSize/3.0f, wallDepth, doorSize);
         }
         
+        currentRooms++;
+        
     }else if(currentRooms < maxRooms){
         //Add the room 
         rooms[CurrentRoomIndex].exists = true;
@@ -602,7 +638,7 @@ void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& num
         //--------------------------------------------------------------------------
         // 4 DOORS
         
-        if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn")){
+        if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn") || TextIsEqual(type, "End")){
             
             //TOP
             rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
@@ -1052,11 +1088,21 @@ void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& num
     SortRooms(rooms, numRoomLocs);   
 }
 
-void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoomLocs, int roomSize, float wallDepth, int doorSize, float straight, float turn, float threeWay, float fourWay, int& bossRoomIndex){
+void GenerateDungeon(Room rooms[], DungeonConfig config, int& currentRooms, int& numRoomLocs){
     
     char* deadEnds;
     int chosenEmptyRoom;
     int chosenRoomType;
+    
+    int maxRooms = config.maxRooms;
+    int roomSize = config.roomSize;
+    float wallDepth = config.wallDepth;
+    int doorSize = config.doorSize;
+    
+    float straight = config.straight;
+    float turn = config.turn;
+    float threeWay = config.threeWay;
+    float fourWay = config.fourWay;
     
     currentRooms = 0;
     numRoomLocs = 0;
@@ -1073,7 +1119,7 @@ void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoo
     
     while(generateDungeon){
         
-        while(currentRooms < maxRooms){
+        while(currentRooms < maxRooms - 2){     //account for boss and end room
             
             chosenEmptyRoom = -1;
             
@@ -1207,7 +1253,7 @@ void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoo
             }            
         }   
         
-        bossRoomIndex = -1;
+        int bossRoomIndex = -1;
     
         //Choose boss room
         for(int i = numRoomLocs - 1; i > -1; i--){
@@ -1232,12 +1278,35 @@ void GenerateDungeon(Room rooms[], int& currentRooms, int& maxRooms, int& numRoo
             }
         } else {
             //Reset generation because we cant spawn boss room
-                currentRooms = 0;
-                numRoomLocs = 0;
-                AddRoom(rooms, (char*)"Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+            currentRooms = 0;
+            numRoomLocs = 0;
+            AddRoom(rooms, (char*)"Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+            break;
+        }
+        
+        int endRoomIndex = -1;
+    
+        //Choose End Room
+        for(int i = numRoomLocs - 1; i > -1; i--){
+            if(rooms[i].exists == false){
+                endRoomIndex = i;
                 break;
+            }
+            
+        }
+        
+        //If valid
+        if(endRoomIndex != -1){
+            AddRoom(rooms, (char*)"End", currentRooms, maxRooms, numRoomLocs, rooms[endRoomIndex].gridPos, roomSize, wallDepth, doorSize);
+        } else {
+            //Reset generation because we cant spawn end room
+            currentRooms = 0;
+            numRoomLocs = 0;
+            AddRoom(rooms, (char*)"Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+            break;
         }
     }
+
     
     //Make dead ends    
     for(int i = 0; i < numRoomLocs; i++){
