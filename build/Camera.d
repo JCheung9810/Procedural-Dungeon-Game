@@ -1,8 +1,8 @@
-build/Camera.o: src/Camera.cpp src/Camera.h src/Room.h \
- C:/raylib/raylib/src/raylib.h src/Player.h \
+build/camera.o: src/camera.cpp src/camera.h src/room.h \
+ C:/raylib/raylib/src/raylib.h src/player.h \
  C:/raylib/raylib/src/raymath.h
-src/Camera.h:
-src/Room.h:
+src/camera.h:
+src/room.h:
 C:/raylib/raylib/src/raylib.h:
-src/Player.h:
+src/player.h:
 C:/raylib/raylib/src/raymath.h:

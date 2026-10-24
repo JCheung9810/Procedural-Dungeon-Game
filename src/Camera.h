@@ -1,8 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "Room.h"
-#include "Player.h"
+#include "room.h"
+#include "player.h"
 
 #include "raylib.h"
 

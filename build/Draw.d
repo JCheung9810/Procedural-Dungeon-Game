@@ -1,11 +1,11 @@
-build/Draw.o: src/Draw.cpp src/Draw.h src/Player.h src/Room.h \
- C:/raylib/raylib/src/raylib.h src/Enemy.h src/Projectile.h src/Camera.h \
+build/draw.o: src/draw.cpp src/draw.h src/player.h src/room.h \
+ C:/raylib/raylib/src/raylib.h src/enemy.h src/projectile.h src/camera.h \
  C:/raylib/raylib/src/raymath.h
-src/Draw.h:
-src/Player.h:
-src/Room.h:
+src/draw.h:
+src/player.h:
+src/room.h:
 C:/raylib/raylib/src/raylib.h:
-src/Enemy.h:
-src/Projectile.h:
-src/Camera.h:
+src/enemy.h:
+src/projectile.h:
+src/camera.h:
 C:/raylib/raylib/src/raymath.h:

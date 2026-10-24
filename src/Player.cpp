@@ -1,6 +1,6 @@
-#include "Player.h"
+#include "player.h"
 
-#include "Room.h"
+#include "room.h"
 
 #include "json.hpp"
 #include <fstream>

@@ -1,8 +1,8 @@
-#include "Projectile.h"
+#include "projectile.h"
 
-#include "Player.h"
-#include "Enemy.h"
-#include "Room.h"
+#include "player.h"
+#include "enemy.h"
+#include "room.h"
 
 #include <raymath.h>
 

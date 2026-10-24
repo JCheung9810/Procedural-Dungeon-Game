@@ -2,12 +2,12 @@
 #include <raymath.h>
 #include <string.h>
 
-#include "Player.h"
-#include "Room.h"
-#include "Enemy.h"
-#include "Projectile.h"
-#include "Camera.h"
-#include "Draw.h"
+#include "player.h"
+#include "room.h"
+#include "enemy.h"
+#include "projectile.h"
+#include "camera.h"
+#include "draw.h"
 
 //------------------------------MAIN------------------------------
 int main(void){

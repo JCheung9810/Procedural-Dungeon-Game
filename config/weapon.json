@@ -1,0 +1,20 @@
+{
+    "weapons": [
+        {
+            "name": "Rusty Pistol",
+            "type": "Pistol",
+            "texturePath": "assets/Pistol.png",
+            "size": 32.0,
+            "positionOffset": 15.0,
+            "projectileOffset": 20.0
+        },
+        {
+            "name": "Double Barrel",
+            "type": "Shotgun",
+            "texturePath": "assets/Shotgun.png",
+            "size": 40.0,
+            "positionOffset": 18.0,
+            "projectileOffset": 28.0
+        }
+    ]
+}

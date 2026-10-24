@@ -6,7 +6,7 @@ LDFLAGS = -L. -lraylib -lopengl32 -lgdi32 -lwinmm -lshcore
 
 SRC_DIR = src
 BUILD_DIR = build
-TARGET = dungeon.exe
+TARGET = game.exe
 
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SOURCES))

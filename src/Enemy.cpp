@@ -1,7 +1,7 @@
-#include "Enemy.h"
+#include "enemy.h"
 
-#include "Player.h"
-#include "Room.h"
+#include "player.h"
+#include "room.h"
 
 #include <raymath.h>
 

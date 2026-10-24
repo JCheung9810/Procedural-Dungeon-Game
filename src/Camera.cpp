@@ -1,7 +1,7 @@
-#include "Camera.h"
+#include "camera.h"
 
-#include "Room.h"
-#include "Player.h"
+#include "room.h"
+#include "player.h"
 
 #include <raymath.h>
 

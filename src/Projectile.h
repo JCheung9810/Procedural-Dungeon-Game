@@ -1,9 +1,9 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "Player.h"
-#include "Enemy.h"
-#include "Room.h"
+#include "player.h"
+#include "enemy.h"
+#include "room.h"
 
 #include "raylib.h"
 
