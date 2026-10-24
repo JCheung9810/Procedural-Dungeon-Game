@@ -1,0 +1,10 @@
+{
+    "maxRooms": 20,
+    "roomSize": 1998,
+    "wallDepth": 100.0,
+    "doorSize": 250,
+    "straight": 30.0,
+    "turn": 30.0,
+    "threeWay": 30.0,
+    "fourWay": 10.0
+}

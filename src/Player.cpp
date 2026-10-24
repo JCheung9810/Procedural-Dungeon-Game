@@ -2,13 +2,43 @@
 
 #include "Room.h"
 
+#include "json.hpp"
+#include <fstream>
+
+using json = nlohmann::json;
+
 #include <raymath.h>
 
-void InitializePlayer(Player& player){
+PlayerConfig LoadPlayerConfig(const char* filePath) {
+    std::ifstream file(filePath);
+
+    if (!file.is_open()) {
+        TraceLog(LOG_ERROR, "Could not open player config: %s", filePath);
+        return {};
+    }
+
+    try {
+        json data;
+        file >> data;
+
+        PlayerConfig config;
+
+        config.maxHealth = data.at("maxHealth").get<float>();
+        config.speed = data.at("speed").get<float>();
+
+        return config;
+    }
+    catch (const std::exception& e) {
+        TraceLog(LOG_ERROR, "Invalid player config: %s", e.what());
+        throw;
+    }
+}
+
+void InitializePlayer(Player& player, PlayerConfig playerConfig){
 
     Vector2 playerSize = {35.0f, 45.0f};
-    player.speed = 600.0f;
-    player.maxHealth = 6.0f;
+    player.speed = playerConfig.speed;
+    player.maxHealth = playerConfig.maxHealth;
     player.health = player.maxHealth;
     player.iFrames = 0.0f;
     

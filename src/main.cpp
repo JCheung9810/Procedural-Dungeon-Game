@@ -41,7 +41,8 @@ int main(void){
     
     //Player
     Player player;
-    InitializePlayer(player);
+    PlayerConfig playerConfig = LoadPlayerConfig("../config/player.json");
+    InitializePlayer(player, playerConfig);
     
     //Enemies
     int numEnemies = 0;
@@ -80,24 +81,14 @@ int main(void){
       
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
-    DungeonConfig config;
-    
-    config.maxRooms = 20;
-    config.roomSize = 1998;
-    config.wallDepth = 100;
-    config.doorSize = 250;
-
-    config.straight = 30;
-    config.turn = 30;
-    config.threeWay = 30;
-    config.fourWay = 10;
+    DungeonConfig dungeonConfig = LoadDungeonConfig("../config/dungeon.json");
     
     int currentRooms = 0;
     int numRoomLocs = 0;
     
     Room rooms[500] = {};
     
-    GenerateDungeon(rooms, config, currentRooms, numRoomLocs);
+    GenerateDungeon(rooms, dungeonConfig, currentRooms, numRoomLocs);
         
     //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
     while (!exitWindow){
@@ -139,7 +130,7 @@ int main(void){
             if(IsKeyPressed(KEY_ZERO)){
                 seed = GetRandomValue(100000, 999999);
                 SetRandomSeed(seed);
-                GenerateDungeon(rooms, config, currentRooms, numRoomLocs);
+                GenerateDungeon(rooms, dungeonConfig, currentRooms, numRoomLocs);
             }
             if(IsKeyPressed(KEY_SEVEN)){
                 debugSpeed = debugSpeed ^ true;

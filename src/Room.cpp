@@ -1,6 +1,43 @@
 #include "Room.h"
 
+#include "json.hpp"
+#include <fstream>
+
+using json = nlohmann::json;
+
 #include <raymath.h>
+
+DungeonConfig LoadDungeonConfig(const char* filePath) {
+    std::ifstream file(filePath);
+
+    if (!file.is_open()) {
+        TraceLog(LOG_ERROR, "Could not open dungeon config: %s", filePath);
+        return {};
+    }
+
+    try {
+        json data;
+        file >> data;
+
+        DungeonConfig config;
+
+        config.maxRooms = data.at("maxRooms").get<int>();
+        config.roomSize = data.at("roomSize").get<int>();
+        config.wallDepth = data.at("wallDepth").get<float>();
+        config.doorSize = data.at("doorSize").get<int>();
+
+        config.straight = data.at("straight").get<float>();
+        config.turn = data.at("turn").get<float>();
+        config.threeWay = data.at("threeWay").get<float>();
+        config.fourWay = data.at("fourWay").get<float>();
+
+        return config;
+    }
+    catch (const std::exception& e) {
+        TraceLog(LOG_ERROR, "Invalid dungeon config: %s", e.what());
+        throw;
+    }
+}
 
 bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs){
     
@@ -1088,21 +1125,21 @@ void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& num
     SortRooms(rooms, numRoomLocs);   
 }
 
-void GenerateDungeon(Room rooms[], DungeonConfig config, int& currentRooms, int& numRoomLocs){
+void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRooms, int& numRoomLocs){
     
     char* deadEnds;
     int chosenEmptyRoom;
     int chosenRoomType;
     
-    int maxRooms = config.maxRooms;
-    int roomSize = config.roomSize;
-    float wallDepth = config.wallDepth;
-    int doorSize = config.doorSize;
+    int maxRooms = dungeonConfig.maxRooms;
+    int roomSize = dungeonConfig.roomSize;
+    float wallDepth = dungeonConfig.wallDepth;
+    int doorSize = dungeonConfig.doorSize;
     
-    float straight = config.straight;
-    float turn = config.turn;
-    float threeWay = config.threeWay;
-    float fourWay = config.fourWay;
+    float straight = dungeonConfig.straight;
+    float turn = dungeonConfig.turn;
+    float threeWay = dungeonConfig.threeWay;
+    float fourWay = dungeonConfig.fourWay;
     
     currentRooms = 0;
     numRoomLocs = 0;

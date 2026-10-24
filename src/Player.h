@@ -34,7 +34,14 @@ struct Player {
     Texture2D texture;
 };
 
-void InitializePlayer(Player& player);
+struct PlayerConfig {
+    float maxHealth;
+    float speed;   
+};
+
+PlayerConfig LoadPlayerConfig(const char* filePath);
+
+void InitializePlayer(Player& player, PlayerConfig playerConfig);
 void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpeed, bool debugWall);
 
 #endif
