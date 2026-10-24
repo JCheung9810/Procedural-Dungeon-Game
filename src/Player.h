@@ -2,22 +2,9 @@
 #define PLAYER_H
 
 #include "room.h"
+#include "weapon.h"
 
 #include "raylib.h"
-
-struct Weapon {
-    char* name;
-    char* type;
-    
-    char* texturePath;
-    Texture2D texture;
-    
-    float size;
-    float positionOffset; 
-    
-    float projectileOffset;
-    
-};
 
 struct Player {
     Vector2 position;

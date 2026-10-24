@@ -12,6 +12,8 @@
 //------------------------------MAIN------------------------------
 int main(void){
     
+    ChangeDirectory(GetApplicationDirectory());
+    
     //Initial screen size
     int screenWidth = 800;
     int screenHeight = 450;
@@ -41,7 +43,7 @@ int main(void){
     
     //Player
     Player player;
-    PlayerConfig playerConfig = LoadPlayerConfig("../config/player.json");
+    PlayerConfig playerConfig = LoadPlayerConfig("config/player.json");
     InitializePlayer(player, playerConfig);
     
     //Enemies
@@ -62,10 +64,10 @@ int main(void){
     HideCursor();
     
     //Cursor Image
-    Texture2D cursorTexture = LoadTexture("../assets/Cursor.png");
+    Texture2D cursorTexture = LoadTexture("assets/Cursor.png");
     
     //Images
-    Texture2D heartTexture = LoadTexture("../assets/Heart.png");
+    Texture2D heartTexture = LoadTexture("assets/Heart.png");
     
     //Projectile
     float projectileLifespan = 5.0f;
@@ -81,7 +83,7 @@ int main(void){
       
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
-    DungeonConfig dungeonConfig = LoadDungeonConfig("../config/dungeon.json");
+    DungeonConfig dungeonConfig = LoadDungeonConfig("config/dungeon.json");
     
     int currentRooms = 0;
     int numRoomLocs = 0;

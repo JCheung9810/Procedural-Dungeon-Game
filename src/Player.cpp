@@ -61,18 +61,12 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.tempDirection = {0, 0};
     player.facingDirection = 1;
     
-    player.weapon.name = (char*)"Pistol";
-    player.weapon.type = (char*)"Pistol";
-    player.weapon.texturePath = (char*)"../assets/Pistol.png";
-    player.weapon.texture = LoadTexture(player.weapon.texturePath);
-    player.weapon.size = 80.0f;
-    player.weapon.positionOffset = 20.0f;
-    player.weapon.projectileOffset = 25.0f;
+    player.weapon = LoadWeapon("config/weapon.json", "Pistol");
 
     player.dashTime = 0.0f;
     player.dashCD = 0.0f;
     
-    player.texture = LoadTexture("../assets/Player.png"); 
+    player.texture = LoadTexture("assets/Player.png"); 
     
 }
 
