@@ -5,6 +5,20 @@
 
 #include "raylib.h"
 
+struct Weapon {
+    char* name;
+    char* type;
+    
+    char* texturePath;
+    Texture2D texture;
+    
+    float size;
+    float positionOffset; 
+    
+    float projectileOffset;
+    
+};
+
 struct Player {
     Vector2 position;
     Vector2 center;
@@ -22,10 +36,7 @@ struct Player {
     Vector2 tempDirection;
     int facingDirection;
     
-    char* gunType;
-    Texture2D gunTexture;
-    float gunSize;
-    float gunOffset; 
+    Weapon weapon;
 
     float dashTime;
     float dashCD;

@@ -108,14 +108,14 @@ int main(void){
         
         //Fire player projectile
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Player", player.gunType, player.gunSize, projectileLifespan, player, enemies[0], player.gunOffset);
+            FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, (char*)"Player", projectileLifespan, player, enemies[0]);
         }
         
         //Fire test enemy projectile     
         for(int i = 0; i < numEnemies; i++){
             enemies[i].attackCD -= GetFrameTime();
             if(enemies[i].attackCD <= 0.0f){
-                FireProjectile(projectiles,maxProjectiles, playerToMouseRotation, (char*)"Enemy", player.gunType, player.gunSize, projectileLifespan, player, enemies[i], player.gunOffset);
+                FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, (char*)"Enemy", projectileLifespan, player, enemies[i]);
                 enemies[i].attackCD = enemies[i].attackRate;
             }
         }
@@ -157,8 +157,7 @@ int main(void){
         }
 
         //------------------------------DRAW------------------------------
-        DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles, 
-            player.gunTexture, player.gunSize, player.gunOffset, 
+        DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles,  
             heartTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight, exitWindowRequested);

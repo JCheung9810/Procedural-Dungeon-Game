@@ -9,7 +9,6 @@
 #include <raymath.h>
 
 void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
-            Texture2D gunTexture, float gunSize, float gunOffset, 
             Texture2D heartTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight, bool exitWindowRequested){
@@ -115,9 +114,9 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             } 
             
             //Draw gun
-            gunPos = {player.center.x - cos(playerToMouseRotation) * gunOffset,player.center.y - sin(playerToMouseRotation) * gunOffset};
-            gunRec = {0,0,(float)gunTexture.width / 6.0f,(float)gunTexture.height - 30.0f};
-            gunDest = {gunPos.x,gunPos.y,gunSize,gunSize};
+            gunPos = {player.center.x - cos(playerToMouseRotation) * player.weapon.positionOffset,player.center.y - sin(playerToMouseRotation) * player.weapon.positionOffset};
+            gunRec = {0,0,(float)player.weapon.texture.width / 6.0f,(float)player.weapon.texture.height - 30.0f};
+            gunDest = {gunPos.x,gunPos.y,player.weapon.size,player.weapon.size};
             gunAngle = playerToMouseRotation * RAD2DEG;
             
             if (gunAngle < -90 || gunAngle > 90){
@@ -125,7 +124,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             }
             
 
-            DrawTexturePro(gunTexture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
+            DrawTexturePro(player.weapon.texture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
             //              texture     source      dest               origin/pivot             rotation  color
       
         EndMode2D();

@@ -20,7 +20,7 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     }    
 }
 
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* team, char* gunType, float gunSize, float projectileLifespan, Player player, Enemy enemy, float gunOffset){       
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* team, float projectileLifespan, Player player, Enemy enemy){       
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
             projectiles[i].active = true;
@@ -30,8 +30,8 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].team = (char*)"Player";
                 projectiles[i].rotation = playerToMouseRotation;
                 
-                if(TextIsEqual(gunType, "Pistol")){
-                    projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * (gunSize - 45), player.center.y + sin(projectiles[i].rotation) * (gunSize - 45)};
+                if(TextIsEqual(player.weapon.type, "Pistol")){
+                    projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * (player.weapon.projectileOffset), player.center.y + sin(projectiles[i].rotation) * (player.weapon.projectileOffset)};
                     projectiles[i].damage = 1.0f;
                     projectiles[i].type = (char*)"Pistol";
                 }
