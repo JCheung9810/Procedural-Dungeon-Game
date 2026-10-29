@@ -174,10 +174,14 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     int fontSize;
     int textWidth;
     
+    Rectangle playerRec;
     Rectangle playerDest; 
-    float frameWidth = (float)player.texture.width / 4.0f;
-    Rectangle playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
+    float frameWidth;
+    
     Vector2 playerTextureSize = {80.0f, 80.0f};
+    
+    frameWidth = (float)player.texture.width / 4.0f;
+    playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
     
     //Draw hitbox
     if(debugHitbox){

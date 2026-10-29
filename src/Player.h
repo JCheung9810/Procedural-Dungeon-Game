@@ -35,6 +35,7 @@ struct Player {
     
     
     Texture2D texture;
+    Texture2D dashTexture;
 };
 
 struct PlayerConfig {
