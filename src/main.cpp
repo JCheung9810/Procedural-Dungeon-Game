@@ -10,7 +10,6 @@
 #include "draw.h"
 #include "debug.h"
 
-
 //------------------------------MAIN------------------------------
 int main(void){
     
