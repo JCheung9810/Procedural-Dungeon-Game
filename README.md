@@ -1,5 +1,5 @@
 # Procedural-Dungeon-Game
-A 1 player dungeon game where each playthrough features a uniquely generated dungeon. The player will work alone to explore the dungeon, fight AI-controlled enemies, and progress through increasingly challenging areas.
+A 1 player dungeon game where each playthrough features a uniquely generated dungeon. The player will be able to explore the dungeon, fight AI-controlled enemies, and progress through increasingly challenging areas.
 
 # Implemented Features
 - Random dungeon generation
