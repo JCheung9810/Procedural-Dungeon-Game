@@ -8,6 +8,8 @@
 #include "projectile.h"
 #include "camera.h"
 #include "draw.h"
+#include "debug.h"
+
 
 //------------------------------MAIN------------------------------
 int main(void){
@@ -30,11 +32,7 @@ int main(void){
     SetTargetFPS(60);
     
     //Debugging
-    bool debugKeys = true;
-    
-    bool debugSpeed = false;
-    bool debugWall = false;
-    bool debugCam = false;
+    Debug debug;
     
     //Disable escape key to close window
     SetExitKey(KEY_NULL);
@@ -97,7 +95,7 @@ int main(void){
         
         //------------------------------PLAYER------------------------------
         //Update player
-        UpdatePlayer(player, rooms, numRoomLocs, debugSpeed, debugWall);
+        UpdatePlayer(player, rooms, numRoomLocs, debug.speed, debug.wall);
         
         //------------------------------ENEMY------------------------------
         //Update enemies
@@ -125,23 +123,26 @@ int main(void){
         UpdateProjectiles(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
 
         //------------------------------CAMERA------------------------------      
-        UpdateGameCamera(rooms, numRoomLocs, player, camera, debugCam);
+        UpdateGameCamera(rooms, numRoomLocs, player, camera, debug.cam);
         
         //Debug
-        if(debugKeys){
+        if(debug.active){
             if(IsKeyPressed(KEY_ZERO)){
                 seed = GetRandomValue(100000, 999999);
                 SetRandomSeed(seed);
                 GenerateDungeon(rooms, dungeonConfig, currentRooms, numRoomLocs);
             }
+            if(IsKeyPressed(KEY_SIX)){
+                debug.hitbox = debug.hitbox ^ true;
+            }
             if(IsKeyPressed(KEY_SEVEN)){
-                debugSpeed = debugSpeed ^ true;
+                debug.speed = debug.speed ^ true;
             }
             if(IsKeyPressed(KEY_EIGHT)){
-                debugCam = debugCam ^ true;
+                debug.cam = debug.cam ^ true;
             }
             if(IsKeyPressed(KEY_NINE)){
-                debugWall = debugWall ^ true;
+                debug.wall = debug.wall ^ true;
             }
         }   
 
@@ -162,7 +163,9 @@ int main(void){
         DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles,  
             heartTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
-            screenWidth, screenHeight, exitWindowRequested);
+            screenWidth, screenHeight,
+            debug.hitbox,
+            exitWindowRequested);
     }
     
     ShowCursor();

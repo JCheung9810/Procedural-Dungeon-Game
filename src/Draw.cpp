@@ -11,7 +11,9 @@
 void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
             Texture2D heartTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
-            int screenWidth, int screenHeight, bool exitWindowRequested){
+            int screenWidth, int screenHeight,
+            bool debugHitbox,            
+            bool exitWindowRequested){
                 
                 
     Vector2 gunPos;
@@ -82,7 +84,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             }
 
             //Draw player
-            DrawPlayer(player);
+            DrawPlayer(player, debugHitbox);
             
             //Draw dummy
             for (int i = 0; i < numEnemies; i++){
@@ -167,26 +169,31 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
     EndDrawing();
 }
 
-void DrawPlayer(const Player& player){
+void DrawPlayer(const Player& player, bool debugHitbox){
     
     int fontSize;
     int textWidth;
     
     Rectangle playerDest; 
-    Rectangle playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
+    float frameWidth = (float)player.texture.width / 4.0f;
+    Rectangle playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
     Vector2 playerTextureSize = {80.0f, 80.0f};
-    //Draw player
     
-    DrawRectangleRec(player.hitBox, BLUE);  
+    //Draw hitbox
+    if(debugHitbox){
+        DrawRectangleRec(player.hitBox, BLUE);  
+    }
     
-    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f, playerTextureSize.x, playerTextureSize.y};
+    //Draw sprite
+    playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f + 1.5f, playerTextureSize.x, playerTextureSize.y};
     if(player.facingDirection == -1){
-        playerRec = {0,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
+        playerRec = {frameWidth * player.currentFrame,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
     } else if(player.facingDirection == 1){
-        playerRec = {0,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
+        playerRec = {frameWidth * player.currentFrame,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
     }
     DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
     
+    //Draw stats
     fontSize = 15;
     textWidth = MeasureText("Player", fontSize);
     DrawText(

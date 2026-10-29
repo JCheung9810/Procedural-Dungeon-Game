@@ -23,6 +23,12 @@ struct Player {
     Vector2 tempDirection;
     int facingDirection;
     
+    int currentFrame;
+    float frameTimer;
+    float frameSpeed;
+    bool isMoving;
+    
+    
     Weapon weapon;
 
     float dashTime;

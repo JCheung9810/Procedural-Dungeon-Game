@@ -12,9 +12,11 @@
 void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles,  
             Texture2D heartTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
-            int screenWidth, int screenHeight, bool exitWindowRequested
+            int screenWidth, int screenHeight, 
+            bool debugHitbox,
+            bool exitWindowRequested
 );
 
-void DrawPlayer(const Player& player);
+void DrawPlayer(const Player& player, bool debugHitbox);
 
 #endif
