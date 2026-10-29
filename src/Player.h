@@ -18,15 +18,14 @@ struct Player {
 
     Rectangle hitBox;
 
-    bool canMove;
-    bool dashing;
     Vector2 tempDirection;
     int facingDirection;
     
     int currentFrame;
     float frameTimer;
     float frameSpeed;
-    bool isMoving;
+    
+    char* state;    //idle, walking, dashing
     
     
     Weapon weapon;
