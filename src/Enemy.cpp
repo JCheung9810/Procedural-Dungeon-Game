@@ -19,6 +19,8 @@ void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
         enemies[numEnemies].attackRate = 1.0f;
         enemies[numEnemies].attackCD = enemies[numEnemies].attackRate;
         
+        enemies[numEnemies].state = (char*)"idle";
+        
         enemies[numEnemies].active = true;
     }
     
@@ -38,6 +40,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[]
                 rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
                 enemies[i].position.x += (cos(rot) * enemies[i].speed) * GetFrameTime();
                 enemies[i].position.y += (sin(rot) * enemies[i].speed) * GetFrameTime();
+                enemies[i].state = (char*)"walking";
             }
 
             //Update enemy positions

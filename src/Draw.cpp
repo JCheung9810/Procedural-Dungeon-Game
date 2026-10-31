@@ -86,6 +86,28 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             //Draw player
             DrawPlayer(player, debugHitbox);
             
+            //Draw gun
+            gunPos = {player.center.x - cos(playerToMouseRotation) * player.weapon.positionOffset,player.center.y - sin(playerToMouseRotation) * player.weapon.positionOffset};
+            gunRec = {0,0,(float)player.weapon.texture.width / 6.0f,(float)player.weapon.texture.height - 30.0f};
+            gunDest = {gunPos.x,gunPos.y,player.weapon.size,player.weapon.size};
+            gunAngle = playerToMouseRotation * RAD2DEG;
+            
+            if (gunAngle < -90 || gunAngle > 90){
+                gunRec.height = -gunRec.height;
+            }
+            
+            Color opacity;
+    
+            if(player.iFrames != 0.0f && !TextIsEqual(player.state, (char*)"dashing") && (int)(player.iFrames * 10)% 2 == 0){
+                opacity = (Color){255, 255, 255, 128};
+            } else {
+                opacity = (Color)WHITE;
+            }
+            
+
+            DrawTexturePro(player.weapon.texture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, opacity);
+            //              texture     source      dest               origin/pivot             rotation  color
+            
             //Draw dummy
             for (int i = 0; i < numEnemies; i++){
                 if (enemies[i].active){
@@ -114,20 +136,6 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
                     //DrawRectanglePro(projectiles[i].hitBox, (Vector2){projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
                     DrawRectangleRec(projectiles[i].hitBox, YELLOW);
             } 
-            
-            //Draw gun
-            gunPos = {player.center.x - cos(playerToMouseRotation) * player.weapon.positionOffset,player.center.y - sin(playerToMouseRotation) * player.weapon.positionOffset};
-            gunRec = {0,0,(float)player.weapon.texture.width / 6.0f,(float)player.weapon.texture.height - 30.0f};
-            gunDest = {gunPos.x,gunPos.y,player.weapon.size,player.weapon.size};
-            gunAngle = playerToMouseRotation * RAD2DEG;
-            
-            if (gunAngle < -90 || gunAngle > 90){
-                gunRec.height = -gunRec.height;
-            }
-            
-
-            DrawTexturePro(player.weapon.texture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, WHITE);
-            //              texture     source      dest               origin/pivot             rotation  color
       
         EndMode2D();
         
@@ -195,7 +203,16 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     } else if(player.facingDirection == 1){
         playerRec = {frameWidth * player.currentFrame,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
     }
-    DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, WHITE);
+    
+    Color opacity;
+    
+    if(player.iFrames != 0.0f && !TextIsEqual(player.state, (char*)"dashing") && (int)(player.iFrames * 10)% 2 == 0){
+        opacity = (Color){255, 255, 255, 128};
+    } else {
+        opacity = (Color)WHITE;
+    }
+    
+    DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, opacity);
     
     //Draw stats
     fontSize = 15;

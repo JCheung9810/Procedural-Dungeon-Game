@@ -17,8 +17,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - dodge/roll/dash
 
 # To Do
-- State machine
-- VFX iframe death
+- death
 - weapon spread, firerate, reload speed, projectile size
 - COMBAT
   - different guns

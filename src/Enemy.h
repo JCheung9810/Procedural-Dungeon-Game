@@ -21,6 +21,8 @@ struct Enemy {
     float attackRate;
     float attackCD;
     
+    char* state;    //idle, walking
+    
     bool active;
     Texture2D texture;
     
