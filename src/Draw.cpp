@@ -29,7 +29,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
 
     ClearBackground(RAYWHITE);
 
-    if (!exitWindowRequested){
+    if (!exitWindowRequested && player.health > 0.0f){
         
         BeginMode2D(camera);
         
@@ -164,14 +164,24 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             Rectangle heartTextureDest = {heartPos.x,heartPos.y, heartSize.x, heartSize.y};
             DrawTexturePro(heartTexture, heartTextureRec, heartTextureDest, {0,0}, 0, WHITE);
         }
-    } else {  
+    } else if(exitWindowRequested){  
     
         //Exit menu
         DrawRectangle(0, screenHeight/2 - 100, screenWidth, 200, BLACK);
         int fontSize = 30;
         int textWidth = MeasureText("Are you sure you want to exit program? [Y/N]", fontSize);
-        DrawText("Are you sure you want to exit program? [Y/N]", screenWidth/2 - textWidth/2, screenHeight/2 - fontSize/2, 30, WHITE);
+        DrawText("Are you sure you want to exit program? [Y/N]", screenWidth/2 - textWidth/2, screenHeight/2 - fontSize/2, fontSize, WHITE);
     
+    } else if(!exitWindowRequested && player.health <= 0.0f){
+        //Respawn menu
+        DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
+        int fontSize1 = 200;
+        int textWidth = MeasureText("YOU DIED", fontSize1);
+        DrawText("YOU DIED", screenWidth/2 - textWidth/2, screenHeight/2 - fontSize1/2, fontSize1, RED);
+        
+        int fontSize2 = 80;
+        textWidth = MeasureText("SPACE to Restart", fontSize2);
+        DrawText("SPACE to Restart", screenWidth/2 - textWidth/2, screenHeight/2 - fontSize2/2 + fontSize1, fontSize2, WHITE);
     }
     
     EndDrawing();

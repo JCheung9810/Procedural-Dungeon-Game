@@ -44,8 +44,8 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     
     player.center = {0,0};
     player.position = {
-        -player.center.x/2.0f, 
-        -player.center.y/2.0f
+        player.center.x - (playerSize.x/2.0f), 
+        player.center.y - (playerSize.y/2.0f)
     };
     player.hitBox = {
         player.position.x, 
