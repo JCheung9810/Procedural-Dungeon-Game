@@ -8,8 +8,7 @@
 
 using json = nlohmann::json;
 
-Weapon LoadWeapon(const char* filePath, const char* weaponName)
-{
+Weapon LoadWeapon(const char* filePath, const char* weaponName){
     Weapon weapon{};
 
     TraceLog(LOG_INFO, "Loading weapon: %s", weaponName);
@@ -33,14 +32,18 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName)
             {
                 std::string name = item.at("name").get<std::string>();
                 std::string type = item.at("type").get<std::string>();
-                std::string path = item.at("texturePath").get<std::string>();
+                std::string texturePath = item.at("texturePath").get<std::string>();
 
                 weapon.name = strdup(name.c_str());
                 weapon.type = strdup(type.c_str());
-                weapon.texturePath = strdup(path.c_str());
+                weapon.texturePath = strdup(texturePath.c_str());
 
+                weapon.textureFrames = item.at("textureFrames").get<int>();
                 weapon.size = item.at("size").get<float>();
-                weapon.positionOffset = item.at("positionOffset").get<float>();
+                
+                std::vector<float> posOffset = item.at("positionOffset").get<std::vector<float>>();
+                weapon.positionOffset = {posOffset[0], posOffset[1]};
+                
                 weapon.projectileOffset = item.at("projectileOffset").get<float>();
 
                 weapon.texture = LoadTexture(weapon.texturePath);

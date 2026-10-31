@@ -30,10 +30,20 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].team = (char*)"Player";
                 projectiles[i].rotation = playerToMouseRotation;
                 
-                if(TextIsEqual(player.weapon.type, "Pistol")){
-                    projectiles[i].position = (Vector2){player.center.x + cos(projectiles[i].rotation) * (player.weapon.projectileOffset), player.center.y + sin(projectiles[i].rotation) * (player.weapon.projectileOffset)};
+                if(TextIsEqual(player.weapon[player.equippedWeaponIndex].type, "Pistol")){
+                    projectiles[i].position = (Vector2){
+                        player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
+                        player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
+                    };
                     projectiles[i].damage = 1.0f;
                     projectiles[i].type = (char*)"Pistol";
+                } else if(TextIsEqual(player.weapon[player.equippedWeaponIndex].type, "Shotgun")){
+                    projectiles[i].position = (Vector2){
+                        player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
+                        player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
+                    };
+                    projectiles[i].damage = 1.0f;
+                    projectiles[i].type = (char*)"Shotgun";
                 }
                 
             } else if(TextIsEqual(team,"Enemy")){

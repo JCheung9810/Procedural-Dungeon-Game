@@ -8,11 +8,12 @@ struct Weapon {
     char* type;
     
     char* texturePath;
+    int textureFrames;
     Texture2D texture;
     
     float size;
-    float positionOffset; 
     
+    Vector2 positionOffset; 
     float projectileOffset;
     
 };

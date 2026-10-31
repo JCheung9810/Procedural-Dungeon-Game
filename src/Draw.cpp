@@ -16,10 +16,6 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             bool exitWindowRequested){
                 
                 
-    Vector2 gunPos;
-    Rectangle gunRec;
-    Rectangle gunDest;
-    float gunAngle;
     Vector2 mouseScreenPos = GetMousePosition();
     Rectangle cursorRec;
     Rectangle cursorDestination;
@@ -86,27 +82,8 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             //Draw player
             DrawPlayer(player, debugHitbox);
             
-            //Draw gun
-            gunPos = {player.center.x - cos(playerToMouseRotation) * player.weapon.positionOffset,player.center.y - sin(playerToMouseRotation) * player.weapon.positionOffset};
-            gunRec = {0,0,(float)player.weapon.texture.width / 6.0f,(float)player.weapon.texture.height - 30.0f};
-            gunDest = {gunPos.x,gunPos.y,player.weapon.size,player.weapon.size};
-            gunAngle = playerToMouseRotation * RAD2DEG;
-            
-            if (gunAngle < -90 || gunAngle > 90){
-                gunRec.height = -gunRec.height;
-            }
-            
-            Color opacity;
-    
-            if(player.iFrames != 0.0f && !TextIsEqual(player.state, (char*)"dashing") && (int)(player.iFrames * 10)% 2 == 0){
-                opacity = (Color){255, 255, 255, 128};
-            } else {
-                opacity = (Color)WHITE;
-            }
-            
-
-            DrawTexturePro(player.weapon.texture, gunRec, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, opacity);
-            //              texture     source      dest               origin/pivot             rotation  color
+            //Draw weapon
+            DrawWeapon(player, playerToMouseRotation);
             
             //Draw dummy
             for (int i = 0; i < numEnemies; i++){
@@ -139,6 +116,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
       
         EndMode2D();
         
+        //Draw cursor
         mouseScreenPos = GetMousePosition();
         cursorRec = {0, 0, (float)cursorTexture.width, (float)cursorTexture.height};
         cursorDestination = {mouseScreenPos.x + (float)cursorTexture.width/2.0f - cursorSize/2.0f, mouseScreenPos.y + (float)cursorTexture.height/2.0f - cursorSize/2.0f, cursorSize, cursorSize};
@@ -147,6 +125,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
 
         DrawTexturePro(cursorTexture, cursorRec, cursorDestination, cursorOrigin, 0.0f, WHITE);
         
+        //Draw health
         Vector2 heartSize = {100,100};
         
         for(int i = 0; i < (player.maxHealth / 2.0f); i++){
@@ -241,6 +220,34 @@ void DrawPlayer(const Player& player, bool debugHitbox){
         BLACK
     );  
     
+}
+
+void DrawWeapon(Player player, float playerToMouseRotation){
+    Vector2 gunPos;
+    Rectangle gunSrc;
+    Rectangle gunDest;
+    float gunAngle;
     
+    gunPos = {
+        player.center.x + cos(playerToMouseRotation) * player.weapon[player.equippedWeaponIndex].positionOffset.x,
+        player.center.y + sin(playerToMouseRotation) * player.weapon[player.equippedWeaponIndex].positionOffset.x
+    };
+    gunSrc = {0,0,(float)player.weapon[player.equippedWeaponIndex].texture.width / player.weapon[player.equippedWeaponIndex].textureFrames,(float)player.weapon[player.equippedWeaponIndex].texture.height - player.weapon[player.equippedWeaponIndex].positionOffset.y};
+    gunDest = {gunPos.x,gunPos.y,player.weapon[player.equippedWeaponIndex].size,player.weapon[player.equippedWeaponIndex].size};
+    gunAngle = playerToMouseRotation * RAD2DEG;
     
+    if (gunAngle < -90 || gunAngle > 90){
+        gunSrc.height = -gunSrc.height;
+    }
+    
+    Color opacity;
+
+    if(player.iFrames != 0.0f && !TextIsEqual(player.state, (char*)"dashing") && (int)(player.iFrames * 10)% 2 == 0){
+        opacity = (Color){255, 255, 255, 128};
+    } else {
+        opacity = (Color)WHITE;
+    }
+    
+    DrawTexturePro(player.weapon[player.equippedWeaponIndex].texture, gunSrc, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, opacity);
+    //              texture                                           source   dest               origin/pivot              rotation   color
 }

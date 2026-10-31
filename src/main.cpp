@@ -97,6 +97,16 @@ int main(void){
             //Update player
             UpdatePlayer(player, rooms, numRoomLocs, debug.speed, debug.wall);
             
+            //Weapon Swap
+            if(IsKeyPressed(KEY_Q)){
+                player.equippedWeaponIndex = (player.equippedWeaponIndex - 1);
+                if(player.equippedWeaponIndex < 0){
+                    player.equippedWeaponIndex = player.numWeapons - 1;
+                }
+            } else if(IsKeyPressed(KEY_E)){
+                player.equippedWeaponIndex = (player.equippedWeaponIndex + 1) % player.numWeapons;
+            }
+            
             //------------------------------ENEMY------------------------------
             //Update enemies
             UpdateEnemies(enemies, numEnemies, player, rooms, numRoomLocs);

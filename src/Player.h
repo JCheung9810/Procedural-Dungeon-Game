@@ -27,8 +27,9 @@ struct Player {
     
     char* state;    //idle, walking, dashing
     
-    
-    Weapon weapon;
+    int equippedWeaponIndex;
+    int numWeapons;
+    Weapon weapon[3];
 
     float dashTime;
     float dashCD;

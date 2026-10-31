@@ -65,7 +65,10 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
  
     player.state = (char*)"idle";
     
-    player.weapon = LoadWeapon("config/weapon.json", "Pistol");
+    player.numWeapons = 2;
+    player.equippedWeaponIndex = 0;
+    player.weapon[0] = LoadWeapon("config/weapon.json", "Pistol");
+    player.weapon[1] = LoadWeapon("config/weapon.json", "Double Barrel");
 
     player.dashTime = 0.0f;
     player.dashCD = 0.0f;

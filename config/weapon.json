@@ -4,17 +4,19 @@
             "name": "Pistol",
             "type": "Pistol",
             "texturePath": "assets/Pistol.png",
+            "textureFrames": 6,
             "size": 80.0,
-            "positionOffset": 20.0,
+            "positionOffset": [-20.0, 30.0],
             "projectileOffset": 25.0
         },
         {
             "name": "Double Barrel",
             "type": "Shotgun",
-            "texturePath": "assets/Shotgun.png",
-            "size": 40.0,
-            "positionOffset": 18.0,
-            "projectileOffset": 28.0
+            "texturePath": "assets/DoubleBarrel.png",
+            "textureFrames": 1,
+            "size": 80.0,
+            "positionOffset": [-20.0, 30.0],
+            "projectileOffset": 50.0
         }
     ]
 }

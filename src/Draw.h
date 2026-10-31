@@ -18,5 +18,6 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
 );
 
 void DrawPlayer(const Player& player, bool debugHitbox);
+void DrawWeapon(Player player, float playerToMouseRotation);
 
 #endif
