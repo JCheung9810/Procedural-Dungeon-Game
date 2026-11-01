@@ -19,13 +19,18 @@ struct Weapon {
     float projectileOffset;
     float projectileSize;
     
-    float reloadTime;
+    float reloadTime;       //"Reload Rate"
     float reloadTimer;
     bool reloading;
     
     int magSize;
     int mag;
-    float firerate;
+    
+    float fireTime;         //Rate of fire in seconds = 1 proj / n seconds
+    float fireTimer;        //Timer for firing
+    
+    float firerate;         //"Firerate" = 1/ fireTime =   n proj / 1 second
+    
     float bulletSpread;
     
     float damage;

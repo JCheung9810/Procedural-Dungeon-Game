@@ -24,7 +24,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
             if(TextIsEqual(team,"Player")){
-                if(player.weapon[player.equippedWeaponIndex].mag >= 1){
+                if(player.weapon[player.equippedWeaponIndex].mag >= 1 && player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f){
                     projectiles[i].active = true;
                     projectiles[i].lifeSpan = projectileLifespan; 
                     
@@ -40,6 +40,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                     projectiles[i].type = player.weapon[player.equippedWeaponIndex].type;
                     
                     player.weapon[player.equippedWeaponIndex].mag -= 1;
+                    player.weapon[player.equippedWeaponIndex].fireTimer = player.weapon[player.equippedWeaponIndex].fireTime;
                 } else {
                     break;
                 }

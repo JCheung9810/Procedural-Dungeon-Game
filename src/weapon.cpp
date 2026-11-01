@@ -50,12 +50,14 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.projectileSize = item.at("projectileSize").get<float>();
                 weapon.reloadTime = item.at("reloadTime").get<float>();
                 weapon.magSize = item.at("magSize").get<int>();
-                weapon.firerate = item.at("firerate").get<float>();
+                weapon.fireTime = item.at("fireTime").get<float>();
                 weapon.bulletSpread = item.at("bulletSpread").get<float>();
                 weapon.damage = item.at("damage").get<float>();
 
                 weapon.texture = LoadTexture(weapon.texturePath);
                 
+                weapon.fireTimer = 0.0f;
+                weapon.firerate = 1.0f / weapon.fireTime;
                 weapon.mag = weapon.magSize;
 
                 if (weapon.texture.id == 0)
@@ -94,5 +96,12 @@ void UpdateWeapon(Player& player){
             player.weapon[player.equippedWeaponIndex].reloading = false;
             player.weapon[player.equippedWeaponIndex].mag = player.weapon[player.equippedWeaponIndex].magSize;
         }
+    }
+    if(player.weapon[player.equippedWeaponIndex].fireTimer > 0.0f){
+        player.weapon[player.equippedWeaponIndex].fireTimer -= GetFrameTime();
+        if(player.weapon[player.equippedWeaponIndex].fireTimer < 0.0f){
+            player.weapon[player.equippedWeaponIndex].fireTimer = 0.0f;
+        }
+        
     }
 }

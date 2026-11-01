@@ -11,7 +11,7 @@
             "projectileSize": 1.0,
             "reloadTime": 1.0,
             "magSize": 8,
-            "firerate": 1.0,
+            "fireTime": 0.5,
             "bulletSpread": 5.0,
             "damage": 10.0
         },
@@ -26,7 +26,7 @@
             "projectileSize": 1.0,
             "reloadTime": 2.0,
             "magSize": 2,
-            "firerate": 0.5,
+            "fireTime": 1.0,
             "bulletSpread": 5.0,
             "damage": 10.0
         }
