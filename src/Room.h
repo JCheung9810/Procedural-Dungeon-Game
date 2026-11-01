@@ -1,5 +1,4 @@
-#ifndef ROOM_H
-#define ROOM_H
+#pragma once
 
 #include "raylib.h"
 
@@ -40,5 +39,3 @@ void SortRooms(Room rooms[], int numRoomLocs);
 void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize);
 void GenerateEndRoom(Room rooms[], int& numRoomLocs);
 void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRooms, int& numRoomLocs);
-
-#endif

@@ -1,5 +1,7 @@
 #include "weapon.h"
 
+#include "player.h"
+
 #include "json.hpp"
 
 #include <fstream>
@@ -46,7 +48,7 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 
                 weapon.projectileOffset = item.at("projectileOffset").get<float>();
                 weapon.projectileSize = item.at("projectileSize").get<float>();
-                weapon.reloadSpeed = item.at("reloadSpeed").get<float>();
+                weapon.reloadTime = item.at("reloadTime").get<float>();
                 weapon.magSize = item.at("magSize").get<int>();
                 weapon.firerate = item.at("firerate").get<float>();
                 weapon.bulletSpread = item.at("bulletSpread").get<float>();
@@ -77,4 +79,20 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
     }
 
     return weapon;
+}
+
+void ReloadWeapon(Player& player){
+    player.weapon[player.equippedWeaponIndex].reloading = true;
+    player.weapon[player.equippedWeaponIndex].reloadTimer = player.weapon[player.equippedWeaponIndex].reloadTime;
+}
+
+void UpdateWeapon(Player& player){
+    if(player.weapon[player.equippedWeaponIndex].reloading == true){
+        player.weapon[player.equippedWeaponIndex].reloadTimer -= GetFrameTime();
+        if(player.weapon[player.equippedWeaponIndex].reloadTimer <= 0.0f){
+            player.weapon[player.equippedWeaponIndex].reloadTimer = 0.0f;
+            player.weapon[player.equippedWeaponIndex].reloading = false;
+            player.weapon[player.equippedWeaponIndex].mag = player.weapon[player.equippedWeaponIndex].magSize;
+        }
+    }
 }

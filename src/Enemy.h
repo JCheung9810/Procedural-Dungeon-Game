@@ -1,5 +1,4 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#pragma once
 
 #include "player.h"
 #include "room.h"
@@ -30,5 +29,3 @@ struct Enemy {
 
 void AddEnemy(Enemy enemies[], const char* name, int& numEnemies);
 void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[], int numRoomLocs);
-
-#endif

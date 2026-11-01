@@ -1,5 +1,4 @@
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
+#pragma once
 
 #include "player.h"
 #include "enemy.h"
@@ -34,5 +33,3 @@ struct Projectile {
 void InitializeProjectiles(Projectile projectiles[], int maxProjectiles);
 void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy);
 void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Player& player);
-
-#endif

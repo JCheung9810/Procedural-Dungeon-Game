@@ -1,5 +1,4 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#pragma once
 
 #include "raylib.h"
 
@@ -12,5 +11,3 @@ struct Debug {
     bool hitbox = false;
 
 };
-
-#endif

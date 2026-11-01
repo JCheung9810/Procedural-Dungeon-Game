@@ -1,7 +1,9 @@
-#ifndef WEAPON_H
-#define WEAPON_H
+#pragma once
 
 #include "raylib.h"
+
+//Forward declaration
+struct Player;
 
 struct Weapon {
     const char* name;
@@ -17,7 +19,10 @@ struct Weapon {
     float projectileOffset;
     float projectileSize;
     
-    float reloadSpeed;
+    float reloadTime;
+    float reloadTimer;
+    bool reloading;
+    
     int magSize;
     int mag;
     float firerate;
@@ -28,5 +33,5 @@ struct Weapon {
 };
 
 Weapon LoadWeapon(const char* filePath, const char* weaponName);
-
-#endif
+void ReloadWeapon(Player& player);
+void UpdateWeapon(Player& player);
