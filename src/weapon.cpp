@@ -17,24 +17,21 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
 
     std::ifstream file(filePath);
 
-    if (!file.is_open())
-    {
+    if(!file.is_open()) {
         TraceLog(LOG_ERROR, "Failed to open weapon config: %s", filePath);
         return weapon;
     }
 
-    try
-    {
+    try {
         json data;
         file >> data;
 
-        for (const auto& item : data.at("weapons"))
-        {
-            if (item.at("name").get<std::string>() == weaponName)
-            {
+        for (const auto& item : data.at("weapons")) {
+            if (item.at("name").get<std::string>() == weaponName) {
                 std::string name = item.at("name").get<std::string>();
                 std::string type = item.at("type").get<std::string>();
                 std::string texturePath = item.at("texturePath").get<std::string>();
+                std::string fireMode = item.at("fireMode").get<std::string>();
 
                 weapon.name = strdup(name.c_str());
                 weapon.type = strdup(type.c_str());
@@ -59,13 +56,19 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.fireTimer = 0.0f;
                 weapon.firerate = 1.0f / weapon.fireTime;
                 weapon.mag = weapon.magSize;
+                
+                if(fireMode == "SINGLE"){
+                    weapon.fireMode = FireMode::SINGLE;
+                } else if(fireMode == "AUTOMATIC"){
+                    weapon.fireMode = FireMode::AUTOMATIC;
+                } else {
+                    TraceLog(LOG_WARNING, "Unknown fire mode: %s", fireMode.c_str());
+                }
 
-                if (weapon.texture.id == 0)
-                {
+                if (weapon.texture.id == 0) {
                     TraceLog(LOG_ERROR, "Failed to load weapon texture: %s", weapon.texturePath);
                 }
-                else
-                {
+                else {
                     TraceLog(LOG_INFO, "Loaded weapon: %s (Type: %s)", weapon.name, weapon.type);
                 }
 
@@ -84,24 +87,30 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
 }
 
 void ReloadWeapon(Player& player){
-    player.weapon[player.equippedWeaponIndex].reloading = true;
-    player.weapon[player.equippedWeaponIndex].reloadTimer = player.weapon[player.equippedWeaponIndex].reloadTime;
+    if(player.weapon[player.equippedWeaponIndex].reloading == false && player.weapon[player.equippedWeaponIndex].mag < player.weapon[player.equippedWeaponIndex].magSize){
+        player.weapon[player.equippedWeaponIndex].reloading = true;
+        player.weapon[player.equippedWeaponIndex].reloadTimer = player.weapon[player.equippedWeaponIndex].reloadTime;
+    }
 }
 
 void UpdateWeapon(Player& player){
-    if(player.weapon[player.equippedWeaponIndex].reloading == true){
-        player.weapon[player.equippedWeaponIndex].reloadTimer -= GetFrameTime();
-        if(player.weapon[player.equippedWeaponIndex].reloadTimer <= 0.0f){
-            player.weapon[player.equippedWeaponIndex].reloadTimer = 0.0f;
-            player.weapon[player.equippedWeaponIndex].reloading = false;
-            player.weapon[player.equippedWeaponIndex].mag = player.weapon[player.equippedWeaponIndex].magSize;
-        }
-    }
-    if(player.weapon[player.equippedWeaponIndex].fireTimer > 0.0f){
-        player.weapon[player.equippedWeaponIndex].fireTimer -= GetFrameTime();
-        if(player.weapon[player.equippedWeaponIndex].fireTimer < 0.0f){
-            player.weapon[player.equippedWeaponIndex].fireTimer = 0.0f;
+    //Update reload and fire times
+    for(int i = 0; i < player.numWeapons; i++){
+        if(player.weapon[i].reloading == true){
+            player.weapon[i].reloadTimer -= GetFrameTime();
+            if(player.weapon[i].reloadTimer <= 0.0f){
+                player.weapon[i].reloadTimer = 0.0f;
+                player.weapon[i].reloading = false;
+                player.weapon[i].mag = player.weapon[i].magSize;
+            }
         }
         
+        if(player.weapon[i].fireTimer > 0.0f){
+            player.weapon[i].fireTimer -= GetFrameTime();
+            if(player.weapon[i].fireTimer < 0.0f){
+                player.weapon[i].fireTimer = 0.0f;
+            }
+        
+        }
     }
 }

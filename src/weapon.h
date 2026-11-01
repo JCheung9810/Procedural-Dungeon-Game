@@ -5,6 +5,11 @@
 //Forward declaration
 struct Player;
 
+enum class FireMode {
+    SINGLE,
+    AUTOMATIC
+};
+
 struct Weapon {
     const char* name;
     const char* type;
@@ -30,6 +35,8 @@ struct Weapon {
     float fireTimer;        //Timer for firing
     
     float firerate;         //"Firerate" = 1/ fireTime =   n proj / 1 second
+    
+    FireMode fireMode;
     
     float bulletSpread;
     

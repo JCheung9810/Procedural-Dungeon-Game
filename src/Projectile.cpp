@@ -24,26 +24,32 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
             if(TextIsEqual(team,"Player")){
-                if(player.weapon[player.equippedWeaponIndex].mag >= 1 && player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f){
-                    projectiles[i].active = true;
-                    projectiles[i].lifeSpan = projectileLifespan; 
-                    
-                    projectiles[i].team = "Player";
-                    projectiles[i].rotation = playerToMouseRotation;
-                    
-                    projectiles[i].position = (Vector2){
-                        player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
-                        player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
-                    };
-                    
-                    projectiles[i].damage = player.weapon[player.equippedWeaponIndex].damage;
-                    projectiles[i].type = player.weapon[player.equippedWeaponIndex].type;
-                    
-                    player.weapon[player.equippedWeaponIndex].mag -= 1;
-                    player.weapon[player.equippedWeaponIndex].fireTimer = player.weapon[player.equippedWeaponIndex].fireTime;
-                } else {
-                    break;
+                projectiles[i].active = true;
+                projectiles[i].lifeSpan = projectileLifespan; 
+                
+                projectiles[i].team = "Player";
+                projectiles[i].rotation = playerToMouseRotation;
+                
+                projectiles[i].position = (Vector2){
+                    player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
+                    player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
+                };
+                
+                projectiles[i].damage = player.weapon[player.equippedWeaponIndex].damage;
+                projectiles[i].type = player.weapon[player.equippedWeaponIndex].type;
+                
+                
+                //Set fire timer
+                player.weapon[player.equippedWeaponIndex].fireTimer = player.weapon[player.equippedWeaponIndex].fireTime;
+                
+                //Decrease number of bullets in mag
+                player.weapon[player.equippedWeaponIndex].mag--;
+                
+                //Auto reload
+                if(player.weapon[player.equippedWeaponIndex].mag == 0){
+                    ReloadWeapon(player);
                 }
+
             } else if(TextIsEqual(team,"Enemy")){
                 projectiles[i].active = true;
                 projectiles[i].lifeSpan = projectileLifespan; 
@@ -98,16 +104,23 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[
                     }
                 }
                 
+                //Skip entity collision check if collided with wall
+                if(!projectiles[i].active){
+                    continue;
+                }
+                
                 //Check enemy collision
                 for(int j = 0; j < numEnemies; j++){
                     if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectiles[i].hitBox) && TextIsEqual(projectiles[i].team, "Player")){
                         projectiles[i].active = false;
                         projectiles[i].lifeSpan = 0.0f;
                         
-                        enemies[j].health -= 10.0f;
+                        enemies[j].health -= projectiles[i].damage;
                         if(enemies[j].health <= 0.0f){
                             enemies[j].active = false;
                         }
+                        
+                        break;
                     }
                 }
                 

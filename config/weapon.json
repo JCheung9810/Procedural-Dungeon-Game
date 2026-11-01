@@ -9,9 +9,10 @@
             "positionOffset": [-20.0, 30.0],
             "projectileOffset": 25.0,
             "projectileSize": 1.0,
-            "reloadTime": 1.0,
+            "reloadTime": 2.0,
             "magSize": 8,
             "fireTime": 0.5,
+            "fireMode": "SINGLE",
             "bulletSpread": 5.0,
             "damage": 10.0
         },
@@ -24,9 +25,10 @@
             "positionOffset": [-20.0, 30.0],
             "projectileOffset": 50.0,
             "projectileSize": 1.0,
-            "reloadTime": 2.0,
+            "reloadTime": 3.0,
             "magSize": 2,
             "fireTime": 1.0,
+            "fireMode": "SINGLE",
             "bulletSpread": 5.0,
             "damage": 10.0
         }

@@ -31,7 +31,7 @@ int main(void){
     SetTargetFPS(60);
     
     //Debugging
-    Debug debug;
+    Debug debug{};
     
     //Disable escape key to close window
     SetExitKey(KEY_NULL);
@@ -55,7 +55,7 @@ int main(void){
     
     //Mouse
     Vector2 mouseWorldPos;
-    float playerToMouseRotation;
+    float playerToMouseRotation = 0.0f;
     float cursorSize = 60.0f;
     
     HideCursor();
@@ -125,11 +125,23 @@ int main(void){
             playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);
             
             //Fire player projectile
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-                FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+            if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){
+                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
+                player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f && 
+                player.weapon[player.equippedWeaponIndex].reloading == false)
+                {
+                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+                }
+            } else if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
+                if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
+                player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f &&
+                player.weapon[player.equippedWeaponIndex].reloading == false)
+                {
+                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+                }
             }
             
-            //Fire test enemy projectile     
+            //Fire test enemy projectiles     
             for(int i = 0; i < numEnemies; i++){
                 enemies[i].attackCD -= GetFrameTime();
                 if(enemies[i].attackCD <= 0.0f){
@@ -138,6 +150,7 @@ int main(void){
                 }
             }
             
+            //Update all projectiles
             UpdateProjectiles(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
 
             //------------------------------CAMERA------------------------------      
