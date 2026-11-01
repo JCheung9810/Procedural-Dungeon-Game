@@ -28,7 +28,12 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].lifeSpan = projectileLifespan; 
                 
                 projectiles[i].team = "Player";
-                projectiles[i].rotation = playerToMouseRotation;
+                
+                //Projectile rotation to target
+                int spread = (int) (player.weapon[player.equippedWeaponIndex].bulletSpread * 10);
+                float randSpread = GetRandomValue(-spread, spread) / 10.0f;
+                float projectileRotation = playerToMouseRotation * RAD2DEG + randSpread;
+                projectiles[i].rotation = projectileRotation * DEG2RAD;
                 
                 projectiles[i].position = (Vector2){
                     player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 

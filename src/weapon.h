@@ -38,7 +38,7 @@ struct Weapon {
     
     FireMode fireMode;
     
-    float bulletSpread;
+    float bulletSpread;     //to do
     
     float damage;
     

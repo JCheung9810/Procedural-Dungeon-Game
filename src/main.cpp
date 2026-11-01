@@ -122,7 +122,7 @@ int main(void){
             //------------------------------PROJECTILES------------------------------
             //Update mouse
             mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
-            playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);
+            playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);    //RADIANS
             
             //Fire player projectile
             if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){

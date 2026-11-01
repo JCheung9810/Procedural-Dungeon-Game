@@ -17,6 +17,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - dodge/roll/dash
 
 # To Do
+- Add spread to enemies
 - COMBAT
   - different guns
   - mag size
