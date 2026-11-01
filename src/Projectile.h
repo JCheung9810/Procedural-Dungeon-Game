@@ -18,8 +18,8 @@ struct Projectile {
     
     bool active;
     
-    char* team;
-    char* type;
+    const char* team;
+    const char* type;
     
     float damage;
     
@@ -32,7 +32,7 @@ struct Projectile {
 };
 
 void InitializeProjectiles(Projectile projectiles[], int maxProjectiles);
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* team, float projectileLifespan, Player player, Enemy enemy);
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy);
 void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Player& player);
 
 #endif

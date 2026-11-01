@@ -20,40 +20,43 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     }    
 }
 
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, char* team, float projectileLifespan, Player player, Enemy enemy){       
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy){       
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
-            projectiles[i].active = true;
-            projectiles[i].lifeSpan = projectileLifespan; 
-            
             if(TextIsEqual(team,"Player")){
-                projectiles[i].team = (char*)"Player";
-                projectiles[i].rotation = playerToMouseRotation;
-                
-                if(TextIsEqual(player.weapon[player.equippedWeaponIndex].type, "Pistol")){
+                if(player.weapon[player.equippedWeaponIndex].mag >= 1){
+                    projectiles[i].active = true;
+                    projectiles[i].lifeSpan = projectileLifespan; 
+                    
+                    projectiles[i].team = "Player";
+                    projectiles[i].rotation = playerToMouseRotation;
+                    
                     projectiles[i].position = (Vector2){
                         player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
                         player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
                     };
-                    projectiles[i].damage = 1.0f;
-                    projectiles[i].type = (char*)"Pistol";
-                } else if(TextIsEqual(player.weapon[player.equippedWeaponIndex].type, "Shotgun")){
-                    projectiles[i].position = (Vector2){
-                        player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
-                        player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
-                    };
-                    projectiles[i].damage = 1.0f;
-                    projectiles[i].type = (char*)"Shotgun";
+                    
+                    projectiles[i].damage = player.weapon[player.equippedWeaponIndex].damage;
+                    projectiles[i].type = player.weapon[player.equippedWeaponIndex].type;
+                    
+                    player.weapon[player.equippedWeaponIndex].mag -= 1;
+                } else {
+                    break;
                 }
-                
             } else if(TextIsEqual(team,"Enemy")){
-                projectiles[i].team = (char*)"Enemy";
+                projectiles[i].active = true;
+                projectiles[i].lifeSpan = projectileLifespan; 
+                
+                projectiles[i].team = "Enemy";
                 projectiles[i].rotation = atan2(player.center.y - enemy.center.y, player.center.x - enemy.center.x);
                 
                 projectiles[i].position = enemy.center;
                 projectiles[i].damage = 1.0f;
-                projectiles[i].type = (char*)"Pistol";
+                projectiles[i].type = "Pistol";
+            } else {
+                break;
             }
+            
             projectiles[i].speed.x = cos(projectiles[i].rotation) * 500;
             projectiles[i].speed.y = sin(projectiles[i].rotation) * 500;
             

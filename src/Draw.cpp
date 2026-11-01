@@ -195,7 +195,7 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     
     Color opacity;
     
-    if(player.iFrames != 0.0f && !TextIsEqual(player.state, (char*)"dashing") && (int)(player.iFrames * 10)% 2 == 0){
+    if(player.iFrames != 0.0f && !TextIsEqual(player.state, "dashing") && (int)(player.iFrames * 10)% 2 == 0){
         opacity = (Color){255, 255, 255, 128};
     } else {
         opacity = (Color)WHITE;
@@ -242,7 +242,7 @@ void DrawWeapon(Player player, float playerToMouseRotation){
     
     Color opacity;
 
-    if(player.iFrames != 0.0f && !TextIsEqual(player.state, (char*)"dashing") && (int)(player.iFrames * 10)% 2 == 0){
+    if(player.iFrames != 0.0f && !TextIsEqual(player.state, "dashing") && (int)(player.iFrames * 10)% 2 == 0){
         opacity = (Color){255, 255, 255, 128};
     } else {
         opacity = (Color)WHITE;

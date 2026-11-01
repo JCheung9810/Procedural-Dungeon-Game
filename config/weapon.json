@@ -7,7 +7,13 @@
             "textureFrames": 6,
             "size": 80.0,
             "positionOffset": [-20.0, 30.0],
-            "projectileOffset": 25.0
+            "projectileOffset": 25.0,
+            "projectileSize": 1.0,
+            "reloadSpeed": 1.0,
+            "magSize": 8,
+            "firerate": 1.0,
+            "bulletSpread": 5.0,
+            "damage": 10.0
         },
         {
             "name": "Double Barrel",
@@ -16,7 +22,13 @@
             "textureFrames": 1,
             "size": 80.0,
             "positionOffset": [-20.0, 30.0],
-            "projectileOffset": 50.0
+            "projectileOffset": 50.0,
+            "projectileSize": 1.0,
+            "reloadSpeed": 2.0,
+            "magSize": 2,
+            "firerate": 0.5,
+            "bulletSpread": 5.0,
+            "damage": 10.0
         }
     ]
 }

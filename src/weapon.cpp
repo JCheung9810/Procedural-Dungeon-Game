@@ -45,8 +45,16 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.positionOffset = {posOffset[0], posOffset[1]};
                 
                 weapon.projectileOffset = item.at("projectileOffset").get<float>();
+                weapon.projectileSize = item.at("projectileSize").get<float>();
+                weapon.reloadSpeed = item.at("reloadSpeed").get<float>();
+                weapon.magSize = item.at("magSize").get<int>();
+                weapon.firerate = item.at("firerate").get<float>();
+                weapon.bulletSpread = item.at("bulletSpread").get<float>();
+                weapon.damage = item.at("damage").get<float>();
 
                 weapon.texture = LoadTexture(weapon.texturePath);
+                
+                weapon.mag = weapon.magSize;
 
                 if (weapon.texture.id == 0)
                 {

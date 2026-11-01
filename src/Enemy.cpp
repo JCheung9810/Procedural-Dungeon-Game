@@ -5,9 +5,9 @@
 
 #include <raymath.h>
 
-void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
+void AddEnemy(Enemy enemies[], const char* name, int& numEnemies){
     if(TextIsEqual(name, "Dummy")){
-        enemies[numEnemies].name = (char*)"Dummy";
+        enemies[numEnemies].name = "Dummy";
         enemies[numEnemies].speed = 150.0f;
         enemies[numEnemies].position = (Vector2){300,-300};
         enemies[numEnemies].health = 100.0f;
@@ -19,7 +19,7 @@ void AddEnemy(Enemy enemies[], char* name, int& numEnemies){
         enemies[numEnemies].attackRate = 1.0f;
         enemies[numEnemies].attackCD = enemies[numEnemies].attackRate;
         
-        enemies[numEnemies].state = (char*)"idle";
+        enemies[numEnemies].state = "idle";
         
         enemies[numEnemies].active = true;
     }
@@ -40,7 +40,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[]
                 rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
                 enemies[i].position.x += (cos(rot) * enemies[i].speed) * GetFrameTime();
                 enemies[i].position.y += (sin(rot) * enemies[i].speed) * GetFrameTime();
-                enemies[i].state = (char*)"walking";
+                enemies[i].state = "walking";
             }
 
             //Update enemy positions

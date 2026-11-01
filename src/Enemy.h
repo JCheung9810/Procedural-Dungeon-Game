@@ -7,7 +7,7 @@
 #include "raylib.h"
 
 struct Enemy {
-    char* name;
+    const char* name;
     
     Vector2 size;
     Vector2 position;
@@ -21,14 +21,14 @@ struct Enemy {
     float attackRate;
     float attackCD;
     
-    char* state;    //idle, walking
+    const char* state;    //idle, walking
     
     bool active;
     Texture2D texture;
     
 };
 
-void AddEnemy(Enemy enemies[], char* name, int& numEnemies);
+void AddEnemy(Enemy enemies[], const char* name, int& numEnemies);
 void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[], int numRoomLocs);
 
 #endif

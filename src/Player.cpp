@@ -63,7 +63,7 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.frameTimer = 0.0f;
     player.frameSpeed = 0.1f;
  
-    player.state = (char*)"idle";
+    player.state = "idle";
     
     player.numWeapons = 2;
     player.equippedWeaponIndex = 0;
@@ -90,7 +90,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     }
     
     //Execute movement
-    if(!TextIsEqual(player.state, (char*)"dashing")){
+    if(!TextIsEqual(player.state, "dashing")){
         if(IsKeyDown(KEY_D))
             xDir += 1.0f;
         
@@ -159,22 +159,22 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     }
     
     //Detect state
-    if((xDir != 0.0f || yDir != 0.0f) && !TextIsEqual(player.state, (char*)"dashing")){
-        player.state = (char*)"walking";
-    } else if(!TextIsEqual(player.state, (char*)"dashing")){
-        player.state = (char*)"idle";
+    if((xDir != 0.0f || yDir != 0.0f) && !TextIsEqual(player.state, "dashing")){
+        player.state = "walking";
+    } else if(!TextIsEqual(player.state, "dashing")){
+        player.state = "idle";
     }
             
     //Detect dash
-    if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && (TextIsEqual(player.state, (char*)"walking"))){
-        player.state = (char*)"dashing";
+    if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && (TextIsEqual(player.state, "walking"))){
+        player.state = "dashing";
         player.tempDirection = Vector2Scale(player.direction, 2.0f);
         player.dashTime = 0.2f;
         player.iFrames = player.dashTime;
     }
     
     //Execute Dash
-    if(TextIsEqual(player.state, (char*)"dashing")){                        
+    if(TextIsEqual(player.state, "dashing")){                        
         //Translate player, detect collision (x)
         player.position.x += player.tempDirection.x * GetFrameTime();
         player.hitBox.x = player.position.x;
@@ -221,7 +221,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
 
             if(player.dashTime < 0.0f){
                 player.dashTime = 0.0f;
-                player.state = (char*)"idle";
+                player.state = "idle";
                 player.dashCD = 1.0f;
             }
         }
@@ -252,7 +252,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     };
 
     //Animation  
-    if(TextIsEqual(player.state, (char*)"walking")){
+    if(TextIsEqual(player.state, "walking")){
         player.frameTimer += GetFrameTime();
 
         if(player.frameTimer >= player.frameSpeed){
@@ -262,11 +262,11 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
             if (player.currentFrame >= 4)
                 player.currentFrame = 0;
         }
-    } else if(TextIsEqual(player.state, (char*)"idle")){
+    } else if(TextIsEqual(player.state, "idle")){
         //Reset to idle animation
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
-    } else if(TextIsEqual(player.state, (char*)"dashing")){
+    } else if(TextIsEqual(player.state, "dashing")){
         //Update this
         //Reset to idle animation
         player.currentFrame = 0;

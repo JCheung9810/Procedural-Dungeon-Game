@@ -25,7 +25,7 @@ struct Player {
     float frameTimer;
     float frameSpeed;
     
-    char* state;    //idle, walking, dashing
+    const char* state;    //idle, walking, dashing
     
     int equippedWeaponIndex;
     int numWeapons;

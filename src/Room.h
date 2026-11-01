@@ -4,7 +4,7 @@
 #include "raylib.h"
 
 struct Room {
-    char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
+    const char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
     Vector2 size;
     Vector2 position;
     Vector2 gridPos;
@@ -35,9 +35,9 @@ DungeonConfig LoadDungeonConfig(const char* filePath);
 bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs);
 bool ValidRoomInDirection(Room currentRoom, char direction);
 void AddDirection(char directions[], char direction);
-char* TestDeadEnd(Room rooms[], Room currentRoom, int numRoomLocs);
+const char* TestDeadEnd(Room rooms[], Room currentRoom, int numRoomLocs);
 void SortRooms(Room rooms[], int numRoomLocs);
-void AddRoom(Room rooms[], char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize);
+void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize);
 void GenerateEndRoom(Room rooms[], int& numRoomLocs);
 void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRooms, int& numRoomLocs);
 

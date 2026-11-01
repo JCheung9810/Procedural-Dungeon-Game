@@ -4,10 +4,10 @@
 #include "raylib.h"
 
 struct Weapon {
-    char* name;
-    char* type;
+    const char* name;
+    const char* type;
     
-    char* texturePath;
+    const char* texturePath;
     int textureFrames;
     Texture2D texture;
     
@@ -15,6 +15,15 @@ struct Weapon {
     
     Vector2 positionOffset; 
     float projectileOffset;
+    float projectileSize;
+    
+    float reloadSpeed;
+    int magSize;
+    int mag;
+    float firerate;
+    float bulletSpread;
+    
+    float damage;
     
 };
 

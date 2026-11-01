@@ -47,7 +47,7 @@ int main(void){
     int numEnemies = 0;
     Enemy enemies[100] = {0};
     
-    AddEnemy(enemies, (char*)"Dummy", numEnemies);
+    AddEnemy(enemies, "Dummy", numEnemies);
     
     //Camera
     Camera2D camera = {0};
@@ -118,14 +118,14 @@ int main(void){
             
             //Fire player projectile
             if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-                FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, (char*)"Player", projectileLifespan, player, enemies[0]);
+                FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
             }
             
             //Fire test enemy projectile     
             for(int i = 0; i < numEnemies; i++){
                 enemies[i].attackCD -= GetFrameTime();
                 if(enemies[i].attackCD <= 0.0f){
-                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, (char*)"Enemy", projectileLifespan, player, enemies[i]);
+                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, enemies[i]);
                     enemies[i].attackCD = enemies[i].attackRate;
                 }
             }
