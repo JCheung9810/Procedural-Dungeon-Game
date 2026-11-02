@@ -23,7 +23,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
                 
     BeginDrawing();
 
-    ClearBackground(RAYWHITE);
+    ClearBackground(GRAY);
 
     if (!exitWindowRequested && player.health > 0.0f){
         

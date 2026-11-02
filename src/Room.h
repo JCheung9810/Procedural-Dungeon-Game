@@ -21,7 +21,6 @@ struct EnemySpawnInfo {
 };
 
 struct RoomContent {
-    int numEnemiesActive;
     int numEnemiesSpawn;
     
     int numEnemyTypes;
