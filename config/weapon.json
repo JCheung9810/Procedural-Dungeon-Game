@@ -14,6 +14,7 @@
             "fireTime": 0.5,
             "fireMode": "SINGLE",
             "bulletSpread": 5.0,
+            "numProjectiles": 1,
             "damage": 10.0
         },
         {
@@ -29,8 +30,9 @@
             "magSize": 2,
             "fireTime": 1.0,
             "fireMode": "SINGLE",
-            "bulletSpread": 5.0,
-            "damage": 10.0
+            "bulletSpread": 15.0,
+            "numProjectiles": 10,
+            "damage": 1.5
         }
     ]
 }

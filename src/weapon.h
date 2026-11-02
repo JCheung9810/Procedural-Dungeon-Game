@@ -24,6 +24,8 @@ struct Weapon {
     float projectileOffset;
     float projectileSize;
     
+    int numProjectiles;     //Projectiles in 1 shot
+    
     float reloadTime;       //"Reload Rate"
     float reloadTimer;
     bool reloading;
@@ -38,7 +40,7 @@ struct Weapon {
     
     FireMode fireMode;
     
-    float bulletSpread;     //to do
+    float bulletSpread;     //Range of angle deviating from player to target        5 = +- 5 degrees
     
     float damage;
     

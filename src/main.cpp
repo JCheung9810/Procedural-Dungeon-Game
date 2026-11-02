@@ -68,7 +68,7 @@ int main(void){
     
     //Projectile
     float projectileLifespan = 5.0f;
-    int maxProjectiles = 100;
+    int maxProjectiles = 200;
     Projectile projectiles[maxProjectiles] = {0};
     
     InitializeProjectiles(projectiles, maxProjectiles);

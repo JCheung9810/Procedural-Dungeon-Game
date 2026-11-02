@@ -49,6 +49,7 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.magSize = item.at("magSize").get<int>();
                 weapon.fireTime = item.at("fireTime").get<float>();
                 weapon.bulletSpread = item.at("bulletSpread").get<float>();
+                weapon.numProjectiles = item.at("numProjectiles").get<int>();
                 weapon.damage = item.at("damage").get<float>();
 
                 weapon.texture = LoadTexture(weapon.texturePath);

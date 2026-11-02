@@ -6,7 +6,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Dead end generation
   - Room types and grid based generation
   - Boss room selection and generation
-- Simple projectile firing mechanic
 - Wall and projectile collision detection
 - Room to room camera control
 - 8 direction movement
@@ -14,13 +13,15 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - damage
 - enemy dummy
 - simple enemy ai
-- dodge/roll/dash
+- dodge/roll/
+- death
+- different weapon types and functionality
+- small player movement animation
 
 # To Do
-- Add spread to enemies
 - COMBAT
-  - different guns
-  - mag size
+  - Make enemies use weapon objects (make firing use those stats)
+  - Draw enemy weapons
   - better projectile hitbox
   - advanced enemy ai
 - UI
@@ -29,9 +30,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - current weapon
   - minimap
 - MECHANICS
-  - different weapon types
   - pickups
-  - weapon swap
   - room trigger
   - enemy spawn
   - doors close until cleared

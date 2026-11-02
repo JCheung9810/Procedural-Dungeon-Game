@@ -20,29 +20,65 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     }    
 }
 
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy){       
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy){    
+    
+    int projectilesCreated = 0;
+    
     for (int i = 0; i < maxProjectiles; i++){
         if (!projectiles[i].active){
             if(TextIsEqual(team,"Player")){
+                //Activate projectile and start lifespan
                 projectiles[i].active = true;
                 projectiles[i].lifeSpan = projectileLifespan; 
                 
+                //Set projectile team
                 projectiles[i].team = "Player";
                 
-                //Projectile rotation to target
+                //Projectile rotation from gun barrel to target
                 int spread = (int) (player.weapon[player.equippedWeaponIndex].bulletSpread * 10);
                 float randSpread = GetRandomValue(-spread, spread) / 10.0f;
                 float projectileRotation = playerToMouseRotation * RAD2DEG + randSpread;
                 projectiles[i].rotation = projectileRotation * DEG2RAD;
                 
+                //Projectile starting position
                 projectiles[i].position = (Vector2){
-                    player.center.x + cos(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
-                    player.center.y + sin(projectiles[i].rotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
+                    player.center.x + cos(playerToMouseRotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
+                    player.center.y + sin(playerToMouseRotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
                 };
                 
+                //Set projectile damage and type
                 projectiles[i].damage = player.weapon[player.equippedWeaponIndex].damage;
                 projectiles[i].type = player.weapon[player.equippedWeaponIndex].type;
+
+            } else if(TextIsEqual(team,"Enemy")){
+                //Activate projectile and start lifespan
+                projectiles[i].active = true;
+                projectiles[i].lifeSpan = projectileLifespan; 
                 
+                //Set projectile team
+                projectiles[i].team = "Enemy";
+                
+                //Projectile rotation from center to player center
+                projectiles[i].rotation = atan2(player.center.y - enemy.center.y, player.center.x - enemy.center.x);
+                
+                //Projectile starting position
+                projectiles[i].position = enemy.center;
+                
+                //Set projectile damage and type
+                projectiles[i].damage = 1.0f;
+                projectiles[i].type = "Pistol";
+            }
+            
+            //Set trajectory
+            projectiles[i].speed.x = cos(projectiles[i].rotation) * 500;
+            projectiles[i].speed.y = sin(projectiles[i].rotation) * 500;
+            
+            //Set projectile hitbox
+            projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
+            
+            //Increase projectilesCreated
+            projectilesCreated++;
+            if(TextIsEqual(team,"Player") && projectilesCreated >= player.weapon[player.equippedWeaponIndex].numProjectiles){
                 
                 //Set fire timer
                 player.weapon[player.equippedWeaponIndex].fireTimer = player.weapon[player.equippedWeaponIndex].fireTime;
@@ -54,27 +90,12 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 if(player.weapon[player.equippedWeaponIndex].mag == 0){
                     ReloadWeapon(player);
                 }
-
-            } else if(TextIsEqual(team,"Enemy")){
-                projectiles[i].active = true;
-                projectiles[i].lifeSpan = projectileLifespan; 
                 
-                projectiles[i].team = "Enemy";
-                projectiles[i].rotation = atan2(player.center.y - enemy.center.y, player.center.x - enemy.center.x);
+                break;
                 
-                projectiles[i].position = enemy.center;
-                projectiles[i].damage = 1.0f;
-                projectiles[i].type = "Pistol";
-            } else {
+            } else if(TextIsEqual(team,"Enemy")){ //&& projectilesCreated >= enemy.weapon[equippedWeaponIndex].numProjectiles){
                 break;
             }
-            
-            projectiles[i].speed.x = cos(projectiles[i].rotation) * 500;
-            projectiles[i].speed.y = sin(projectiles[i].rotation) * 500;
-            
-            projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
-            
-            break;
         }
     }    
 }
