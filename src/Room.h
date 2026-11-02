@@ -2,6 +2,36 @@
 
 #include "raylib.h"
 
+struct RoomObjects {
+    const char* type;
+    
+    Vector2 position;
+    Vector2 size;
+    
+    Rectangle hitbox;
+    
+    bool exists = false;
+    
+};
+
+struct EnemySpawnInfo {
+    const char* type;
+    float spawnWeight;
+    
+};
+
+struct RoomContent {
+    int numEnemiesActive;
+    int numEnemiesSpawn;
+    
+    int numEnemyTypes;
+    EnemySpawnInfo enemySpawnInfo[10] = {};
+    
+    int numRoomObjects;
+    RoomObjects roomObject[20] = {};
+    
+};
+
 struct Room {
     const char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
     Vector2 size;
@@ -10,10 +40,14 @@ struct Room {
     int distance;
     bool exists = false;
     
+    //Perimeter
     int numWalls;
     Rectangle walls[12];
     int numDoors;
     Rectangle doors[4];
+    
+    //Interior
+    RoomContent roomContent = {};
     
 };
 

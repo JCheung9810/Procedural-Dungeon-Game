@@ -45,12 +45,12 @@ int main(void){
     
     //Enemies
     int numEnemies = 0;
-    Enemy enemies[100] = {0};
+    Enemy enemies[100] = {};
     
     AddEnemy(enemies, "Dummy", numEnemies);
     
     //Camera
-    Camera2D camera = {0};
+    Camera2D camera = {};
     InitializeCamera(camera, player, screenHeight, screenWidth);
     
     //Mouse
@@ -69,7 +69,7 @@ int main(void){
     //Projectile
     float projectileLifespan = 5.0f;
     int maxProjectiles = 200;
-    Projectile projectiles[maxProjectiles] = {0};
+    Projectile projectiles[maxProjectiles] = {};
     
     InitializeProjectiles(projectiles, maxProjectiles);
     
@@ -77,7 +77,7 @@ int main(void){
     int seed = GetRandomValue(100000, 999999);
     //seed = 100000;
     SetRandomSeed(seed);
-      
+    
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
     DungeonConfig dungeonConfig = LoadDungeonConfig("config/dungeon.json");
@@ -85,10 +85,10 @@ int main(void){
     int currentRooms = 0;
     int numRoomLocs = 0;
     
-    Room rooms[500] = {};
+    Room rooms[200] = {};
     
     GenerateDungeon(rooms, dungeonConfig, currentRooms, numRoomLocs);
-        
+    
     //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
     while (!exitWindow){
         
