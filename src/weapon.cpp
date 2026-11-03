@@ -31,11 +31,13 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 std::string name = item.at("name").get<std::string>();
                 std::string type = item.at("type").get<std::string>();
                 std::string texturePath = item.at("texturePath").get<std::string>();
+                std::string hudTexturePath = item.at("hudTexturePath").get<std::string>();
                 std::string fireMode = item.at("fireMode").get<std::string>();
 
                 weapon.name = strdup(name.c_str());
                 weapon.type = strdup(type.c_str());
                 weapon.texturePath = strdup(texturePath.c_str());
+                weapon.hudTexturePath = strdup(hudTexturePath.c_str());
 
                 weapon.textureFrames = item.at("textureFrames").get<int>();
                 weapon.size = item.at("size").get<float>();
@@ -53,6 +55,7 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.damage = item.at("damage").get<float>();
 
                 weapon.texture = LoadTexture(weapon.texturePath);
+                weapon.hudTexture = LoadTexture(weapon.hudTexturePath);
                 
                 weapon.fireTimer = 0.0f;
                 weapon.firerate = 1.0f / weapon.fireTime;

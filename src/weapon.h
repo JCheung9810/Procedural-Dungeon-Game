@@ -15,8 +15,10 @@ struct Weapon {
     const char* type;
     
     const char* texturePath;
+    const char* hudTexturePath;
     int textureFrames;
     Texture2D texture;
+    Texture2D hudTexture;
     
     float size;
     

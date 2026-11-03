@@ -65,6 +65,7 @@ int main(void){
     
     //Images
     Texture2D heartTexture = LoadTexture("assets/Heart.png");
+    Texture2D weaponHudBoxTexture = LoadTexture("assets/weaponHudBox.png");
     
     //Projectile
     float projectileLifespan = 5.0f;
@@ -208,7 +209,7 @@ int main(void){
 
         //------------------------------DRAW------------------------------
         DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles,  
-            heartTexture,
+            heartTexture, weaponHudBoxTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
             debug.hitbox,

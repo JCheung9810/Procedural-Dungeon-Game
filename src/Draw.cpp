@@ -9,7 +9,7 @@
 #include <raymath.h>
 
 void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
-            Texture2D heartTexture,
+            Texture2D heartTexture, Texture2D weaponHudBoxTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
             bool debugHitbox,            
@@ -125,24 +125,43 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
 
         DrawTexturePro(cursorTexture, cursorRec, cursorDestination, cursorOrigin, 0.0f, WHITE);
         
+        
+        //------------------------------HUD------------------------------
+        
         //Draw health
-        Vector2 heartSize = {100,100};
+        Vector2 heartSize = {100, 100};
         
         for(int i = 0; i < (player.maxHealth / 2.0f); i++){
             
-            Rectangle heartTextureRec;
+            Rectangle heartTextureSrc;
             Vector2 heartPos = {25 + (float)i * 100, 25};
             if(player.health >= 2 * (i + 1)){
-                heartTextureRec = {(float)heartTexture.width / 3.0f * 0.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
+                heartTextureSrc = {(float)heartTexture.width / 3.0f * 0.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
             } else if(player.health == 2 * (i + 1) - 1){
-                heartTextureRec = {(float)heartTexture.width / 3.0f * 1.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
+                heartTextureSrc = {(float)heartTexture.width / 3.0f * 1.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
             } else {
-                heartTextureRec = {(float)heartTexture.width / 3.0f * 2.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
+                heartTextureSrc = {(float)heartTexture.width / 3.0f * 2.0f, 0, (float)heartTexture.width / 3.0f, (float)heartTexture.height};
             }
             
             Rectangle heartTextureDest = {heartPos.x,heartPos.y, heartSize.x, heartSize.y};
-            DrawTexturePro(heartTexture, heartTextureRec, heartTextureDest, {0,0}, 0, WHITE);
+            DrawTexturePro(heartTexture, heartTextureSrc, heartTextureDest, {0,0}, 0, WHITE);
         }
+        
+        //Draw weapon hud box
+        Vector2 weaponHudBoxSize = {300, 300};
+        Vector2 weaponHudBoxPos = {screenWidth-weaponHudBoxSize.x - 30.0f, screenHeight-weaponHudBoxSize.y + 25.0f};
+        Rectangle weaponHudBoxTextureSrc = {0,0, (float)weaponHudBoxTexture.width, (float)weaponHudBoxTexture.height};
+        Rectangle weaponHudBoxTextureDest = {weaponHudBoxPos.x,weaponHudBoxPos.y,weaponHudBoxSize.x,weaponHudBoxSize.y};
+        
+        DrawTexturePro(weaponHudBoxTexture, weaponHudBoxTextureSrc, weaponHudBoxTextureDest, {0,0}, 0, WHITE);
+        
+        //Draw weapon inside hud
+        Rectangle weaponHudTextureSrc = {0,0, (float)player.weapon[player.equippedWeaponIndex].hudTexture.width, (float)player.weapon[player.equippedWeaponIndex].hudTexture.height};
+        Rectangle weaponHudTextureDest = {weaponHudBoxPos.x, weaponHudBoxPos.y, weaponHudBoxSize.x, weaponHudBoxSize.y};
+        
+        DrawTexturePro(player.weapon[player.equippedWeaponIndex].hudTexture, weaponHudTextureSrc, weaponHudTextureDest, {0,0}, 0, WHITE);
+        
+        
     } else if(exitWindowRequested){  
     
         //Exit menu
