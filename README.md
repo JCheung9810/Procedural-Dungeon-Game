@@ -17,7 +17,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - death
 - different weapon types and functionality
 - small player movement animation
-- UI shows current weapon
+- UI shows current weapon, magSize, bullets left, reload on counter
 
 # To Do
 - COMBAT
@@ -26,8 +26,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - better projectile hitbox
   - advanced enemy ai
 - UI
-  - mag
-  - reload
+  - reload mouse cursor
   - minimap
 - MECHANICS
   - pickups

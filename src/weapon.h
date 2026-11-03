@@ -32,8 +32,8 @@ struct Weapon {
     float reloadTimer;
     bool reloading;
     
-    int magSize;
-    int mag;
+    int magSize;            //Max number of bullets in mag
+    int mag;                //Number of bullets in mag
     
     float fireTime;         //Rate of fire in seconds = 1 proj / n seconds
     float fireTimer;        //Timer for firing

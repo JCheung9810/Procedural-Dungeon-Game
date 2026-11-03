@@ -11,7 +11,7 @@
             "projectileOffset": 25.0,
             "projectileSize": 1.0,
             "reloadTime": 2.0,
-            "magSize": 8,
+            "magSize": 10,
             "fireTime": 0.5,
             "fireMode": "SINGLE",
             "bulletSpread": 5.0,

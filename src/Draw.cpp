@@ -161,6 +161,49 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
         
         DrawTexturePro(player.weapon[player.equippedWeaponIndex].hudTexture, weaponHudTextureSrc, weaponHudTextureDest, {0,0}, 0, WHITE);
         
+        //Draw ammo counter text
+        fontSize = 30;
+        
+        //Draw slash separater
+        textWidth = MeasureText(TextFormat("/"), fontSize);
+        DrawText(
+            TextFormat("/"), 
+            weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth/2, 
+            weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+            fontSize, 
+            BLACK
+        );
+        
+        //Draw mag counter
+        if(!player.weapon[player.equippedWeaponIndex].reloading){
+            textWidth = MeasureText(TextFormat("%i", player.weapon[player.equippedWeaponIndex].mag), fontSize);
+            DrawText(
+                TextFormat("%i", player.weapon[player.equippedWeaponIndex].mag), 
+                weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
+                weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+                fontSize, 
+                BLACK
+            ); 
+        } else {
+            textWidth = MeasureText(TextFormat("-"), fontSize);
+            DrawText(
+                TextFormat("-"), 
+                weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
+                weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+                fontSize, 
+                BLACK
+            ); 
+        }
+        
+        //Draw magSize counter
+        textWidth = MeasureText(TextFormat("%i", player.weapon[player.equippedWeaponIndex].magSize), fontSize);
+        DrawText(
+            TextFormat("%i", player.weapon[player.equippedWeaponIndex].magSize), 
+            weaponHudBoxPos.x + weaponHudBoxSize.x/2 + (MeasureText(TextFormat("/"), fontSize) / 2) + 10, 
+            weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+            fontSize, 
+            BLACK
+        );
         
     } else if(exitWindowRequested){  
     
