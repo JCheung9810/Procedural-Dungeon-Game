@@ -73,7 +73,7 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.dashTime = 0.0f;
     player.dashCD = 0.0f;
     
-    player.texture = LoadTexture("assets/Player.png"); 
+    player.texture = LoadTexture("assets/textures/Player.png"); 
     
 }
 

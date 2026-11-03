@@ -15,10 +15,17 @@ struct Weapon {
     const char* type;
     
     const char* texturePath;
-    const char* hudTexturePath;
     int textureFrames;
     Texture2D texture;
+    
+    const char* hudTexturePath;
     Texture2D hudTexture;
+    
+    const char* shotSoundPath;
+    Sound shotSound;
+    
+    const char* reloadSoundPath;
+    Sound reloadSound;
     
     float size;
     

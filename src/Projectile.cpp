@@ -78,6 +78,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
             
             //Increase projectilesCreated
             projectilesCreated++;
+            
             if(TextIsEqual(team,"Player") && projectilesCreated >= player.weapon[player.equippedWeaponIndex].numProjectiles){
                 
                 //Set fire timer
@@ -90,6 +91,8 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 if(player.weapon[player.equippedWeaponIndex].mag == 0){
                     ReloadWeapon(player);
                 }
+                
+                PlaySound(player.weapon[player.equippedWeaponIndex].shotSound);
                 
                 break;
                 

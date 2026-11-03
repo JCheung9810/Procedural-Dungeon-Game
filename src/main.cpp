@@ -26,6 +26,9 @@ int main(void){
     //Update screen size param with monitor resolution
     screenWidth = GetScreenWidth();
     screenHeight = GetScreenHeight();
+    
+    //Audio
+    InitAudioDevice();
 
     //FPS
     SetTargetFPS(60);
@@ -61,11 +64,11 @@ int main(void){
     HideCursor();
     
     //Cursor Image
-    Texture2D cursorTexture = LoadTexture("assets/Cursor.png");
+    Texture2D cursorTexture = LoadTexture("assets/textures/Cursor.png");
     
     //Images
-    Texture2D heartTexture = LoadTexture("assets/Heart.png");
-    Texture2D weaponHudBoxTexture = LoadTexture("assets/weaponHudBox.png");
+    Texture2D heartTexture = LoadTexture("assets/textures/Heart.png");
+    Texture2D weaponHudBoxTexture = LoadTexture("assets/textures/weaponHudBox.png");
     
     //Projectile
     float projectileLifespan = 5.0f;

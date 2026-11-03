@@ -33,11 +33,15 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 std::string texturePath = item.at("texturePath").get<std::string>();
                 std::string hudTexturePath = item.at("hudTexturePath").get<std::string>();
                 std::string fireMode = item.at("fireMode").get<std::string>();
+                std::string shotSoundPath = item.at("shotSoundPath").get<std::string>();
+                std::string reloadSoundPath = item.at("reloadSoundPath").get<std::string>();
 
                 weapon.name = strdup(name.c_str());
                 weapon.type = strdup(type.c_str());
                 weapon.texturePath = strdup(texturePath.c_str());
                 weapon.hudTexturePath = strdup(hudTexturePath.c_str());
+                weapon.shotSoundPath = strdup(shotSoundPath.c_str());
+                weapon.reloadSoundPath = strdup(reloadSoundPath.c_str());
 
                 weapon.textureFrames = item.at("textureFrames").get<int>();
                 weapon.size = item.at("size").get<float>();
@@ -56,6 +60,9 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
 
                 weapon.texture = LoadTexture(weapon.texturePath);
                 weapon.hudTexture = LoadTexture(weapon.hudTexturePath);
+
+                weapon.shotSound = LoadSound(weapon.shotSoundPath);
+                weapon.reloadSound = LoadSound(weapon.reloadSoundPath);
                 
                 weapon.fireTimer = 0.0f;
                 weapon.firerate = 1.0f / weapon.fireTime;
@@ -94,6 +101,7 @@ void ReloadWeapon(Player& player){
     if(player.weapon[player.equippedWeaponIndex].reloading == false && player.weapon[player.equippedWeaponIndex].mag < player.weapon[player.equippedWeaponIndex].magSize){
         player.weapon[player.equippedWeaponIndex].reloading = true;
         player.weapon[player.equippedWeaponIndex].reloadTimer = player.weapon[player.equippedWeaponIndex].reloadTime;
+        PlaySound(player.weapon[player.equippedWeaponIndex].reloadSound);
     }
 }
 
