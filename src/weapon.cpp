@@ -9,13 +9,14 @@
 #include <string>
 
 using json = nlohmann::json;
+using namespace std;
 
 Weapon LoadWeapon(const char* filePath, const char* weaponName){
     Weapon weapon{};
 
     TraceLog(LOG_INFO, "Loading weapon: %s", weaponName);
 
-    std::ifstream file(filePath);
+    ifstream file(filePath);
 
     if(!file.is_open()) {
         TraceLog(LOG_ERROR, "Failed to open weapon config: %s", filePath);
@@ -27,14 +28,14 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
         file >> data;
 
         for (const auto& item : data.at("weapons")) {
-            if (item.at("name").get<std::string>() == weaponName) {
-                std::string name = item.at("name").get<std::string>();
-                std::string type = item.at("type").get<std::string>();
-                std::string texturePath = item.at("texturePath").get<std::string>();
-                std::string hudTexturePath = item.at("hudTexturePath").get<std::string>();
-                std::string fireMode = item.at("fireMode").get<std::string>();
-                std::string shotSoundPath = item.at("shotSoundPath").get<std::string>();
-                std::string reloadSoundPath = item.at("reloadSoundPath").get<std::string>();
+            if (item.at("name").get<string>() == weaponName) {
+                string name = item.at("name").get<string>();
+                string type = item.at("type").get<string>();
+                string texturePath = item.at("texturePath").get<string>();
+                string hudTexturePath = item.at("hudTexturePath").get<string>();
+                string fireMode = item.at("fireMode").get<string>();
+                string shotSoundPath = item.at("shotSoundPath").get<string>();
+                string reloadSoundPath = item.at("reloadSoundPath").get<string>();
 
                 weapon.name = strdup(name.c_str());
                 weapon.type = strdup(type.c_str());
@@ -46,7 +47,7 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.textureFrames = item.at("textureFrames").get<int>();
                 weapon.size = item.at("size").get<float>();
                 
-                std::vector<float> posOffset = item.at("positionOffset").get<std::vector<float>>();
+                vector<float> posOffset = item.at("positionOffset").get<vector<float>>();
                 weapon.positionOffset = {posOffset[0], posOffset[1]};
                 
                 weapon.projectileOffset = item.at("projectileOffset").get<float>();
@@ -89,7 +90,7 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
 
         TraceLog(LOG_WARNING, "Weapon not found: %s", weaponName);
     }
-    catch (const std::exception& e)
+    catch (const exception& e)
     {
         TraceLog(LOG_ERROR, "Error reading weapon JSON: %s", e.what());
     }

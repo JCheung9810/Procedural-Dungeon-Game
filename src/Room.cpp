@@ -4,11 +4,12 @@
 #include <fstream>
 
 using json = nlohmann::json;
+using namespace std;
 
 #include <raymath.h>
 
 DungeonConfig LoadDungeonConfig(const char* filePath) {
-    std::ifstream file(filePath);
+    ifstream file(filePath);
 
     if (!file.is_open()) {
         TraceLog(LOG_ERROR, "Could not open dungeon config: %s", filePath);
@@ -33,7 +34,7 @@ DungeonConfig LoadDungeonConfig(const char* filePath) {
 
         return config;
     }
-    catch (const std::exception& e) {
+    catch (const exception& e) {
         TraceLog(LOG_ERROR, "Invalid dungeon config: %s", e.what());
         throw;
     }

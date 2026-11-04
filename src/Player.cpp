@@ -3,14 +3,18 @@
 #include "room.h"
 
 #include "json.hpp"
+
 #include <fstream>
+#include <cstring>
+#include <string>
 
 using json = nlohmann::json;
+using namespace std;
 
 #include <raymath.h>
 
 PlayerConfig LoadPlayerConfig(const char* filePath) {
-    std::ifstream file(filePath);
+    ifstream file(filePath);
 
     if (!file.is_open()) {
         TraceLog(LOG_ERROR, "Could not open player config: %s", filePath);
@@ -25,10 +29,21 @@ PlayerConfig LoadPlayerConfig(const char* filePath) {
 
         config.maxHealth = data.at("maxHealth").get<float>();
         config.speed = data.at("speed").get<float>();
+        
+        config.dashTime = data.at("dashTime").get<float>();
+        
+        config.walkAnimationFrames = data.at("walkAnimationFrames").get<int>();
+        config.dashAnimationFrames = data.at("dashAnimationFrames").get<int>();
+        
+        string texturePath = data.at("texturePath").get<string>();
+        string dashTexturePath = data.at("dashTexturePath").get<string>();
+        
+        config.texturePath = strdup(texturePath.c_str());
+        config.dashTexturePath = strdup(dashTexturePath.c_str());
 
         return config;
     }
-    catch (const std::exception& e) {
+    catch (const exception& e) {
         TraceLog(LOG_ERROR, "Invalid player config: %s", e.what());
         throw;
     }
@@ -63,7 +78,7 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.frameTimer = 0.0f;
     player.frameSpeed = 0.1f;
     
-    player.walkAnimationFrames = 4.0f;
+    player.walkAnimationFrames = playerConfig.walkAnimationFrames;
  
     player.state = State::IDLE;
     
@@ -72,14 +87,14 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.weapon[0] = LoadWeapon("config/weapon.json", "Pistol");
     player.weapon[1] = LoadWeapon("config/weapon.json", "Double Barrel");
 
-    player.dashTime = 0.4f;
+    player.dashTime = playerConfig.dashTime;
     player.dashTimer = 0.0f;
     player.dashCD = 0.0f;
     
-    player.dashAnimationFrames = 7.0f;
+    player.dashAnimationFrames = playerConfig.dashAnimationFrames;
     
-    player.texture = LoadTexture("assets/textures/PlayerWalk.png"); 
-    player.dashTexture = LoadTexture("assets/textures/PlayerDash.png"); 
+    player.texture = LoadTexture(playerConfig.texturePath); 
+    player.dashTexture = LoadTexture(playerConfig.dashTexturePath); 
     
 }
 

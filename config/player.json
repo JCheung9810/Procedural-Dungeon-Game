@@ -1,4 +1,9 @@
 {
     "maxHealth": 4,
-    "speed": 600.0
+    "speed": 600.0,
+    "dashTime": 0.4,
+    "walkAnimationFrames": 4,
+    "dashAnimationFrames": 7,
+    "texturePath": "assets/textures/PlayerWalk.png",
+    "dashTexturePath": "assets/textures/PlayerDash.png"
 }

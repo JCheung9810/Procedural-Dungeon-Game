@@ -30,7 +30,7 @@ struct Player {
     float frameTimer;
     float frameSpeed;
     
-    float walkAnimationFrames;
+    int walkAnimationFrames;
     
     State state;
     
@@ -42,7 +42,7 @@ struct Player {
     float dashTimer;
     float dashCD;
     
-    float dashAnimationFrames;
+    int dashAnimationFrames;
     
     
     Texture2D texture;
@@ -52,6 +52,11 @@ struct Player {
 struct PlayerConfig {
     float maxHealth;
     float speed;   
+    float dashTime;
+    int walkAnimationFrames;
+    int dashAnimationFrames;
+    const char* texturePath;
+    const char* dashTexturePath;
 };
 
 PlayerConfig LoadPlayerConfig(const char* filePath);
