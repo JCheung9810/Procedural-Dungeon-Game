@@ -62,18 +62,24 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.currentFrame = 0;
     player.frameTimer = 0.0f;
     player.frameSpeed = 0.1f;
+    
+    player.walkAnimationFrames = 4.0f;
  
-    player.state = "idle";
+    player.state = State::IDLE;
     
     player.numWeapons = 2;
     player.equippedWeaponIndex = 0;
     player.weapon[0] = LoadWeapon("config/weapon.json", "Pistol");
     player.weapon[1] = LoadWeapon("config/weapon.json", "Double Barrel");
 
-    player.dashTime = 0.0f;
+    player.dashTime = 0.4f;
+    player.dashTimer = 0.0f;
     player.dashCD = 0.0f;
     
-    player.texture = LoadTexture("assets/textures/Player.png"); 
+    player.dashAnimationFrames = 7.0f;
+    
+    player.texture = LoadTexture("assets/textures/PlayerWalk.png"); 
+    player.dashTexture = LoadTexture("assets/textures/PlayerDash.png"); 
     
 }
 
@@ -90,7 +96,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     }
     
     //Execute movement
-    if(!TextIsEqual(player.state, "dashing")){
+    if(player.state != State::DASHING){
         if(IsKeyDown(KEY_D))
             xDir += 1.0f;
         
@@ -159,22 +165,34 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     }
     
     //Detect state
-    if((xDir != 0.0f || yDir != 0.0f) && !TextIsEqual(player.state, "dashing")){
-        player.state = "walking";
-    } else if(!TextIsEqual(player.state, "dashing")){
-        player.state = "idle";
+    if((xDir != 0.0f || yDir != 0.0f) && player.state != State::DASHING){
+        player.state = State::WALKING;
+    } else if(player.state != State::DASHING){
+        player.state = State::IDLE;
     }
             
     //Detect dash
-    if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && (TextIsEqual(player.state, "walking"))){
-        player.state = "dashing";
+    if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.state == State::WALKING){
+        player.state = State::DASHING;
         player.tempDirection = Vector2Scale(player.direction, 2.0f);
-        player.dashTime = 0.2f;
-        player.iFrames = player.dashTime;
+        player.dashTimer = player.dashTime;
+        //Check ongoing iFrames
+        if(player.iFrames > 0.0f){
+            //If the dash extends old iFrames update iFrames
+            if(player.dashTime >= player.iFrames){
+                player.iFrames = player.dashTime;
+            }
+        } else {
+            player.iFrames = player.dashTime;
+        }
+        
+        //Reset frames for animation
+        player.currentFrame = 0;
+        player.frameTimer = 0.0f;
     }
     
     //Execute Dash
-    if(TextIsEqual(player.state, "dashing")){                        
+    if(player.state == State::DASHING){                        
         //Translate player, detect collision (x)
         player.position.x += player.tempDirection.x * GetFrameTime();
         player.hitBox.x = player.position.x;
@@ -215,13 +233,13 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
             }
         }
     
-        //dashTime
-        if(player.dashTime > 0.0f){
-            player.dashTime -= GetFrameTime();
+        //dashTimer
+        if(player.dashTimer > 0.0f){
+            player.dashTimer -= GetFrameTime();
 
-            if(player.dashTime < 0.0f){
-                player.dashTime = 0.0f;
-                player.state = "idle";
+            if(player.dashTimer < 0.0f){
+                player.dashTimer = 0.0f;
+                player.state = State::IDLE;
                 player.dashCD = 1.0f;
             }
         }
@@ -252,7 +270,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     };
 
     //Animation  
-    if(TextIsEqual(player.state, "walking")){
+    if(player.state == State::WALKING){
         player.frameTimer += GetFrameTime();
 
         if(player.frameTimer >= player.frameSpeed){
@@ -262,15 +280,14 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
             if (player.currentFrame >= 4)
                 player.currentFrame = 0;
         }
-    } else if(TextIsEqual(player.state, "idle")){
+    } else if(player.state == State::IDLE){
         //Reset to idle animation
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
-    } else if(TextIsEqual(player.state, "dashing")){
-        //Update this
-        //Reset to idle animation
-        player.currentFrame = 0;
-        player.frameTimer = 0.0f;
+    } else if(player.state == State::DASHING){    
+        player.frameTimer += GetFrameTime();
+        
+        player.currentFrame = (int)((player.frameTimer * player.dashAnimationFrames) / player.dashTime); 
     }
     
     

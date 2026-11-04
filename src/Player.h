@@ -5,6 +5,12 @@
 
 #include "raylib.h"
 
+enum class State {
+    IDLE,
+    WALKING,
+    DASHING
+};
+
 struct Player {
     Vector2 position;
     Vector2 center;
@@ -24,14 +30,19 @@ struct Player {
     float frameTimer;
     float frameSpeed;
     
-    const char* state;    //idle, walking, dashing
+    float walkAnimationFrames;
+    
+    State state;
     
     int equippedWeaponIndex;
     int numWeapons;
     Weapon weapon[3];
 
     float dashTime;
+    float dashTimer;
     float dashCD;
+    
+    float dashAnimationFrames;
     
     
     Texture2D texture;

@@ -129,19 +129,21 @@ int main(void){
             playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);    //RADIANS
             
             //Fire player projectile
-            if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){
-                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
-                player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f && 
-                player.weapon[player.equippedWeaponIndex].reloading == false)
-                {
-                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
-                }
-            } else if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
-                if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
-                player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f &&
-                player.weapon[player.equippedWeaponIndex].reloading == false)
-                {
-                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+            if(player.state != State::DASHING){
+                if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){
+                    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
+                    player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f && 
+                    player.weapon[player.equippedWeaponIndex].reloading == false)
+                    {
+                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+                    }
+                } else if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
+                    if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
+                    player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f &&
+                    player.weapon[player.equippedWeaponIndex].reloading == false)
+                    {
+                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+                    }
                 }
             }
             

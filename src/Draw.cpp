@@ -239,8 +239,13 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     
     Vector2 playerTextureSize = {80.0f, 80.0f};
     
-    frameWidth = (float)player.texture.width / 4.0f;
-    playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
+    if(player.state == State::IDLE || player.state == State::WALKING){
+        frameWidth = (float)player.texture.width / player.walkAnimationFrames;
+        playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
+    } else if(player.state == State::DASHING){
+        frameWidth = (float)player.dashTexture.width / player.dashAnimationFrames;
+        playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.dashTexture.height};
+    }
     
     //Draw hitbox
     if(debugHitbox){
@@ -250,20 +255,24 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     //Draw sprite
     playerDest = {player.center.x - playerTextureSize.x/2.0f, player.center.y - playerTextureSize.y/2.0f + 1.5f, playerTextureSize.x, playerTextureSize.y};
     if(player.facingDirection == -1){
-        playerRec = {frameWidth * player.currentFrame,0,(float)-player.texture.width / 4.0f,(float)player.texture.height};
+        playerRec = {frameWidth * player.currentFrame,0,-frameWidth,(float)player.texture.height};
     } else if(player.facingDirection == 1){
-        playerRec = {frameWidth * player.currentFrame,0,(float)player.texture.width / 4.0f,(float)player.texture.height};
+        playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
     }
     
     Color opacity;
     
-    if(player.iFrames != 0.0f && !TextIsEqual(player.state, "dashing") && (int)(player.iFrames * 10)% 2 == 0){
+    if(player.iFrames != 0.0f && player.state != State::DASHING && (int)(player.iFrames * 10)% 2 == 0){
         opacity = (Color){255, 255, 255, 128};
     } else {
         opacity = (Color)WHITE;
     }
     
-    DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, opacity);
+    if(player.state == State::IDLE || player.state == State::WALKING){
+        DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, opacity);
+    } else if(player.state == State::DASHING){
+        DrawTexturePro(player.dashTexture, playerRec, playerDest, (Vector2){0, 0}, 0, opacity);
+    }
     
     //Draw stats
     fontSize = 15;
@@ -304,7 +313,7 @@ void DrawWeapon(Player player, float playerToMouseRotation){
     
     Color opacity;
 
-    if(player.iFrames != 0.0f && !TextIsEqual(player.state, "dashing") && (int)(player.iFrames * 10)% 2 == 0){
+    if(player.iFrames != 0.0f && player.state != State::DASHING && (int)(player.iFrames * 10)% 2 == 0){
         opacity = (Color){255, 255, 255, 128};
     } else {
         opacity = (Color)WHITE;
