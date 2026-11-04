@@ -8,15 +8,14 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Boss room selection and generation
 - Wall and projectile collision detection
 - Room to room camera control
-- 8 direction movement
+- 8 direction movement with animation
 - health
 - damage
 - enemy dummy
 - simple enemy ai
-- dodge/roll/
+- dodge/roll animation and functionality
 - death
 - different weapon types and functionality
-- small player movement animation
 - UI shows current weapon, magSize, bullets left, reload on counter
 
 # To Do
@@ -29,6 +28,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - reload mouse cursor
   - minimap
 - MECHANICS
+  - room object + enemy generation
   - pickups
   - room trigger
   - enemy spawn

@@ -189,7 +189,7 @@ void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpee
     //Detect dash
     if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.state == State::WALKING){
         player.state = State::DASHING;
-        player.tempDirection = Vector2Scale(player.direction, 2.0f);
+        player.tempDirection = Vector2Scale(player.direction, 2.0f);            //Dash speed = double normal speed
         player.dashTimer = player.dashTime;
         //Check ongoing iFrames
         if(player.iFrames > 0.0f){
