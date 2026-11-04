@@ -1306,13 +1306,13 @@ void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRoom
         if(bossRoomIndex != -1){
             generateDungeon = false;  
             if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyN")){
-                AddRoom(rooms, "BossN", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+                AddRoom(rooms, "BossN", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
             } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyE")){
-                AddRoom(rooms, "BossE", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+                AddRoom(rooms, "BossE", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
             } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyS")){
-                AddRoom(rooms, "BossS", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+                AddRoom(rooms, "BossS", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
             } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyW")){
-                AddRoom(rooms, "BossW", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 10, doorSize);
+                AddRoom(rooms, "BossW", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
             }
         } else {
             //Reset generation because we cant spawn boss room

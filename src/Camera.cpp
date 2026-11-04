@@ -76,7 +76,7 @@ void UpdateGameCamera(Room rooms[], int numRoomLocs, Player player, Camera2D& ca
             if(!isBoss){
                 camera.zoom = 1.5f; 
             } else {
-                camera.zoom = 0.5f;
+                camera.zoom = 1.5f;
             }                
         }
     

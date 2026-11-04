@@ -1,7 +1,7 @@
 {
     "maxRooms": 20,
-    "roomSize": 1998,
-    "wallDepth": 100.0,
+    "roomSize": 1500,
+    "wallDepth": 250.0,
     "doorSize": 250,
     "straight": 30.0,
     "turn": 30.0,
