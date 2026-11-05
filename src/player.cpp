@@ -49,7 +49,7 @@ PlayerConfig LoadPlayerConfig(const char* filePath) {
     }
 }
 
-void InitializePlayer(Player& player, PlayerConfig playerConfig){
+void InitializePlayer(Player& player, PlayerConfig playerConfig, AssetManager assets){
 
     Vector2 playerSize = {35.0f, 45.0f};
     player.speed = playerConfig.speed;
@@ -84,8 +84,8 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     
     player.numWeapons = 2;
     player.equippedWeaponIndex = 0;
-    player.weapon[0] = LoadWeapon("config/weapon.json", "Pistol");
-    player.weapon[1] = LoadWeapon("config/weapon.json", "Double Barrel");
+    player.weapon[0] = LoadWeapon("config/weapon.json", "Pistol", assets);
+    player.weapon[1] = LoadWeapon("config/weapon.json", "Double Barrel", assets);
 
     player.dashTime = playerConfig.dashTime;
     player.dashTimer = 0.0f;
@@ -93,8 +93,8 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     
     player.dashAnimationFrames = playerConfig.dashAnimationFrames;
     
-    player.texture = LoadTexture(playerConfig.texturePath); 
-    player.dashTexture = LoadTexture(playerConfig.dashTexturePath); 
+    player.texture = assets.LoadGameTexture(playerConfig.texturePath); 
+    player.dashTexture = assets.LoadGameTexture(playerConfig.dashTexturePath); 
     
 }
 

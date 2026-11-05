@@ -1,6 +1,7 @@
 #include "weapon.h"
 
 #include "player.h"
+#include "assetManager.h"
 
 #include "json.hpp"
 
@@ -11,7 +12,7 @@
 using json = nlohmann::json;
 using namespace std;
 
-Weapon LoadWeapon(const char* filePath, const char* weaponName){
+Weapon LoadWeapon(const char* filePath, const char* weaponName, AssetManager assets){
     Weapon weapon{};
 
     TraceLog(LOG_INFO, "Loading weapon: %s", weaponName);
@@ -59,11 +60,11 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 weapon.numProjectiles = item.at("numProjectiles").get<int>();
                 weapon.damage = item.at("damage").get<float>();
 
-                weapon.texture = LoadTexture(weapon.texturePath);
-                weapon.hudTexture = LoadTexture(weapon.hudTexturePath);
+                weapon.texture = assets.LoadGameTexture(weapon.texturePath);
+                weapon.hudTexture = assets.LoadGameTexture(weapon.hudTexturePath);
 
-                weapon.shotSound = LoadSound(weapon.shotSoundPath);
-                weapon.reloadSound = LoadSound(weapon.reloadSoundPath);
+                weapon.shotSound = assets.LoadGameSound(weapon.shotSoundPath);
+                weapon.reloadSound = assets.LoadGameSound(weapon.reloadSoundPath);
                 
                 weapon.fireTimer = 0.0f;
                 weapon.firerate = 1.0f / weapon.fireTime;

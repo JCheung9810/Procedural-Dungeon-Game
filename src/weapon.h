@@ -1,5 +1,7 @@
 #pragma once
 
+#include "assetManager.h"
+
 #include "raylib.h"
 
 //Forward declaration
@@ -55,6 +57,6 @@ struct Weapon {
     
 };
 
-Weapon LoadWeapon(const char* filePath, const char* weaponName);
+Weapon LoadWeapon(const char* filePath, const char* weaponName, AssetManager assets);
 void ReloadWeapon(Player& player);
 void UpdateWeapon(Player& player);

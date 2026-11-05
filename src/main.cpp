@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "draw.h"
 #include "debug.h"
+#include "assetManager.h"
 
 //------------------------------MAIN------------------------------
 int main(void){
@@ -29,6 +30,9 @@ int main(void){
     
     //Audio
     InitAudioDevice();
+    
+    //Assets
+    AssetManager assets;
 
     //FPS
     SetTargetFPS(60);
@@ -44,7 +48,7 @@ int main(void){
     //Player
     Player player;
     PlayerConfig playerConfig = LoadPlayerConfig("config/player.json");
-    InitializePlayer(player, playerConfig);
+    InitializePlayer(player, playerConfig, assets);
     
     //Enemies
     int numEnemies = 0;
@@ -64,11 +68,11 @@ int main(void){
     HideCursor();
     
     //Cursor Image
-    Texture2D cursorTexture = LoadTexture("assets/textures/Cursor.png");
+    Texture2D cursorTexture = assets.LoadGameTexture("assets/textures/Cursor.png");
     
     //Images
-    Texture2D heartTexture = LoadTexture("assets/textures/Heart.png");
-    Texture2D weaponHudBoxTexture = LoadTexture("assets/textures/weaponHudBox.png");
+    Texture2D heartTexture = assets.LoadGameTexture("assets/textures/Heart.png");
+    Texture2D weaponHudBoxTexture = assets.LoadGameTexture("assets/textures/weaponHudBox.png");
     
     //Projectile
     float projectileLifespan = 5.0f;
@@ -199,15 +203,15 @@ int main(void){
             
         } else if(!exitWindowRequested && player.health <= 0.0f){
             if(IsKeyPressed(KEY_SPACE)){
-                InitializePlayer(player, playerConfig);
-                /*
+                //InitializePlayer(player, playerConfig);
+                
                 player.center = {0,0};
                 player.position = {
                     player.center.x - (player.hitBox.width/2.0f), 
                     player.center.y - (player.hitBox.height/2.0f)
                 };
                 player.health = player.maxHealth;
-                */
+                
             }
             
         }
@@ -222,6 +226,10 @@ int main(void){
     }
     
     ShowCursor();
+    
+    assets.UnloadAll();
+
+    CloseAudioDevice();
 
     CloseWindow();
 

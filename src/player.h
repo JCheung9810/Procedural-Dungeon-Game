@@ -2,6 +2,7 @@
 
 #include "room.h"
 #include "weapon.h"
+#include "assetManager.h"
 
 #include "raylib.h"
 
@@ -61,5 +62,5 @@ struct PlayerConfig {
 
 PlayerConfig LoadPlayerConfig(const char* filePath);
 
-void InitializePlayer(Player& player, PlayerConfig playerConfig);
+void InitializePlayer(Player& player, PlayerConfig playerConfig, AssetManager assets);
 void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpeed, bool debugWall);

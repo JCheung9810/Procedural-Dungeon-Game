@@ -171,7 +171,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth/2, 
             weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
             fontSize, 
-            BLACK
+            WHITE
         );
         
         //Draw mag counter
@@ -182,7 +182,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
                 weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
                 weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
                 fontSize, 
-                BLACK
+                WHITE
             ); 
         } else {
             textWidth = MeasureText(TextFormat("-"), fontSize);
@@ -191,7 +191,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
                 weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
                 weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
                 fontSize, 
-                BLACK
+                WHITE
             ); 
         }
         
@@ -202,7 +202,7 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             weaponHudBoxPos.x + weaponHudBoxSize.x/2 + (MeasureText(TextFormat("/"), fontSize) / 2) + 10, 
             weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
             fontSize, 
-            BLACK
+            WHITE
         );
         
     } else if(exitWindowRequested){  

@@ -2,15 +2,36 @@
 
 #include "raylib.h"
 
-struct RoomObjects {
-    const char* type;
-    
-    Vector2 position;
-    Vector2 size;
-    
+struct Wall {
     Rectangle hitbox;
+    Texture2D texture;
     
-    bool exists = false;
+};
+
+struct Door {
+    Rectangle hitbox;
+    Texture2D texture;
+
+    bool active;
+};
+
+struct RoomDecor {
+    Rectangle hitbox;
+    Texture2D texture;
+    
+};
+
+struct RoomBreakable {
+    Rectangle hitbox;
+    Texture2D texture;
+    
+    float health;
+    
+};
+
+struct RoomUsable {
+    Rectangle hitbox;
+    Texture2D texture;
     
 };
 
@@ -21,14 +42,39 @@ struct EnemySpawnInfo {
 };
 
 struct RoomContent {
+    //Enemy spawning
     int numEnemiesSpawn;
     
     int numEnemyTypes;
     EnemySpawnInfo enemySpawnInfo[10] = {};
     
-    int numRoomObjects;
-    RoomObjects roomObject[20] = {};
+    //Walls
+    int numWalls;
+    Wall walls[20] = {};
     
+    //Doors
+    int numDoors;
+    Door doors[4] = {};
+    
+    //Decorations
+    int numDecor;
+    RoomDecor decor[20] = {};
+
+    //Breakable objects
+    int numBreakables;
+    RoomBreakable breakables[20] = {};
+
+    //Usable objects
+    int numUsables;
+    RoomUsable usables[20] = {};
+    
+    
+};
+
+enum RoomState {
+    INACTIVE,
+    ACTIVE,
+    CLEARED
 };
 
 struct Room {
@@ -39,14 +85,17 @@ struct Room {
     int distance;
     bool exists = false;
     
-    //Perimeter
+    //Perimeter (temp)
     int numWalls;
     Rectangle walls[12];
     int numDoors;
     Rectangle doors[4];
     
-    //Interior
+    //Room content
     RoomContent roomContent = {};
+    
+    //State
+    RoomState state;
     
 };
 
