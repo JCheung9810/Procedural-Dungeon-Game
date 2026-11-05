@@ -20,23 +20,38 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # To Do
 - COMBAT
-  - Make enemies use weapon objects (make firing use those stats)
-  - Draw enemy weapons
-  - better projectile hitbox
-  - advanced enemy ai
+  - Make enemies use weapon objects (make firing use those stats) 
+  - Draw enemy weapons 
+  - better projectile hitbox 
+  - advanced enemy ai 
 - UI
-  - reload mouse cursor
-  - minimap
+  - reload mouse cursor 
+  - minimap/map 
 - MECHANICS
-  - room object + enemy generation
-  - pickups
-  - room trigger
-  - enemy spawn
-  - doors close until cleared
+  - room content + enemy generation 
+  - pickups (ammo,health) 
+  - room trigger 
+  - enemy spawn 
+  - doors close until cleared 
 - OTHER
-  - lobby/main menu
-  - Shop
+  - lobby/main menu 
+  - Shop 
 
 # Possible Features
 - Different sized rooms
 - Breakables
+
+# Priority List (Highest to Lowest)
+  - room content + enemy generation 
+  - room trigger 
+  - enemy spawn 
+  - doors close until cleared 
+  - Make enemies use weapon objects (make firing use those stats) 
+  - Draw enemy weapons 
+  - better projectile hitbox 
+  - pickups (ammo,health) 
+  - reload mouse cursor 
+  - minimap/map 
+  - Shop 
+  - advanced enemy ai 
+  - lobby/main menu 

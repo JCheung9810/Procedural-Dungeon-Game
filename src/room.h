@@ -19,6 +19,8 @@ struct RoomDecor {
     Rectangle hitbox;
     Texture2D texture;
     
+    bool collision;
+    
 };
 
 struct RoomBreakable {
@@ -32,6 +34,8 @@ struct RoomBreakable {
 struct RoomUsable {
     Rectangle hitbox;
     Texture2D texture;
+    
+    bool active;
     
 };
 
