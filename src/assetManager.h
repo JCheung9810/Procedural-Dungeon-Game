@@ -2,13 +2,17 @@
 
 #include "raylib.h"
 
-struct AssetManager {
-    // Load textures
-    Texture2D LoadGameTexture(const char* path);
+#include <string>
+#include <unordered_map>
 
-    // Load sounds
+using namespace std;
+
+struct AssetManager {
+    unordered_map<std::string, Texture2D> textures;
+    unordered_map<std::string, Sound> sounds;
+    
+    Texture2D LoadGameTexture(const char* path);
     Sound LoadGameSound(const char* path);
 
-    // Unload all assets
     void UnloadAll();
 };

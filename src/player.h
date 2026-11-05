@@ -62,5 +62,5 @@ struct PlayerConfig {
 
 PlayerConfig LoadPlayerConfig(const char* filePath);
 
-void InitializePlayer(Player& player, PlayerConfig playerConfig, AssetManager assets);
+void InitializePlayer(Player& player, PlayerConfig playerConfig, AssetManager& assets);
 void UpdatePlayer(Player& player, Room rooms[], int& numRoomLocs, bool debugSpeed, bool debugWall);

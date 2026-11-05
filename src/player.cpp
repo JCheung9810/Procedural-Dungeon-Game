@@ -49,7 +49,7 @@ PlayerConfig LoadPlayerConfig(const char* filePath) {
     }
 }
 
-void InitializePlayer(Player& player, PlayerConfig playerConfig, AssetManager assets){
+void InitializePlayer(Player& player, PlayerConfig playerConfig, AssetManager& assets){
 
     Vector2 playerSize = {35.0f, 45.0f};
     player.speed = playerConfig.speed;
