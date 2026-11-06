@@ -26,10 +26,9 @@ struct Projectile {
     Texture2D sprite;
     
     Rectangle hitBox;
-    //add 8 circles for detection so it can be "rotated" (4 corners 4 sides)
-    //detect collision with the array of corners
+    
 };
 
 void InitializeProjectiles(Projectile projectiles[], int maxProjectiles);
 void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy);
-void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Player& player);
+void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, Enemy enemies[], int numEnemies, Player& player);

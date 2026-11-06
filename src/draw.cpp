@@ -8,7 +8,7 @@
 
 #include <raymath.h>
 
-void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
+void DrawGame(Camera2D camera, Player player, Dungeon dungeon, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
             Texture2D heartTexture, Texture2D weaponHudBoxTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
@@ -32,48 +32,48 @@ void DrawGame(Camera2D camera, Player player, Room rooms[], int numRoomLocs, Ene
             int fontSize;
             int textWidth;
         
-            //Draw rooms
-            for(int i = 0; i < numRoomLocs; i++){
-                if(rooms[i].exists == true){
+            //Draw dungeon.rooms
+            for(int i = 0; i < dungeon.numRoomLocs; i++){
+                if(dungeon.rooms[i].exists == true){
                     //Draw doors
-                    for(int j = 0; j < rooms[i].numDoors; j++){
-                        DrawRectangleRec(rooms[i].doors[j], MAROON);                                 
+                    for(int j = 0; j < dungeon.rooms[i].numDoors; j++){
+                        DrawRectangleRec(dungeon.rooms[i].doors[j], MAROON);                                 
                     }
                     //Draw walls
-                    for(int j = 0; j < rooms[i].numWalls; j++){
-                        DrawRectangleRec(rooms[i].walls[j], BLACK);                                 
+                    for(int j = 0; j < dungeon.rooms[i].numWalls; j++){
+                        DrawRectangleRec(dungeon.rooms[i].walls[j], BLACK);                                 
                     }
                 }
                 fontSize = 30;
                 //Text Type
-                textWidth = MeasureText(rooms[i].type, fontSize);
+                textWidth = MeasureText(dungeon.rooms[i].type, fontSize);
                 DrawText(
-                    rooms[i].type, rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2, 
+                    dungeon.rooms[i].type, dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2, 
                     fontSize, 
                     BLACK
                 );                       
                 //Text Dist
-                textWidth = MeasureText(TextFormat("Dist: %i", rooms[i].distance), fontSize);
+                textWidth = MeasureText(TextFormat("Dist: %i", dungeon.rooms[i].distance), fontSize);
                 DrawText(
-                    TextFormat("Dist: %i", rooms[i].distance), rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize, 
+                    TextFormat("Dist: %i", dungeon.rooms[i].distance), dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize, 
                     fontSize, 
                     BLACK
                 ); 
                 //Text Index
                 textWidth = MeasureText(TextFormat("Index: %i", i), fontSize);
                 DrawText(
-                    TextFormat("Index: %i", i), rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 2, 
+                    TextFormat("Index: %i", i), dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 2, 
                     fontSize, 
                     BLACK
                 );   
                 //Text Grid Position
-                textWidth = MeasureText(TextFormat("Grid Position: {%f,%f}", rooms[i].gridPos.x, rooms[i].gridPos.y), fontSize);
+                textWidth = MeasureText(TextFormat("Grid Position: {%f,%f}", dungeon.rooms[i].gridPos.x, dungeon.rooms[i].gridPos.y), fontSize);
                 DrawText(
-                    TextFormat("Grid Position: {%f,%f}", rooms[i].gridPos.x, rooms[i].gridPos.y), rooms[i].position.x + (Vector2){rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    rooms[i].position.y + (Vector2){0,rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 3, 
+                    TextFormat("Grid Position: {%f,%f}", dungeon.rooms[i].gridPos.x, dungeon.rooms[i].gridPos.y), dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 3, 
                     fontSize, 
                     BLACK
                 ); 

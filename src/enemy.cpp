@@ -27,7 +27,7 @@ void AddEnemy(Enemy enemies[], const char* name, int& numEnemies){
     numEnemies++;
 }
 
-void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[], int numRoomLocs){
+void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon dungeon){
     //Check every enemy
     for(int i = 0; i < numEnemies; i++){
             
@@ -49,14 +49,14 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[]
             enemies[i].center = (Vector2){enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
 
             //Check x
-            for(int j = 0; j < numRoomLocs; j++){
-                if(rooms[j].exists == true){
-                    for(int k = 0; k < rooms[j].numWalls; k++){
-                        if(CheckCollisionRecs(enemies[i].hitBox, rooms[j].walls[k])){
-                            if(previousPosition.x + enemies[i].hitBox.width <= rooms[j].walls[k].x){
-                                enemies[i].position.x = rooms[j].walls[k].x - enemies[i].hitBox.width;
-                            } else if(previousPosition.x >= rooms[j].walls[k].x + rooms[j].walls[k].width){
-                                enemies[i].position.x = rooms[j].walls[k].x + rooms[j].walls[k].width;
+            for(int j = 0; j < dungeon.numRoomLocs; j++){
+                if(dungeon.rooms[j].exists == true){
+                    for(int k = 0; k < dungeon.rooms[j].numWalls; k++){
+                        if(CheckCollisionRecs(enemies[i].hitBox, dungeon.rooms[j].walls[k])){
+                            if(previousPosition.x + enemies[i].hitBox.width <= dungeon.rooms[j].walls[k].x){
+                                enemies[i].position.x = dungeon.rooms[j].walls[k].x - enemies[i].hitBox.width;
+                            } else if(previousPosition.x >= dungeon.rooms[j].walls[k].x + dungeon.rooms[j].walls[k].width){
+                                enemies[i].position.x = dungeon.rooms[j].walls[k].x + dungeon.rooms[j].walls[k].width;
                             }
 
                             enemies[i].hitBox.x = enemies[i].position.x;
@@ -67,14 +67,14 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Room rooms[]
             }
 
             //Check y
-            for(int j = 0; j < numRoomLocs; j++){
-                if(rooms[j].exists == true){
-                    for(int k = 0; k < rooms[j].numWalls; k++){
-                        if(CheckCollisionRecs(enemies[i].hitBox, rooms[j].walls[k])){
-                            if(previousPosition.y + enemies[i].hitBox.height <= rooms[j].walls[k].y){
-                                enemies[i].position.y = rooms[j].walls[k].y - enemies[i].hitBox.height;
-                            } else if(previousPosition.y >= rooms[j].walls[k].y + rooms[j].walls[k].height){
-                                enemies[i].position.y = rooms[j].walls[k].y + rooms[j].walls[k].height;
+            for(int j = 0; j < dungeon.numRoomLocs; j++){
+                if(dungeon.rooms[j].exists == true){
+                    for(int k = 0; k < dungeon.rooms[j].numWalls; k++){
+                        if(CheckCollisionRecs(enemies[i].hitBox, dungeon.rooms[j].walls[k])){
+                            if(previousPosition.y + enemies[i].hitBox.height <= dungeon.rooms[j].walls[k].y){
+                                enemies[i].position.y = dungeon.rooms[j].walls[k].y - enemies[i].hitBox.height;
+                            } else if(previousPosition.y >= dungeon.rooms[j].walls[k].y + dungeon.rooms[j].walls[k].height){
+                                enemies[i].position.y = dungeon.rooms[j].walls[k].y + dungeon.rooms[j].walls[k].height;
                             }
 
                             enemies[i].hitBox.y = enemies[i].position.y;

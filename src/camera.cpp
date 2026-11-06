@@ -1,6 +1,6 @@
 #include "camera.h"
 
-#include "room.h"
+#include "dungeon.h"
 #include "player.h"
 
 #include <raymath.h>
@@ -12,18 +12,18 @@ void InitializeCamera(Camera2D& camera, Player player, int screenHeight, int scr
     
 }
 
-void UpdateGameCamera(Room rooms[], int numRoomLocs, Player player, Camera2D& camera, bool debugCam){
+void UpdateGameCamera(Dungeon dungeon, Player player, Camera2D& camera, bool debugCam){
     //Camera
         int playerRoom = -1;
 
         //Find the room that the player is in
-        for (int i = 0; i < numRoomLocs; i++){
-            if (rooms[i].exists){
+        for (int i = 0; i < dungeon.numRoomLocs; i++){
+            if (dungeon.rooms[i].exists){
                 Rectangle roomRect = {
-                    rooms[i].position.x,
-                    rooms[i].position.y,
-                    rooms[i].size.x,
-                    rooms[i].size.y
+                    dungeon.rooms[i].position.x,
+                    dungeon.rooms[i].position.y,
+                    dungeon.rooms[i].size.x,
+                    dungeon.rooms[i].size.y
                 };
 
                 if (CheckCollisionPointRec(player.center, roomRect)){
@@ -35,11 +35,11 @@ void UpdateGameCamera(Room rooms[], int numRoomLocs, Player player, Camera2D& ca
         
         //If found
         if (playerRoom != -1){
-            float roomLeft = rooms[playerRoom].position.x;
-            float roomRight = roomLeft + rooms[playerRoom].size.x;
+            float roomLeft = dungeon.rooms[playerRoom].position.x;
+            float roomRight = roomLeft + dungeon.rooms[playerRoom].size.x;
 
-            float roomTop = rooms[playerRoom].position.y;
-            float roomBottom = roomTop + rooms[playerRoom].size.y;
+            float roomTop = dungeon.rooms[playerRoom].position.y;
+            float roomBottom = roomTop + dungeon.rooms[playerRoom].size.y;
 
             float halfCameraWidth = GetScreenWidth() / (2.0f * camera.zoom);
 
@@ -62,10 +62,10 @@ void UpdateGameCamera(Room rooms[], int numRoomLocs, Player player, Camera2D& ca
         bool isBoss = false;
         if(playerRoom != -1){
             isBoss =
-            (TextIsEqual(rooms[playerRoom].type, "BossN") ||
-             TextIsEqual(rooms[playerRoom].type, "BossE") ||
-             TextIsEqual(rooms[playerRoom].type, "BossS") ||
-             TextIsEqual(rooms[playerRoom].type, "BossW"));
+            (TextIsEqual(dungeon.rooms[playerRoom].type, "BossN") ||
+             TextIsEqual(dungeon.rooms[playerRoom].type, "BossE") ||
+             TextIsEqual(dungeon.rooms[playerRoom].type, "BossS") ||
+             TextIsEqual(dungeon.rooms[playerRoom].type, "BossW"));
         }
 
         //Camera mode

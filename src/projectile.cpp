@@ -103,7 +103,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
     }    
 }
 
-void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[], int numRoomLocs, Enemy enemies[], int numEnemies, Player& player){
+void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, Enemy enemies[], int numEnemies, Player& player){
     //Translate projectile
         for(int i = 0; i < maxProjectiles; i++){
             if(projectiles[i].active){
@@ -122,10 +122,10 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Room rooms[
         for(int i = 0; i < maxProjectiles; i++){
             if(projectiles[i].active){
                 //Check walls
-                for(int j = 0; j < numRoomLocs; j++){
-                    if(rooms[j].exists == true){
-                        for(int k = 0; k < rooms[j].numWalls; k++){
-                            if(CheckCollisionRecs(rooms[j].walls[k],projectiles[i].hitBox)){
+                for(int j = 0; j < dungeon.numRoomLocs; j++){
+                    if(dungeon.rooms[j].exists == true){
+                        for(int k = 0; k < dungeon.rooms[j].numWalls; k++){
+                            if(CheckCollisionRecs(dungeon.rooms[j].walls[k],projectiles[i].hitBox)){
                                 projectiles[i].active = false;
                                 projectiles[i].lifeSpan = 0.0f;
                             }

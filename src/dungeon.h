@@ -58,8 +58,6 @@ struct RoomContent {
     //Enemy spawning
     int numEnemiesSpawn;
     
-    int numEnemyTypes;
-    EnemySpawnInfo enemySpawnInfo[10] = {};
     EnemySpawnPoint enemySpawnPoint[10] = {};
     
     //Walls
@@ -125,13 +123,38 @@ struct DungeonConfig {
     float fourWay;
 };
 
+struct Dungeon {   
+    int floor;
+    int bestFloor;
+    
+    int numEnemyTypes;
+    EnemySpawnInfo enemySpawnInfo[10] = {};
+    
+    Room rooms[100] = {};
+    
+    int currentRooms = 0;
+    int numRoomLocs = 0;
+    
+    int maxRooms;
+    int roomSize;
+    float wallDepth;
+    int doorSize;
+
+    float straight;
+    float turn;
+    float threeWay;
+    float fourWay;
+  
+};
+
 DungeonConfig LoadDungeonConfig(const char* filePath);
 
+void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig);
 bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs);
 bool ValidRoomInDirection(Room currentRoom, char direction);
 void AddDirection(char directions[], char direction);
 const char* TestDeadEnd(Room rooms[], Room currentRoom, int numRoomLocs);
 void SortRooms(Room rooms[], int numRoomLocs);
-void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize);
+void AddRoom(Dungeon& dungeon, const char* type, Vector2 position);
 void GenerateEndRoom(Room rooms[], int& numRoomLocs);
-void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRooms, int& numRoomLocs);
+void GenerateDungeon(Dungeon& dungeon);

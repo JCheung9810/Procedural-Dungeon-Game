@@ -81,21 +81,19 @@ int main(void){
     
     InitializeProjectiles(projectiles, maxProjectiles);
     
-    //Dungeon Rooms
+    //Dungeon
     int seed = GetRandomValue(100000, 999999);
     //seed = 100000;
     SetRandomSeed(seed);
     
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
+    Dungeon dungeon;
     DungeonConfig dungeonConfig = LoadDungeonConfig("config/dungeon.json");
     
-    int currentRooms = 0;
-    int numRoomLocs = 0;
+    InitializeDungeon(dungeon, dungeonConfig);
     
-    Room rooms[200] = {};
-    
-    GenerateDungeon(rooms, dungeonConfig, currentRooms, numRoomLocs);
+    GenerateDungeon(dungeon);
     
     //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
     while (!exitWindow){
@@ -103,7 +101,7 @@ int main(void){
         if(!exitWindowRequested && player.health > 0.0f){
             //------------------------------PLAYER------------------------------
             //Update player
-            UpdatePlayer(player, rooms, numRoomLocs, debug.speed, debug.wall);
+            UpdatePlayer(player, dungeon, debug.speed, debug.wall);
             
             //Weapon swap
             if(IsKeyPressed(KEY_Q)){
@@ -125,7 +123,7 @@ int main(void){
             
             //------------------------------ENEMY------------------------------
             //Update enemies
-            UpdateEnemies(enemies, numEnemies, player, rooms, numRoomLocs);
+            UpdateEnemies(enemies, numEnemies, player, dungeon);
             
             //------------------------------PROJECTILES------------------------------
             //Update mouse
@@ -161,17 +159,17 @@ int main(void){
             }
             
             //Update all projectiles
-            UpdateProjectiles(projectiles, maxProjectiles, rooms, numRoomLocs, enemies, numEnemies, player);
+            UpdateProjectiles(projectiles, maxProjectiles, dungeon, enemies, numEnemies, player);
 
             //------------------------------CAMERA------------------------------      
-            UpdateGameCamera(rooms, numRoomLocs, player, camera, debug.cam);
+            UpdateGameCamera(dungeon, player, camera, debug.cam);
             
             //Debug
             if(debug.active){
                 if(IsKeyPressed(KEY_ZERO)){
                     seed = GetRandomValue(100000, 999999);
                     SetRandomSeed(seed);
-                    GenerateDungeon(rooms, dungeonConfig, currentRooms, numRoomLocs);
+                    GenerateDungeon(dungeon);
                 }
                 if(IsKeyPressed(KEY_SIX)){
                     debug.hitbox = debug.hitbox ^ true;
@@ -217,7 +215,7 @@ int main(void){
         }
 
         //------------------------------DRAW------------------------------
-        DrawGame(camera, player, rooms, numRoomLocs, enemies, numEnemies, projectiles, maxProjectiles,  
+        DrawGame(camera, player, dungeon, enemies, numEnemies, projectiles, maxProjectiles,  
             heartTexture, weaponHudBoxTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,

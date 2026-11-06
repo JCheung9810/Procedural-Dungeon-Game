@@ -40,6 +40,24 @@ DungeonConfig LoadDungeonConfig(const char* filePath) {
     }
 }
 
+void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
+    
+    dungeon.maxRooms = dungeonConfig.maxRooms;
+    dungeon.roomSize = dungeonConfig.roomSize;
+    dungeon.wallDepth = dungeonConfig.wallDepth;
+    dungeon.doorSize = dungeonConfig.doorSize;
+
+    dungeon.straight = dungeonConfig.straight;
+    dungeon.turn = dungeonConfig.turn;
+    dungeon.threeWay = dungeonConfig.threeWay;
+    dungeon.fourWay = dungeonConfig.fourWay;
+    
+    dungeon.floor = 0;
+    dungeon.currentRooms = 0;
+    dungeon.numRoomLocs = 0;
+    
+}
+
 bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs){
     
     bool available = true;
@@ -371,7 +389,7 @@ void SortRooms(Room rooms[], int numRoomLocs){
     
 }
 
-void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, int& numRoomLocs, Vector2 position, int roomSize, float wallDepth, int doorSize){   
+void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){   
     
     Vector2 roomPositionOffset;
     int CurrentRoomIndex;
@@ -391,154 +409,154 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
          TextIsEqual(type, "BossS") ||
          TextIsEqual(type, "BossW"));
     
-
-    //Set room position offset
-    roomPositionOffset = (Vector2){-roomSize/2.0f, -roomSize/2.0f};
-    
-    CurrentRoomIndex = numRoomLocs;
+    CurrentRoomIndex = dungeon.numRoomLocs;
     
     //Set current room up
-    rooms[CurrentRoomIndex].gridPos = position;
-    rooms[CurrentRoomIndex].type = type; 
-    rooms[CurrentRoomIndex].size = (Vector2){(float)roomSize, (float)roomSize};
+    dungeon.rooms[CurrentRoomIndex].gridPos = position;
+    dungeon.rooms[CurrentRoomIndex].type = type; 
+
     if(!isBoss){  
-        rooms[CurrentRoomIndex].position = (position * roomSize) + roomPositionOffset;
+        roomPositionOffset = (Vector2){-dungeon.roomSize/2.0f, -dungeon.roomSize/2.0f};
+        dungeon.rooms[CurrentRoomIndex].position = (position * dungeon.roomSize) + roomPositionOffset;
+        dungeon.rooms[CurrentRoomIndex].size = (Vector2){(float)dungeon.roomSize, (float)dungeon.roomSize};
     } else {
-        if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossN")){
-                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f) + roomPositionOffset + (Vector2){0,-roomSize/3.0f};
-            } else if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossE")){
-                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f)+ roomPositionOffset + (Vector2){roomSize/3.0f,0};
-            } else if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossS")){
-                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f)+ roomPositionOffset + (Vector2){0,roomSize/3.0f};
-            } else if(TextIsEqual(rooms[CurrentRoomIndex].type, "BossW")){
-                rooms[CurrentRoomIndex].position = (position * roomSize/3.0f)+ roomPositionOffset + (Vector2){-roomSize/3.0f,0};
-            }
+        roomPositionOffset = (Vector2){-dungeon.roomSize * 3.0f / 2.0f, -dungeon.roomSize * 3.0f / 2.0f};
+        dungeon.rooms[CurrentRoomIndex].size = (Vector2){(float)dungeon.roomSize * 3.0f, (float)dungeon.roomSize * 3.0f};
+        if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossN")) {
+            dungeon.rooms[CurrentRoomIndex].position = (position * dungeon.roomSize) + roomPositionOffset + (Vector2){0, -dungeon.roomSize};
+        } else if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossE")) {
+            dungeon.rooms[CurrentRoomIndex].position = (position * dungeon.roomSize) + roomPositionOffset + (Vector2){dungeon.roomSize, 0};
+        } else if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossS")) {
+            dungeon.rooms[CurrentRoomIndex].position = (position * dungeon.roomSize) + roomPositionOffset + (Vector2){0, dungeon.roomSize};
+        } else if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossW")) {
+            dungeon.rooms[CurrentRoomIndex].position = (position * dungeon.roomSize) + roomPositionOffset + (Vector2){-dungeon.roomSize, 0};
+        }
     }
-    rooms[CurrentRoomIndex].distance = abs(rooms[CurrentRoomIndex].gridPos.x) + abs(rooms[CurrentRoomIndex].gridPos.y);  
+    dungeon.rooms[CurrentRoomIndex].distance = abs(dungeon.rooms[CurrentRoomIndex].gridPos.x) + abs(dungeon.rooms[CurrentRoomIndex].gridPos.y);  
 
     //Wall width on each side of the door
-    doorSide = (rooms[CurrentRoomIndex].size.x - doorSize) / 2.0f;    
+    doorSide = (dungeon.rooms[CurrentRoomIndex].size.x - dungeon.doorSize) / 2.0f;    
     
     //--------------------------------------------------------------------------
     //WALL RECTANGLES
     
     //Top
     Rectangle topLeft = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y,
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y,
         doorSide,
-        wallDepth
+        dungeon.wallDepth
     };
     
     Rectangle topRight = {
-        rooms[CurrentRoomIndex].position.x + doorSide + doorSize,
-        rooms[CurrentRoomIndex].position.y,
+        dungeon.rooms[CurrentRoomIndex].position.x + doorSide + dungeon.doorSize,
+        dungeon.rooms[CurrentRoomIndex].position.y,
         doorSide,
-        wallDepth
+        dungeon.wallDepth
     };
     
     Rectangle topWall = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y,
-        rooms[CurrentRoomIndex].size.x,
-        wallDepth
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y,
+        dungeon.rooms[CurrentRoomIndex].size.x,
+        dungeon.wallDepth
     };
     
     //Bottom
     Rectangle bottomLeft = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y + dungeon.rooms[CurrentRoomIndex].size.y - dungeon.wallDepth,
         doorSide,
-        wallDepth
+        dungeon.wallDepth
     };
     
     Rectangle bottomRight = {
-        rooms[CurrentRoomIndex].position.x + doorSide + doorSize,
-        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.x + doorSide + dungeon.doorSize,
+        dungeon.rooms[CurrentRoomIndex].position.y + dungeon.rooms[CurrentRoomIndex].size.y - dungeon.wallDepth,
         doorSide,
-        wallDepth
+        dungeon.wallDepth
     };
     
     Rectangle bottomWall = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
-        rooms[CurrentRoomIndex].size.x,
-        wallDepth
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y + dungeon.rooms[CurrentRoomIndex].size.y - dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].size.x,
+        dungeon.wallDepth
     };
     
     //Left
     Rectangle leftTop = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y,
-        wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y,
+        dungeon.wallDepth,
         doorSide
     };
     
     Rectangle leftBottom = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y + doorSide + doorSize,
-        wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y + doorSide + dungeon.doorSize,
+        dungeon.wallDepth,
         doorSide
     };
     
     Rectangle leftWall = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y,
-        wallDepth,
-        rooms[CurrentRoomIndex].size.y
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y,
+        dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].size.y
     };
     
     //Right
     Rectangle rightTop = {
-        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
-        rooms[CurrentRoomIndex].position.y,
-        wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.x + dungeon.rooms[CurrentRoomIndex].size.x - dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.y,
+        dungeon.wallDepth,
         doorSide
     };
     
     Rectangle rightBottom = {
-        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
-        rooms[CurrentRoomIndex].position.y + doorSide + doorSize,
-        wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.x + dungeon.rooms[CurrentRoomIndex].size.x - dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.y + doorSide + dungeon.doorSize,
+        dungeon.wallDepth,
         doorSide
     };
     
     Rectangle rightWall = {
-        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
-        rooms[CurrentRoomIndex].position.y,
-        wallDepth,
-        rooms[CurrentRoomIndex].size.y
+        dungeon.rooms[CurrentRoomIndex].position.x + dungeon.rooms[CurrentRoomIndex].size.x - dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.y,
+        dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].size.y
     };
     
     //--------------------------------------------------------------------------
     // DOOR RECTANGLES
     
     Rectangle topDoor = {
-        rooms[CurrentRoomIndex].position.x + doorSide,
-        rooms[CurrentRoomIndex].position.y,
-        (float)doorSize,
-        wallDepth
+        dungeon.rooms[CurrentRoomIndex].position.x + doorSide,
+        dungeon.rooms[CurrentRoomIndex].position.y,
+        (float)dungeon.doorSize,
+        dungeon.wallDepth
     };
     
     Rectangle rightDoor = {
-        rooms[CurrentRoomIndex].position.x + rooms[CurrentRoomIndex].size.x - wallDepth,
-        rooms[CurrentRoomIndex].position.y + doorSide,
-        wallDepth,
-        (float)doorSize
+        dungeon.rooms[CurrentRoomIndex].position.x + dungeon.rooms[CurrentRoomIndex].size.x - dungeon.wallDepth,
+        dungeon.rooms[CurrentRoomIndex].position.y + doorSide,
+        dungeon.wallDepth,
+        (float)dungeon.doorSize
     };
     
     Rectangle bottomDoor = {
-        rooms[CurrentRoomIndex].position.x + doorSide,
-        rooms[CurrentRoomIndex].position.y + rooms[CurrentRoomIndex].size.y - wallDepth,
-        (float)doorSize,
-        wallDepth
+        dungeon.rooms[CurrentRoomIndex].position.x + doorSide,
+        dungeon.rooms[CurrentRoomIndex].position.y + dungeon.rooms[CurrentRoomIndex].size.y - dungeon.wallDepth,
+        (float)dungeon.doorSize,
+        dungeon.wallDepth
     };
     
     Rectangle leftDoor = {
-        rooms[CurrentRoomIndex].position.x,
-        rooms[CurrentRoomIndex].position.y + doorSide,
-        wallDepth,
-        (float)doorSize
+        dungeon.rooms[CurrentRoomIndex].position.x,
+        dungeon.rooms[CurrentRoomIndex].position.y + doorSide,
+        dungeon.wallDepth,
+        (float)dungeon.doorSize
     };
     
     //--------------------------------------------------------------------------
@@ -547,131 +565,127 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
     //Check if empty type
     if(isEmpty){
         
-        rooms[CurrentRoomIndex].exists = false;
+        dungeon.rooms[CurrentRoomIndex].exists = false;
         
-        numRoomLocs++;
+        dungeon.numRoomLocs++;
         
     } else if(isBoss){ 
         //Add boss room
-        rooms[CurrentRoomIndex].exists = true;
-        rooms[CurrentRoomIndex].numWalls = 0;
-        rooms[CurrentRoomIndex].numDoors = 0;
+        dungeon.rooms[CurrentRoomIndex].exists = true;
+        dungeon.rooms[CurrentRoomIndex].numWalls = 0;
+        dungeon.rooms[CurrentRoomIndex].numDoors = 0;
         
         if(TextIsEqual(type, "BossN")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftWall;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightWall;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
             //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    rooms[CurrentRoomIndex].gridPos + (Vector2){0,-3}, roomSize/3.0f, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){0,-3});
                     
         } else if(TextIsEqual(type, "BossE")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topWall;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomWall;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
             //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    rooms[CurrentRoomIndex].gridPos + (Vector2){3,0}, roomSize/3.0f, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyE", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){3,0});
         } else if(TextIsEqual(type, "BossS")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftWall;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightWall;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
             //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    rooms[CurrentRoomIndex].gridPos + (Vector2){0,3}, roomSize/3.0f, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyS", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){0,3});
                     
         } else if(TextIsEqual(type, "BossW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topWall;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomWall;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
             //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    rooms[CurrentRoomIndex].gridPos + (Vector2){-3,0}, roomSize/3.0f, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyW", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){-3,0});
         }
         
-        currentRooms++;
+        dungeon.currentRooms++;
         
-    }else if(currentRooms < maxRooms){
+    }else if(dungeon.currentRooms < dungeon.maxRooms){
         //Add the room 
-        rooms[CurrentRoomIndex].exists = true;
-        rooms[CurrentRoomIndex].numWalls = 0;
-        rooms[CurrentRoomIndex].numDoors = 0;
+        dungeon.rooms[CurrentRoomIndex].exists = true;
+        dungeon.rooms[CurrentRoomIndex].numWalls = 0;
+        dungeon.rooms[CurrentRoomIndex].numDoors = 0;
         
         //--------------------------------------------------------------------------
         // 4 DOORS
@@ -679,45 +693,34 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn") || TextIsEqual(type, "End")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
-            
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - N/S/W
@@ -726,39 +729,31 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "3DNSW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightWall;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - E/S/W
@@ -767,39 +762,31 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "3DESW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topWall;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
-            
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - N/E/S
@@ -808,39 +795,31 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "3DNES")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftWall;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
-            
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - N/E/W
@@ -849,39 +828,31 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "3DNEW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomWall;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - N/W
@@ -890,33 +861,28 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "2DNW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomWall;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightWall;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - S/W
@@ -925,33 +891,28 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "2DSW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topWall;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightWall;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - E/S
@@ -960,33 +921,28 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "2DES")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topWall;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftWall;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
-            
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - N/E
@@ -995,33 +951,28 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "2DNE")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomWall;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftWall;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - E/W
@@ -1030,33 +981,28 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "2DEW")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topWall;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomWall;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftBottom;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightTop;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightBottom;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightTop;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightBottom;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = rightDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = leftDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = rightDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = leftDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Right
-            AddRoom(rooms, "EmptyE", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 1, position.y + 0}, roomSize, wallDepth, doorSize);
-            
-            //Left
-            AddRoom(rooms, "EmptyW", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x - 1, position.y + 0}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - N/S
@@ -1065,56 +1011,51 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         else if(TextIsEqual(type, "2DNS")){
             
             //TOP
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = topRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topRight;
             
             //BOTTOM
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = bottomRight;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomLeft;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = bottomRight;
             
             //LEFT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = leftWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = leftWall;
             
             //RIGHT
-            rooms[CurrentRoomIndex].walls[rooms[CurrentRoomIndex].numWalls++] = rightWall;
+            dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = rightWall;
             
             //Doors
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = topDoor;
-            rooms[CurrentRoomIndex].doors[rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = topDoor;
+            dungeon.rooms[CurrentRoomIndex].doors[dungeon.rooms[CurrentRoomIndex].numDoors++] = bottomDoor;
             
-            numRoomLocs++;
+            dungeon.numRoomLocs++;
 
             //Add possible room locations
-            //Top
-            AddRoom(rooms, "EmptyN", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y - 1}, roomSize, wallDepth, doorSize);
-            
-            //Bottom
-            AddRoom(rooms, "EmptyS", currentRooms, maxRooms, numRoomLocs,
-                    (Vector2){position.x + 0, position.y + 1}, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
         }
         
-        currentRooms++;
+        dungeon.currentRooms++;
     }
     
     //Purge dupe locations
-    for(int i = 0; i < numRoomLocs; i++){
-        for(int j = i + 1; j < numRoomLocs; j++){
+    for(int i = 0; i < dungeon.numRoomLocs; i++){
+        for(int j = i + 1; j < dungeon.numRoomLocs; j++){
             
-            if(rooms[i].gridPos == rooms[j].gridPos &&
-               (rooms[i].exists == false || rooms[j].exists == false)){
+            if(dungeon.rooms[i].gridPos == dungeon.rooms[j].gridPos &&
+               (dungeon.rooms[i].exists == false || dungeon.rooms[j].exists == false)){
                 
-                if(rooms[i].exists == false){
-                    rooms[i] = rooms[numRoomLocs - 1];
-                    numRoomLocs--;
+                if(dungeon.rooms[i].exists == false){
+                    dungeon.rooms[i] = dungeon.rooms[dungeon.numRoomLocs - 1];
+                    dungeon.numRoomLocs--;
                     
                     //Recheck swapped room
                     i--;
                     break;
                     
                 } else {
-                    rooms[j] = rooms[numRoomLocs - 1];
-                    numRoomLocs--;
+                    dungeon.rooms[j] = dungeon.rooms[dungeon.numRoomLocs - 1];
+                    dungeon.numRoomLocs--;
                     
                     //Recheck swapped room
                     j--;
@@ -1123,47 +1064,37 @@ void AddRoom(Room rooms[], const char* type, int& currentRooms, int maxRooms, in
         }
     }
     
-    SortRooms(rooms, numRoomLocs);   
+    SortRooms(dungeon.rooms, dungeon.numRoomLocs);   
 }
 
-void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRooms, int& numRoomLocs){
+void GenerateDungeon(Dungeon& dungeon){
     
     const char* deadEnds;
     int chosenEmptyRoom;
     int chosenRoomType;
     
-    int maxRooms = dungeonConfig.maxRooms;
-    int roomSize = dungeonConfig.roomSize;
-    float wallDepth = dungeonConfig.wallDepth;
-    int doorSize = dungeonConfig.doorSize;
+    dungeon.currentRooms = 0;
+    dungeon.numRoomLocs = 0;
     
-    float straight = dungeonConfig.straight;
-    float turn = dungeonConfig.turn;
-    float threeWay = dungeonConfig.threeWay;
-    float fourWay = dungeonConfig.fourWay;
-    
-    currentRooms = 0;
-    numRoomLocs = 0;
-    
-    Vector2 straightChance = (Vector2){1,straight};
-    Vector2 turnChance = (Vector2){straightChance.y + 1,straightChance.y + turn};
-    Vector2 threeWayChance = (Vector2){turnChance.y + 1,turnChance.y + threeWay};
-    Vector2 fourWayChance = (Vector2){threeWayChance.y + 1,threeWayChance.y + fourWay};
+    Vector2 straightChance = (Vector2){1,dungeon.straight};
+    Vector2 turnChance = (Vector2){straightChance.y + 1,straightChance.y + dungeon.turn};
+    Vector2 threeWayChance = (Vector2){turnChance.y + 1,turnChance.y + dungeon.threeWay};
+    Vector2 fourWayChance = (Vector2){threeWayChance.y + 1,threeWayChance.y + dungeon.fourWay};
     
     bool generateDungeon = true;
     
     
-    AddRoom(rooms, "Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+    AddRoom(dungeon, "Spawn", (Vector2){0,0});
     
     while(generateDungeon){
         
-        while(currentRooms < maxRooms - 2){     //account for boss and end room
+        while(dungeon.currentRooms < dungeon.maxRooms - 2){     //account for boss and end room
             
             chosenEmptyRoom = -1;
             
             //Choose closest empty room
-            for(int i = 0; i < numRoomLocs; i++){
-                if(rooms[i].exists == false){
+            for(int i = 0; i < dungeon.numRoomLocs; i++){
+                if(dungeon.rooms[i].exists == false){
                     chosenEmptyRoom = i;
                     break;
                 }
@@ -1175,117 +1106,117 @@ void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRoom
                 chosenRoomType = GetRandomValue(1, 100);
                 
                 //Spawn corresponding room
-                if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyN")){    
+                if(TextIsEqual(dungeon.rooms[chosenEmptyRoom].type,"EmptyN")){    
                     if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
-                        //Straight
-                        AddRoom(rooms, "2DNS", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                        //dungeon.straight
+                        AddRoom(dungeon, "2DNS", dungeon.rooms[chosenEmptyRoom].gridPos);                    
                     } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
-                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - dungeon.turn / 2){
                             //Right
-                            AddRoom(rooms, "2DES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DES", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Left
-                            AddRoom(rooms, "2DSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DSW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
-                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * dungeon.threeWay / 3){
                             //Split Left Right
-                            AddRoom(rooms, "3DESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
-                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            AddRoom(dungeon, "3DESW", dungeon.rooms[chosenEmptyRoom].gridPos);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - dungeon.threeWay / 3){
                             //Split Front Right
-                            AddRoom(rooms, "3DNES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DNES", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Split Front Left
-                            AddRoom(rooms, "3DNSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DNSW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     }
-                } else if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyE")){    
+                } else if(TextIsEqual(dungeon.rooms[chosenEmptyRoom].type,"EmptyE")){    
                     if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
-                        //Straight
-                        AddRoom(rooms, "2DEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                        //dungeon.straight
+                        AddRoom(dungeon, "2DEW", dungeon.rooms[chosenEmptyRoom].gridPos);                    
                     } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
-                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - dungeon.turn / 2){
                             //Right
-                            AddRoom(rooms, "2DSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DSW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Left
-                            AddRoom(rooms, "2DNW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DNW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
-                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * dungeon.threeWay / 3){
                             //Split Left Right
-                            AddRoom(rooms, "3DNSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
-                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            AddRoom(dungeon, "3DNSW", dungeon.rooms[chosenEmptyRoom].gridPos);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - dungeon.threeWay / 3){
                             //Split Front Right
-                            AddRoom(rooms, "3DESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DESW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Split Front Left
-                            AddRoom(rooms, "3DNEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DNEW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     }
-                } else if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyS")){    
+                } else if(TextIsEqual(dungeon.rooms[chosenEmptyRoom].type,"EmptyS")){    
                     if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
-                        //Straight
-                        AddRoom(rooms, "2DNS", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                        //dungeon.straight
+                        AddRoom(dungeon, "2DNS", dungeon.rooms[chosenEmptyRoom].gridPos);                    
                     } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
-                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - dungeon.turn / 2){
                             //Right
-                            AddRoom(rooms, "2DNW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DNW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Left
-                            AddRoom(rooms, "2DNE", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DNE", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
-                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * dungeon.threeWay / 3){
                             //Split Left Right
-                            AddRoom(rooms, "3DNEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
-                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            AddRoom(dungeon, "3DNEW", dungeon.rooms[chosenEmptyRoom].gridPos);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - dungeon.threeWay / 3){
                             //Split Front Right
-                            AddRoom(rooms, "3DNSW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DNSW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Split Front Left
-                            AddRoom(rooms, "3DNES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DNES", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     }
-                } else if(TextIsEqual(rooms[chosenEmptyRoom].type,"EmptyW")){    
+                } else if(TextIsEqual(dungeon.rooms[chosenEmptyRoom].type,"EmptyW")){    
                     if(chosenRoomType >= straightChance.x && chosenRoomType <= straightChance.y){
-                        //Straight
-                        AddRoom(rooms, "2DEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                        //dungeon.straight
+                        AddRoom(dungeon, "2DEW", dungeon.rooms[chosenEmptyRoom].gridPos);                    
                     } else if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y){
-                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - turn / 2){
+                        if(chosenRoomType >= turnChance.x && chosenRoomType <= turnChance.y - dungeon.turn / 2){
                             //Right
-                            AddRoom(rooms, "2DNE", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DNE", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Left
-                            AddRoom(rooms, "2DES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "2DES", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y){
-                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * threeWay / 3){
+                        if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - 2 * dungeon.threeWay / 3){
                             //Split Left Right
-                            AddRoom(rooms, "3DNES", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
-                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - threeWay / 3){
+                            AddRoom(dungeon, "3DNES", dungeon.rooms[chosenEmptyRoom].gridPos);
+                        } else if(chosenRoomType >= threeWayChance.x && chosenRoomType <= threeWayChance.y - dungeon.threeWay / 3){
                             //Split Front Right
-                            AddRoom(rooms, "3DNEW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DNEW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         } else {
                             //Split Front Left
-                            AddRoom(rooms, "3DESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);
+                            AddRoom(dungeon, "3DESW", dungeon.rooms[chosenEmptyRoom].gridPos);
                         }
                     }
                 }
                 
                 
-                //Wall empty rooms can have the same 4 way
+                //Wall empty dungeon.rooms can have the same 4 way
                 if(chosenRoomType >= fourWayChance.x && chosenRoomType <= fourWayChance.y){
                     //4 Way intersection
-                    AddRoom(rooms, "4DNESW", currentRooms, maxRooms, numRoomLocs, rooms[chosenEmptyRoom].gridPos, roomSize, wallDepth, doorSize);                    
+                    AddRoom(dungeon, "4DNESW", dungeon.rooms[chosenEmptyRoom].gridPos);                    
                 }
                 
             } else {
                 
                 //Reset generation because we are stuck
-                currentRooms = 0;
-                numRoomLocs = 0;
-                AddRoom(rooms, "Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+                dungeon.currentRooms = 0;
+                dungeon.numRoomLocs = 0;
+                AddRoom(dungeon, "Spawn", (Vector2){0,0});
                 break;
                 
             }            
@@ -1294,8 +1225,8 @@ void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRoom
         int bossRoomIndex = -1;
     
         //Choose boss room
-        for(int i = numRoomLocs - 1; i > -1; i--){
-            if(rooms[i].exists == false && RoomForBoss(rooms, rooms[i], numRoomLocs)){
+        for(int i = dungeon.numRoomLocs - 1; i > -1; i--){
+            if(dungeon.rooms[i].exists == false && RoomForBoss(dungeon.rooms, dungeon.rooms[i], dungeon.numRoomLocs)){
                 bossRoomIndex = i;
                 break;
             }
@@ -1305,28 +1236,28 @@ void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRoom
         //If valid
         if(bossRoomIndex != -1){
             generateDungeon = false;  
-            if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyN")){
-                AddRoom(rooms, "BossN", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
-            } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyE")){
-                AddRoom(rooms, "BossE", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
-            } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyS")){
-                AddRoom(rooms, "BossS", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
-            } else if(TextIsEqual(rooms[bossRoomIndex].type, "EmptyW")){
-                AddRoom(rooms, "BossW", currentRooms, maxRooms, numRoomLocs, rooms[bossRoomIndex].gridPos, roomSize * 3, wallDepth * 6.2f, doorSize);
+            if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyN")){
+                AddRoom(dungeon, "BossN", dungeon.rooms[bossRoomIndex].gridPos);
+            } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyE")){
+                AddRoom(dungeon, "BossE", dungeon.rooms[bossRoomIndex].gridPos);
+            } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyS")){
+                AddRoom(dungeon, "BossS", dungeon.rooms[bossRoomIndex].gridPos);
+            } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyW")){
+                AddRoom(dungeon, "BossW", dungeon.rooms[bossRoomIndex].gridPos);
             }
         } else {
             //Reset generation because we cant spawn boss room
-            currentRooms = 0;
-            numRoomLocs = 0;
-            AddRoom(rooms, "Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+            dungeon.currentRooms = 0;
+            dungeon.numRoomLocs = 0;
+            AddRoom(dungeon, "Spawn", (Vector2){0,0});
             break;
         }
         
         int endRoomIndex = -1;
     
         //Choose End Room
-        for(int i = numRoomLocs - 1; i > -1; i--){
-            if(rooms[i].exists == false){
+        for(int i = dungeon.numRoomLocs - 1; i > -1; i--){
+            if(dungeon.rooms[i].exists == false){
                 endRoomIndex = i;
                 break;
             }
@@ -1335,69 +1266,69 @@ void GenerateDungeon(Room rooms[], DungeonConfig dungeonConfig, int& currentRoom
         
         //If valid
         if(endRoomIndex != -1){
-            AddRoom(rooms, "End", currentRooms, maxRooms, numRoomLocs, rooms[endRoomIndex].gridPos, roomSize, wallDepth, doorSize);
+            AddRoom(dungeon, "End", dungeon.rooms[endRoomIndex].gridPos);
         } else {
             //Reset generation because we cant spawn end room
-            currentRooms = 0;
-            numRoomLocs = 0;
-            AddRoom(rooms, "Spawn", currentRooms, maxRooms, numRoomLocs, (Vector2){0,0}, roomSize, wallDepth, doorSize);
+            dungeon.currentRooms = 0;
+            dungeon.numRoomLocs = 0;
+            AddRoom(dungeon, "Spawn", (Vector2){0,0});
             break;
         }
     }
 
     
     //Make dead ends    
-    for(int i = 0; i < numRoomLocs; i++){
+    for(int i = 0; i < dungeon.numRoomLocs; i++){
         //Wall width on each side of the door
-        float doorSide = (rooms[i].size.x - doorSize) / 2.0f; 
+        float doorSide = (dungeon.rooms[i].size.x - dungeon.doorSize) / 2.0f; 
     
         Rectangle topWall = {
-            rooms[i].position.x + doorSide,
-            rooms[i].position.y,
-            (float)doorSize,
-            wallDepth
+            dungeon.rooms[i].position.x + doorSide,
+            dungeon.rooms[i].position.y,
+            (float)dungeon.doorSize,
+            dungeon.wallDepth
         };
     
         Rectangle rightWall = {
-            rooms[i].position.x + rooms[i].size.x - wallDepth,
-            rooms[i].position.y + doorSide,
-            wallDepth,
-            (float)doorSize
+            dungeon.rooms[i].position.x + dungeon.rooms[i].size.x - dungeon.wallDepth,
+            dungeon.rooms[i].position.y + doorSide,
+            dungeon.wallDepth,
+            (float)dungeon.doorSize
         };
         
         Rectangle bottomWall = {
-            rooms[i].position.x + doorSide,
-            rooms[i].position.y + rooms[i].size.y - wallDepth,
-            (float)doorSize,
-            wallDepth
+            dungeon.rooms[i].position.x + doorSide,
+            dungeon.rooms[i].position.y + dungeon.rooms[i].size.y - dungeon.wallDepth,
+            (float)dungeon.doorSize,
+            dungeon.wallDepth
         };
         
         Rectangle leftWall = {
-            rooms[i].position.x,
-            rooms[i].position.y + doorSide,
-            wallDepth,
-            (float)doorSize
+            dungeon.rooms[i].position.x,
+            dungeon.rooms[i].position.y + doorSide,
+            dungeon.wallDepth,
+            (float)dungeon.doorSize
         };
         
         
     
-        deadEnds = TestDeadEnd(rooms, rooms[i], numRoomLocs);
+        deadEnds = TestDeadEnd(dungeon.rooms, dungeon.rooms[i], dungeon.numRoomLocs);
         for(int j = 0; j < (int)TextLength(deadEnds); j++){
             if(deadEnds[j] == 'N'){
-                rooms[i].numWalls++;
-                rooms[i].walls[rooms[i].numWalls - 1] = topWall;
+                dungeon.rooms[i].numWalls++;
+                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = topWall;
             }
             if(deadEnds[j] == 'E'){
-                rooms[i].numWalls++;
-                rooms[i].walls[rooms[i].numWalls - 1] = rightWall;
+                dungeon.rooms[i].numWalls++;
+                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = rightWall;
             }
             if(deadEnds[j] == 'S'){
-                rooms[i].numWalls++;
-                rooms[i].walls[rooms[i].numWalls - 1] = bottomWall;
+                dungeon.rooms[i].numWalls++;
+                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = bottomWall;
             }
             if(deadEnds[j] == 'W'){
-                rooms[i].numWalls++;
-                rooms[i].walls[rooms[i].numWalls - 1] = leftWall;
+                dungeon.rooms[i].numWalls++;
+                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = leftWall;
             }
             
         }
