@@ -150,11 +150,10 @@ struct Dungeon {
 DungeonConfig LoadDungeonConfig(const char* filePath);
 
 void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig);
-bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs);
+bool RoomForBoss(Dungeon dungeon, Room emptyRoom);
 bool ValidRoomInDirection(Room currentRoom, char direction);
 void AddDirection(char directions[], char direction);
 const char* TestDeadEnd(Dungeon dungeon, Room currentRoom);
 void SortRooms(Dungeon& dungeon);
 void AddRoom(Dungeon& dungeon, const char* type, Vector2 position);
-void GenerateEndRoom(Room rooms[], int& numRoomLocs);
 void GenerateDungeon(Dungeon& dungeon);

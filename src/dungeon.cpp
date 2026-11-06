@@ -58,61 +58,61 @@ void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
     
 }
 
-bool RoomForBoss(Room rooms[], Room emptyRoom, int numRoomLocs){
+bool RoomForBoss(Dungeon dungeon, Room emptyRoom){
     
     bool available = true;
     
     if(TextIsEqual(emptyRoom.type, "EmptyN")){
-        for(int i = 0; i < numRoomLocs; i++){
-            available = available && (rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !rooms[i].exists);
+        for(int i = 0; i < dungeon.numRoomLocs; i++){
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){-1,-2} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){0,-2} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,-2} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyE")){
-        for(int i = 0; i < numRoomLocs; i++){
-            available = available && (rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !rooms[i].exists);
+        for(int i = 0; i < dungeon.numRoomLocs; i++){
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){2,1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){2,0} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){2,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){2,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){2,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){2,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyS")){
-        for(int i = 0; i < numRoomLocs; i++){
-            available = available && (rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !rooms[i].exists);
+        for(int i = 0; i < dungeon.numRoomLocs; i++){
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){-1,2} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){0,2} + emptyRoom.gridPos || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){1,2} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyW")){
-        for(int i = 0; i < numRoomLocs; i++){
-            available = available && (rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos  || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos  || !rooms[i].exists);
+        for(int i = 0; i < dungeon.numRoomLocs; i++){
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos  || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos  || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (rooms[i].gridPos != (Vector2){-2,1} + emptyRoom.gridPos  || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){-2,0} + emptyRoom.gridPos  || !rooms[i].exists);
-            available = available && (rooms[i].gridPos != (Vector2){-2,-1} + emptyRoom.gridPos  || !rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-2,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-2,0} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != (Vector2){-2,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
         }
     }
     
@@ -1226,7 +1226,7 @@ void GenerateDungeon(Dungeon& dungeon){
     
         //Choose boss room
         for(int i = dungeon.numRoomLocs - 1; i > -1; i--){
-            if(dungeon.rooms[i].exists == false && RoomForBoss(dungeon.rooms, dungeon.rooms[i], dungeon.numRoomLocs)){
+            if(dungeon.rooms[i].exists == false && RoomForBoss(dungeon, dungeon.rooms[i])){
                 bossRoomIndex = i;
                 break;
             }
