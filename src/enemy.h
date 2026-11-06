@@ -1,7 +1,7 @@
 #pragma once
 
 #include "player.h"
-#include "room.h"
+#include "dungeon.h"
 
 #include "raylib.h"
 

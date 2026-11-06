@@ -1,7 +1,7 @@
 #include "draw.h"
 
 #include "player.h"
-#include "room.h"
+#include "dungeon.h"
 #include "enemy.h"
 #include "projectile.h"
 #include "camera.h"
