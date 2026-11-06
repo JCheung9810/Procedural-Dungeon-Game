@@ -2,22 +2,26 @@
 
 #include "raylib.h"
 
+enum SpriteID{
+    
+};
+
 struct Wall {
     Rectangle hitbox;
-    Texture2D texture;
+    SpriteID spriteID;
     
 };
 
 struct Door {
     Rectangle hitbox;
-    Texture2D texture;
+    SpriteID spriteID;
 
     bool active;
 };
 
 struct RoomDecor {
     Rectangle hitbox;
-    Texture2D texture;
+    SpriteID spriteID;
     
     bool collision;
     
@@ -25,7 +29,7 @@ struct RoomDecor {
 
 struct RoomBreakable {
     Rectangle hitbox;
-    Texture2D texture;
+    SpriteID spriteID;
     
     float health;
     
@@ -33,16 +37,21 @@ struct RoomBreakable {
 
 struct RoomUsable {
     Rectangle hitbox;
-    Texture2D texture;
+    SpriteID spriteID;
     
     bool active;
     
 };
 
 struct EnemySpawnInfo {
-    const char* type;
+    const char* name;
     float spawnWeight;
     
+};
+
+struct EnemySpawnPoint {
+    const char* name[10] = {};
+    Vector2 position;
 };
 
 struct RoomContent {
@@ -51,6 +60,7 @@ struct RoomContent {
     
     int numEnemyTypes;
     EnemySpawnInfo enemySpawnInfo[10] = {};
+    EnemySpawnPoint enemySpawnPoint[10] = {};
     
     //Walls
     int numWalls;
