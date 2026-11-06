@@ -53,6 +53,7 @@ void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
     dungeon.fourWay = dungeonConfig.fourWay;
     
     dungeon.floor = 0;
+    dungeon.bestFloor = dungeon.floor;
     dungeon.currentRooms = 0;
     dungeon.numRoomLocs = 0;
     

@@ -2,26 +2,30 @@
 
 #include "raylib.h"
 
-enum SpriteID{
-    
+//Load sprite sheet with srcRec once
+//Load json for level once, for each wallType, assign a certain id and set hitbox values
+//When drawing use the srcRec based on ID
+struct SpriteInfo {
+    const char* type;
+    Rectangle textureSrc;
 };
 
 struct Wall {
     Rectangle hitbox;
-    SpriteID spriteID;
+    int spriteID;
     
 };
 
 struct Door {
     Rectangle hitbox;
-    SpriteID spriteID;
+    int spriteID;
 
     bool active;
 };
 
 struct RoomDecor {
     Rectangle hitbox;
-    SpriteID spriteID;
+    int spriteID;
     
     bool collision;
     
@@ -29,7 +33,7 @@ struct RoomDecor {
 
 struct RoomBreakable {
     Rectangle hitbox;
-    SpriteID spriteID;
+    int spriteID;
     
     float health;
     
@@ -37,7 +41,7 @@ struct RoomBreakable {
 
 struct RoomUsable {
     Rectangle hitbox;
-    SpriteID spriteID;
+    int spriteID;
     
     bool active;
     
@@ -62,7 +66,7 @@ struct RoomContent {
     
     //Walls
     int numWalls;
-    Wall walls[20] = {};
+    Wall walls[50] = {};
     
     //Doors
     int numDoors;
@@ -107,7 +111,7 @@ struct Room {
     RoomContent roomContent = {};
     
     //State
-    RoomState state;
+    RoomState state = RoomState::INACTIVE;
     
 };
 
@@ -132,8 +136,8 @@ struct Dungeon {
     
     Room rooms[100] = {};
     
-    int currentRooms = 0;
-    int numRoomLocs = 0;
+    int currentRooms;
+    int numRoomLocs;
     
     int maxRooms;
     int roomSize;
