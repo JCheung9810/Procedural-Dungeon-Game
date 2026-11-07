@@ -1,5 +1,15 @@
 #include "assetManager.h"
 
+Vector2 AssetManager::CalcTileCoord(int col, int row, int borderSpacing, int spacing, int size){
+    float x,y;
+    
+    //border spacing + xCord with width + spacing between tiles
+    x = (borderSpacing * row) + (size * (col - spacing)) + (col - spacing);
+    y = (borderSpacing * col) + (size * (row - spacing)) + (row - spacing);
+    
+    return (Vector2){x,y};
+}
+
 Texture2D AssetManager::LoadGameTexture(const char* path) {
     //Check if texture is already loaded
     auto it = textures.find(path);
@@ -46,6 +56,56 @@ Sound AssetManager::LoadGameSound(const char* path) {
     TraceLog(LOG_INFO, "Loaded sound: %s", path);
 
     return sound;
+}
+
+void AssetManager::LoadSpriteInfo(){
+    
+    /*
+    SmallWallTop,
+    SmallWallBottom,
+    SmallWallLeft,
+    SmallWallRight,
+    MediumWallTop,
+    MediumWallBottom,
+    MediumWallLeft,
+    MediumWallRight,
+    LargeWallTop,
+    LargeWallBottom,
+    LargeWallLeft,
+    LargeWallRight
+    */
+    
+    Vector2 position;
+    int borderSpacing, spacing;
+    float size;
+    
+    borderSpacing = 2;
+    spacing = 1;
+    size = 16.0f;
+    
+    //Top walls
+    position = CalcTileCoord(4,1, borderSpacing, spacing, size);
+    spriteInfo[SmallWallTop].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[MediumWallTop].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[LargeWallTop].textureSrc = {position.x, position.y, size, size};
+    
+    //Bottom walls
+    position = CalcTileCoord(4,2, borderSpacing, spacing, size);
+    spriteInfo[SmallWallBottom].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[MediumWallBottom].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[LargeWallBottom].textureSrc = {position.x, position.y, size, size};
+    
+    //Left walls
+    position = CalcTileCoord(3,1, borderSpacing, spacing, size);
+    spriteInfo[SmallWallLeft].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[MediumWallLeft].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[LargeWallLeft].textureSrc = {position.x, position.y, size, size};
+    
+    //Right walls
+    position = CalcTileCoord(3,2, borderSpacing, spacing, size);
+    spriteInfo[SmallWallRight].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[MediumWallRight].textureSrc = {position.x, position.y, size, size};
+    spriteInfo[LargeWallRight].textureSrc = {position.x, position.y, size, size};
 }
 
 void AssetManager::UnloadAll() {

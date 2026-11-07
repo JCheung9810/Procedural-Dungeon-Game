@@ -7,12 +7,38 @@
 
 using namespace std;
 
+enum SpriteID{
+    SmallWallTop,
+    SmallWallBottom,
+    SmallWallLeft,
+    SmallWallRight,
+    MediumWallTop,
+    MediumWallBottom,
+    MediumWallLeft,
+    MediumWallRight,
+    LargeWallTop,
+    LargeWallBottom,
+    LargeWallLeft,
+    LargeWallRight
+  
+};
+
+struct SpriteInfo {
+    Rectangle textureSrc;
+};
+
 struct AssetManager {
     unordered_map<std::string, Texture2D> textures;
     unordered_map<std::string, Sound> sounds;
     
+    SpriteInfo spriteInfo[30] = {};
+    
+    Vector2 CalcTileCoord(int row, int col, int borderSpacing, int spacing, int size);
+    
     Texture2D LoadGameTexture(const char* path);
     Sound LoadGameSound(const char* path);
+    
+    void LoadSpriteInfo(); 
 
     void UnloadAll();
 };

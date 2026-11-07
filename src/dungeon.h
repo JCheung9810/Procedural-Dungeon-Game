@@ -1,31 +1,28 @@
 #pragma once
 
+#include "assetManager.h"
+
 #include "raylib.h"
 
 //Load sprite sheet with srcRec once
 //Load json for level once, for each wallType, assign a certain id and set hitbox values
 //When drawing use the srcRec based on ID
-struct SpriteInfo {
-    const char* type;
-    Rectangle textureSrc;
-};
-
 struct Wall {
     Rectangle hitbox;
-    int spriteID;
+    SpriteID spriteID;
     
 };
 
 struct Door {
     Rectangle hitbox;
-    int spriteID;
+    SpriteID spriteID;
 
     bool active;
 };
 
 struct RoomDecor {
     Rectangle hitbox;
-    int spriteID;
+    SpriteID spriteID;
     
     bool collision;
     
@@ -33,7 +30,7 @@ struct RoomDecor {
 
 struct RoomBreakable {
     Rectangle hitbox;
-    int spriteID;
+    SpriteID spriteID;
     
     float health;
     
@@ -41,7 +38,7 @@ struct RoomBreakable {
 
 struct RoomUsable {
     Rectangle hitbox;
-    int spriteID;
+    SpriteID spriteID;
     
     bool active;
     
@@ -83,6 +80,9 @@ struct RoomContent {
     //Usable objects
     int numUsables;
     RoomUsable usables[20] = {};
+    
+    //Background
+    Texture2D backgroundTexture;
     
     
 };

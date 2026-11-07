@@ -73,6 +73,7 @@ int main(void){
     //Images
     Texture2D heartTexture = assets.LoadGameTexture("assets/textures/Heart.png");
     Texture2D weaponHudBoxTexture = assets.LoadGameTexture("assets/textures/weaponHudBox.png");
+    assets.LoadSpriteInfo();
     
     //Projectile
     float projectileLifespan = 5.0f;
