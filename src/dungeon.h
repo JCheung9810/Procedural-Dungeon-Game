@@ -109,12 +109,6 @@ struct Room {
     int distance;
     bool exists = false;
     
-    //Perimeter (temp)
-    int numWalls;
-    Rectangle walls[12];
-    int numDoors;
-    Rectangle doors[4];
-    
     //Room content
     RoomContent roomContent = {};
     

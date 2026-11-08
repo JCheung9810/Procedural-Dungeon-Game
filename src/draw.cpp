@@ -31,57 +31,8 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
         
             int fontSize;
             int textWidth;
-        
-        /*
-            //Draw dungeon.rooms
-            for(int i = 0; i < dungeon.numRoomLocs; i++){
-                if(dungeon.rooms[i].exists == true){
-                    //Draw doors
-                    for(int j = 0; j < dungeon.rooms[i].numDoors; j++){
-                        DrawRectangleRec(dungeon.rooms[i].doors[j], MAROON);                                 
-                    }
-                    //Draw walls
-                    for(int j = 0; j < dungeon.rooms[i].numWalls; j++){
-                        DrawRectangleRec(dungeon.rooms[i].walls[j], BLACK);                                 
-                    }
-                }
-                fontSize = 30;
-                //Text Type
-                textWidth = MeasureText(dungeon.rooms[i].type, fontSize);
-                DrawText(
-                    dungeon.rooms[i].type, dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2, 
-                    fontSize, 
-                    BLACK
-                );                       
-                //Text Dist
-                textWidth = MeasureText(TextFormat("Dist: %i", dungeon.rooms[i].distance), fontSize);
-                DrawText(
-                    TextFormat("Dist: %i", dungeon.rooms[i].distance), dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize, 
-                    fontSize, 
-                    BLACK
-                ); 
-                //Text Index
-                textWidth = MeasureText(TextFormat("Index: %i", i), fontSize);
-                DrawText(
-                    TextFormat("Index: %i", i), dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 2, 
-                    fontSize, 
-                    BLACK
-                );   
-                //Text Grid Position
-                textWidth = MeasureText(TextFormat("Grid Position: {%f,%f}", dungeon.rooms[i].gridPos.x, dungeon.rooms[i].gridPos.y), fontSize);
-                DrawText(
-                    TextFormat("Grid Position: {%f,%f}", dungeon.rooms[i].gridPos.x, dungeon.rooms[i].gridPos.y), dungeon.rooms[i].position.x + (Vector2){dungeon.rooms[i].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[i].position.y + (Vector2){0,dungeon.rooms[i].size.y/2.0f}.y - fontSize/2 + fontSize * 3, 
-                    fontSize, 
-                    BLACK
-                ); 
-            }
-            */
 
-            //Draw rooms V2
+            //Draw rooms
             for(int roomIt = 0; roomIt < dungeon.numRoomLocs; roomIt++){
                 Room& room = dungeon.rooms[roomIt];
 
