@@ -51,12 +51,14 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon dung
             //Check x
             for(int j = 0; j < dungeon.numRoomLocs; j++){
                 if(dungeon.rooms[j].exists == true){
-                    for(int k = 0; k < dungeon.rooms[j].numWalls; k++){
-                        if(CheckCollisionRecs(enemies[i].hitBox, dungeon.rooms[j].walls[k])){
-                            if(previousPosition.x + enemies[i].hitBox.width <= dungeon.rooms[j].walls[k].x){
-                                enemies[i].position.x = dungeon.rooms[j].walls[k].x - enemies[i].hitBox.width;
-                            } else if(previousPosition.x >= dungeon.rooms[j].walls[k].x + dungeon.rooms[j].walls[k].width){
-                                enemies[i].position.x = dungeon.rooms[j].walls[k].x + dungeon.rooms[j].walls[k].width;
+                    for(int k = 0; k < dungeon.rooms[j].roomContent.numWalls; k++){
+                        Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
+
+                        if(CheckCollisionRecs(enemies[i].hitBox, wall)){
+                            if(previousPosition.x + enemies[i].hitBox.width <= wall.x){
+                                enemies[i].position.x = wall.x - enemies[i].hitBox.width;
+                            } else if(previousPosition.x >= wall.x + wall.width){
+                                enemies[i].position.x = wall.x + wall.width;
                             }
 
                             enemies[i].hitBox.x = enemies[i].position.x;
@@ -69,12 +71,14 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon dung
             //Check y
             for(int j = 0; j < dungeon.numRoomLocs; j++){
                 if(dungeon.rooms[j].exists == true){
-                    for(int k = 0; k < dungeon.rooms[j].numWalls; k++){
-                        if(CheckCollisionRecs(enemies[i].hitBox, dungeon.rooms[j].walls[k])){
-                            if(previousPosition.y + enemies[i].hitBox.height <= dungeon.rooms[j].walls[k].y){
-                                enemies[i].position.y = dungeon.rooms[j].walls[k].y - enemies[i].hitBox.height;
-                            } else if(previousPosition.y >= dungeon.rooms[j].walls[k].y + dungeon.rooms[j].walls[k].height){
-                                enemies[i].position.y = dungeon.rooms[j].walls[k].y + dungeon.rooms[j].walls[k].height;
+                    for(int k = 0; k < dungeon.rooms[j].roomContent.numWalls; k++){
+                        Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
+
+                        if(CheckCollisionRecs(enemies[i].hitBox, wall)){
+                            if(previousPosition.y + enemies[i].hitBox.height <= wall.y){
+                                enemies[i].position.y = wall.y - enemies[i].hitBox.height;
+                            } else if(previousPosition.y >= wall.y + wall.height){
+                                enemies[i].position.y = wall.y + wall.height;
                             }
 
                             enemies[i].hitBox.y = enemies[i].position.y;

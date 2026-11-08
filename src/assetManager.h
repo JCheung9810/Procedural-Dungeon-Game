@@ -19,7 +19,15 @@ enum SpriteID{
     LargeWallTop,
     LargeWallBottom,
     LargeWallLeft,
-    LargeWallRight
+    LargeWallRight,
+    InnerCornerWallTopLeft,
+    InnerCornerWallTopRight,
+    InnerCornerWallBottomLeft,
+    InnerCornerWallBottomRight,
+    OuterCornerWallTopLeft,
+    OuterCornerWallTopRight,
+    OuterCornerWallBottomLeft,
+    OuterCornerWallBottomRight
   
 };
 
@@ -43,3 +51,8 @@ struct AssetManager {
 
     void UnloadAll();
 };
+
+SpriteID GetSpriteID(const string& name);
+
+
+extern AssetManager assets;

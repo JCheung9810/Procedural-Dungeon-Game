@@ -12,7 +12,7 @@
 using json = nlohmann::json;
 using namespace std;
 
-Weapon LoadWeapon(const char* filePath, const char* weaponName, AssetManager& assets){
+Weapon LoadWeapon(const char* filePath, const char* weaponName){
     Weapon weapon{};
 
     TraceLog(LOG_INFO, "Loading weapon: %s", weaponName);

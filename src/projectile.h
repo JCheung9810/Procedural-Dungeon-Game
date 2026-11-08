@@ -25,7 +25,7 @@ struct Projectile {
     Color color;
     Texture2D sprite;
     
-    Rectangle hitBox;
+    Rectangle hitbox;
     
 };
 

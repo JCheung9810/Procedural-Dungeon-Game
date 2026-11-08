@@ -1,5 +1,7 @@
 #include "dungeon.h"
 
+#include "assetManager.h"
+
 #include "json.hpp"
 #include <fstream>
 
@@ -57,6 +59,58 @@ void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
     dungeon.currentRooms = 0;
     dungeon.numRoomLocs = 0;
     
+}
+
+void SetRoomInfo(Room& room) {
+    ifstream file("ldtkSaves/map/simplified/Level_0/data.json");
+    
+    room.roomContent.numWalls = 0;
+    room.roomContent.backgroundTexture = assets.LoadGameTexture("ldtkSaves/map/simplified/Level_0/_composite.png");
+
+    if (!file.is_open()) {
+        TraceLog(LOG_ERROR, "Could not open level data");
+        return;
+    }
+
+    try {
+        json data;
+        file >> data;
+
+        const auto& entities = data["entities"];
+        
+        float scale =  room.size.x / 256.0f;;
+
+        // Go through each wall type
+        for (auto i = entities.begin(); i != entities.end(); ++i) {
+
+            SpriteID spriteID = GetSpriteID(i.key());
+
+            // Go through each instance of that wall type
+            for (const auto& entity : i.value()) {
+
+                if (room.roomContent.numWalls >= 50) {
+                    TraceLog(LOG_WARNING, "Maximum room walls reached");
+                    return;
+                }
+
+                Wall& wall = room.roomContent.walls[room.roomContent.numWalls];
+
+                wall.spriteID = spriteID;
+
+                wall.hitbox = {
+                    entity["x"].get<float>() * scale + room.position.x,
+                    entity["y"].get<float>() * scale + room.position.y,
+                    entity["width"].get<float>() * scale,
+                    entity["height"].get<float>() * scale
+                };
+
+                room.roomContent.numWalls++;
+            }
+        }
+    }
+    catch (const json::exception& e) {
+        TraceLog(LOG_ERROR, "Error loading level data: %s", e.what());
+    }
 }
 
 bool RoomForBoss(Dungeon dungeon, Room emptyRoom){
@@ -433,7 +487,10 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
             dungeon.rooms[CurrentRoomIndex].position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){-(float)dungeon.roomSize, 0};
         }
     }
-    dungeon.rooms[CurrentRoomIndex].distance = abs(dungeon.rooms[CurrentRoomIndex].gridPos.x) + abs(dungeon.rooms[CurrentRoomIndex].gridPos.y);  
+    dungeon.rooms[CurrentRoomIndex].distance = abs(dungeon.rooms[CurrentRoomIndex].gridPos.x) + abs(dungeon.rooms[CurrentRoomIndex].gridPos.y); 
+    
+    //Set room info
+    SetRoomInfo(dungeon.rooms[CurrentRoomIndex]);
 
     //Wall width on each side of the door
     doorSide = (dungeon.rooms[CurrentRoomIndex].size.x - dungeon.doorSize) / 2.0f;    

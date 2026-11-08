@@ -15,7 +15,7 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
         projectiles[i].lifeSpan = 0.0f;
         projectiles[i].damage = 0.0f;
         projectiles[i].color = RED;
-        projectiles[i].hitBox = {projectiles[i].position.x, projectiles[i].position.y, projectiles[i].size.x, projectiles[i].size.y};
+        projectiles[i].hitbox = {projectiles[i].position.x, projectiles[i].position.y, projectiles[i].size.x, projectiles[i].size.y};
         
     }    
 }
@@ -74,7 +74,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
             projectiles[i].speed.y = sin(projectiles[i].rotation) * 500;
             
             //Set projectile hitbox
-            projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
+            projectiles[i].hitbox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
             
             //Increase projectilesCreated
             projectilesCreated++;
@@ -113,7 +113,7 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                     projectiles[i].position.y + projectiles[i].speed.y * GetFrameTime()
                 };    
 
-                projectiles[i].hitBox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
+                projectiles[i].hitbox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
                 
             }
         }
@@ -124,8 +124,8 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                 //Check walls
                 for(int j = 0; j < dungeon.numRoomLocs; j++){
                     if(dungeon.rooms[j].exists == true){
-                        for(int k = 0; k < dungeon.rooms[j].numWalls; k++){
-                            if(CheckCollisionRecs(dungeon.rooms[j].walls[k],projectiles[i].hitBox)){
+                        for(int k = 0; k < dungeon.rooms[j].roomContent.numWalls; k++){
+                            if(CheckCollisionRecs(dungeon.rooms[j].roomContent.walls[k].hitbox,projectiles[i].hitbox)){
                                 projectiles[i].active = false;
                                 projectiles[i].lifeSpan = 0.0f;
                             }
@@ -140,7 +140,7 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                 
                 //Check enemy collision
                 for(int j = 0; j < numEnemies; j++){
-                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectiles[i].hitBox) && TextIsEqual(projectiles[i].team, "Player")){
+                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectiles[i].hitbox) && TextIsEqual(projectiles[i].team, "Player")){
                         projectiles[i].active = false;
                         projectiles[i].lifeSpan = 0.0f;
                         
@@ -154,7 +154,7 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                 }
                 
                 //Check player collision
-                if(CheckCollisionRecs(player.hitBox,projectiles[i].hitBox) && TextIsEqual(projectiles[i].team, "Enemy") && player.iFrames <= 0.0f){
+                if(CheckCollisionRecs(player.hitBox,projectiles[i].hitbox) && TextIsEqual(projectiles[i].team, "Enemy") && player.iFrames <= 0.0f){
                     projectiles[i].active = false;
                     projectiles[i].lifeSpan = 0.0f;
                     

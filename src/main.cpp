@@ -11,6 +11,9 @@
 #include "debug.h"
 #include "assetManager.h"
 
+//Assets
+AssetManager assets;
+
 //------------------------------MAIN------------------------------
 int main(void){
     
@@ -30,9 +33,6 @@ int main(void){
     
     //Audio
     InitAudioDevice();
-    
-    //Assets
-    AssetManager assets;
 
     //FPS
     SetTargetFPS(60);
@@ -48,7 +48,7 @@ int main(void){
     //Player
     Player player;
     PlayerConfig playerConfig = LoadPlayerConfig("config/player.json");
-    InitializePlayer(player, playerConfig, assets);
+    InitializePlayer(player, playerConfig);
     
     //Enemies
     int numEnemies = 0;
@@ -73,6 +73,7 @@ int main(void){
     //Images
     Texture2D heartTexture = assets.LoadGameTexture("assets/textures/Heart.png");
     Texture2D weaponHudBoxTexture = assets.LoadGameTexture("assets/textures/weaponHudBox.png");
+    assets.LoadGameTexture("assets/textures/dungeonTileset.png");
     assets.LoadSpriteInfo();
     
     //Projectile
@@ -183,6 +184,9 @@ int main(void){
                 }
                 if(IsKeyPressed(KEY_NINE)){
                     debug.wall = debug.wall ^ true;
+                }
+                if(IsKeyPressed(KEY_FIVE)){
+                    TraceLog(LOG_INFO, "numWalls: %i", dungeon.rooms[15].roomContent.numWalls);
                 }
             }   
 

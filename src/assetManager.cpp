@@ -1,6 +1,8 @@
 #include "assetManager.h"
 
-Vector2 AssetManager::CalcTileCoord(int col, int row, int borderSpacing, int spacing, int size){  
+Vector2 AssetManager::CalcTileCoord(int col, int row, int borderSpacing, int spacing, int size){ 
+    col -= 1;
+    row -= 1;
     //border spacing + xCord with width + spacing between tiles
     float x = borderSpacing + (size * col) + (spacing * col);
     float y = borderSpacing + (size * row) + (spacing * row);
@@ -81,7 +83,15 @@ void AssetManager::LoadSpriteInfo(){
     LargeWallTop,
     LargeWallBottom,
     LargeWallLeft,
-    LargeWallRight
+    LargeWallRight,
+    InnerCornerWallTopLeft,
+    InnerCornerWallTopRight,
+    InnerCornerWallBottomLeft,
+    InnerCornerWallBottomRight,
+    OuterCornerWallTopLeft,
+    OuterCornerWallTopRight,
+    OuterCornerWallBottomLeft,
+    OuterCornerWallBottomRight
     */
     
     int borderSpacing;
@@ -111,6 +121,55 @@ void AssetManager::LoadSpriteInfo(){
     SetSpriteInfo(SmallWallRight, 3, 2, borderSpacing, spacing, size);
     SetSpriteInfo(MediumWallRight, 3, 2, borderSpacing, spacing, size);
     SetSpriteInfo(LargeWallRight, 3, 2, borderSpacing, spacing, size);
+    
+    //Inner corner walls
+    SetSpriteInfo(InnerCornerWallTopLeft, 1, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(InnerCornerWallTopRight, 2, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(InnerCornerWallBottomLeft, 1, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(InnerCornerWallBottomRight, 2, 2, borderSpacing, spacing, size);
+    
+    //Outer corner walls
+    SetSpriteInfo(OuterCornerWallTopLeft, 5, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(OuterCornerWallTopRight, 6, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(OuterCornerWallBottomLeft, 5, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(OuterCornerWallBottomRight, 6, 2, borderSpacing, spacing, size);
+}
+
+SpriteID GetSpriteID(const string& name) {
+    static const unordered_map<string, SpriteID> wallIDs = {
+        {"SmallWallTop", SmallWallTop},
+        {"SmallWallBottom", SmallWallBottom},
+        {"SmallWallLeft", SmallWallLeft},
+        {"SmallWallRight", SmallWallRight},
+
+        {"MediumWallTop", MediumWallTop},
+        {"MediumWallBottom", MediumWallBottom},
+        {"MediumWallLeft", MediumWallLeft},
+        {"MediumWallRight", MediumWallRight},
+
+        {"LargeWallTop", LargeWallTop},
+        {"LargeWallBottom", LargeWallBottom},
+        {"LargeWallLeft", LargeWallLeft},
+        {"LargeWallRight", LargeWallRight},
+
+        {"InnerCornerWallTopLeft", InnerCornerWallTopLeft},
+        {"InnerCornerWallTopRight", InnerCornerWallTopRight},
+        {"InnerCornerWallBottomLeft", InnerCornerWallBottomLeft},
+        {"InnerCornerWallBottomRight", InnerCornerWallBottomRight},
+
+        {"OuterCornerWallTopLeft", OuterCornerWallTopLeft},
+        {"OuterCornerWallTopRight", OuterCornerWallTopRight},
+        {"OuterCornerWallBottomLeft", OuterCornerWallBottomLeft},
+        {"OuterCornerWallBottomRight", OuterCornerWallBottomRight}
+    };
+
+    auto i = wallIDs.find(name);
+
+    if (i == wallIDs.end()) {
+        return SmallWallTop; // Fallback
+    }
+
+    return i->second;
 }
 
 void AssetManager::UnloadAll() {

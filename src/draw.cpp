@@ -32,6 +32,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon dungeon, Enemy enemies[], 
             int fontSize;
             int textWidth;
         
+        /*
             //Draw dungeon.rooms
             for(int i = 0; i < dungeon.numRoomLocs; i++){
                 if(dungeon.rooms[i].exists == true){
@@ -78,6 +79,50 @@ void DrawGame(Camera2D camera, Player player, Dungeon dungeon, Enemy enemies[], 
                     BLACK
                 ); 
             }
+            */
+
+            //Draw rooms V2
+            for(int roomIt = 0; roomIt < dungeon.numRoomLocs; roomIt++){
+                Room& room = dungeon.rooms[roomIt];
+
+                if(room.exists == true){
+
+                    float scale = room.size.x / 256.0f;
+
+                    DrawTextureEx(
+                        room.roomContent.backgroundTexture,
+                        room.position,
+                        0.0f,
+                        scale,
+                        WHITE
+                    );
+
+                    for(int wallIt = 0; wallIt < room.roomContent.numWalls; wallIt++){
+                        Wall& wall = room.roomContent.walls[wallIt];
+
+                        for(float x = 0; x < wall.hitbox.width; x += 16 * scale){
+                            for(float y = 0; y < wall.hitbox.height; y += 16 * scale){
+
+                                Rectangle dest = {
+                                    wall.hitbox.x + x,
+                                    wall.hitbox.y + y,
+                                    16 * scale,
+                                    16 * scale
+                                };
+
+                                DrawTexturePro(
+                                    assets.textures.at("assets/textures/dungeonTileset.png"),
+                                    assets.spriteInfo[wall.spriteID].textureSrc,
+                                    dest,
+                                    (Vector2){0, 0},
+                                    0.0f,
+                                    WHITE
+                                );
+                            }
+                        }
+                    }
+                }
+            }
 
             //Draw player
             DrawPlayer(player, debugHitbox);
@@ -110,8 +155,8 @@ void DrawGame(Camera2D camera, Player player, Dungeon dungeon, Enemy enemies[], 
             //Draw projectiles
             for (int i = 0; i < maxProjectiles; i++){
                 if (projectiles[i].active) 
-                    //DrawRectanglePro(projectiles[i].hitBox, (Vector2){projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
-                    DrawRectangleRec(projectiles[i].hitBox, YELLOW);
+                    //DrawRectanglePro(projectiles[i].hitbox, (Vector2){projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
+                    DrawRectangleRec(projectiles[i].hitbox, YELLOW);
             } 
       
         EndMode2D();

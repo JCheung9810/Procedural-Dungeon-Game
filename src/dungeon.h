@@ -154,6 +154,7 @@ struct Dungeon {
 DungeonConfig LoadDungeonConfig(const char* filePath);
 
 void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig);
+void SetRoomInfo(Room& room);
 bool RoomForBoss(Dungeon dungeon, Room emptyRoom);
 bool ValidRoomInDirection(Room currentRoom, char direction);
 void AddDirection(char directions[], char direction);
