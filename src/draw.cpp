@@ -87,7 +87,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon dungeon, Enemy enemies[], 
 
                 if(room.exists == true){
 
-                    float scale = room.size.x / 256.0f;
+                    float scale = room.roomContent.backgroundSize.x;
 
                     DrawTextureEx(
                         room.roomContent.backgroundTexture,

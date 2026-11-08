@@ -62,10 +62,16 @@ void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
 }
 
 void SetRoomInfo(Room& room) {
-    ifstream file("ldtkSaves/map/simplified/Level_0/data.json");
-    
+    //Reset room contents
     room.roomContent.numWalls = 0;
-    room.roomContent.backgroundTexture = assets.LoadGameTexture("ldtkSaves/map/simplified/Level_0/_composite.png");
+    
+    //Load corresponding roomType
+    const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.type);
+    ifstream file(roomPath);
+    
+    //Load corresponding background
+    const char* backgroundPath = TextFormat("ldtkSaves/map/simplified/_%s/_composite.png", room.type);
+    room.roomContent.backgroundTexture = assets.LoadGameTexture(backgroundPath);
 
     if (!file.is_open()) {
         TraceLog(LOG_ERROR, "Could not open level data");
@@ -78,7 +84,8 @@ void SetRoomInfo(Room& room) {
 
         const auto& entities = data["entities"];
         
-        float scale =  room.size.x / 256.0f;;
+        room.roomContent.backgroundSize = (Vector2){room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
+        float scale =  room.roomContent.backgroundSize.x;
 
         // Go through each wall type
         for (auto i = entities.begin(); i != entities.end(); ++i) {
@@ -490,7 +497,9 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
     dungeon.rooms[CurrentRoomIndex].distance = abs(dungeon.rooms[CurrentRoomIndex].gridPos.x) + abs(dungeon.rooms[CurrentRoomIndex].gridPos.y); 
     
     //Set room info
-    SetRoomInfo(dungeon.rooms[CurrentRoomIndex]);
+    if(!isEmpty){
+        SetRoomInfo(dungeon.rooms[CurrentRoomIndex]);
+    }
 
     //Wall width on each side of the door
     doorSide = (dungeon.rooms[CurrentRoomIndex].size.x - dungeon.doorSize) / 2.0f;    

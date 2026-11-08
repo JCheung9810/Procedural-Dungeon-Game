@@ -1,0 +1,25 @@
+{
+	"identifier": "_BossE",
+	"uniqueIdentifer": "c88593b0-bde0-11f1-bbf2-2184230c8947",
+	"x": -7264,
+	"y": -256,
+	"width": 1920,
+	"height": 1920,
+	"bgColor": "#696A79",
+	"neighbourLevels": [
+		{
+			"levelIid": "c9cdcb20-bde0-11f1-bbf2-bdabdd8b1052",
+			"dir": "w"
+		},
+		{
+			"levelIid": "c6d6d240-bde0-11f1-bbf2-5de7fee8ca8c",
+			"dir": "e"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"Background.png",
+		"Floor.png"
+	],
+	"entities" : {}
+}

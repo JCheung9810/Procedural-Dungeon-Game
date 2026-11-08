@@ -1,0 +1,480 @@
+{
+	"identifier": "_3DNSW",
+	"uniqueIdentifer": "b95d5970-bde0-11f1-bbf2-219ccbfdb55c",
+	"x": 1200,
+	"y": 720,
+	"width": 480,
+	"height": 480,
+	"bgColor": "#696A79",
+	"neighbourLevels": [
+		{
+			"levelIid": "b1a35a40-bde0-11f1-bbf2-dfa3c59ca376",
+			"dir": "n"
+		},
+		{
+			"levelIid": "b8a246d0-bde0-11f1-bbf2-85f1359e6a95",
+			"dir": "w"
+		},
+		{
+			"levelIid": "4f9430d0-bde0-11f1-bbf2-1f6c96c71cd7",
+			"dir": "nw"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"Background.png",
+		"Floor.png"
+	],
+	"entities": {
+		"LargeWallRight": [
+			{
+				"id": "LargeWallRight",
+				"iid": "b95d5972-bde0-11f1-bbf2-795137588cd8",
+				"layer": "Walls",
+				"x": 256,
+				"y": 0,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallRight",
+				"iid": "b95d5988-bde0-11f1-bbf2-ad85994064fc",
+				"layer": "Walls",
+				"x": 368,
+				"y": 304,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallRight",
+				"iid": "b95d5989-bde0-11f1-bbf2-094bec485fd7",
+				"layer": "Walls",
+				"x": 368,
+				"y": 112,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallRight",
+				"iid": "886f9a70-bde0-11f1-bbf2-3b6d632de3b2",
+				"layer": "Walls",
+				"x": 368,
+				"y": 176,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallRight",
+				"iid": "88e20b50-bde0-11f1-bbf2-17f151cbe9fb",
+				"layer": "Walls",
+				"x": 368,
+				"y": 240,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallRight",
+				"iid": "8a73a7d0-bde0-11f1-bbf2-5babd954225f",
+				"layer": "Walls",
+				"x": 256,
+				"y": 384,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			}
+		],
+		"LargeWallLeft": [
+			{
+				"id": "LargeWallLeft",
+				"iid": "b95d5973-bde0-11f1-bbf2-97d5ad2b65cc",
+				"layer": "Walls",
+				"x": 208,
+				"y": 0,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallLeft",
+				"iid": "b95d597b-bde0-11f1-bbf2-d70732b2c972",
+				"layer": "Walls",
+				"x": 96,
+				"y": 112,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallLeft",
+				"iid": "b95d5983-bde0-11f1-bbf2-4f810176e830",
+				"layer": "Walls",
+				"x": 96,
+				"y": 304,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallLeft",
+				"iid": "8c57d120-bde0-11f1-bbf2-07c8225379ee",
+				"layer": "Walls",
+				"x": 208,
+				"y": 384,
+				"width": 16,
+				"height": 64,
+				"color": 9905959,
+				"customFields" : {}
+			}
+		],
+		"InnerCornerWallBottomLeft": [
+			{
+				"id": "InnerCornerWallBottomLeft",
+				"iid": "b95d5974-bde0-11f1-bbf2-994cfcb98660",
+				"layer": "Walls",
+				"x": 96,
+				"y": 368,
+				"width": 16,
+				"height": 16,
+				"color": 14984818,
+				"customFields" : {}
+			}
+		],
+		"InnerCornerWallBottomRight": [
+			{
+				"id": "InnerCornerWallBottomRight",
+				"iid": "b95d5976-bde0-11f1-bbf2-d5109ef89e1f",
+				"layer": "Walls",
+				"x": 368,
+				"y": 368,
+				"width": 16,
+				"height": 16,
+				"color": 14984818,
+				"customFields" : {}
+			}
+		],
+		"OuterCornerWallTopLeft": [
+			{
+				"id": "OuterCornerWallTopLeft",
+				"iid": "b95d5977-bde0-11f1-bbf2-87bae66f0eed",
+				"layer": "Walls",
+				"x": 208,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 6304784,
+				"customFields" : {}
+			},
+			{
+				"id": "OuterCornerWallTopLeft",
+				"iid": "9cab0bf0-bde0-11f1-bbf2-b38dfb5faa3c",
+				"layer": "Walls",
+				"x": 96,
+				"y": 208,
+				"width": 16,
+				"height": 16,
+				"color": 6304784,
+				"customFields" : {}
+			}
+		],
+		"OuterCornerWallTopRight": [
+			{
+				"id": "OuterCornerWallTopRight",
+				"iid": "b95d5978-bde0-11f1-bbf2-e192d735a352",
+				"layer": "Walls",
+				"x": 256,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 6304784,
+				"customFields" : {}
+			}
+		],
+		"LargeWallTop": [
+			{
+				"id": "LargeWallTop",
+				"iid": "b95d5979-bde0-11f1-bbf2-473ca29698e5",
+				"layer": "Walls",
+				"x": 272,
+				"y": 96,
+				"width": 64,
+				"height": 16,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallTop",
+				"iid": "b95d597a-bde0-11f1-bbf2-d50460393fcf",
+				"layer": "Walls",
+				"x": 144,
+				"y": 96,
+				"width": 64,
+				"height": 16,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallTop",
+				"iid": "9038b4d0-bde0-11f1-bbf2-f3bef62b1f4e",
+				"layer": "Walls",
+				"x": 32,
+				"y": 208,
+				"width": 64,
+				"height": 16,
+				"color": 9905959,
+				"customFields" : {}
+			}
+		],
+		"MediumWallTop": [
+			{
+				"id": "MediumWallTop",
+				"iid": "b95d597c-bde0-11f1-bbf2-b1424dc5a85c",
+				"layer": "Walls",
+				"x": 112,
+				"y": 96,
+				"width": 32,
+				"height": 16,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallTop",
+				"iid": "b95d597d-bde0-11f1-bbf2-fba0e3e94dde",
+				"layer": "Walls",
+				"x": 336,
+				"y": 96,
+				"width": 32,
+				"height": 16,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallTop",
+				"iid": "91b96160-bde0-11f1-bbf2-f97595201feb",
+				"layer": "Walls",
+				"x": 0,
+				"y": 208,
+				"width": 32,
+				"height": 16,
+				"color": 16705377,
+				"customFields" : {}
+			}
+		],
+		"InnerCornerWallTopRight": [
+			{
+				"id": "InnerCornerWallTopRight",
+				"iid": "b95d597e-bde0-11f1-bbf2-99f583335272",
+				"layer": "Walls",
+				"x": 368,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 14984818,
+				"customFields" : {}
+			}
+		],
+		"InnerCornerWallTopLeft": [
+			{
+				"id": "InnerCornerWallTopLeft",
+				"iid": "b95d597f-bde0-11f1-bbf2-dd11ba223dfc",
+				"layer": "Walls",
+				"x": 96,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 14984818,
+				"customFields" : {}
+			}
+		],
+		"MediumWallLeft": [
+			{
+				"id": "MediumWallLeft",
+				"iid": "b95d5980-bde0-11f1-bbf2-cbe4311f3da3",
+				"layer": "Walls",
+				"x": 208,
+				"y": 64,
+				"width": 16,
+				"height": 32,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallLeft",
+				"iid": "97489150-bde0-11f1-bbf2-312474b90f62",
+				"layer": "Walls",
+				"x": 208,
+				"y": 448,
+				"width": 16,
+				"height": 32,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallLeft",
+				"iid": "9848ea50-bde0-11f1-bbf2-cbe91ae3620d",
+				"layer": "Walls",
+				"x": 96,
+				"y": 272,
+				"width": 16,
+				"height": 32,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallLeft",
+				"iid": "98b93850-bde0-11f1-bbf2-09ab173c14e4",
+				"layer": "Walls",
+				"x": 96,
+				"y": 176,
+				"width": 16,
+				"height": 32,
+				"color": 16705377,
+				"customFields" : {}
+			}
+		],
+		"MediumWallRight": [
+			{
+				"id": "MediumWallRight",
+				"iid": "b95d5981-bde0-11f1-bbf2-41425e2be63c",
+				"layer": "Walls",
+				"x": 256,
+				"y": 64,
+				"width": 16,
+				"height": 32,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallRight",
+				"iid": "9a318070-bde0-11f1-bbf2-a1334be765a1",
+				"layer": "Walls",
+				"x": 256,
+				"y": 448,
+				"width": 16,
+				"height": 32,
+				"color": 16705377,
+				"customFields" : {}
+			}
+		],
+		"LargeWallBottom": [
+			{
+				"id": "LargeWallBottom",
+				"iid": "b95d5984-bde0-11f1-bbf2-778539820ac7",
+				"layer": "Walls",
+				"x": 112,
+				"y": 368,
+				"width": 64,
+				"height": 16,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallBottom",
+				"iid": "b95d5987-bde0-11f1-bbf2-ad960bd9f84a",
+				"layer": "Walls",
+				"x": 304,
+				"y": 368,
+				"width": 64,
+				"height": 16,
+				"color": 9905959,
+				"customFields" : {}
+			},
+			{
+				"id": "LargeWallBottom",
+				"iid": "8f0787d0-bde0-11f1-bbf2-678ffd2bb2fd",
+				"layer": "Walls",
+				"x": 32,
+				"y": 256,
+				"width": 64,
+				"height": 16,
+				"color": 9905959,
+				"customFields" : {}
+			}
+		],
+		"MediumWallBottom": [
+			{
+				"id": "MediumWallBottom",
+				"iid": "945716b0-bde0-11f1-bbf2-198c3b7a5540",
+				"layer": "Walls",
+				"x": 0,
+				"y": 256,
+				"width": 32,
+				"height": 16,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallBottom",
+				"iid": "9549b410-bde0-11f1-bbf2-b740c17b3248",
+				"layer": "Walls",
+				"x": 176,
+				"y": 368,
+				"width": 32,
+				"height": 16,
+				"color": 16705377,
+				"customFields" : {}
+			},
+			{
+				"id": "MediumWallBottom",
+				"iid": "95e35c00-bde0-11f1-bbf2-cd5c3f9bf16f",
+				"layer": "Walls",
+				"x": 272,
+				"y": 368,
+				"width": 32,
+				"height": 16,
+				"color": 16705377,
+				"customFields" : {}
+			}
+		],
+		"OuterCornerWallBottomLeft": [
+			{
+				"id": "OuterCornerWallBottomLeft",
+				"iid": "9de49d60-bde0-11f1-bbf2-a12fc41fd432",
+				"layer": "Walls",
+				"x": 96,
+				"y": 256,
+				"width": 16,
+				"height": 16,
+				"color": 6304784,
+				"customFields" : {}
+			},
+			{
+				"id": "OuterCornerWallBottomLeft",
+				"iid": "9e573550-bde0-11f1-bbf2-b99e55684950",
+				"layer": "Walls",
+				"x": 208,
+				"y": 368,
+				"width": 16,
+				"height": 16,
+				"color": 6304784,
+				"customFields" : {}
+			}
+		],
+		"OuterCornerWallBottomRight": [
+			{
+				"id": "OuterCornerWallBottomRight",
+				"iid": "9f6215a0-bde0-11f1-bbf2-35ce911995dd",
+				"layer": "Walls",
+				"x": 256,
+				"y": 368,
+				"width": 16,
+				"height": 16,
+				"color": 6304784,
+				"customFields" : {}
+			}
+		]
+	}
+}

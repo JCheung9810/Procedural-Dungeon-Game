@@ -84,6 +84,8 @@ struct RoomContent {
     //Background
     Texture2D backgroundTexture;
     
+    Vector2 backgroundSize;
+    
     
 };
 
