@@ -3,6 +3,7 @@
 #include "assetManager.h"
 
 #include "json.hpp"
+
 #include <fstream>
 
 using json = nlohmann::json;
@@ -66,11 +67,11 @@ void SetRoomInfo(Room& room) {
     room.roomContent.numWalls = 0;
     
     //Load corresponding roomType
-    const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.type);
+    const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.layoutType.c_str());
     ifstream file(roomPath);
     
     //Load corresponding background
-    const char* backgroundPath = TextFormat("ldtkSaves/map/simplified/_%s/_composite.png", room.type);
+    const char* backgroundPath = TextFormat("ldtkSaves/map/simplified/_%s/_composite.png", room.layoutType.c_str());
     room.roomContent.backgroundTexture = assets.LoadGameTexture(backgroundPath);
 
     if (!file.is_open()) {
@@ -120,7 +121,7 @@ void SetRoomInfo(Room& room) {
     }
 }
 
-bool RoomForBoss(Dungeon dungeon, Room emptyRoom){
+bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
     
     bool available = true;
     
@@ -181,17 +182,24 @@ bool RoomForBoss(Dungeon dungeon, Room emptyRoom){
     return available;
 }
 
-bool ValidRoomInDirection(Room currentRoom, char direction){
+bool ValidRoomInDirection(const Room& currentRoom, char direction){
     bool valid = false;
     bool isBoss;
+    bool isEnd;
     
     isBoss =
         (TextIsEqual(currentRoom.type, "BossN") ||
          TextIsEqual(currentRoom.type, "BossE") ||
          TextIsEqual(currentRoom.type, "BossS") ||
          TextIsEqual(currentRoom.type, "BossW"));
+         
+    isEnd =
+        (TextIsEqual(currentRoom.type, "EndN") ||
+         TextIsEqual(currentRoom.type, "EndE") ||
+         TextIsEqual(currentRoom.type, "EndS") ||
+         TextIsEqual(currentRoom.type, "EndW"));
     
-    if(TextIsEqual(currentRoom.type,"4DNESW") || TextIsEqual(currentRoom.type,"Spawn") || isBoss || TextIsEqual(currentRoom.type,"End")){
+    if(TextIsEqual(currentRoom.type,"4DNESW") || TextIsEqual(currentRoom.type,"Spawn") || isBoss || isEnd){
         return true;
     }
     
@@ -238,7 +246,7 @@ void AddDirection(char directions[], char direction){
     directions[len + 1] = '\0';
 }
 
-const char* TestDeadEnd(Dungeon dungeon, Room currentRoom){
+const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
     
     static char directions[5] = "";
     
@@ -458,6 +466,7 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
     float doorSide;
     bool isEmpty;
     bool isBoss;
+    bool isEnd;
     
     isEmpty =
         (TextIsEqual(type, "EmptyN") ||
@@ -470,12 +479,25 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
          TextIsEqual(type, "BossE") ||
          TextIsEqual(type, "BossS") ||
          TextIsEqual(type, "BossW"));
+        
+    isEnd =
+        (TextIsEqual(type, "EndN") ||
+         TextIsEqual(type, "EndE") ||
+         TextIsEqual(type, "EndS") ||
+         TextIsEqual(type, "EndW"));
+       
+       
+    if(dungeon.numRoomLocs >= 100){
+        TraceLog(LOG_ERROR, "Dungeon room array capacity exceeded");
+        return;
+    }
     
     CurrentRoomIndex = dungeon.numRoomLocs;
     
     //Set current room up
     dungeon.rooms[CurrentRoomIndex].gridPos = position;
     dungeon.rooms[CurrentRoomIndex].type = type; 
+    dungeon.rooms[CurrentRoomIndex].layoutType = type; 
 
     if(!isBoss){  
         roomPositionOffset = (Vector2){-dungeon.roomSize/2.0f, -dungeon.roomSize/2.0f};
@@ -757,7 +779,7 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         //--------------------------------------------------------------------------
         // 4 DOORS
         
-        if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn") || TextIsEqual(type, "End")){
+        if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn") || isEnd){
             
             //TOP
             dungeon.rooms[CurrentRoomIndex].walls[dungeon.rooms[CurrentRoomIndex].numWalls++] = topLeft;
@@ -1290,6 +1312,7 @@ void GenerateDungeon(Dungeon& dungeon){
         }   
         
         int bossRoomIndex = -1;
+        const char* bossRoomOpening;
     
         //Choose boss room
         for(int i = dungeon.numRoomLocs - 1; i > -1; i--){
@@ -1304,12 +1327,16 @@ void GenerateDungeon(Dungeon& dungeon){
         if(bossRoomIndex != -1){
             generateDungeon = false;  
             if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyN")){
+                bossRoomOpening = "S";
                 AddRoom(dungeon, "BossN", dungeon.rooms[bossRoomIndex].gridPos);
             } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyE")){
+                bossRoomOpening = "W";
                 AddRoom(dungeon, "BossE", dungeon.rooms[bossRoomIndex].gridPos);
             } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyS")){
+                bossRoomOpening = "N";
                 AddRoom(dungeon, "BossS", dungeon.rooms[bossRoomIndex].gridPos);
             } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyW")){
+                bossRoomOpening = "E";
                 AddRoom(dungeon, "BossW", dungeon.rooms[bossRoomIndex].gridPos);
             }
         } else {
@@ -1333,7 +1360,19 @@ void GenerateDungeon(Dungeon& dungeon){
         
         //If valid
         if(endRoomIndex != -1){
-            AddRoom(dungeon, "End", dungeon.rooms[endRoomIndex].gridPos);
+            const char* endType;
+            
+            if(TextIsEqual(bossRoomOpening, "N")){
+                endType = "EndN";
+            } else if(TextIsEqual(bossRoomOpening, "E")){
+                endType = "EndE";
+            } if(TextIsEqual(bossRoomOpening, "S")){
+                endType = "EndS";
+            } if(TextIsEqual(bossRoomOpening, "W")){
+                endType = "EndW";
+            }
+
+            AddRoom(dungeon, endType, dungeon.rooms[endRoomIndex].gridPos);
         } else {
             //Reset generation because we cant spawn end room
             dungeon.currentRooms = 0;
@@ -1346,58 +1385,77 @@ void GenerateDungeon(Dungeon& dungeon){
     
     //Make dead ends    
     for(int i = 0; i < dungeon.numRoomLocs; i++){
-        //Wall width on each side of the door
-        float doorSide = (dungeon.rooms[i].size.x - dungeon.doorSize) / 2.0f; 
-    
-        Rectangle topWall = {
-            dungeon.rooms[i].position.x + doorSide,
-            dungeon.rooms[i].position.y,
-            (float)dungeon.doorSize,
-            dungeon.wallDepth
-        };
-    
-        Rectangle rightWall = {
-            dungeon.rooms[i].position.x + dungeon.rooms[i].size.x - dungeon.wallDepth,
-            dungeon.rooms[i].position.y + doorSide,
-            dungeon.wallDepth,
-            (float)dungeon.doorSize
-        };
+        if(dungeon.rooms[i].exists){
+            //Wall width on each side of the door
+            float doorSide = (dungeon.rooms[i].size.x - dungeon.doorSize) / 2.0f; 
         
-        Rectangle bottomWall = {
-            dungeon.rooms[i].position.x + doorSide,
-            dungeon.rooms[i].position.y + dungeon.rooms[i].size.y - dungeon.wallDepth,
-            (float)dungeon.doorSize,
-            dungeon.wallDepth
-        };
+            Rectangle topWall = {
+                dungeon.rooms[i].position.x + doorSide,
+                dungeon.rooms[i].position.y,
+                (float)dungeon.doorSize,
+                dungeon.wallDepth
+            };
         
-        Rectangle leftWall = {
-            dungeon.rooms[i].position.x,
-            dungeon.rooms[i].position.y + doorSide,
-            dungeon.wallDepth,
-            (float)dungeon.doorSize
-        };
+            Rectangle rightWall = {
+                dungeon.rooms[i].position.x + dungeon.rooms[i].size.x - dungeon.wallDepth,
+                dungeon.rooms[i].position.y + doorSide,
+                dungeon.wallDepth,
+                (float)dungeon.doorSize
+            };
+            
+            Rectangle bottomWall = {
+                dungeon.rooms[i].position.x + doorSide,
+                dungeon.rooms[i].position.y + dungeon.rooms[i].size.y - dungeon.wallDepth,
+                (float)dungeon.doorSize,
+                dungeon.wallDepth
+            };
+            
+            Rectangle leftWall = {
+                dungeon.rooms[i].position.x,
+                dungeon.rooms[i].position.y + doorSide,
+                dungeon.wallDepth,
+                (float)dungeon.doorSize
+            };
+            
+            
         
-        
-    
-        deadEnds = TestDeadEnd(dungeon, dungeon.rooms[i]);
-        for(int j = 0; j < (int)TextLength(deadEnds); j++){
-            if(deadEnds[j] == 'N'){
-                dungeon.rooms[i].numWalls++;
-                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = topWall;
-            }
-            if(deadEnds[j] == 'E'){
-                dungeon.rooms[i].numWalls++;
-                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = rightWall;
-            }
-            if(deadEnds[j] == 'S'){
-                dungeon.rooms[i].numWalls++;
-                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = bottomWall;
-            }
-            if(deadEnds[j] == 'W'){
-                dungeon.rooms[i].numWalls++;
-                dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = leftWall;
+            deadEnds = TestDeadEnd(dungeon, dungeon.rooms[i]);
+            for(int j = 0; j < (int)TextLength(deadEnds); j++){
+                if(deadEnds[j] == 'N'){
+                    dungeon.rooms[i].numWalls++;
+                    dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = topWall;
+                }
+                if(deadEnds[j] == 'E'){
+                    dungeon.rooms[i].numWalls++;
+                    dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = rightWall;
+                }
+                if(deadEnds[j] == 'S'){
+                    dungeon.rooms[i].numWalls++;
+                    dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = bottomWall;
+                }
+                if(deadEnds[j] == 'W'){
+                    dungeon.rooms[i].numWalls++;
+                    dungeon.rooms[i].walls[dungeon.rooms[i].numWalls - 1] = leftWall;
+                }
+                
             }
             
+            string newType = dungeon.rooms[i].type;
+
+            for (int j = 0; deadEnds[j] != '\0'; j++) {
+                size_t pos = newType.find(deadEnds[j]);
+
+                if (pos != std::string::npos) {
+                    newType.erase(pos, 1);
+                    newType[0]--;
+                }
+            }
+
+            if(newType == "md"){
+                TraceLog(LOG_ERROR, "%s", dungeon.rooms[i].type);
+            }
+            dungeon.rooms[i].layoutType = newType;
+            SetRoomInfo(dungeon.rooms[i]);
         }
     }
 }

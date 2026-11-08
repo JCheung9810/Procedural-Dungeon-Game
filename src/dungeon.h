@@ -4,6 +4,10 @@
 
 #include "raylib.h"
 
+#include <string>
+
+using namespace std;
+
 //Load sprite sheet with srcRec once
 //Load json for level once, for each wallType, assign a certain id and set hitbox values
 //When drawing use the srcRec based on ID
@@ -97,6 +101,8 @@ enum RoomState {
 
 struct Room {
     const char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
+    string layoutType;
+    
     Vector2 size;
     Vector2 position;
     Vector2 gridPos;
@@ -157,10 +163,10 @@ DungeonConfig LoadDungeonConfig(const char* filePath);
 
 void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig);
 void SetRoomInfo(Room& room);
-bool RoomForBoss(Dungeon dungeon, Room emptyRoom);
-bool ValidRoomInDirection(Room currentRoom, char direction);
+bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom);
+bool ValidRoomInDirection(const Room& currentRoom, char direction);
 void AddDirection(char directions[], char direction);
-const char* TestDeadEnd(Dungeon dungeon, Room currentRoom);
+const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom);
 void SortRooms(Dungeon& dungeon);
 void AddRoom(Dungeon& dungeon, const char* type, Vector2 position);
 void GenerateDungeon(Dungeon& dungeon);

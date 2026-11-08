@@ -28,4 +28,4 @@ struct Enemy {
 };
 
 void AddEnemy(Enemy enemies[], const char* name, int& numEnemies);
-void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon dungeon);
+void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dungeon);

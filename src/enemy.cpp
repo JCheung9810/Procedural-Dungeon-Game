@@ -27,7 +27,7 @@ void AddEnemy(Enemy enemies[], const char* name, int& numEnemies){
     numEnemies++;
 }
 
-void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon dungeon){
+void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dungeon){
     //Check every enemy
     for(int i = 0; i < numEnemies; i++){
             
