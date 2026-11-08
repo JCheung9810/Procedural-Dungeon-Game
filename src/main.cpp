@@ -185,9 +185,6 @@ int main(void){
                 if(IsKeyPressed(KEY_NINE)){
                     debug.wall = debug.wall ^ true;
                 }
-                if(IsKeyPressed(KEY_FIVE)){
-                    TraceLog(LOG_INFO, "numWalls: %i", dungeon.rooms[15].roomContent.numWalls);
-                }
             }   
 
             //Exit confirmation
