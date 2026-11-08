@@ -1,8 +1,8 @@
 {
 	"identifier": "_Spawn",
 	"uniqueIdentifer": "5b42fef0-bde0-11f1-bbf2-7df4b709645a",
-	"x": -1440,
-	"y": -256,
+	"x": -240,
+	"y": 2768,
 	"width": 480,
 	"height": 480,
 	"bgColor": "#696A79",
@@ -13,6 +13,19 @@
 		"Floor.png"
 	],
 	"entities": {
+		"EnemySpawnPoint": [
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "a0913570-bde0-11f1-a7d5-35f2de265cbf",
+				"layer": "EnemySpawnPoint",
+				"x": 328,
+				"y": 312,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			}
+		],
 		"LargeWallBottom": [
 			{
 				"id": "LargeWallBottom",

@@ -63,6 +63,7 @@ struct RoomContent {
     //Enemy spawning
     int numEnemiesSpawn;
     
+    int numEnemySpawnPoints;
     EnemySpawnPoint enemySpawnPoint[10] = {};
     
     //Walls

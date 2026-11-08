@@ -88,31 +88,47 @@ void SetRoomInfo(Room& room) {
         room.roomContent.backgroundSize = (Vector2){room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
         float scale =  room.roomContent.backgroundSize.x;
 
-        // Go through each wall type
+        //Go through each wall type
         for (auto i = entities.begin(); i != entities.end(); ++i) {
 
-            SpriteID spriteID = GetSpriteID(i.key());
-
-            // Go through each instance of that wall type
+            //Go through each instance of the entities
             for (const auto& entity : i.value()) {
+                
+                if(entity["layer"] == "Walls"){
 
-                if (room.roomContent.numWalls >= 50) {
-                    TraceLog(LOG_WARNING, "Maximum room walls reached");
-                    return;
+                    if (room.roomContent.numWalls >= 50){
+                        TraceLog(LOG_WARNING, "Maximum room walls reached");
+                        return;
+                    }
+
+                    Wall& wall = room.roomContent.walls[room.roomContent.numWalls];
+
+                    wall.spriteID = GetSpriteID(i.key());
+
+                    wall.hitbox = {
+                        entity["x"].get<float>() * scale + room.position.x,
+                        entity["y"].get<float>() * scale + room.position.y,
+                        entity["width"].get<float>() * scale,
+                        entity["height"].get<float>() * scale
+                    };
+
+                    room.roomContent.numWalls++;
+                    
+                } else if(entity["layer"] == "EnemySpawPoint"){
+                    if (room.roomContent.numEnemySpawnPoints >= 10){
+                        TraceLog(LOG_WARNING, "Maximum enemy spawn points reached");
+                        return;
+                    }
+                    
+                    EnemySpawnPoint& enemySpawnPoint = room.roomContent.enemySpawnPoint[room.roomContent.numEnemySpawnPoints];
+                    
+                    enemySpawnPoint.position = {
+                        entity["x"].get<float>() * scale + room.position.x, 
+                        entity["y"].get<float>() * scale + room.position.y
+                    };
+                    
+                    room.roomContent.numEnemySpawnPoints++;
                 }
-
-                Wall& wall = room.roomContent.walls[room.roomContent.numWalls];
-
-                wall.spriteID = spriteID;
-
-                wall.hitbox = {
-                    entity["x"].get<float>() * scale + room.position.x,
-                    entity["y"].get<float>() * scale + room.position.y,
-                    entity["width"].get<float>() * scale,
-                    entity["height"].get<float>() * scale
-                };
-
-                room.roomContent.numWalls++;
             }
         }
     }
