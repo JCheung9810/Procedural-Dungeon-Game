@@ -68,7 +68,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 
 void SetRoomInfo(Room& room) {
     //Reset room contents
-    room.roomContent.numWalls = 0;
+    room.roomContent.walls.clear();
     room.roomContent.numDoors = 0;
     room.roomContent.numDecor = 0;
     room.roomContent.numBreakables = 0;
@@ -106,12 +106,7 @@ void SetRoomInfo(Room& room) {
                 
                 if(entity["layer"] == "Walls"){
 
-                    if (room.roomContent.numWalls >= 50){
-                        TraceLog(LOG_WARNING, "Maximum room walls reached");
-                        return;
-                    }
-
-                    Wall& wall = room.roomContent.walls[room.roomContent.numWalls];
+                    Wall wall;
 
                     wall.spriteID = GetSpriteID(i.key());
 
@@ -121,8 +116,8 @@ void SetRoomInfo(Room& room) {
                         entity["width"].get<float>() * scale,
                         entity["height"].get<float>() * scale
                     };
-
-                    room.roomContent.numWalls++;
+                    
+                    room.roomContent.walls.push_back(wall);
                     
                 } else if(entity["layer"] == "EnemySpawPoint"){
                     if (room.roomContent.numEnemySpawnPoints >= 10){

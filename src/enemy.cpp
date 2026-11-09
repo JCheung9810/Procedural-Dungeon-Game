@@ -51,7 +51,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
             //Check x
             for(int j = 0; j < dungeon.numRoomLocs; j++){
                 if(dungeon.rooms[j].exists == true){
-                    for(int k = 0; k < dungeon.rooms[j].roomContent.numWalls; k++){
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                         Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
 
                         if(CheckCollisionRecs(enemies[i].hitBox, wall)){
@@ -85,7 +85,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
             //Check y
             for(int j = 0; j < dungeon.numRoomLocs; j++){
                 if(dungeon.rooms[j].exists == true){
-                    for(int k = 0; k < dungeon.rooms[j].roomContent.numWalls; k++){
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                         Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
 
                         if(CheckCollisionRecs(enemies[i].hitBox, wall)){

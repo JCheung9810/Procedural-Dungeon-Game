@@ -4,6 +4,7 @@
 
 #include "raylib.h"
 
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -74,8 +75,7 @@ struct RoomContent {
     EnemySpawnPoint enemySpawnPoint[10] = {};
     
     //Walls
-    int numWalls;
-    Wall walls[50] = {};
+    vector<Wall> walls;
     
     //Doors
     int numDoors;

@@ -49,7 +49,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                         WHITE
                     );
 
-                    for(int wallIt = 0; wallIt < room.roomContent.numWalls; wallIt++){
+                    for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){
                         Wall& wall = room.roomContent.walls[wallIt];
 
                         int tilesX = (int)roundf(wall.hitbox.width / tileSize);

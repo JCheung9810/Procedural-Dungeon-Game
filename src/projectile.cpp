@@ -124,7 +124,7 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                 //Check walls/decor
                 for(int j = 0; j < dungeon.numRoomLocs; j++){
                     if(dungeon.rooms[j].exists == true){
-                        for(int k = 0; k < dungeon.rooms[j].roomContent.numWalls; k++){
+                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                             if(CheckCollisionRecs(dungeon.rooms[j].roomContent.walls[k].hitbox,projectiles[i].hitbox)){
                                 projectiles[i].active = false;
                                 projectiles[i].lifeSpan = 0.0f;

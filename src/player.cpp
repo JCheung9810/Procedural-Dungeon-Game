@@ -144,7 +144,7 @@ void UpdatePlayer(Player& player, Dungeon dungeon, bool debugSpeed, bool debugWa
         if(!debugWall){
             for(int i = 0; i < dungeon.numRoomLocs; i++){
                 if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < dungeon.rooms[i].roomContent.numWalls; j++){
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
                         if(CheckCollisionRecs(player.hitBox,dungeon.rooms[i].roomContent.walls[j].hitbox)){
                             if (player.direction.x > 0){
                                 player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x - player.hitBox.width;
@@ -174,7 +174,7 @@ void UpdatePlayer(Player& player, Dungeon dungeon, bool debugSpeed, bool debugWa
         if(!debugWall){
             for(int i = 0; i < dungeon.numRoomLocs; i++){
                 if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < dungeon.rooms[i].roomContent.numWalls; j++){
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
                         if(CheckCollisionRecs(player.hitBox, dungeon.rooms[i].roomContent.walls[j].hitbox)){
                             if(player.direction.y > 0){
                                 player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y - player.hitBox.height;
@@ -236,7 +236,7 @@ void UpdatePlayer(Player& player, Dungeon dungeon, bool debugSpeed, bool debugWa
         if(!debugWall){
             for(int i = 0; i < dungeon.numRoomLocs; i++){
                 if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < dungeon.rooms[i].roomContent.numWalls; j++){
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
                         if(CheckCollisionRecs(player.hitBox,dungeon.rooms[i].roomContent.walls[j].hitbox)){
                             if (player.direction.x > 0){
                                 player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x - player.hitBox.width;
@@ -266,7 +266,7 @@ void UpdatePlayer(Player& player, Dungeon dungeon, bool debugSpeed, bool debugWa
         if(!debugWall){
             for(int i = 0; i < dungeon.numRoomLocs; i++){
                 if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < dungeon.rooms[i].roomContent.numWalls; j++){
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
                         if(CheckCollisionRecs(player.hitBox, dungeon.rooms[i].roomContent.walls[j].hitbox)){
                             if(player.direction.y > 0){
                                 player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y - player.hitBox.height;
