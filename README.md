@@ -6,54 +6,59 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Dead end generation
   - Room types and grid based generation
   - Boss room selection and generation
-- Wall and projectile collision detection
+- Wall collision detection
 - Room to room camera control
 - 8 direction movement with animation
-- health
-- damage
-- enemy dummy
-- simple enemy ai
-- dodge/roll animation and functionality
-- death
-- different weapon types and functionality
+- Health
+- Damage
+- Enemy dummy
+- Simple enemy ai
+- Dodge/roll animation and functionality
+- Death
+- Different weapon types and functionality
 - UI shows current weapon, magSize, bullets left, reload on counter
+- LDTK level loading
 
 # To Do
 - COMBAT
   - Make enemies use weapon objects (make firing use those stats) 
   - Draw enemy weapons 
-  - better projectile hitbox 
-  - advanced enemy ai 
+  - Better projectile hitbox 
+  - Advanced enemy ai 
 - UI
-  - reload mouse cursor 
-  - minimap/map 
+  - Reload mouse cursor 
+  - Minimap/map 
   - 3D Wall overlap
 - MECHANICS
-  - room content + enemy generation 
-  - pickups (ammo,health) 
-  - room trigger 
-  - enemy spawn 
-  - doors close until cleared 
+  - Room content + Enemy generation 
+  - Pickups (ammo,health) 
+  - Room trigger 
+  - Enemy spawn 
+  - Doors close until cleared 
+  - Breakable room objects
+  - Usable/Interactable room objects
 - OTHER
-  - lobby/main menu 
+  - Lobby/Main menu 
   - Shop 
 
-# Possible Features
-- Different sized rooms
-- Breakables
-
 # Priority List (Highest to Lowest)
-  - room content + enemy generation
-  - room trigger
-  - enemy spawn
-  - doors close until cleared
+  - Room content + enemy generation
+  - Room trigger
+  - Enemy spawn
+  - Doors close until cleared
+  - Advanced enemy ai
   - 3D Wall overlap
   - Make enemies use weapon objects (make firing use those stats)
   - Draw enemy weapons
-  - better projectile hitbox
-  - pickups (ammo,health)
-  - reload mouse cursor
-  - minimap/map
+  - Better projectile hitbox
+  - Pickups (ammo,health)
+  - Reload mouse cursor
+  - Minimap/map
   - Shop
-  - advanced enemy ai
-  - lobby/main menu
+  - Lobby/main menu
+  - Breakable room objects
+  - Usable/Interactable room objects
+  
+# Distant Features
+- Free placed rooms instead of grid
+- Different sized rooms
