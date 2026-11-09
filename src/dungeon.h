@@ -55,6 +55,12 @@ struct EnemySpawnInfo {
     
 };
 
+struct FloorSpawnPool {
+    int numEnemyTypes;
+    EnemySpawnInfo enemySpawnInfo[10] = {};
+    
+};
+
 struct EnemySpawnPoint {
     const char* name[10] = {};
     Vector2 position;
@@ -119,24 +125,11 @@ struct Room {
     
 };
 
-struct DungeonConfig {
-    int maxRooms;
-    int roomSize;
-    float wallDepth;
-    int doorSize;
-
-    float straight;
-    float turn;
-    float threeWay;
-    float fourWay;
-};
-
 struct Dungeon {   
     int floor;
     int bestFloor;
     
-    int numEnemyTypes;
-    EnemySpawnInfo enemySpawnInfo[10] = {};
+    FloorSpawnPool floorSpawnPool[10];
     
     Room rooms[100] = {};
     
@@ -153,9 +146,8 @@ struct Dungeon {
   
 };
 
-DungeonConfig LoadDungeonConfig(const char* filePath);
+void InitializeDungeon(const char* filePath, Dungeon& dungeon);
 
-void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig);
 void SetRoomInfo(Room& room);
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom);
 bool ValidRoomInDirection(const Room& currentRoom, char direction);

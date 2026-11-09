@@ -91,9 +91,7 @@ int main(void){
     TraceLog(LOG_INFO, "Current Seed: %i",seed);
     
     Dungeon dungeon;
-    DungeonConfig dungeonConfig = LoadDungeonConfig("config/dungeon.json");
-    
-    InitializeDungeon(dungeon, dungeonConfig);
+    InitializeDungeon("config/dungeon.json", dungeon);
     
     GenerateDungeon(dungeon);
     

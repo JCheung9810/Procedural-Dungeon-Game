@@ -4,5 +4,33 @@
     "straight": 30.0,
     "turn": 30.0,
     "threeWay": 30.0,
-    "fourWay": 10.0
+    "fourWay": 10.0,
+    "floorSpawnPool": [
+        {
+            "floorNum": 0,
+            "enemyPool": [
+                {   
+                    "name": "Dummy",
+                    "spawnWeight": 0.75
+                },
+                {
+                    "name": "Dummy1",
+                    "spawnWeight": 0.25
+                }
+            ]
+        },
+        {
+            "floorNum": 1,
+            "enemyPool": [
+                {   
+                    "name": "Dummy",
+                    "spawnWeight": 0.50
+                },
+                {
+                    "name": "Dummy1",
+                    "spawnWeight": 0.50
+                }
+            ]
+        }
+    ]
 }

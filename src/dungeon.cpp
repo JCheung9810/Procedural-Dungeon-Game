@@ -5,57 +5,65 @@
 #include "json.hpp"
 
 #include <fstream>
+#include <cstring>
+#include <string>
 
 using json = nlohmann::json;
 using namespace std;
 
 #include <raymath.h>
 
-DungeonConfig LoadDungeonConfig(const char* filePath) {
+void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
     ifstream file(filePath);
 
     if (!file.is_open()) {
         TraceLog(LOG_ERROR, "Could not open dungeon config: %s", filePath);
-        return {};
+        return;
     }
 
     try {
         json data;
         file >> data;
 
-        DungeonConfig config;
+        dungeon.maxRooms = data.at("maxRooms").get<int>();
+        dungeon.roomSize = data.at("roomSize").get<int>();
 
-        config.maxRooms = data.at("maxRooms").get<int>();
-        config.roomSize = data.at("roomSize").get<int>();
+        dungeon.straight = data.at("straight").get<float>();
+        dungeon.turn = data.at("turn").get<float>();
+        dungeon.threeWay = data.at("threeWay").get<float>();
+        dungeon.fourWay = data.at("fourWay").get<float>();
+        
+        for(const auto& floorInfo : data.at("floorSpawnPool")){
 
-        config.straight = data.at("straight").get<float>();
-        config.turn = data.at("turn").get<float>();
-        config.threeWay = data.at("threeWay").get<float>();
-        config.fourWay = data.at("fourWay").get<float>();
+            int i = floorInfo.at("floorNum").get<int>();
 
-        return config;
+            FloorSpawnPool& floorSpawnPool = dungeon.floorSpawnPool[i];
+
+            const auto& enemyPool = floorInfo.at("enemyPool");
+
+            floorSpawnPool.numEnemyTypes = enemyPool.size();
+
+            for(int j = 0; j < floorSpawnPool.numEnemyTypes; j++){
+
+                string name = enemyPool[j].at("name").get<string>();
+
+                floorSpawnPool.enemySpawnInfo[j].name = strdup(name.c_str());
+
+                floorSpawnPool.enemySpawnInfo[j].spawnWeight = enemyPool[j].at("spawnWeight").get<float>();
+            }
+        }
+        
+        //Initialize vars
+        dungeon.floor = 0;
+        dungeon.bestFloor = dungeon.floor;
+        dungeon.currentRooms = 0;
+        dungeon.numRoomLocs = 0;
+        
     }
     catch (const exception& e) {
         TraceLog(LOG_ERROR, "Invalid dungeon config: %s", e.what());
         throw;
     }
-}
-
-void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
-    
-    dungeon.maxRooms = dungeonConfig.maxRooms;
-    dungeon.roomSize = dungeonConfig.roomSize;
-
-    dungeon.straight = dungeonConfig.straight;
-    dungeon.turn = dungeonConfig.turn;
-    dungeon.threeWay = dungeonConfig.threeWay;
-    dungeon.fourWay = dungeonConfig.fourWay;
-    
-    dungeon.floor = 0;
-    dungeon.bestFloor = dungeon.floor;
-    dungeon.currentRooms = 0;
-    dungeon.numRoomLocs = 0;
-    
 }
 
 void SetRoomInfo(Room& room) {
