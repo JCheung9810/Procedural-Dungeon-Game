@@ -71,29 +71,6 @@ Sound AssetManager::LoadGameSound(const char* path) {
 
 void AssetManager::LoadSpriteInfo(){
     
-    /*
-    SmallWallTop,
-    SmallWallBottom,
-    SmallWallLeft,
-    SmallWallRight,
-    MediumWallTop,
-    MediumWallBottom,
-    MediumWallLeft,
-    MediumWallRight,
-    LargeWallTop,
-    LargeWallBottom,
-    LargeWallLeft,
-    LargeWallRight,
-    InnerCornerWallTopLeft,
-    InnerCornerWallTopRight,
-    InnerCornerWallBottomLeft,
-    InnerCornerWallBottomRight,
-    OuterCornerWallTopLeft,
-    OuterCornerWallTopRight,
-    OuterCornerWallBottomLeft,
-    OuterCornerWallBottomRight
-    */
-    
     int borderSpacing;
     int spacing;
     float size;
@@ -133,6 +110,12 @@ void AssetManager::LoadSpriteInfo(){
     SetSpriteInfo(OuterCornerWallTopRight, 6, 1, borderSpacing, spacing, size);
     SetSpriteInfo(OuterCornerWallBottomLeft, 5, 2, borderSpacing, spacing, size);
     SetSpriteInfo(OuterCornerWallBottomRight, 6, 2, borderSpacing, spacing, size);
+    
+    //Walls
+    SetSpriteInfo(SmallWall, 12, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(MediumWall, 12, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(LargeWall, 12, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(FitWall, 12, 1, borderSpacing, spacing, size);
 }
 
 SpriteID GetSpriteID(const string& name) {
@@ -160,7 +143,11 @@ SpriteID GetSpriteID(const string& name) {
         {"OuterCornerWallTopLeft", OuterCornerWallTopLeft},
         {"OuterCornerWallTopRight", OuterCornerWallTopRight},
         {"OuterCornerWallBottomLeft", OuterCornerWallBottomLeft},
-        {"OuterCornerWallBottomRight", OuterCornerWallBottomRight}
+        {"OuterCornerWallBottomRight", OuterCornerWallBottomRight},
+        {"SmallWall", SmallWall},
+        {"MediumWall", MediumWall},
+        {"LargeWall", LargeWall},
+        {"FitWall", FitWall}
     };
 
     auto i = wallIDs.find(name);

@@ -28,7 +28,8 @@ struct RoomDecor {
     Rectangle hitbox;
     SpriteID spriteID;
     
-    bool collision;
+    bool projCollision;
+    bool playerCollision;
     
 };
 
@@ -76,7 +77,7 @@ struct RoomContent {
     
     //Decorations
     int numDecor;
-    RoomDecor decor[20] = {};
+    RoomDecor decor[50] = {};
 
     //Breakable objects
     int numBreakables;
@@ -144,8 +145,6 @@ struct Dungeon {
     
     int maxRooms;
     int roomSize;
-    float wallDepth;
-    int doorSize;
 
     float straight;
     float turn;

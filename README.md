@@ -27,6 +27,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - UI
   - reload mouse cursor 
   - minimap/map 
+  - 3D Wall overlap
 - MECHANICS
   - room content + enemy generation 
   - pickups (ammo,health) 
@@ -42,16 +43,17 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Breakables
 
 # Priority List (Highest to Lowest)
-  - room content + enemy generation 
-  - room trigger 
-  - enemy spawn 
-  - doors close until cleared 
-  - Make enemies use weapon objects (make firing use those stats) 
-  - Draw enemy weapons 
-  - better projectile hitbox 
-  - pickups (ammo,health) 
-  - reload mouse cursor 
-  - minimap/map 
-  - Shop 
-  - advanced enemy ai 
-  - lobby/main menu 
+  - room content + enemy generation
+  - room trigger
+  - enemy spawn
+  - doors close until cleared
+  - 3D Wall overlap
+  - Make enemies use weapon objects (make firing use those stats)
+  - Draw enemy weapons
+  - better projectile hitbox
+  - pickups (ammo,health)
+  - reload mouse cursor
+  - minimap/map
+  - Shop
+  - advanced enemy ai
+  - lobby/main menu

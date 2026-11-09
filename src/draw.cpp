@@ -39,6 +39,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                 if(room.exists == true){
 
                     float scale = room.roomContent.backgroundSize.x;
+                    float tileSize = 16 * scale;
 
                     DrawTextureEx(
                         room.roomContent.backgroundTexture,
@@ -51,19 +52,48 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                     for(int wallIt = 0; wallIt < room.roomContent.numWalls; wallIt++){
                         Wall& wall = room.roomContent.walls[wallIt];
 
-                        for(float x = 0; x < wall.hitbox.width; x += 16 * scale){
-                            for(float y = 0; y < wall.hitbox.height; y += 16 * scale){
+                        int tilesX = (int)roundf(wall.hitbox.width / tileSize);
+                        int tilesY = (int)roundf(wall.hitbox.height / tileSize);
 
+                        for(int x = 0; x < tilesX; x++){
+                            for(int y = 0; y < tilesY; y++){
                                 Rectangle dest = {
-                                    wall.hitbox.x + x,
-                                    wall.hitbox.y + y,
-                                    16 * scale,
-                                    16 * scale
+                                    wall.hitbox.x + x * tileSize,
+                                    wall.hitbox.y + y * tileSize,
+                                    tileSize,
+                                    tileSize
                                 };
 
                                 DrawTexturePro(
                                     assets.textures.at("assets/textures/dungeonTileset.png"),
                                     assets.spriteInfo[wall.spriteID].textureSrc,
+                                    dest,
+                                    (Vector2){0, 0},
+                                    0.0f,
+                                    WHITE
+                                );
+                            }
+                        }
+                    }
+                    
+                    for(int decorIt = 0; decorIt < room.roomContent.numDecor; decorIt++){
+                        RoomDecor& decor = room.roomContent.decor[decorIt];
+
+                        int tilesX = (int)roundf(decor.hitbox.width / tileSize);
+                        int tilesY = (int)roundf(decor.hitbox.height / tileSize);
+
+                        for(int x = 0; x < tilesX; x++){
+                            for(int y = 0; y < tilesY; y++){
+                                Rectangle dest = {
+                                    decor.hitbox.x + x * tileSize,
+                                    decor.hitbox.y + y * tileSize,
+                                    tileSize,
+                                    tileSize
+                                };
+
+                                DrawTexturePro(
+                                    assets.textures.at("assets/textures/dungeonTileset.png"),
+                                    assets.spriteInfo[decor.spriteID].textureSrc,
                                     dest,
                                     (Vector2){0, 0},
                                     0.0f,

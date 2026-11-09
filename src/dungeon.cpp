@@ -27,8 +27,6 @@ DungeonConfig LoadDungeonConfig(const char* filePath) {
 
         config.maxRooms = data.at("maxRooms").get<int>();
         config.roomSize = data.at("roomSize").get<int>();
-        config.wallDepth = data.at("wallDepth").get<float>();
-        config.doorSize = data.at("doorSize").get<int>();
 
         config.straight = data.at("straight").get<float>();
         config.turn = data.at("turn").get<float>();
@@ -47,8 +45,6 @@ void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
     
     dungeon.maxRooms = dungeonConfig.maxRooms;
     dungeon.roomSize = dungeonConfig.roomSize;
-    dungeon.wallDepth = dungeonConfig.wallDepth;
-    dungeon.doorSize = dungeonConfig.doorSize;
 
     dungeon.straight = dungeonConfig.straight;
     dungeon.turn = dungeonConfig.turn;
@@ -65,6 +61,12 @@ void InitializeDungeon(Dungeon& dungeon, DungeonConfig dungeonConfig){
 void SetRoomInfo(Room& room) {
     //Reset room contents
     room.roomContent.numWalls = 0;
+    room.roomContent.numDoors = 0;
+    room.roomContent.numDecor = 0;
+    room.roomContent.numBreakables = 0;
+    room.roomContent.numUsables = 0;
+    room.roomContent.numEnemySpawnPoints = 0;
+    room.roomContent.numEnemiesSpawn = 0;
     
     //Load corresponding roomType
     const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.layoutType.c_str());
@@ -128,6 +130,27 @@ void SetRoomInfo(Room& room) {
                     };
                     
                     room.roomContent.numEnemySpawnPoints++;
+                } else if(entity["layer"] == "Decor"){
+                    if (room.roomContent.numDecor >= 50){
+                        TraceLog(LOG_WARNING, "Maximum room decors reached");
+                        return;
+                    }
+
+                    RoomDecor& decor = room.roomContent.decor[room.roomContent.numDecor];
+
+                    decor.spriteID = GetSpriteID(i.key());
+
+                    decor.hitbox = {
+                        entity["x"].get<float>() * scale + room.position.x,
+                        entity["y"].get<float>() * scale + room.position.y,
+                        entity["width"].get<float>() * scale,
+                        entity["height"].get<float>() * scale
+                    };
+                    
+                    decor.playerCollision = entity["customFields"].at("playerCollision").get<bool>();
+                    decor.projCollision = entity["customFields"].at("projCollision").get<bool>();
+
+                    room.roomContent.numDecor++;
                 }
             }
         }

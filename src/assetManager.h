@@ -27,7 +27,11 @@ enum SpriteID{
     OuterCornerWallTopLeft,
     OuterCornerWallTopRight,
     OuterCornerWallBottomLeft,
-    OuterCornerWallBottomRight
+    OuterCornerWallBottomRight,
+    SmallWall,
+    MediumWall,
+    LargeWall,
+    FitWall
   
 };
 

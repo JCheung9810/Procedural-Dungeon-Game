@@ -65,6 +65,20 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
                             enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
                         }
                     }
+                    for(int k = 0; k < dungeon.rooms[j].roomContent.numDecor; k++){
+                        Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
+
+                        if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitBox, decor)){
+                            if(previousPosition.x + enemies[i].hitBox.width <= decor.x){
+                                enemies[i].position.x = decor.x - enemies[i].hitBox.width;
+                            } else if(previousPosition.x >= decor.x + decor.width){
+                                enemies[i].position.x = decor.x + decor.width;
+                            }
+
+                            enemies[i].hitBox.x = enemies[i].position.x;
+                            enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
+                        }
+                    }
                 }
             }
 
@@ -79,6 +93,20 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
                                 enemies[i].position.y = wall.y - enemies[i].hitBox.height;
                             } else if(previousPosition.y >= wall.y + wall.height){
                                 enemies[i].position.y = wall.y + wall.height;
+                            }
+
+                            enemies[i].hitBox.y = enemies[i].position.y;
+                            enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
+                        }
+                    }
+                    for(int k = 0; k < dungeon.rooms[j].roomContent.numDecor; k++){
+                        Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
+
+                        if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitBox, decor)){
+                            if(previousPosition.y + enemies[i].hitBox.height <= decor.y){
+                                enemies[i].position.y = decor.y - enemies[i].hitBox.height;
+                            } else if(previousPosition.y >= decor.y + decor.height){
+                                enemies[i].position.y = decor.y + decor.height;
                             }
 
                             enemies[i].hitBox.y = enemies[i].position.y;
