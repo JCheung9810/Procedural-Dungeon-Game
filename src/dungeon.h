@@ -81,8 +81,7 @@ struct RoomContent {
     vector<Door> doors;
     
     //Decorations
-    int numDecor;
-    RoomDecor decor[50] = {};
+    vector<RoomDecor> decor;
 
     //Breakable objects
     vector<RoomBreakable> breakables;

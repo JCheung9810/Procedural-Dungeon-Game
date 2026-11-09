@@ -70,7 +70,7 @@ void SetRoomInfo(Room& room) {
     //Reset room contents
     room.roomContent.walls.clear();
     room.roomContent.doors.clear();
-    room.roomContent.numDecor = 0;
+    room.roomContent.decor.clear();
     room.roomContent.breakables.clear();
     room.roomContent.usables.clear();
     room.roomContent.numEnemySpawnPoints = 0;
@@ -105,7 +105,6 @@ void SetRoomInfo(Room& room) {
             for (const auto& entity : i.value()) {
                 
                 if(entity["layer"] == "Walls"){
-
                     Wall wall;
 
                     wall.spriteID = GetSpriteID(i.key());
@@ -133,13 +132,9 @@ void SetRoomInfo(Room& room) {
                     };
                     
                     room.roomContent.numEnemySpawnPoints++;
+                    
                 } else if(entity["layer"] == "Decor"){
-                    if (room.roomContent.numDecor >= 50){
-                        TraceLog(LOG_WARNING, "Maximum room decors reached");
-                        return;
-                    }
-
-                    RoomDecor& decor = room.roomContent.decor[room.roomContent.numDecor];
+                    RoomDecor decor;
 
                     decor.spriteID = GetSpriteID(i.key());
 
@@ -152,8 +147,9 @@ void SetRoomInfo(Room& room) {
                     
                     decor.playerCollision = entity["customFields"].at("playerCollision").get<bool>();
                     decor.projCollision = entity["customFields"].at("projCollision").get<bool>();
+                    
+                    room.roomContent.decor.push_back(decor);
 
-                    room.roomContent.numDecor++;
                 }
             }
         }

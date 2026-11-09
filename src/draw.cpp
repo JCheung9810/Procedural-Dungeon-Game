@@ -76,7 +76,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                         }
                     }
                     
-                    for(int decorIt = 0; decorIt < room.roomContent.numDecor; decorIt++){
+                    for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
 
                         int tilesX = (int)roundf(decor.hitbox.width / tileSize);

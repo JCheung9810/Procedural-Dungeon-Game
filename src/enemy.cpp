@@ -65,7 +65,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
                             enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
                         }
                     }
-                    for(int k = 0; k < dungeon.rooms[j].roomContent.numDecor; k++){
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
                         Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
 
                         if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitBox, decor)){
@@ -99,7 +99,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
                             enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
                         }
                     }
-                    for(int k = 0; k < dungeon.rooms[j].roomContent.numDecor; k++){
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
                         Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
 
                         if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitBox, decor)){

@@ -130,7 +130,7 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                                 projectiles[i].lifeSpan = 0.0f;
                             }
                         }
-                        for(int k = 0; k < dungeon.rooms[j].roomContent.numDecor; k++){
+                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
                             if(dungeon.rooms[j].roomContent.decor[k].projCollision && CheckCollisionRecs(dungeon.rooms[j].roomContent.decor[k].hitbox,projectiles[i].hitbox)){
                                 projectiles[i].active = false;
                                 projectiles[i].lifeSpan = 0.0f;
