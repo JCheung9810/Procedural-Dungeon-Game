@@ -69,10 +69,10 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 void SetRoomInfo(Room& room) {
     //Reset room contents
     room.roomContent.walls.clear();
-    room.roomContent.numDoors = 0;
+    room.roomContent.doors.clear();
     room.roomContent.numDecor = 0;
-    room.roomContent.numBreakables = 0;
-    room.roomContent.numUsables = 0;
+    room.roomContent.breakables.clear();
+    room.roomContent.usables.clear();
     room.roomContent.numEnemySpawnPoints = 0;
     room.roomContent.numEnemiesSpawn = 0;
     

@@ -78,20 +78,17 @@ struct RoomContent {
     vector<Wall> walls;
     
     //Doors
-    int numDoors;
-    Door doors[4] = {};
+    vector<Door> doors;
     
     //Decorations
     int numDecor;
     RoomDecor decor[50] = {};
 
     //Breakable objects
-    int numBreakables;
-    RoomBreakable breakables[20] = {};
+    vector<RoomBreakable> breakables;
 
     //Usable objects
-    int numUsables;
-    RoomUsable usables[20] = {};
+    vector<RoomUsable> usables;
     
     //Background
     Texture2D backgroundTexture;
