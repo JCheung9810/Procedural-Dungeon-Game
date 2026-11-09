@@ -16,10 +16,43 @@
 		"EnemySpawnPoint": [
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "a0913570-bde0-11f1-a7d5-35f2de265cbf",
+				"iid": "08f41180-bde0-11f1-8f80-8d87e807e9a4",
 				"layer": "EnemySpawnPoint",
 				"x": 328,
-				"y": 312,
+				"y": 328,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "09724230-bde0-11f1-8f80-c581cb9c545d",
+				"layer": "EnemySpawnPoint",
+				"x": 152,
+				"y": 328,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "0a167170-bde0-11f1-8f80-2ddf2b1356ab",
+				"layer": "EnemySpawnPoint",
+				"x": 152,
+				"y": 152,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "0b5448a0-bde0-11f1-8f80-5d32dd13a2fb",
+				"layer": "EnemySpawnPoint",
+				"x": 328,
+				"y": 152,
 				"width": 16,
 				"height": 16,
 				"color": 12470831,

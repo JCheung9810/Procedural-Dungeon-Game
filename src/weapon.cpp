@@ -75,7 +75,7 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 } else if(fireMode == "AUTOMATIC"){
                     weapon.fireMode = FireMode::AUTOMATIC;
                 } else {
-                    TraceLog(LOG_WARNING, "Unknown fire mode: %s", fireMode.c_str());
+                    TraceLog(LOG_ERROR, "Unknown fire mode: %s", fireMode.c_str());
                 }
 
                 if (weapon.texture.id == 0) {

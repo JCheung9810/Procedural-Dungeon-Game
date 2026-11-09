@@ -18,6 +18,7 @@ AssetManager assets;
 int main(void){
     
     ChangeDirectory(GetApplicationDirectory());
+    SetTraceLogLevel(LOG_DEBUG);
     
     //Initial screen size
     int screenWidth = 800;
@@ -88,7 +89,7 @@ int main(void){
     //seed = 100000;
     SetRandomSeed(seed);
     
-    TraceLog(LOG_INFO, "Current Seed: %i",seed);
+    TraceLog(LOG_DEBUG, "Current Seed: %i",seed);
     
     Dungeon dungeon;
     InitializeDungeon("config/dungeon.json", dungeon);
