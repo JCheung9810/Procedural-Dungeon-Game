@@ -1590,7 +1590,7 @@
 		{
 			"__cWid": 16,
 			"__cHei": 16,
-			"identifier": "DungeonTileset2",
+			"identifier": "DungeonTileset",
 			"uid": 20,
 			"relPath": "../assets/textures/dungeonTileset.png",
 			"embedAtlas": null,
