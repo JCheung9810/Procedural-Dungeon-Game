@@ -124,7 +124,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     
                     room.roomContent.walls.push_back(wall);
                     
-                } else if(entity["layer"] == "EnemySpawPoint"){
+                } else if(entity["layer"] == "EnemySpawnPoint"){
                     
                     EnemySpawnPoint enemySpawnPoint;
                     

@@ -184,6 +184,9 @@ int main(void){
                 if(IsKeyPressed(KEY_NINE)){
                     debug.wall = debug.wall ^ true;
                 }
+                if(IsKeyPressed(KEY_FIVE)){
+                    TraceLog(LOG_DEBUG, "Current Seed: %i",seed);
+                }
             }   
 
             //Exit confirmation
