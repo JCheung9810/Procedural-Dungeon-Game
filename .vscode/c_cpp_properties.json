@@ -1,0 +1,23 @@
+
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/external/**",
+                "C:/raylib/raylib/src/**",
+                "C:/mingw64/include/**",
+                "C:/raylib/w64devkit/x86_64-w64-mingw32/include/**"
+            ],
+            "defines": [
+                "PLATFORM_DESKTOP"
+            ],
+            "compilerPath": "C:/raylib/w64devkit/bin/g++.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}
