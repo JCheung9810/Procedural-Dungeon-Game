@@ -33,6 +33,10 @@ void AddEnemy(vector<Enemy>& enemies, const char* name){
 void UpdateEnemies(vector<Enemy>& enemies, Player player, Dungeon& dungeon){
     //Check every enemy
     for(int i = 0; i < (int)enemies.size(); i++){
+
+        if(enemies[i].health <= 0.0f){
+            enemies[i].active = false;
+        }
             
         if(enemies[i].active == true){
             float rot = 0.0f;
@@ -120,7 +124,8 @@ void UpdateEnemies(vector<Enemy>& enemies, Player player, Dungeon& dungeon){
             }
         } else {
             //Remove inactive enemy
-            enemies.erase(enemies.begin() + i);          
+            enemies.erase(enemies.begin() + i);  
+            i--;        
         }
         
     }

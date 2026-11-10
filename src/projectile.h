@@ -15,8 +15,6 @@ struct Projectile {
     
     float lifeSpan;
     
-    bool active;
-    
     const char* team;
     const char* type;
     
@@ -29,6 +27,6 @@ struct Projectile {
     
 };
 
-void InitializeProjectiles(Projectile projectiles[], int maxProjectiles);
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy);
-void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, vector<Enemy>& enemies, Player& player);
+void InitializeProjectile(Projectile& projectile);
+void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy);
+void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector<Enemy>& enemies, Player& player);

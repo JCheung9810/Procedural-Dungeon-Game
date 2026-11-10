@@ -974,7 +974,7 @@ void GenerateDungeon(Dungeon& dungeon){
             for (int j = 0; deadEnds[j] != '\0'; j++) {
                 size_t pos = newType.find(deadEnds[j]);
 
-                if (pos != std::string::npos) {
+                if (pos != string::npos) {
                     newType.erase(pos, 1);
                     newType[0]--;
                 }

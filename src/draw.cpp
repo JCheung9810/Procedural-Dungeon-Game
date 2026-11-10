@@ -8,7 +8,7 @@
 
 #include <raymath.h>
 
-void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, Projectile projectiles[], int maxProjectiles, 
+void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
             Texture2D heartTexture, Texture2D weaponHudBoxTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
@@ -167,10 +167,9 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             }
             
             //Draw projectiles
-            for (int i = 0; i < maxProjectiles; i++){
-                if (projectiles[i].active) 
-                    //DrawRectanglePro(projectiles[i].hitbox, Vector2{projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
-                    DrawRectangleRec(projectiles[i].hitbox, YELLOW);
+            for (int i = 0; i < (int)projectiles.size(); i++){
+                //DrawRectanglePro(projectiles[i].hitbox, Vector2{projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
+                DrawRectangleRec(projectiles[i].hitbox, YELLOW);
             } 
       
         EndMode2D();

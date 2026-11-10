@@ -6,173 +6,183 @@
 
 #include <raymath.h>
 
-void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
-    for(int i = 0; i < maxProjectiles; i++){
-        projectiles[i].position = Vector2{0,0};
-        projectiles[i].speed = Vector2{0,0};
-        projectiles[i].size = Vector2{8,8};
-        projectiles[i].active = false;
-        projectiles[i].lifeSpan = 0.0f;
-        projectiles[i].damage = 0.0f;
-        projectiles[i].color = RED;
-        projectiles[i].hitbox = {projectiles[i].position.x, projectiles[i].position.y, projectiles[i].size.x, projectiles[i].size.y};
-        
-    }    
+void InitializeProjectile(Projectile& projectile){
+    projectile.position = Vector2{0,0};
+    projectile.speed = Vector2{0,0};
+    projectile.size = Vector2{8,8};
+    projectile.lifeSpan = 0.0f;
+    projectile.damage = 0.0f;
+    projectile.color = RED;
+    projectile.hitbox = {projectile.position.x, projectile.position.y, projectile.size.x, projectile.size.y};
+           
 }
 
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy){    
+void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy){    
     
-    int projectilesCreated = 0;
+    int projectilesToCreate = 0;
+    if(TextIsEqual(team,"Player")){
+        projectilesToCreate = player.weapons[player.equippedWeaponIndex].numProjectiles;
+    } else if(TextIsEqual(team,"Enemy")){
+        projectilesToCreate = 1;
+    }
     
-    for (int i = 0; i < maxProjectiles; i++){
-        if (!projectiles[i].active){
-            if(TextIsEqual(team,"Player")){
-                //Activate projectile and start lifespan
-                projectiles[i].active = true;
-                projectiles[i].lifeSpan = projectileLifespan; 
-                
-                //Set projectile team
-                projectiles[i].team = "Player";
-                
-                //Projectile rotation from gun barrel to target
-                int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
-                float randSpread = GetRandomValue(-spread, spread) / 10.0f;
-                float projectileRotation = playerToMouseRotation * RAD2DEG + randSpread;
-                projectiles[i].rotation = projectileRotation * DEG2RAD;
-                
-                //Projectile starting position
-                projectiles[i].position = Vector2{
-                    player.center.x + cos(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
-                    player.center.y + sin(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
-                };
-                
-                //Set projectile damage and type
-                projectiles[i].damage = player.weapons[player.equippedWeaponIndex].damage;
-                projectiles[i].type = player.weapons[player.equippedWeaponIndex].type;
+    for (int i = 0; i < projectilesToCreate; i++){
+        Projectile projectile;
+        InitializeProjectile(projectile);
 
-            } else if(TextIsEqual(team,"Enemy")){
-                //Activate projectile and start lifespan
-                projectiles[i].active = true;
-                projectiles[i].lifeSpan = projectileLifespan; 
-                
-                //Set projectile team
-                projectiles[i].team = "Enemy";
-                
-                //Projectile rotation from center to player center
-                projectiles[i].rotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
-                
-                //Projectile starting position
-                projectiles[i].position = enemy->center;
-                
-                //Set projectile damage and type
-                projectiles[i].damage = 1.0f;
-                projectiles[i].type = "Pistol";
-            }
-            
-            //Set trajectory
-            projectiles[i].speed.x = cos(projectiles[i].rotation) * 500;
-            projectiles[i].speed.y = sin(projectiles[i].rotation) * 500;
-            
-            //Set projectile hitbox
-            projectiles[i].hitbox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
-            
-            //Increase projectilesCreated
-            projectilesCreated++;
-            
-            if(TextIsEqual(team,"Player") && projectilesCreated >= player.weapons[player.equippedWeaponIndex].numProjectiles){
-                
-                //Set fire timer
-                player.weapons[player.equippedWeaponIndex].fireTimer = player.weapons[player.equippedWeaponIndex].fireTime;
-                
-                //Decrease number of bullets in mag
-                player.weapons[player.equippedWeaponIndex].mag--;
-                
-                //Auto reload
-                if(player.weapons[player.equippedWeaponIndex].mag == 0){
-                    ReloadWeapon(player);
-                }
-                
-                PlaySound(player.weapons[player.equippedWeaponIndex].shotSound);
-                
-                break;
-                
-            } else if(TextIsEqual(team,"Enemy")){ //&& projectilesCreated >= enemy.weapons[equippedWeaponIndex].numProjectiles){
-                break;
-            }
-        }
-    }    
-}
+        //Start lifespan
+        projectile.lifeSpan = projectileLifespan; 
 
-void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, vector<Enemy>& enemies, Player& player){
-    //Translate projectile
-        for(int i = 0; i < maxProjectiles; i++){
-            if(projectiles[i].active){
-                
-                projectiles[i].position = {
-                    projectiles[i].position.x + projectiles[i].speed.x * GetFrameTime(), 
-                    projectiles[i].position.y + projectiles[i].speed.y * GetFrameTime()
-                };    
+        if(TextIsEqual(team,"Player")){
+            //Set projectile team
+            projectile.team = "Player";
+            
+            //Projectile rotation from gun barrel to target
+            int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
+            float randSpread = GetRandomValue(-spread, spread) / 10.0f;
+            float projectileRotation = playerToMouseRotation * RAD2DEG + randSpread;
+            projectile.rotation = projectileRotation * DEG2RAD;
+            
+            //Projectile starting position
+            projectile.position = Vector2{
+                player.center.x + cos(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
+                player.center.y + sin(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
+            };
+            
+            //Set projectile damage and type
+            projectile.damage = player.weapons[player.equippedWeaponIndex].damage;
+            projectile.type = player.weapons[player.equippedWeaponIndex].type;
 
-                projectiles[i].hitbox = {projectiles[i].position.x - projectiles[i].size.x/2.0f, projectiles[i].position.y  - projectiles[i].size.y/2.0f, projectiles[i].size.x, projectiles[i].size.y};
-                
-            }
+        } else if(TextIsEqual(team,"Enemy")){
+
+            if(enemy == nullptr)
+                return;
+            
+            //Set projectile team
+            projectile.team = "Enemy";
+            
+            //Projectile rotation from center to player center
+            projectile.rotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
+            
+            //Projectile starting position
+            projectile.position = enemy->center;
+            
+            //Set projectile damage and type
+            projectile.damage = 1.0f;
+            projectile.type = "Pistol";
         }
         
-        //Projectile collision/despawn
-        for(int i = 0; i < maxProjectiles; i++){
-            if(projectiles[i].active){
-                //Check walls/decor
-                for(int j = 0; j < (int)dungeon.rooms.size(); j++){
-                    if(dungeon.rooms[j].exists == true){
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
-                            if(CheckCollisionRecs(dungeon.rooms[j].roomContent.walls[k].hitbox,projectiles[i].hitbox)){
-                                projectiles[i].active = false;
-                                projectiles[i].lifeSpan = 0.0f;
-                            }
-                        }
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
-                            if(dungeon.rooms[j].roomContent.decor[k].projCollision && CheckCollisionRecs(dungeon.rooms[j].roomContent.decor[k].hitbox,projectiles[i].hitbox)){
-                                projectiles[i].active = false;
-                                projectiles[i].lifeSpan = 0.0f;
-                            }
-                        }
-                    }
-                }
-                
-                //Skip entity collision check if collided with something
-                if(!projectiles[i].active){
-                    continue;
-                }
-                
-                //Check enemy collision
-                for(int j = 0; j < (int)enemies.size(); j++){
-                    if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectiles[i].hitbox) && TextIsEqual(projectiles[i].team, "Player")){
-                        projectiles[i].active = false;
-                        projectiles[i].lifeSpan = 0.0f;
-                        
-                        enemies[j].health -= projectiles[i].damage;
-                        if(enemies[j].health <= 0.0f){
-                            enemies[j].active = false;
-                        }
-                        
-                        break;
-                    }
-                }
-                
-                //Check player collision
-                if(CheckCollisionRecs(player.hitBox,projectiles[i].hitbox) && TextIsEqual(projectiles[i].team, "Enemy") && player.iFrames <= 0.0f){
-                    projectiles[i].active = false;
-                    projectiles[i].lifeSpan = 0.0f;
-                    
-                    player.health -= projectiles[i].damage;
-                    player.iFrames = 1.0f;
-                }
-                
-                projectiles[i].lifeSpan -= GetFrameTime(); 
-               
-                if(projectiles[i].lifeSpan <= 0.0f){
-                   projectiles[i].active = false;
-                }
-            }                    
+        //Set trajectory
+        projectile.speed.x = cos(projectile.rotation) * 500;
+        projectile.speed.y = sin(projectile.rotation) * 500;
+        
+        //Set projectile hitbox
+        projectile.hitbox = {projectile.position.x - projectile.size.x/2.0f, projectile.position.y  - projectile.size.y/2.0f, projectile.size.x, projectile.size.y};
+
+        projectiles.push_back(projectile);
+        
+    }  
+    
+    if(TextIsEqual(team,"Player")){
+            
+        //Set fire timer
+        player.weapons[player.equippedWeaponIndex].fireTimer = player.weapons[player.equippedWeaponIndex].fireTime;
+        
+        //Decrease number of bullets in mag
+        player.weapons[player.equippedWeaponIndex].mag--;
+        
+        //Auto reload
+        if(player.weapons[player.equippedWeaponIndex].mag == 0){
+            ReloadWeapon(player);
         }
+        
+        PlaySound(player.weapons[player.equippedWeaponIndex].shotSound);
+
+        
+    } else if(TextIsEqual(team,"Enemy")){ //&& projectilesCreated >= enemy.weapons[equippedWeaponIndex].numProjectiles){
+        
+    }
 }
+
+
+void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector<Enemy>& enemies, Player& player){
+
+    for(int i = 0; i < (int)projectiles.size(); i++){
+
+        //Translate projectile
+        projectiles[i].position.x += projectiles[i].speed.x * GetFrameTime();
+        projectiles[i].position.y += projectiles[i].speed.y * GetFrameTime();
+
+        //Update hitbox
+        projectiles[i].hitbox = {
+            projectiles[i].position.x - projectiles[i].size.x / 2.0f,
+            projectiles[i].position.y - projectiles[i].size.y / 2.0f,
+            projectiles[i].size.x,
+            projectiles[i].size.y
+        };
+
+        bool collisionDetected = false;
+
+        //Check walls/decor
+        for(int j = 0; j < (int)dungeon.rooms.size() && !collisionDetected; j++){
+
+            if(!dungeon.rooms[j].exists)
+                continue;
+
+            for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
+
+                if(CheckCollisionRecs(dungeon.rooms[j].roomContent.walls[k].hitbox, projectiles[i].hitbox)){
+                    collisionDetected = true;
+                    break;
+                }
+            }
+
+            if(collisionDetected)
+                break;
+
+            for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
+
+                if(dungeon.rooms[j].roomContent.decor[k].projCollision &&
+                   CheckCollisionRecs(dungeon.rooms[j].roomContent.decor[k].hitbox, projectiles[i].hitbox)){
+                    collisionDetected = true;
+                    break;
+                }
+            }
+        }
+
+        //Check enemy collision
+        if(!collisionDetected && TextIsEqual(projectiles[i].team, "Player")){
+
+            for(int j = 0; j < (int)enemies.size(); j++){
+
+                if(enemies[j].active &&
+                   CheckCollisionRecs(enemies[j].hitBox, projectiles[i].hitbox)){
+
+                    enemies[j].health -= projectiles[i].damage;
+                    collisionDetected = true;
+                    break;
+                }
+            }
+        }
+
+        //Check player collision
+        if(!collisionDetected && TextIsEqual(projectiles[i].team, "Enemy") &&
+           player.iFrames <= 0.0f &&
+           CheckCollisionRecs(player.hitBox, projectiles[i].hitbox)){
+
+            player.health -= projectiles[i].damage;
+            player.iFrames = 1.0f;
+            collisionDetected = true;
+        }
+
+        //Update lifespan
+        projectiles[i].lifeSpan -= GetFrameTime();
+
+        //Remove projectile
+        if(collisionDetected || projectiles[i].lifeSpan <= 0.0f){
+            projectiles.erase(projectiles.begin() + i);
+            i--;
+        }
+    }
+}
+

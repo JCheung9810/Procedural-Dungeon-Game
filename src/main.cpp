@@ -82,10 +82,7 @@ int main(void){
     
     //Projectile
     float projectileLifespan = 5.0f;
-    const int maxProjectiles = 200;
-    Projectile projectiles[maxProjectiles] = {};
-    
-    InitializeProjectiles(projectiles, maxProjectiles);
+    vector<Projectile> projectiles;
     
     //Dungeon
     int seed = GetRandomValue(100000, 999999);
@@ -141,14 +138,14 @@ int main(void){
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f && 
                     player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
-                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
+                        FireProjectile(projectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
                     }
                 } else if(player.weapons[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
                     if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapons[player.equippedWeaponIndex].mag >= 1 && 
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f &&
                     player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
-                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
+                        FireProjectile(projectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
                     }
                 }
             }
@@ -157,13 +154,13 @@ int main(void){
             for(int i = 0; i < (int)enemies.size(); i++){
                 enemies[i].attackCD -= GetFrameTime();
                 if(enemies[i].attackCD <= 0.0f){
-                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, &enemies[i]);
+                    FireProjectile(projectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, &enemies[i]);
                     enemies[i].attackCD = enemies[i].attackRate;
                 }
             }
             
             //Update all projectiles
-            UpdateProjectiles(projectiles, maxProjectiles, dungeon, enemies, player);
+            UpdateProjectiles(projectiles, dungeon, enemies, player);
 
             //------------------------------CAMERA------------------------------      
             UpdateGameCamera(dungeon, player, camera, debug.cam);
@@ -219,7 +216,7 @@ int main(void){
         }
 
         //------------------------------DRAW------------------------------
-        DrawGame(camera, player, dungeon, enemies, projectiles, maxProjectiles,  
+        DrawGame(camera, player, dungeon, enemies, projectiles,  
             heartTexture, weaponHudBoxTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
