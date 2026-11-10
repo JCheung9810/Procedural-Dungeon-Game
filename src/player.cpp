@@ -82,10 +82,11 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
  
     player.state = State::IDLE;
     
-    player.numWeapons = 2;
+    player.maxWeapons = 3;
     player.equippedWeaponIndex = 0;
-    player.weapon[0] = LoadWeapon("config/weapon.json", "Pistol");
-    player.weapon[1] = LoadWeapon("config/weapon.json", "Double Barrel");
+    
+    player.weapons.push_back(LoadWeapon("config/weapon.json", "Pistol"));
+    player.weapons.push_back(LoadWeapon("config/weapon.json", "Double Barrel"));
 
     player.dashTime = playerConfig.dashTime;
     player.dashTimer = 0.0f;

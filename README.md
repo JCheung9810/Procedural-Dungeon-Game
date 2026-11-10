@@ -42,6 +42,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Shop 
 
 # Priority List (Highest to Lowest)
+  - Change static arrays into vectors (SpriteInfo, FloorSpawnPool, Room, EnemySpawnPoint, EnemySpawnInfo, names inside spawnPoint, weapon)
   - Room content + enemy generation
   - Room trigger
   - Enemy spawn

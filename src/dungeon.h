@@ -129,8 +129,8 @@ struct Dungeon {
     
     Room rooms[100] = {};
     
-    int currentRooms;
-    int numRoomLocs;
+    int currentRooms;   //number of existing rooms (not empty)
+    int numRoomLocs;    //number of all rooms (including empty)
     
     int maxRooms;
     int roomSize;

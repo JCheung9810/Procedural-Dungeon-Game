@@ -215,10 +215,10 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
         DrawTexturePro(weaponHudBoxTexture, weaponHudBoxTextureSrc, weaponHudBoxTextureDest, {0,0}, 0, WHITE);
         
         //Draw weapon inside hud
-        Rectangle weaponHudTextureSrc = {0,0, (float)player.weapon[player.equippedWeaponIndex].hudTexture.width, (float)player.weapon[player.equippedWeaponIndex].hudTexture.height};
+        Rectangle weaponHudTextureSrc = {0,0, (float)player.weapons[player.equippedWeaponIndex].hudTexture.width, (float)player.weapons[player.equippedWeaponIndex].hudTexture.height};
         Rectangle weaponHudTextureDest = {weaponHudBoxPos.x, weaponHudBoxPos.y, weaponHudBoxSize.x, weaponHudBoxSize.y};
         
-        DrawTexturePro(player.weapon[player.equippedWeaponIndex].hudTexture, weaponHudTextureSrc, weaponHudTextureDest, {0,0}, 0, WHITE);
+        DrawTexturePro(player.weapons[player.equippedWeaponIndex].hudTexture, weaponHudTextureSrc, weaponHudTextureDest, {0,0}, 0, WHITE);
         
         //Draw ammo counter text
         fontSize = 30;
@@ -234,10 +234,10 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
         );
         
         //Draw mag counter
-        if(!player.weapon[player.equippedWeaponIndex].reloading){
-            textWidth = MeasureText(TextFormat("%i", player.weapon[player.equippedWeaponIndex].mag), fontSize);
+        if(!player.weapons[player.equippedWeaponIndex].reloading){
+            textWidth = MeasureText(TextFormat("%i", player.weapons[player.equippedWeaponIndex].mag), fontSize);
             DrawText(
-                TextFormat("%i", player.weapon[player.equippedWeaponIndex].mag), 
+                TextFormat("%i", player.weapons[player.equippedWeaponIndex].mag), 
                 weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
                 weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
                 fontSize, 
@@ -255,9 +255,9 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
         }
         
         //Draw magSize counter
-        textWidth = MeasureText(TextFormat("%i", player.weapon[player.equippedWeaponIndex].magSize), fontSize);
+        textWidth = MeasureText(TextFormat("%i", player.weapons[player.equippedWeaponIndex].magSize), fontSize);
         DrawText(
-            TextFormat("%i", player.weapon[player.equippedWeaponIndex].magSize), 
+            TextFormat("%i", player.weapons[player.equippedWeaponIndex].magSize), 
             weaponHudBoxPos.x + weaponHudBoxSize.x/2 + (MeasureText(TextFormat("/"), fontSize) / 2) + 10, 
             weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
             fontSize, 
@@ -359,11 +359,11 @@ void DrawWeapon(Player player, float playerToMouseRotation){
     float gunAngle;
     
     gunPos = {
-        player.center.x + cos(playerToMouseRotation) * player.weapon[player.equippedWeaponIndex].positionOffset.x,
-        player.center.y + sin(playerToMouseRotation) * player.weapon[player.equippedWeaponIndex].positionOffset.x
+        player.center.x + cos(playerToMouseRotation) * player.weapons[player.equippedWeaponIndex].positionOffset.x,
+        player.center.y + sin(playerToMouseRotation) * player.weapons[player.equippedWeaponIndex].positionOffset.x
     };
-    gunSrc = {0,0,(float)player.weapon[player.equippedWeaponIndex].texture.width / player.weapon[player.equippedWeaponIndex].textureFrames,(float)player.weapon[player.equippedWeaponIndex].texture.height - player.weapon[player.equippedWeaponIndex].positionOffset.y};
-    gunDest = {gunPos.x,gunPos.y,player.weapon[player.equippedWeaponIndex].size,player.weapon[player.equippedWeaponIndex].size};
+    gunSrc = {0,0,(float)player.weapons[player.equippedWeaponIndex].texture.width / player.weapons[player.equippedWeaponIndex].textureFrames,(float)player.weapons[player.equippedWeaponIndex].texture.height - player.weapons[player.equippedWeaponIndex].positionOffset.y};
+    gunDest = {gunPos.x,gunPos.y,player.weapons[player.equippedWeaponIndex].size,player.weapons[player.equippedWeaponIndex].size};
     gunAngle = playerToMouseRotation * RAD2DEG;
     
     if (gunAngle < -90 || gunAngle > 90){
@@ -378,6 +378,6 @@ void DrawWeapon(Player player, float playerToMouseRotation){
         opacity = (Color)WHITE;
     }
     
-    DrawTexturePro(player.weapon[player.equippedWeaponIndex].texture, gunSrc, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, opacity);
+    DrawTexturePro(player.weapons[player.equippedWeaponIndex].texture, gunSrc, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, opacity);
     //              texture                                           source   dest               origin/pivot              rotation   color
 }

@@ -108,10 +108,10 @@ int main(void){
             if(IsKeyPressed(KEY_Q)){
                 player.equippedWeaponIndex = (player.equippedWeaponIndex - 1);
                 if(player.equippedWeaponIndex < 0){
-                    player.equippedWeaponIndex = player.numWeapons - 1;
+                    player.equippedWeaponIndex = (int)player.weapons.size() - 1;
                 }
             } else if(IsKeyPressed(KEY_E)){
-                player.equippedWeaponIndex = (player.equippedWeaponIndex + 1) % player.numWeapons;
+                player.equippedWeaponIndex = (player.equippedWeaponIndex + 1) % (int)player.weapons.size();
             }
             
             //Weapon reload
@@ -133,17 +133,17 @@ int main(void){
             
             //Fire player projectile
             if(player.state != State::DASHING){
-                if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){
-                    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
-                    player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f && 
-                    player.weapon[player.equippedWeaponIndex].reloading == false)
+                if(player.weapons[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){
+                    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && player.weapons[player.equippedWeaponIndex].mag >= 1 && 
+                    player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f && 
+                    player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
                         FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
                     }
-                } else if(player.weapon[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
-                    if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapon[player.equippedWeaponIndex].mag >= 1 && 
-                    player.weapon[player.equippedWeaponIndex].fireTimer <= 0.0f &&
-                    player.weapon[player.equippedWeaponIndex].reloading == false)
+                } else if(player.weapons[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
+                    if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapons[player.equippedWeaponIndex].mag >= 1 && 
+                    player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f &&
+                    player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
                         FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
                     }

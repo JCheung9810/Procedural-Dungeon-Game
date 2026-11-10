@@ -35,20 +35,20 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].team = "Player";
                 
                 //Projectile rotation from gun barrel to target
-                int spread = (int) (player.weapon[player.equippedWeaponIndex].bulletSpread * 10);
+                int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
                 float randSpread = GetRandomValue(-spread, spread) / 10.0f;
                 float projectileRotation = playerToMouseRotation * RAD2DEG + randSpread;
                 projectiles[i].rotation = projectileRotation * DEG2RAD;
                 
                 //Projectile starting position
                 projectiles[i].position = (Vector2){
-                    player.center.x + cos(playerToMouseRotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset), 
-                    player.center.y + sin(playerToMouseRotation) * (player.weapon[player.equippedWeaponIndex].projectileOffset)
+                    player.center.x + cos(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
+                    player.center.y + sin(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
                 };
                 
                 //Set projectile damage and type
-                projectiles[i].damage = player.weapon[player.equippedWeaponIndex].damage;
-                projectiles[i].type = player.weapon[player.equippedWeaponIndex].type;
+                projectiles[i].damage = player.weapons[player.equippedWeaponIndex].damage;
+                projectiles[i].type = player.weapons[player.equippedWeaponIndex].type;
 
             } else if(TextIsEqual(team,"Enemy")){
                 //Activate projectile and start lifespan
@@ -79,24 +79,24 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
             //Increase projectilesCreated
             projectilesCreated++;
             
-            if(TextIsEqual(team,"Player") && projectilesCreated >= player.weapon[player.equippedWeaponIndex].numProjectiles){
+            if(TextIsEqual(team,"Player") && projectilesCreated >= player.weapons[player.equippedWeaponIndex].numProjectiles){
                 
                 //Set fire timer
-                player.weapon[player.equippedWeaponIndex].fireTimer = player.weapon[player.equippedWeaponIndex].fireTime;
+                player.weapons[player.equippedWeaponIndex].fireTimer = player.weapons[player.equippedWeaponIndex].fireTime;
                 
                 //Decrease number of bullets in mag
-                player.weapon[player.equippedWeaponIndex].mag--;
+                player.weapons[player.equippedWeaponIndex].mag--;
                 
                 //Auto reload
-                if(player.weapon[player.equippedWeaponIndex].mag == 0){
+                if(player.weapons[player.equippedWeaponIndex].mag == 0){
                     ReloadWeapon(player);
                 }
                 
-                PlaySound(player.weapon[player.equippedWeaponIndex].shotSound);
+                PlaySound(player.weapons[player.equippedWeaponIndex].shotSound);
                 
                 break;
                 
-            } else if(TextIsEqual(team,"Enemy")){ //&& projectilesCreated >= enemy.weapon[equippedWeaponIndex].numProjectiles){
+            } else if(TextIsEqual(team,"Enemy")){ //&& projectilesCreated >= enemy.weapons[equippedWeaponIndex].numProjectiles){
                 break;
             }
         }

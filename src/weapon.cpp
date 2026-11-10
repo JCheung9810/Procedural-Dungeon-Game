@@ -100,29 +100,29 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
 }
 
 void ReloadWeapon(Player& player){
-    if(player.weapon[player.equippedWeaponIndex].reloading == false && player.weapon[player.equippedWeaponIndex].mag < player.weapon[player.equippedWeaponIndex].magSize){
-        player.weapon[player.equippedWeaponIndex].reloading = true;
-        player.weapon[player.equippedWeaponIndex].reloadTimer = player.weapon[player.equippedWeaponIndex].reloadTime;
-        PlaySound(player.weapon[player.equippedWeaponIndex].reloadSound);
+    if(player.weapons[player.equippedWeaponIndex].reloading == false && player.weapons[player.equippedWeaponIndex].mag < player.weapons[player.equippedWeaponIndex].magSize){
+        player.weapons[player.equippedWeaponIndex].reloading = true;
+        player.weapons[player.equippedWeaponIndex].reloadTimer = player.weapons[player.equippedWeaponIndex].reloadTime;
+        PlaySound(player.weapons[player.equippedWeaponIndex].reloadSound);
     }
 }
 
 void UpdateWeapon(Player& player){
     //Update reload and fire times
-    for(int i = 0; i < player.numWeapons; i++){
-        if(player.weapon[i].reloading == true){
-            player.weapon[i].reloadTimer -= GetFrameTime();
-            if(player.weapon[i].reloadTimer <= 0.0f){
-                player.weapon[i].reloadTimer = 0.0f;
-                player.weapon[i].reloading = false;
-                player.weapon[i].mag = player.weapon[i].magSize;
+    for(int i = 0; i < (int)player.weapons.size(); i++){
+        if(player.weapons[i].reloading == true){
+            player.weapons[i].reloadTimer -= GetFrameTime();
+            if(player.weapons[i].reloadTimer <= 0.0f){
+                player.weapons[i].reloadTimer = 0.0f;
+                player.weapons[i].reloading = false;
+                player.weapons[i].mag = player.weapons[i].magSize;
             }
         }
         
-        if(player.weapon[i].fireTimer > 0.0f){
-            player.weapon[i].fireTimer -= GetFrameTime();
-            if(player.weapon[i].fireTimer < 0.0f){
-                player.weapon[i].fireTimer = 0.0f;
+        if(player.weapons[i].fireTimer > 0.0f){
+            player.weapons[i].fireTimer -= GetFrameTime();
+            if(player.weapons[i].fireTimer < 0.0f){
+                player.weapons[i].fireTimer = 0.0f;
             }
         
         }

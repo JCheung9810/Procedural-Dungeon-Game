@@ -4,6 +4,8 @@
 #include "weapon.h"
 #include "assetManager.h"
 
+#include <vector>
+
 #include "raylib.h"
 
 enum class State {
@@ -36,8 +38,8 @@ struct Player {
     State state;
     
     int equippedWeaponIndex;
-    int numWeapons;
-    Weapon weapon[3];
+    vector<Weapon> weapons;
+    int maxWeapons;
 
     float dashTime;
     float dashTimer;
