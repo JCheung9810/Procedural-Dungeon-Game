@@ -9,12 +9,12 @@ void AddEnemy(Enemy enemies[], const char* name, int& numEnemies){
     if(TextIsEqual(name, "Dummy")){
         enemies[numEnemies].name = "Dummy";
         enemies[numEnemies].speed = 150.0f;
-        enemies[numEnemies].position = (Vector2){300,-300};
+        enemies[numEnemies].position = Vector2{300,-300};
         enemies[numEnemies].health = 100.0f;
-        enemies[numEnemies].size = (Vector2){40.0f,40.0f};
+        enemies[numEnemies].size = Vector2{40.0f,40.0f};
         
         enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
-        enemies[numEnemies].center = (Vector2){enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
+        enemies[numEnemies].center = Vector2{enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
         
         enemies[numEnemies].attackRate = 1.0f;
         enemies[numEnemies].attackCD = enemies[numEnemies].attackRate;
@@ -46,7 +46,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
             //Update enemy positions
             enemies[i].hitBox.x = enemies[i].position.x;
             enemies[i].hitBox.y = enemies[i].position.y;
-            enemies[i].center = (Vector2){enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
+            enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
 
             //Check x
             for(int j = 0; j < (int)dungeon.rooms.size(); j++){

@@ -7,7 +7,7 @@ Vector2 AssetManager::CalcTileCoord(int col, int row, int borderSpacing, int spa
     float x = borderSpacing + (size * col) + (spacing * col);
     float y = borderSpacing + (size * row) + (spacing * row);
     
-    return (Vector2){x,y};
+    return Vector2{x,y};
 }
 
 void AssetManager::SetSpriteInfo(SpriteID id, int col, int row, int borderSpacing, int spacing, int size) {

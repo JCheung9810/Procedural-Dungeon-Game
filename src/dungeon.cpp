@@ -101,7 +101,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 
         const auto& entities = data["entities"];
         
-        room.roomContent.backgroundSize = (Vector2){room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
+        room.roomContent.backgroundSize = Vector2{room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
         float scale =  room.roomContent.backgroundSize.x;
 
         //Go through each wall type
@@ -178,55 +178,55 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
     
     if(TextIsEqual(emptyRoom.type, "EmptyN")){
         for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyE")){
         for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){2,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){2,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){2,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{2,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{2,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{2,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyS")){
         for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyW")){
         for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{0,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,0} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-1,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-2,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-2,0} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
-            available = available && (dungeon.rooms[i].gridPos != (Vector2){-2,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-2,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-2,0} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
+            available = available && (dungeon.rooms[i].gridPos != Vector2{-2,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
         }
     }
     
@@ -309,145 +309,145 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
         // 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
         
         if(TextIsEqual(currentRoom.type, "2DNS")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DEW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DNE")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DES")){
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DSW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DNW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DNEW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DNES")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DESW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DNSW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "4DNESW")){
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
                !ValidRoomInDirection(dungeon.rooms[i], 'N')){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'E')){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'S')){
                 AddDirection(directions, 'S');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
                     !ValidRoomInDirection(dungeon.rooms[i], 'W')){
                 AddDirection(directions, 'W');
             }
@@ -469,20 +469,20 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
                 
             }
             
-            if((dungeon.rooms[i].gridPos == (Vector2){0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N') && (bossGridPos != currentRoom.gridPos + (Vector2){0,-3})){
+            if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
+               !ValidRoomInDirection(dungeon.rooms[i], 'N') && (bossGridPos != currentRoom.gridPos + Vector2{0,-3})){
                 AddDirection(directions, 'N');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'E') && (bossGridPos != currentRoom.gridPos + (Vector2){3,0})){
+            if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(dungeon.rooms[i], 'E') && (bossGridPos != currentRoom.gridPos + Vector2{3,0})){
                 AddDirection(directions, 'E');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S') && (bossGridPos != currentRoom.gridPos + (Vector2){0,3})){
+            if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(dungeon.rooms[i], 'S') && (bossGridPos != currentRoom.gridPos + Vector2{0,3})){
                 AddDirection(directions, 'S');
             }
-            if((dungeon.rooms[i].gridPos == (Vector2){-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W') && (bossGridPos != currentRoom.gridPos + (Vector2){-3,0})){
+            if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
+                    !ValidRoomInDirection(dungeon.rooms[i], 'W') && (bossGridPos != currentRoom.gridPos + Vector2{-3,0})){
                 AddDirection(directions, 'W');
             }
         }
@@ -544,20 +544,20 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
     room.layoutType = type; 
 
     if(!isBoss){  
-        roomPositionOffset = (Vector2){-dungeon.roomSize/2.0f, -dungeon.roomSize/2.0f};
+        roomPositionOffset = Vector2{-dungeon.roomSize/2.0f, -dungeon.roomSize/2.0f};
         room.position = (position * dungeon.roomSize) + roomPositionOffset;
-        room.size = (Vector2){(float)dungeon.roomSize, (float)dungeon.roomSize};
+        room.size = Vector2{(float)dungeon.roomSize, (float)dungeon.roomSize};
     } else {
-        roomPositionOffset = (Vector2){-dungeon.roomSize * 3.0f / 2.0f, -dungeon.roomSize * 3.0f / 2.0f};
-        room.size = (Vector2){(float)dungeon.roomSize * 3.0f, (float)dungeon.roomSize * 3.0f};
+        roomPositionOffset = Vector2{-dungeon.roomSize * 3.0f / 2.0f, -dungeon.roomSize * 3.0f / 2.0f};
+        room.size = Vector2{(float)dungeon.roomSize * 3.0f, (float)dungeon.roomSize * 3.0f};
         if (TextIsEqual(room.type, "BossN")) {
-            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){0, -(float)dungeon.roomSize};
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + Vector2{0, -(float)dungeon.roomSize};
         } else if (TextIsEqual(room.type, "BossE")) {
-            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){(float)dungeon.roomSize, 0};
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + Vector2{(float)dungeon.roomSize, 0};
         } else if (TextIsEqual(room.type, "BossS")) {
-            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){0, (float)dungeon.roomSize};
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + Vector2{0, (float)dungeon.roomSize};
         } else if (TextIsEqual(room.type, "BossW")) {
-            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){-(float)dungeon.roomSize, 0};
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + Vector2{-(float)dungeon.roomSize, 0};
         }
     }
     room.distance = abs(room.gridPos.x) + abs(room.gridPos.y); 
@@ -579,19 +579,19 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         
         if(TextIsEqual(type, "BossN")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", room.gridPos + (Vector2){0,-3});
+            AddRoom(dungeon, "EmptyN", room.gridPos + Vector2{0,-3});
                     
         } else if(TextIsEqual(type, "BossE")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyE", room.gridPos + (Vector2){3,0});
+            AddRoom(dungeon, "EmptyE", room.gridPos + Vector2{3,0});
             
         } else if(TextIsEqual(type, "BossS")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyS", room.gridPos + (Vector2){0,3});
+            AddRoom(dungeon, "EmptyS", room.gridPos + Vector2{0,3});
                     
         } else if(TextIsEqual(type, "BossW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyW", room.gridPos + (Vector2){-3,0});
+            AddRoom(dungeon, "EmptyW", room.gridPos + Vector2{-3,0});
         }
         
         dungeon.currentRooms++;
@@ -606,10 +606,10 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         
         if(TextIsEqual(type, "4DNESW") || TextIsEqual(type, "Spawn") || isEnd){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - N/S/W
@@ -617,9 +617,9 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "3DNSW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - E/S/W
@@ -627,9 +627,9 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "3DESW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - N/E/S
@@ -637,9 +637,9 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "3DNES")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
             
         //--------------------------------------------------------------------------
         // 3 DOORS - N/E/W
@@ -647,9 +647,9 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "3DNEW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - N/W
@@ -657,8 +657,8 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "2DNW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - S/W
@@ -666,8 +666,8 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "2DSW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - E/S
@@ -675,8 +675,8 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "2DES")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - N/E
@@ -684,8 +684,8 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "2DNE")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - E/W
@@ -693,8 +693,8 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "2DEW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyE", (Vector2){position.x + 1, position.y});
-            AddRoom(dungeon, "EmptyW", (Vector2){position.x - 1, position.y});
+            AddRoom(dungeon, "EmptyE", Vector2{position.x + 1, position.y});
+            AddRoom(dungeon, "EmptyW", Vector2{position.x - 1, position.y});
             
         //--------------------------------------------------------------------------
         // 2 DOORS - N/S
@@ -702,8 +702,8 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } 
         else if(TextIsEqual(type, "2DNS")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", (Vector2){position.x, position.y - 1});
-            AddRoom(dungeon, "EmptyS", (Vector2){position.x, position.y + 1});
+            AddRoom(dungeon, "EmptyN", Vector2{position.x, position.y - 1});
+            AddRoom(dungeon, "EmptyS", Vector2{position.x, position.y + 1});
         }
         
         dungeon.currentRooms++;
@@ -745,15 +745,15 @@ void GenerateDungeon(Dungeon& dungeon){
     dungeon.currentRooms = 0;
     dungeon.rooms.clear();
     
-    Vector2 straightChance = (Vector2){1,dungeon.straight};
-    Vector2 turnChance = (Vector2){straightChance.y + 1,straightChance.y + dungeon.turn};
-    Vector2 threeWayChance = (Vector2){turnChance.y + 1,turnChance.y + dungeon.threeWay};
-    Vector2 fourWayChance = (Vector2){threeWayChance.y + 1,threeWayChance.y + dungeon.fourWay};
+    Vector2 straightChance = Vector2{1,dungeon.straight};
+    Vector2 turnChance = Vector2{straightChance.y + 1,straightChance.y + dungeon.turn};
+    Vector2 threeWayChance = Vector2{turnChance.y + 1,turnChance.y + dungeon.threeWay};
+    Vector2 fourWayChance = Vector2{threeWayChance.y + 1,threeWayChance.y + dungeon.fourWay};
     
     bool generateDungeon = true;
     
     
-    AddRoom(dungeon, "Spawn", (Vector2){0,0});
+    AddRoom(dungeon, "Spawn", Vector2{0,0});
     
     while(generateDungeon){
         
@@ -885,7 +885,7 @@ void GenerateDungeon(Dungeon& dungeon){
                 //Reset generation because we are stuck
                 dungeon.currentRooms = 0;
                 dungeon.rooms.clear();
-                AddRoom(dungeon, "Spawn", (Vector2){0,0});
+                AddRoom(dungeon, "Spawn", Vector2{0,0});
                 break;
                 
             }            
@@ -923,7 +923,7 @@ void GenerateDungeon(Dungeon& dungeon){
             //Reset generation because we cant spawn boss room
             dungeon.currentRooms = 0;
             dungeon.rooms.clear();
-            AddRoom(dungeon, "Spawn", (Vector2){0,0});
+            AddRoom(dungeon, "Spawn", Vector2{0,0});
             break;
         }
         
@@ -957,7 +957,7 @@ void GenerateDungeon(Dungeon& dungeon){
             //Reset generation because we cant spawn end room
             dungeon.currentRooms = 0;
             dungeon.rooms.clear();
-            AddRoom(dungeon, "Spawn", (Vector2){0,0});
+            AddRoom(dungeon, "Spawn", Vector2{0,0});
             break;
         }
     }

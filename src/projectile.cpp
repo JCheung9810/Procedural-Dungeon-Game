@@ -8,8 +8,8 @@
 
 void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     for(int i = 0; i < maxProjectiles; i++){
-        projectiles[i].position = (Vector2){0,0};
-        projectiles[i].speed = (Vector2){0,0};
+        projectiles[i].position = Vector2{0,0};
+        projectiles[i].speed = Vector2{0,0};
         projectiles[i].size = {8,8};
         projectiles[i].active = false;
         projectiles[i].lifeSpan = 0.0f;
@@ -41,7 +41,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].rotation = projectileRotation * DEG2RAD;
                 
                 //Projectile starting position
-                projectiles[i].position = (Vector2){
+                projectiles[i].position = Vector2{
                     player.center.x + cos(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
                     player.center.y + sin(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
                 };

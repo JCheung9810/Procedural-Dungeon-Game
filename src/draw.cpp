@@ -68,7 +68,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                                     assets.textures.at("assets/textures/dungeonTileset.png"),
                                     assets.spriteInfo[wall.spriteID].textureSrc,
                                     dest,
-                                    (Vector2){0, 0},
+                                    Vector2{0, 0},
                                     0.0f,
                                     WHITE
                                 );
@@ -95,7 +95,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                                     assets.textures.at("assets/textures/dungeonTileset.png"),
                                     assets.spriteInfo[decor.spriteID].textureSrc,
                                     dest,
-                                    (Vector2){0, 0},
+                                    Vector2{0, 0},
                                     0.0f,
                                     WHITE
                                 );
@@ -107,32 +107,32 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
                 //Text Type
                 textWidth = MeasureText(dungeon.rooms[roomIt].type, fontSize);
                 DrawText(
-                    dungeon.rooms[roomIt].type, dungeon.rooms[roomIt].position.x + (Vector2){dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[roomIt].position.y + (Vector2){0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2, 
+                    dungeon.rooms[roomIt].type, dungeon.rooms[roomIt].position.x + Vector2{dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[roomIt].position.y + Vector2{0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2, 
                     fontSize, 
                     BLACK
                 );                       
                 //Text Dist
                 textWidth = MeasureText(TextFormat("Dist: %i", dungeon.rooms[roomIt].distance), fontSize);
                 DrawText(
-                    TextFormat("Dist: %i", dungeon.rooms[roomIt].distance), dungeon.rooms[roomIt].position.x + (Vector2){dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[roomIt].position.y + (Vector2){0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2 + fontSize, 
+                    TextFormat("Dist: %i", dungeon.rooms[roomIt].distance), dungeon.rooms[roomIt].position.x + Vector2{dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[roomIt].position.y + Vector2{0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2 + fontSize, 
                     fontSize, 
                     BLACK
                 ); 
                 //Text Index
                 textWidth = MeasureText(TextFormat("Index: %i", roomIt), fontSize);
                 DrawText(
-                    TextFormat("Index: %i", roomIt), dungeon.rooms[roomIt].position.x + (Vector2){dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[roomIt].position.y + (Vector2){0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2 + fontSize * 2, 
+                    TextFormat("Index: %i", roomIt), dungeon.rooms[roomIt].position.x + Vector2{dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[roomIt].position.y + Vector2{0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2 + fontSize * 2, 
                     fontSize, 
                     BLACK
                 );   
                 //Text Grid Position
                 textWidth = MeasureText(TextFormat("Grid Position: {%f,%f}", dungeon.rooms[roomIt].gridPos.x, dungeon.rooms[roomIt].gridPos.y), fontSize);
                 DrawText(
-                    TextFormat("Grid Position: {%f,%f}", dungeon.rooms[roomIt].gridPos.x, dungeon.rooms[roomIt].gridPos.y), dungeon.rooms[roomIt].position.x + (Vector2){dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
-                    dungeon.rooms[roomIt].position.y + (Vector2){0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2 + fontSize * 3, 
+                    TextFormat("Grid Position: {%f,%f}", dungeon.rooms[roomIt].gridPos.x, dungeon.rooms[roomIt].gridPos.y), dungeon.rooms[roomIt].position.x + Vector2{dungeon.rooms[roomIt].size.x/2.0f,0}.x - textWidth/2, 
+                    dungeon.rooms[roomIt].position.y + Vector2{0,dungeon.rooms[roomIt].size.y/2.0f}.y - fontSize/2 + fontSize * 3, 
                     fontSize, 
                     BLACK
                 );
@@ -169,7 +169,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
             //Draw projectiles
             for (int i = 0; i < maxProjectiles; i++){
                 if (projectiles[i].active) 
-                    //DrawRectanglePro(projectiles[i].hitbox, (Vector2){projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
+                    //DrawRectanglePro(projectiles[i].hitbox, Vector2{projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
                     DrawRectangleRec(projectiles[i].hitbox, YELLOW);
             } 
       
@@ -322,15 +322,15 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     Color opacity;
     
     if(player.iFrames != 0.0f && player.state != State::DASHING && (int)(player.iFrames * 10)% 2 == 0){
-        opacity = (Color){255, 255, 255, 128};
+        opacity = Color{255, 255, 255, 128};
     } else {
-        opacity = (Color)WHITE;
+        opacity = Color{WHITE};
     }
     
     if(player.state == State::IDLE || player.state == State::WALKING){
-        DrawTexturePro(player.texture, playerRec, playerDest, (Vector2){0, 0}, 0, opacity);
+        DrawTexturePro(player.texture, playerRec, playerDest, Vector2{0, 0}, 0, opacity);
     } else if(player.state == State::DASHING){
-        DrawTexturePro(player.dashTexture, playerRec, playerDest, (Vector2){0, 0}, 0, opacity);
+        DrawTexturePro(player.dashTexture, playerRec, playerDest, Vector2{0, 0}, 0, opacity);
     }
     
     //Draw stats
@@ -373,11 +373,11 @@ void DrawWeapon(Player player, float playerToMouseRotation){
     Color opacity;
 
     if(player.iFrames != 0.0f && player.state != State::DASHING && (int)(player.iFrames * 10)% 2 == 0){
-        opacity = (Color){255, 255, 255, 128};
+        opacity = Color{255, 255, 255, 128};
     } else {
-        opacity = (Color)WHITE;
+        opacity = Color{WHITE};
     }
     
-    DrawTexturePro(player.weapons[player.equippedWeaponIndex].texture, gunSrc, gunDest, (Vector2){0, gunDest.height / 2.0f}, gunAngle, opacity);
+    DrawTexturePro(player.weapons[player.equippedWeaponIndex].texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, gunAngle, opacity);
     //              texture                                           source   dest               origin/pivot              rotation   color
 }
