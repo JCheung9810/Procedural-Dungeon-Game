@@ -49,7 +49,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
             enemies[i].center = (Vector2){enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
 
             //Check x
-            for(int j = 0; j < dungeon.numRoomLocs; j++){
+            for(int j = 0; j < (int)dungeon.rooms.size(); j++){
                 if(dungeon.rooms[j].exists == true){
                     for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                         Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
@@ -83,7 +83,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
             }
 
             //Check y
-            for(int j = 0; j < dungeon.numRoomLocs; j++){
+            for(int j = 0; j < (int)dungeon.rooms.size(); j++){
                 if(dungeon.rooms[j].exists == true){
                     for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                         Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;

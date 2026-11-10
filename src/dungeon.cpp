@@ -63,7 +63,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
         dungeon.floor = 0;
         dungeon.bestFloor = dungeon.floor;
         dungeon.currentRooms = 0;
-        dungeon.numRoomLocs = 0;
+        dungeon.rooms.clear();
         
     }
     catch (const exception& e) {
@@ -166,7 +166,7 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
     bool available = true;
     
     if(TextIsEqual(emptyRoom.type, "EmptyN")){
-        for(int i = 0; i < dungeon.numRoomLocs; i++){
+        for(int i = 0; i < (int)dungeon.rooms.size(); i++){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
@@ -179,7 +179,7 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){1,-2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyE")){
-        for(int i = 0; i < dungeon.numRoomLocs; i++){
+        for(int i = 0; i < (int)dungeon.rooms.size(); i++){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
@@ -192,7 +192,7 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){2,-1} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyS")){
-        for(int i = 0; i < dungeon.numRoomLocs; i++){
+        for(int i = 0; i < (int)dungeon.rooms.size(); i++){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){-1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             available = available && (dungeon.rooms[i].gridPos != (Vector2){1,0} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
             
@@ -205,7 +205,7 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){1,2} + emptyRoom.gridPos || !dungeon.rooms[i].exists);
         }
     } else if(TextIsEqual(emptyRoom.type, "EmptyW")){
-        for(int i = 0; i < dungeon.numRoomLocs; i++){
+        for(int i = 0; i < (int)dungeon.rooms.size(); i++){
             available = available && (dungeon.rooms[i].gridPos != (Vector2){0,1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
             available = available && (dungeon.rooms[i].gridPos != (Vector2){0,-1} + emptyRoom.gridPos  || !dungeon.rooms[i].exists);
             
@@ -293,7 +293,7 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
     // Reset directions
     directions[0] = '\0';
     
-    for(int i = 0; i < dungeon.numRoomLocs; i++){
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
         // 2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW,
         // 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
         
@@ -445,7 +445,7 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
         else if(TextIsEqual(currentRoom.type, "End")){
             //Find boss gridPos
             Vector2 bossGridPos;
-            for(int j = 0; j < dungeon.numRoomLocs; j++){
+            for(int j = 0; j < (int)dungeon.rooms.size(); j++){
                 bool isBoss =
                 (TextIsEqual(dungeon.rooms[j].type, "BossN") ||
                  TextIsEqual(dungeon.rooms[j].type, "BossE") ||
@@ -481,9 +481,9 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
 }
 
 void SortRooms(Dungeon& dungeon){
-    int unsorted = dungeon.numRoomLocs;
+    int unsorted = (int)dungeon.rooms.size();
     
-    for(int i = 0; i < dungeon.numRoomLocs - 1; i++){
+    for(int i = 0; i < (int)dungeon.rooms.size() - 1; i++){
         for(int j = 0; j < unsorted - 1; j++){
             if(dungeon.rooms[j].distance > dungeon.rooms[j+1].distance){
                 Room tempRoom = dungeon.rooms[j+1];
@@ -502,7 +502,6 @@ void SortRooms(Dungeon& dungeon){
 void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){   
     
     Vector2 roomPositionOffset;
-    int CurrentRoomIndex;
     bool isEmpty;
     bool isBoss;
     bool isEnd;
@@ -525,37 +524,32 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
          TextIsEqual(type, "EndS") ||
          TextIsEqual(type, "EndW"));
        
-       
-    if(dungeon.numRoomLocs >= 100){
-        TraceLog(LOG_ERROR, "Dungeon room array capacity exceeded");
-        return;
-    }
-    
-    CurrentRoomIndex = dungeon.numRoomLocs;
     
     //Set current room up
-    dungeon.rooms[CurrentRoomIndex].gridPos = position;
-    dungeon.rooms[CurrentRoomIndex].type = type; 
-    dungeon.rooms[CurrentRoomIndex].layoutType = type; 
+    Room room;
+    
+    room.gridPos = position;
+    room.type = type; 
+    room.layoutType = type; 
 
     if(!isBoss){  
         roomPositionOffset = (Vector2){-dungeon.roomSize/2.0f, -dungeon.roomSize/2.0f};
-        dungeon.rooms[CurrentRoomIndex].position = (position * dungeon.roomSize) + roomPositionOffset;
-        dungeon.rooms[CurrentRoomIndex].size = (Vector2){(float)dungeon.roomSize, (float)dungeon.roomSize};
+        room.position = (position * dungeon.roomSize) + roomPositionOffset;
+        room.size = (Vector2){(float)dungeon.roomSize, (float)dungeon.roomSize};
     } else {
         roomPositionOffset = (Vector2){-dungeon.roomSize * 3.0f / 2.0f, -dungeon.roomSize * 3.0f / 2.0f};
-        dungeon.rooms[CurrentRoomIndex].size = (Vector2){(float)dungeon.roomSize * 3.0f, (float)dungeon.roomSize * 3.0f};
-        if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossN")) {
-            dungeon.rooms[CurrentRoomIndex].position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){0, -(float)dungeon.roomSize};
-        } else if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossE")) {
-            dungeon.rooms[CurrentRoomIndex].position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){(float)dungeon.roomSize, 0};
-        } else if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossS")) {
-            dungeon.rooms[CurrentRoomIndex].position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){0, (float)dungeon.roomSize};
-        } else if (TextIsEqual(dungeon.rooms[CurrentRoomIndex].type, "BossW")) {
-            dungeon.rooms[CurrentRoomIndex].position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){-(float)dungeon.roomSize, 0};
+        room.size = (Vector2){(float)dungeon.roomSize * 3.0f, (float)dungeon.roomSize * 3.0f};
+        if (TextIsEqual(room.type, "BossN")) {
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){0, -(float)dungeon.roomSize};
+        } else if (TextIsEqual(room.type, "BossE")) {
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){(float)dungeon.roomSize, 0};
+        } else if (TextIsEqual(room.type, "BossS")) {
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){0, (float)dungeon.roomSize};
+        } else if (TextIsEqual(room.type, "BossW")) {
+            room.position = (position * (float)dungeon.roomSize) + roomPositionOffset + (Vector2){-(float)dungeon.roomSize, 0};
         }
     }
-    dungeon.rooms[CurrentRoomIndex].distance = abs(dungeon.rooms[CurrentRoomIndex].gridPos.x) + abs(dungeon.rooms[CurrentRoomIndex].gridPos.y); 
+    room.distance = abs(room.gridPos.x) + abs(room.gridPos.y); 
     
     //--------------------------------------------------------------------------
     // ROOM TYPE
@@ -563,39 +557,38 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
     //Check if empty type
     if(isEmpty){
         
-        dungeon.rooms[CurrentRoomIndex].exists = false;
-        
-        dungeon.numRoomLocs++;
+        room.exists = false;
+        dungeon.rooms.push_back(room);
         
     //Check if boss type
     } else if(isBoss){ 
         //Add boss room
-        dungeon.rooms[CurrentRoomIndex].exists = true;
-        dungeon.numRoomLocs++;
+        room.exists = true;
+        dungeon.rooms.push_back(room);
         
         if(TextIsEqual(type, "BossN")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyN", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){0,-3});
+            AddRoom(dungeon, "EmptyN", room.gridPos + (Vector2){0,-3});
                     
         } else if(TextIsEqual(type, "BossE")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyE", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){3,0});
+            AddRoom(dungeon, "EmptyE", room.gridPos + (Vector2){3,0});
             
         } else if(TextIsEqual(type, "BossS")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyS", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){0,3});
+            AddRoom(dungeon, "EmptyS", room.gridPos + (Vector2){0,3});
                     
         } else if(TextIsEqual(type, "BossW")){
             //Add possible room locations
-            AddRoom(dungeon, "EmptyW", dungeon.rooms[CurrentRoomIndex].gridPos + (Vector2){-3,0});
+            AddRoom(dungeon, "EmptyW", room.gridPos + (Vector2){-3,0});
         }
         
         dungeon.currentRooms++;
         
     }else if(dungeon.currentRooms < dungeon.maxRooms){
         //Add the room 
-        dungeon.rooms[CurrentRoomIndex].exists = true;
-        dungeon.numRoomLocs++;
+        room.exists = true;
+        dungeon.rooms.push_back(room);
         
         //--------------------------------------------------------------------------
         // 4 DOORS
@@ -706,23 +699,21 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
     }
     
     //Purge dupe locations
-    for(int i = 0; i < dungeon.numRoomLocs; i++){
-        for(int j = i + 1; j < dungeon.numRoomLocs; j++){
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+        for(int j = i + 1; j < (int)dungeon.rooms.size(); j++){
             
             if(dungeon.rooms[i].gridPos == dungeon.rooms[j].gridPos &&
                (dungeon.rooms[i].exists == false || dungeon.rooms[j].exists == false)){
                 
                 if(dungeon.rooms[i].exists == false){
-                    dungeon.rooms[i] = dungeon.rooms[dungeon.numRoomLocs - 1];
-                    dungeon.numRoomLocs--;
+                    dungeon.rooms.erase(dungeon.rooms.begin() + i);
                     
                     //Recheck swapped room
                     i--;
                     break;
                     
                 } else {
-                    dungeon.rooms[j] = dungeon.rooms[dungeon.numRoomLocs - 1];
-                    dungeon.numRoomLocs--;
+                    dungeon.rooms.erase(dungeon.rooms.begin() + j);
                     
                     //Recheck swapped room
                     j--;
@@ -741,7 +732,7 @@ void GenerateDungeon(Dungeon& dungeon){
     int chosenRoomType;
     
     dungeon.currentRooms = 0;
-    dungeon.numRoomLocs = 0;
+    dungeon.rooms.clear();
     
     Vector2 straightChance = (Vector2){1,dungeon.straight};
     Vector2 turnChance = (Vector2){straightChance.y + 1,straightChance.y + dungeon.turn};
@@ -760,7 +751,7 @@ void GenerateDungeon(Dungeon& dungeon){
             chosenEmptyRoom = -1;
             
             //Choose closest empty room
-            for(int i = 0; i < dungeon.numRoomLocs; i++){
+            for(int i = 0; i < (int)dungeon.rooms.size(); i++){
                 if(dungeon.rooms[i].exists == false){
                     chosenEmptyRoom = i;
                     break;
@@ -882,7 +873,7 @@ void GenerateDungeon(Dungeon& dungeon){
                 
                 //Reset generation because we are stuck
                 dungeon.currentRooms = 0;
-                dungeon.numRoomLocs = 0;
+                dungeon.rooms.clear();
                 AddRoom(dungeon, "Spawn", (Vector2){0,0});
                 break;
                 
@@ -893,7 +884,7 @@ void GenerateDungeon(Dungeon& dungeon){
         const char* bossRoomOpening;
     
         //Choose boss room
-        for(int i = dungeon.numRoomLocs - 1; i > -1; i--){
+        for(int i = (int)dungeon.rooms.size() - 1; i > -1; i--){
             if(dungeon.rooms[i].exists == false && RoomForBoss(dungeon, dungeon.rooms[i])){
                 bossRoomIndex = i;
                 break;
@@ -920,7 +911,7 @@ void GenerateDungeon(Dungeon& dungeon){
         } else {
             //Reset generation because we cant spawn boss room
             dungeon.currentRooms = 0;
-            dungeon.numRoomLocs = 0;
+            dungeon.rooms.clear();
             AddRoom(dungeon, "Spawn", (Vector2){0,0});
             break;
         }
@@ -928,7 +919,7 @@ void GenerateDungeon(Dungeon& dungeon){
         int endRoomIndex = -1;
     
         //Choose End Room
-        for(int i = dungeon.numRoomLocs - 1; i > -1; i--){
+        for(int i = (int)dungeon.rooms.size() - 1; i > -1; i--){
             if(dungeon.rooms[i].exists == false){
                 endRoomIndex = i;
                 break;
@@ -954,7 +945,7 @@ void GenerateDungeon(Dungeon& dungeon){
         } else {
             //Reset generation because we cant spawn end room
             dungeon.currentRooms = 0;
-            dungeon.numRoomLocs = 0;
+            dungeon.rooms.clear();
             AddRoom(dungeon, "Spawn", (Vector2){0,0});
             break;
         }
@@ -962,7 +953,7 @@ void GenerateDungeon(Dungeon& dungeon){
 
     
     //Make dead ends    
-    for(int i = 0; i < dungeon.numRoomLocs; i++){
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
         if(dungeon.rooms[i].exists){
         
             deadEnds = TestDeadEnd(dungeon, dungeon.rooms[i]);

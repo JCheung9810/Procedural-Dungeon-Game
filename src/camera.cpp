@@ -17,7 +17,7 @@ void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera, bool de
         int playerRoom = -1;
 
         //Find the room that the player is in
-        for (int i = 0; i < dungeon.numRoomLocs; i++){
+        for (int i = 0; i < (int)dungeon.rooms.size(); i++){
             if (dungeon.rooms[i].exists){
                 Rectangle roomRect = {
                     dungeon.rooms[i].position.x,

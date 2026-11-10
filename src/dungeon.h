@@ -127,10 +127,9 @@ struct Dungeon {
     
     vector<FloorSpawnPool> floorSpawnPools;
     
-    Room rooms[100] = {};
+    vector<Room> rooms;
     
     int currentRooms;   //number of existing rooms (not empty)
-    int numRoomLocs;    //number of all rooms (including empty)
     
     int maxRooms;
     int roomSize;

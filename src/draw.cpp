@@ -33,7 +33,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
             int textWidth;
 
             //Draw rooms
-            for(int roomIt = 0; roomIt < dungeon.numRoomLocs; roomIt++){
+            for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
                 Room& room = dungeon.rooms[roomIt];
 
                 if(room.exists == true){
