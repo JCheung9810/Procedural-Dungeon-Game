@@ -25,6 +25,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
         json data;
         file >> data;
 
+        //General loading
         dungeon.maxRooms = data.at("maxRooms").get<int>();
         dungeon.roomSize = data.at("roomSize").get<int>();
 
@@ -33,6 +34,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
         dungeon.threeWay = data.at("threeWay").get<float>();
         dungeon.fourWay = data.at("fourWay").get<float>();
         
+        //Go through each instance from FloorSpawnPool
         for(const auto& floorInfo : data.at("floorSpawnPool")){
 
             FloorSpawnPool floorSpawnPool;
@@ -41,9 +43,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 
             const auto& enemyPool = floorInfo.at("enemyPool");
 
-            floorSpawnPool.numEnemyTypes = enemyPool.size();
-
-            for(int j = 0; j < floorSpawnPool.numEnemyTypes; j++){
+            for(int j = 0; j < (int)enemyPool.size(); j++){
 
                 EnemySpawnInfo enemySpawnInfo;
                 
@@ -72,7 +72,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
     }
 }
 
-void SetRoomInfo(Room& room) {
+void SetRoomInfo(Dungeon& dungeon, Room& room) {
     //Reset room contents
     room.roomContent.walls.clear();
     room.roomContent.doors.clear();
@@ -132,6 +132,17 @@ void SetRoomInfo(Room& room) {
                         entity["x"].get<float>() * scale + room.position.x, 
                         entity["y"].get<float>() * scale + room.position.y
                     };
+                    
+                    //Assign enemy names from pool
+                    float randomNum = GetRandomValue(1, 100) / 100.0f;
+                    for(int entityIt = 0; entityIt < (int)dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo.size(); entityIt++){
+                        if(randomNum < dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt].spawnWeight){
+                            enemySpawnPoint.names.push_back(dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt].name);
+                            break;
+                        } else {
+                            randomNum -= dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt].spawnWeight;
+                        }
+                    }
                     
                     room.roomContent.enemySpawnPoints.push_back(enemySpawnPoint);
                     
@@ -970,7 +981,7 @@ void GenerateDungeon(Dungeon& dungeon){
             }
             
             dungeon.rooms[i].layoutType = newType;
-            SetRoomInfo(dungeon.rooms[i]);
+            SetRoomInfo(dungeon, dungeon.rooms[i]);
         }
     }
 }

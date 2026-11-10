@@ -58,7 +58,6 @@ struct EnemySpawnInfo {
 
 struct FloorSpawnPool {
     int floorNum;
-    int numEnemyTypes;
     vector<EnemySpawnInfo> enemySpawnInfo;
     
 };
@@ -143,7 +142,7 @@ struct Dungeon {
 
 void InitializeDungeon(const char* filePath, Dungeon& dungeon);
 
-void SetRoomInfo(Room& room);
+void SetRoomInfo(Dungeon& dungeon, Room& room);
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom);
 bool ValidRoomInDirection(const Room& currentRoom, char direction);
 void AddDirection(char directions[], char direction);
