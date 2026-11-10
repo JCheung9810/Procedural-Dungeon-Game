@@ -10,7 +10,7 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     for(int i = 0; i < maxProjectiles; i++){
         projectiles[i].position = Vector2{0,0};
         projectiles[i].speed = Vector2{0,0};
-        projectiles[i].size = {8,8};
+        projectiles[i].size = Vector2{8,8};
         projectiles[i].active = false;
         projectiles[i].lifeSpan = 0.0f;
         projectiles[i].damage = 0.0f;
@@ -20,7 +20,7 @@ void InitializeProjectiles(Projectile projectiles[], int maxProjectiles){
     }    
 }
 
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy){    
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy){    
     
     int projectilesCreated = 0;
     
@@ -59,10 +59,10 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
                 projectiles[i].team = "Enemy";
                 
                 //Projectile rotation from center to player center
-                projectiles[i].rotation = atan2(player.center.y - enemy.center.y, player.center.x - enemy.center.x);
+                projectiles[i].rotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
                 
                 //Projectile starting position
-                projectiles[i].position = enemy.center;
+                projectiles[i].position = enemy->center;
                 
                 //Set projectile damage and type
                 projectiles[i].damage = 1.0f;
@@ -103,7 +103,7 @@ void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerTo
     }    
 }
 
-void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, Enemy enemies[], int numEnemies, Player& player){
+void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, vector<Enemy>& enemies, Player& player){
     //Translate projectile
         for(int i = 0; i < maxProjectiles; i++){
             if(projectiles[i].active){
@@ -145,7 +145,7 @@ void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dun
                 }
                 
                 //Check enemy collision
-                for(int j = 0; j < numEnemies; j++){
+                for(int j = 0; j < (int)enemies.size(); j++){
                     if(enemies[j].active == true && CheckCollisionRecs(enemies[j].hitBox,projectiles[i].hitbox) && TextIsEqual(projectiles[i].team, "Player")){
                         projectiles[i].active = false;
                         projectiles[i].lifeSpan = 0.0f;

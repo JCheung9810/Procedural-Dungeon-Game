@@ -30,5 +30,5 @@ struct Projectile {
 };
 
 void InitializeProjectiles(Projectile projectiles[], int maxProjectiles);
-void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy enemy);
-void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, Enemy enemies[], int numEnemies, Player& player);
+void FireProjectile(Projectile projectiles[], int maxProjectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy);
+void UpdateProjectiles(Projectile projectiles[], int maxProjectiles, Dungeon dungeon, vector<Enemy>& enemies, Player& player);

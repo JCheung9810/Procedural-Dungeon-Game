@@ -5,31 +5,34 @@
 
 #include <raymath.h>
 
-void AddEnemy(Enemy enemies[], const char* name, int& numEnemies){
+using namespace std;
+
+void AddEnemy(vector<Enemy>& enemies, const char* name){
+    Enemy newEnemy;
     if(TextIsEqual(name, "Dummy")){
-        enemies[numEnemies].name = "Dummy";
-        enemies[numEnemies].speed = 150.0f;
-        enemies[numEnemies].position = Vector2{300,-300};
-        enemies[numEnemies].health = 100.0f;
-        enemies[numEnemies].size = Vector2{40.0f,40.0f};
+        newEnemy.name = "Dummy";
+        newEnemy.speed = 150.0f;
+        newEnemy.position = Vector2{300,-300};
+        newEnemy.health = 100.0f;
+        newEnemy.size = Vector2{40.0f,40.0f};
         
-        enemies[numEnemies].hitBox = {enemies[numEnemies].position.x, enemies[numEnemies].position.y, enemies[numEnemies].size.x, enemies[numEnemies].size.y};
-        enemies[numEnemies].center = Vector2{enemies[numEnemies].position.x + enemies[numEnemies].size.x/2 ,enemies[numEnemies].position.y + enemies[numEnemies].size.y/2};
+        newEnemy.hitBox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
+        newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
         
-        enemies[numEnemies].attackRate = 1.0f;
-        enemies[numEnemies].attackCD = enemies[numEnemies].attackRate;
+        newEnemy.attackRate = 1.0f;
+        newEnemy.attackCD = newEnemy.attackRate;
         
-        enemies[numEnemies].state = "idle";
+        newEnemy.state = "idle";
         
-        enemies[numEnemies].active = true;
+        newEnemy.active = true;
+
+        enemies.push_back(newEnemy);
     }
-    
-    numEnemies++;
 }
 
-void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dungeon){
+void UpdateEnemies(vector<Enemy>& enemies, Player player, Dungeon& dungeon){
     //Check every enemy
-    for(int i = 0; i < numEnemies; i++){
+    for(int i = 0; i < (int)enemies.size(); i++){
             
         if(enemies[i].active == true){
             float rot = 0.0f;
@@ -117,12 +120,7 @@ void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dun
             }
         } else {
             //Remove inactive enemy
-            for(int j = i; j < numEnemies - 1; j++){
-                    enemies[j] = enemies[j+1];
-            }
-            numEnemies--;
-            i--;
-            
+            enemies.erase(enemies.begin() + i);          
         }
         
     }

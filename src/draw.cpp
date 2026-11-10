@@ -8,7 +8,7 @@
 
 #include <raymath.h>
 
-void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[], int numEnemies, Projectile projectiles[], int maxProjectiles, 
+void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, Projectile projectiles[], int maxProjectiles, 
             Texture2D heartTexture, Texture2D weaponHudBoxTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
@@ -145,7 +145,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, Enemy enemies[],
             DrawWeapon(player, playerToMouseRotation);
             
             //Draw dummy
-            for (int i = 0; i < numEnemies; i++){
+            for (int i = 0; i < (int)enemies.size(); i++){
                 if (enemies[i].active){
                     fontSize = 15;
                     textWidth = MeasureText(enemies[i].name, fontSize);

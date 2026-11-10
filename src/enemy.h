@@ -27,5 +27,5 @@ struct Enemy {
     
 };
 
-void AddEnemy(Enemy enemies[], const char* name, int& numEnemies);
-void UpdateEnemies(Enemy enemies[], int& numEnemies, Player player, Dungeon& dungeon);
+void AddEnemy(vector<Enemy>& enemies, const char* name);
+void UpdateEnemies(vector<Enemy>& enemies, Player player, Dungeon& dungeon);

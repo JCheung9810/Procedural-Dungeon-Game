@@ -11,6 +11,10 @@
 #include "debug.h"
 #include "assetManager.h"
 
+#include <vector>
+
+using namespace std;
+
 //Assets
 AssetManager assets;
 
@@ -52,10 +56,9 @@ int main(void){
     InitializePlayer(player, playerConfig);
     
     //Enemies
-    int numEnemies = 0;
-    Enemy enemies[100] = {};
+    vector<Enemy> enemies;
     
-    AddEnemy(enemies, "Dummy", numEnemies);
+    AddEnemy(enemies, "Dummy");
     
     //Camera
     Camera2D camera = {};
@@ -124,7 +127,7 @@ int main(void){
             
             //------------------------------ENEMY------------------------------
             //Update enemies
-            UpdateEnemies(enemies, numEnemies, player, dungeon);
+            UpdateEnemies(enemies, player, dungeon);
             
             //------------------------------PROJECTILES------------------------------
             //Update mouse
@@ -138,29 +141,29 @@ int main(void){
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f && 
                     player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
-                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
                     }
                 } else if(player.weapons[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
                     if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapons[player.equippedWeaponIndex].mag >= 1 && 
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f &&
                     player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
-                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, enemies[0]);
+                        FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
                     }
                 }
             }
             
             //Fire test enemy projectiles     
-            for(int i = 0; i < numEnemies; i++){
+            for(int i = 0; i < (int)enemies.size(); i++){
                 enemies[i].attackCD -= GetFrameTime();
                 if(enemies[i].attackCD <= 0.0f){
-                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, enemies[i]);
+                    FireProjectile(projectiles, maxProjectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, &enemies[i]);
                     enemies[i].attackCD = enemies[i].attackRate;
                 }
             }
             
             //Update all projectiles
-            UpdateProjectiles(projectiles, maxProjectiles, dungeon, enemies, numEnemies, player);
+            UpdateProjectiles(projectiles, maxProjectiles, dungeon, enemies, player);
 
             //------------------------------CAMERA------------------------------      
             UpdateGameCamera(dungeon, player, camera, debug.cam);
@@ -216,7 +219,7 @@ int main(void){
         }
 
         //------------------------------DRAW------------------------------
-        DrawGame(camera, player, dungeon, enemies, numEnemies, projectiles, maxProjectiles,  
+        DrawGame(camera, player, dungeon, enemies, projectiles, maxProjectiles,  
             heartTexture, weaponHudBoxTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
