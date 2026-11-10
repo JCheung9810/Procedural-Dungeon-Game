@@ -58,12 +58,12 @@ struct EnemySpawnInfo {
 
 struct FloorSpawnPool {
     int numEnemyTypes;
-    EnemySpawnInfo enemySpawnInfo[10] = {};
+    vector<EnemySpawnInfo> enemySpawnInfo;
     
 };
 
 struct EnemySpawnPoint {
-    const char* name[10] = {};
+    vector<const char*> names;
     Vector2 position;
 };
 

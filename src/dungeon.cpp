@@ -45,11 +45,15 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 
             for(int j = 0; j < floorSpawnPool.numEnemyTypes; j++){
 
+                EnemySpawnInfo enemySpawnInfo;
+                
                 string name = enemyPool[j].at("name").get<string>();
 
-                floorSpawnPool.enemySpawnInfo[j].name = strdup(name.c_str());
+                enemySpawnInfo.name = strdup(name.c_str());
 
-                floorSpawnPool.enemySpawnInfo[j].spawnWeight = enemyPool[j].at("spawnWeight").get<float>();
+                enemySpawnInfo.spawnWeight = enemyPool[j].at("spawnWeight").get<float>();
+                
+                floorSpawnPool.enemySpawnInfo.push_back(enemySpawnInfo);
             }
         }
         
