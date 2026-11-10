@@ -35,9 +35,9 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
         
         for(const auto& floorInfo : data.at("floorSpawnPool")){
 
-            int i = floorInfo.at("floorNum").get<int>();
+            FloorSpawnPool floorSpawnPool;
 
-            FloorSpawnPool& floorSpawnPool = dungeon.floorSpawnPool[i];
+            floorSpawnPool.floorNum = floorInfo.at("floorNum").get<int>();
 
             const auto& enemyPool = floorInfo.at("enemyPool");
 
@@ -55,6 +55,8 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
                 
                 floorSpawnPool.enemySpawnInfo.push_back(enemySpawnInfo);
             }
+            
+            dungeon.floorSpawnPools.push_back(floorSpawnPool);
         }
         
         //Initialize vars

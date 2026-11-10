@@ -31,8 +31,9 @@ enum SpriteID{
     SmallWall,
     MediumWall,
     LargeWall,
-    FitWall
-  
+    FitWall,
+    
+    MAX
 };
 
 struct SpriteInfo {
@@ -43,7 +44,7 @@ struct AssetManager {
     unordered_map<std::string, Texture2D> textures;
     unordered_map<std::string, Sound> sounds;
     
-    SpriteInfo spriteInfo[30] = {};
+    SpriteInfo spriteInfo[SpriteID::MAX] = {};
     
     Vector2 CalcTileCoord(int row, int col, int borderSpacing, int spacing, int size);
     void SetSpriteInfo(SpriteID id, int col, int row, int borderSpacing, int spacing, int size);

@@ -57,6 +57,7 @@ struct EnemySpawnInfo {
 };
 
 struct FloorSpawnPool {
+    int floorNum;
     int numEnemyTypes;
     vector<EnemySpawnInfo> enemySpawnInfo;
     
@@ -124,7 +125,7 @@ struct Dungeon {
     int floor;
     int bestFloor;
     
-    FloorSpawnPool floorSpawnPool[10];
+    vector<FloorSpawnPool> floorSpawnPools;
     
     Room rooms[100] = {};
     
