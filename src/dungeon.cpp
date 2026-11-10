@@ -77,8 +77,8 @@ void SetRoomInfo(Room& room) {
     room.roomContent.decor.clear();
     room.roomContent.breakables.clear();
     room.roomContent.usables.clear();
-    room.roomContent.numEnemySpawnPoints = 0;
-    room.roomContent.numEnemiesSpawn = 0;
+    room.roomContent.enemySpawnPoints.clear();
+    room.roomContent.numEnemiesToSpawn = 0;
     
     //Load corresponding roomType
     const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.layoutType.c_str());
@@ -123,19 +123,15 @@ void SetRoomInfo(Room& room) {
                     room.roomContent.walls.push_back(wall);
                     
                 } else if(entity["layer"] == "EnemySpawPoint"){
-                    if (room.roomContent.numEnemySpawnPoints >= 10){
-                        TraceLog(LOG_WARNING, "Maximum enemy spawn points reached");
-                        return;
-                    }
                     
-                    EnemySpawnPoint& enemySpawnPoint = room.roomContent.enemySpawnPoint[room.roomContent.numEnemySpawnPoints];
+                    EnemySpawnPoint enemySpawnPoint;
                     
                     enemySpawnPoint.position = {
                         entity["x"].get<float>() * scale + room.position.x, 
                         entity["y"].get<float>() * scale + room.position.y
                     };
                     
-                    room.roomContent.numEnemySpawnPoints++;
+                    room.roomContent.enemySpawnPoints.push_back(enemySpawnPoint);
                     
                 } else if(entity["layer"] == "Decor"){
                     RoomDecor decor;

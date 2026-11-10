@@ -69,10 +69,9 @@ struct EnemySpawnPoint {
 
 struct RoomContent {
     //Enemy spawning
-    int numEnemiesSpawn;
+    int numEnemiesToSpawn;
     
-    int numEnemySpawnPoints;
-    EnemySpawnPoint enemySpawnPoint[10] = {};
+    vector<EnemySpawnPoint> enemySpawnPoints;
     
     //Walls
     vector<Wall> walls;
