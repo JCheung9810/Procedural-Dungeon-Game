@@ -1,7 +1,7 @@
-CXX = g++
+CXX = C:/raylib/w64devkit/bin/g++.exe
 RAYLIB_PATH = C:/raylib/raylib
 
-CXXFLAGS = -std=c++17 -Wall -Wshadow -Wunused-parameter -O0 -I$(RAYLIB_PATH)/src -Iexternal -DPLATFORM_DESKTOP
+CXXFLAGS = -std=c++17 -Wall -Wshadow -Wunused-parameter -g -O0 -I$(RAYLIB_PATH)/src -Iexternal -DPLATFORM_DESKTOP
 LDFLAGS = -L. -lraylib -lopengl32 -lgdi32 -lwinmm -lshcore
 
 SRC_DIR = src

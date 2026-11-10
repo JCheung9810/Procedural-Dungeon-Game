@@ -1,0 +1,23 @@
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Dungeon Game",
+            "type": "process",
+            "command": "C:/raylib/w64devkit/bin/make.exe",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PATH": "C:/raylib/w64devkit/bin;${env:PATH}"
+                }
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

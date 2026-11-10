@@ -1,0 +1,28 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Dungeon Game",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/game.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+            "miDebuggerArgs": "-ex \"python import sys; sys.path.insert(0, 'C:/msys64/ucrt64/share/gcc-16.2.0/python'); from libstdcxx.v6 import register_printers; register_printers(None)\"",
+            "setupCommands": [
+                {
+                    "description": "Enable GDB pretty printing",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build Dungeon Game"
+        }
+    ]
+}
