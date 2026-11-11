@@ -87,6 +87,7 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     
     player.weapons.push_back(LoadWeapon("config/weapon.json", "Pistol"));
     player.weapons.push_back(LoadWeapon("config/weapon.json", "Double Barrel"));
+    player.weapons.push_back(LoadWeapon("config/weapon.json", "Dev Gun"));
 
     player.dashTime = playerConfig.dashTime;
     player.dashTimer = 0.0f;

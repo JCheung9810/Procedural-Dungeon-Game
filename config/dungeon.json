@@ -8,10 +8,10 @@
     "floorSpawnPool": [
         {
             "floorNum": 0,
-            "minEnemiesPerRoom": 6,
-            "maxEnemiesPerRoom": 6,
+            "minEnemiesPerRoom": 9,
+            "maxEnemiesPerRoom": 9,
             "minEnemiesPerWave": 2,
-            "maxEnemiesPerWave": 4,
+            "maxEnemiesPerWave": 2,
             "enemyPool": [
                 {   
                     "name": "Dummy",
@@ -35,7 +35,7 @@
                     "spawnWeight": 0.50
                 },
                 {
-                    "name": "Dummy1",
+                    "name": "Dummy",
                     "spawnWeight": 0.50
                 }
             ]

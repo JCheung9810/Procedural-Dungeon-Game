@@ -19,7 +19,7 @@ struct Enemy {
     float health;
     float speed;
     
-    Rectangle hitBox;
+    Rectangle hitbox;
     
     float attackRate;
     float attackCD;

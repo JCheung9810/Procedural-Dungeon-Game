@@ -38,7 +38,27 @@
             "fireMode": "SINGLE",
             "bulletSpread": 15.0,
             "numProjectiles": 10,
-            "damage": 100.0
+            "damage": 3.0
+        },
+        {
+            "name": "Dev Gun",
+            "type": "Pistol",
+            "texturePath": "assets/textures/Pistol.png",
+            "textureFrames": 6,
+            "hudTexturePath": "assets/textures/PistolHud.png",
+            "shotSoundPath": "assets/sounds/pistolShot.mp3",
+            "reloadSoundPath": "assets/sounds/pistolReload.mp3",
+            "size": 80.0,
+            "positionOffset": [-20.0, 30.0],
+            "projectileOffset": 25.0,
+            "projectileSize": 1.0,
+            "reloadTime": 0.1,
+            "magSize": 1000,
+            "fireTime": 0.1,
+            "fireMode": "AUTOMATIC",
+            "bulletSpread": 0.0,
+            "numProjectiles": 1,
+            "damage": 10000.0
         }
     ]
 }

@@ -214,7 +214,13 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
             dungeon.rooms[i].state = RoomState::ACTIVE;
 
             //Spawn first wave of enemies
-            //for(int spawnIndex = 0)
+            for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
+                if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
+                    AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
+                    dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
+                    dungeon.rooms[i].numEnemiesSpawned++;
+                }
+            }
 
             dungeon.rooms[i].wave++;
 
@@ -222,12 +228,18 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
             //When all enemies are cleared
             if(enemies.size() == 0){
                 //Check if all enemies have been spawned
-                if(dungeon.rooms[i].wave * dungeon.rooms[i].numEnemiesPerWave >= dungeon.rooms[i].numEnemiesToSpawn){
+                if(dungeon.rooms[i].numEnemiesSpawned >= dungeon.rooms[i].numEnemiesToSpawn){
                     //Room cleared
                     dungeon.rooms[i].state = RoomState::CLEARED;
                 } else {
                     //Spawn next wave of enemies
-                    
+                    for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
+                        if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
+                            AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
+                            dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
+                            dungeon.rooms[i].numEnemiesSpawned++;
+                        }
+                    }
 
                     dungeon.rooms[i].wave++;
                 }

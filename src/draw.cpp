@@ -162,7 +162,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         fontSize, 
                         BLACK
                     );   
-                    DrawRectangleRec(enemies[i].hitBox, RED);
+                    DrawRectangleRec(enemies[i].hitbox, RED);
                 }
             }
             

@@ -155,8 +155,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
 
             for(int j = 0; j < (int)enemies.size(); j++){
 
-                if(enemies[j].active &&
-                   CheckCollisionRecs(enemies[j].hitBox, projectiles[i].hitbox)){
+                if(enemies[j].active && CheckCollisionRecs(enemies[j].hitbox, projectiles[i].hitbox) && enemies[j].health > 0.0f){
 
                     enemies[j].health -= projectiles[i].damage;
                     collisionDetected = true;
