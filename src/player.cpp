@@ -250,12 +250,12 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
                 //Door collision
                 for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
                     if(dungeon.rooms[i].roomContent.doors[j].active && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.doors[j].hitbox)){
-                        if(movementDirection.x > 0){
-                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x - player.hitbox.width;
-                        } else if(movementDirection.x < 0){
-                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x + dungeon.rooms[i].roomContent.doors[j].hitbox.width;
+                        if(movementDirection.y > 0){
+                            player.position.y = dungeon.rooms[i].roomContent.doors[j].hitbox.y - player.hitbox.height;
+                        } else if(movementDirection.y < 0){
+                            player.position.y = dungeon.rooms[i].roomContent.doors[j].hitbox.y + dungeon.rooms[i].roomContent.doors[j].hitbox.height;
                         }
-                        player.hitbox.x = player.position.x;
+                        player.hitbox.y = player.position.y;
                     }
                 }
             }

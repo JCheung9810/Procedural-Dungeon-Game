@@ -117,7 +117,7 @@ void AssetManager::LoadSpriteInfo(){
     SetSpriteInfo(LargeWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(FitWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(VerticalDoor, 13, 1, borderSpacing, spacing, size);
-    SetSpriteInfo(HorizontalDoor, 13, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(HorizontalDoor, 13, 1, borderSpacing, spacing, size);
 }
 
 SpriteID GetSpriteID(const string& name) {
