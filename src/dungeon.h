@@ -58,6 +58,11 @@ struct EnemySpawnInfo {
 
 struct FloorSpawnPool {
     int floorNum;
+    int minEnemiesPerRoom;
+    int maxEnemiesPerRoom;
+    int minEnemiesPerWave;
+    int maxEnemiesPerWave;
+
     vector<EnemySpawnInfo> enemySpawnInfo;
     
 };
@@ -70,6 +75,7 @@ struct EnemySpawnPoint {
 struct RoomContent {
     //Enemy spawning
     int numEnemiesToSpawn;
+    int numEnemiesPerWave;
     
     vector<EnemySpawnPoint> enemySpawnPoints;
     

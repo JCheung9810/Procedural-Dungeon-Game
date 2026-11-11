@@ -41,6 +41,11 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 
             floorSpawnPool.floorNum = floorInfo.at("floorNum").get<int>();
 
+            floorSpawnPool.minEnemiesPerRoom = floorInfo.at("minEnemiesPerRoom").get<int>();
+            floorSpawnPool.maxEnemiesPerRoom = floorInfo.at("maxEnemiesPerRoom").get<int>();
+            floorSpawnPool.minEnemiesPerWave = floorInfo.at("minEnemiesPerWave").get<int>();
+            floorSpawnPool.maxEnemiesPerWave = floorInfo.at("maxEnemiesPerWave").get<int>();
+
             const auto& enemyPool = floorInfo.at("enemyPool");
 
             for(int j = 0; j < (int)enemyPool.size(); j++){
@@ -80,8 +85,9 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     room.roomContent.breakables.clear();
     room.roomContent.usables.clear();
     room.roomContent.enemySpawnPoints.clear();
-    room.roomContent.numEnemiesToSpawn = 0;
-    
+    room.roomContent.numEnemiesToSpawn = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerRoom, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerRoom);
+    room.roomContent.numEnemiesPerWave = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerWave, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerWave);
+
     //Load corresponding roomType
     const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.layoutType.c_str());
     ifstream file(roomPath);
