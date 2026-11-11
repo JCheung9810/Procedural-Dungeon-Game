@@ -112,7 +112,6 @@ struct Room {
     //Enemy spawning
     int wave;
     int numEnemiesToSpawn;
-    int numEnemiesPerWave;
     int numEnemiesSpawned;
 
     const char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
@@ -157,8 +156,6 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon);
 void SetRoomInfo(Dungeon& dungeon, Room& room);
 void AssignRoomEnemies(Dungeon& dungeon, Room& room);
 
-void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies);
-
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom);
 bool ValidRoomInDirection(const Room& currentRoom, char direction);
 void AddDirection(char directions[], char direction);
@@ -166,3 +163,6 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom);
 void SortRooms(Dungeon& dungeon);
 void AddRoom(Dungeon& dungeon, const char* type, Vector2 position);
 void GenerateDungeon(Dungeon& dungeon);
+
+bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom);
+void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies);

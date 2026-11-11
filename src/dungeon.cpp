@@ -45,8 +45,6 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 
             floorSpawnPool.minEnemiesPerRoom = floorInfo.at("minEnemiesPerRoom").get<int>();
             floorSpawnPool.maxEnemiesPerRoom = floorInfo.at("maxEnemiesPerRoom").get<int>();
-            floorSpawnPool.minEnemiesPerWave = floorInfo.at("minEnemiesPerWave").get<int>();
-            floorSpawnPool.maxEnemiesPerWave = floorInfo.at("maxEnemiesPerWave").get<int>();
 
             const auto& enemyPool = floorInfo.at("enemyPool");
 
@@ -88,9 +86,13 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     room.roomContent.usables.clear();
     room.roomContent.enemySpawnPoints.clear();
     room.numEnemiesToSpawn = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerRoom, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerRoom);
-    room.numEnemiesPerWave = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerWave, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerWave);
     room.wave = 0;
     room.numEnemiesSpawned = 0;
+    if(TextIsEqual(room.type, "Spawn")){
+        room.state = RoomState::CLEARED;
+    } else {
+        room.state = RoomState::INACTIVE;
+    }
 
     //Load corresponding roomType
     const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.layoutType.c_str());
@@ -203,48 +205,6 @@ void AssignRoomEnemies(Dungeon& dungeon, Room& room) {
             } else {
                 randomNum -= enemyInfo.spawnWeight;
             }
-        }
-    }
-}
-
-void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
-    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-        if(dungeon.rooms[i].exists && dungeon.rooms[i].state != RoomState::CLEARED && dungeon.rooms[i].state != RoomState::ACTIVE && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hitbox)){
-            //Update room state to active if player is in the room
-            dungeon.rooms[i].state = RoomState::ACTIVE;
-
-            //Spawn first wave of enemies
-            for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
-                if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
-                    AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
-                    dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
-                    dungeon.rooms[i].numEnemiesSpawned++;
-                }
-            }
-
-            dungeon.rooms[i].wave++;
-
-        } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
-            //When all enemies are cleared
-            if(enemies.size() == 0){
-                //Check if all enemies have been spawned
-                if(dungeon.rooms[i].numEnemiesSpawned >= dungeon.rooms[i].numEnemiesToSpawn){
-                    //Room cleared
-                    dungeon.rooms[i].state = RoomState::CLEARED;
-                } else {
-                    //Spawn next wave of enemies
-                    for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
-                        if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
-                            AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
-                            dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
-                            dungeon.rooms[i].numEnemiesSpawned++;
-                        }
-                    }
-
-                    dungeon.rooms[i].wave++;
-                }
-            }
-
         }
     }
 }
@@ -1059,6 +1019,71 @@ void GenerateDungeon(Dungeon& dungeon){
             
             dungeon.rooms[i].layoutType = newType;
             SetRoomInfo(dungeon, dungeon.rooms[i]);
+        }
+    }
+}
+
+bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
+    bool activeRoomAdjacent = false;
+    
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+        if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::CLEARED){
+            if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-1} && ValidRoomInDirection(dungeon.rooms[i], 'N'))|| 
+               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{1,0} && ValidRoomInDirection(dungeon.rooms[i], 'E'))|| 
+               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,1} && ValidRoomInDirection(dungeon.rooms[i], 'S'))|| 
+               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{-1,0} && ValidRoomInDirection(dungeon.rooms[i], 'W'))){
+                activeRoomAdjacent = true;
+                break;
+            }
+        }
+    }
+    
+    return activeRoomAdjacent;
+}
+
+void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+        //Update room state to active if player is in the room
+        if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hitbox)){
+            dungeon.rooms[i].state = RoomState::ACTIVE;
+
+            //Spawn first wave of enemies
+            for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
+                if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
+                    AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
+                    dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
+                    dungeon.rooms[i].numEnemiesSpawned++;
+                }
+            }
+
+            dungeon.rooms[i].wave++;
+
+        //If player is in the room (state is active)
+        } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
+            //When all enemies are cleared
+            if(enemies.size() == 0){
+                //Check if all enemies have been spawned
+                if(dungeon.rooms[i].numEnemiesSpawned >= dungeon.rooms[i].numEnemiesToSpawn){
+                    //Room cleared
+                    dungeon.rooms[i].state = RoomState::CLEARED;
+                } else {
+                    //Spawn next wave of enemies
+                    for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
+                        if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
+                            AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
+                            dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
+                            dungeon.rooms[i].numEnemiesSpawned++;
+                        }
+                    }
+
+                    dungeon.rooms[i].wave++;
+                }
+            }
+
+        } else if(dungeon.rooms[i].state == RoomState::INACTIVE){
+            if(ActiveRoomAdjacent(dungeon, dungeon.rooms[i])){
+                dungeon.rooms[i].state = RoomState::DISCOVERED;
+            }
         }
     }
 }
