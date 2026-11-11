@@ -28,7 +28,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - UI
   - Reload mouse cursor 
   - Minimap/map 
-  - 3D Wall overlap
+  - Decor layer draw order
 - MECHANICS 
   - Pickups (ammo,health) 
   - Doors close until cleared 
@@ -41,7 +41,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 # Priority List (Highest to Lowest)
   - Doors close until cleared
   - Advanced enemy ai
-  - 3D Wall overlap
+  - Decor layer draw order
   - Make enemies use weapon objects (make firing use those stats)
   - Draw enemy weapons
   - Better projectile hitbox

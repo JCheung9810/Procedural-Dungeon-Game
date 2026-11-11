@@ -597,6 +597,19 @@
 				"customFields" : {}
 			}
 		],
+		"VerticalDoor": [
+			{
+				"id": "VerticalDoor",
+				"iid": "1d1f9b60-bde0-11f1-824f-a7c8a077ff85",
+				"layer": "Doors",
+				"x": 368,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",

@@ -674,6 +674,30 @@
 				"customFields" : {}
 			}
 		],
+		"VerticalDoor": [
+			{
+				"id": "VerticalDoor",
+				"iid": "1908b390-bde0-11f1-824f-a3931684d7eb",
+				"layer": "Doors",
+				"x": 96,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "VerticalDoor",
+				"iid": "19927d00-bde0-11f1-824f-258dfd0d8f04",
+				"layer": "Doors",
+				"x": 368,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
