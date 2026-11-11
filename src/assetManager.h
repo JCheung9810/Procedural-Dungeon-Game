@@ -32,6 +32,8 @@ enum SpriteID{
     MediumWall,
     LargeWall,
     FitWall,
+    VerticalDoor,
+    HorizontalDoor,
     
     MAX
 };

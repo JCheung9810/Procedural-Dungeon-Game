@@ -18,7 +18,7 @@ struct Wall {
     
 };
 
-struct Door {
+struct RoomDoor {
     Rectangle hitbox;
     SpriteID spriteID;
 
@@ -82,7 +82,7 @@ struct RoomContent {
     vector<Wall> walls;
     
     //Doors
-    vector<Door> doors;
+    vector<RoomDoor> doors;
     
     //Decorations
     vector<RoomDecor> decor;

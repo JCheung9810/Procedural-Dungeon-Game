@@ -49,6 +49,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         WHITE
                     );
 
+                    //Draw walls
                     for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){
                         Wall& wall = room.roomContent.walls[wallIt];
 
@@ -76,6 +77,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         }
                     }
                     
+                    //Draw decor
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
 
@@ -94,6 +96,39 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                 DrawTexturePro(
                                     assets.textures.at("assets/textures/dungeonTileset.png"),
                                     assets.spriteInfo[decor.spriteID].textureSrc,
+                                    dest,
+                                    Vector2{0, 0},
+                                    0.0f,
+                                    WHITE
+                                );
+                            }
+                        }
+                    }
+
+                    //Draw doors
+                    for(int doorIt = 0; doorIt < (int)room.roomContent.doors.size(); doorIt++){
+                        //Temporary: Only draw active doors
+                        if(!room.roomContent.doors[doorIt].active){
+                            continue;
+                        }
+
+                        RoomDoor& door = room.roomContent.doors[doorIt];
+
+                        int tilesX = (int)roundf(door.hitbox.width / tileSize);
+                        int tilesY = (int)roundf(door.hitbox.height / tileSize);
+
+                        for(int x = 0; x < tilesX; x++){
+                            for(int y = 0; y < tilesY; y++){
+                                Rectangle dest = {
+                                    door.hitbox.x + x * tileSize,
+                                    door.hitbox.y + y * tileSize,
+                                    tileSize,
+                                    tileSize
+                                };
+
+                                DrawTexturePro(
+                                    assets.textures.at("assets/textures/dungeonTileset.png"),
+                                    assets.spriteInfo[door.spriteID].textureSrc,
                                     dest,
                                     Vector2{0, 0},
                                     0.0f,

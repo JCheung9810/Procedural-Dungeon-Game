@@ -116,6 +116,8 @@ void AssetManager::LoadSpriteInfo(){
     SetSpriteInfo(MediumWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(LargeWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(FitWall, 12, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(VerticalDoor, 13, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(HorizontalDoor, 13, 2, borderSpacing, spacing, size);
 }
 
 SpriteID GetSpriteID(const string& name) {
@@ -147,7 +149,9 @@ SpriteID GetSpriteID(const string& name) {
         {"SmallWall", SmallWall},
         {"MediumWall", MediumWall},
         {"LargeWall", LargeWall},
-        {"FitWall", FitWall}
+        {"FitWall", FitWall},
+        {"VerticalDoor", VerticalDoor},
+        {"HorizontalDoor", HorizontalDoor}
     };
 
     auto i = wallIDs.find(name);

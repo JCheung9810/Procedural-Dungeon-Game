@@ -139,70 +139,8 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         else if(player.direction.x < 0){
             player.facingDirection = -1;
         }
-        
-        //Translate player, detect collision (x)
-        player.position.x += player.direction.x * GetFrameTime();
-        player.hitbox.x = player.position.x;
-        if(!debugWall){
-            for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-                if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
-                        if(CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.walls[j].hitbox)){
-                            if (player.direction.x > 0){
-                                player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x - player.hitbox.width;
-                            } else if (player.direction.x < 0){
-                                player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x + dungeon.rooms[i].roomContent.walls[j].hitbox.width;
-                            }
-                            player.hitbox.x = player.position.x;
-                        }
-                    }
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.decor.size(); j++){
-                        if(dungeon.rooms[i].roomContent.decor[j].playerCollision && CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.decor[j].hitbox)){
-                            if (player.direction.x > 0){
-                                player.position.x = dungeon.rooms[i].roomContent.decor[j].hitbox.x - player.hitbox.width;
-                            } else if (player.direction.x < 0){
-                                player.position.x = dungeon.rooms[i].roomContent.decor[j].hitbox.x + dungeon.rooms[i].roomContent.decor[j].hitbox.width;
-                            }
-                            player.hitbox.x = player.position.x;
-                        }
-                    }
-                }
-            }
-        }
-        
-        //Translate player, detect collision (y)
-        player.position.y += player.direction.y * GetFrameTime();
-        player.hitbox.y = player.position.y;
-        if(!debugWall){
-            for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-                if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
-                        if(CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.walls[j].hitbox)){
-                            if(player.direction.y > 0){
-                                player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y - player.hitbox.height;
-                            } else if(player.direction.y < 0){
-                                player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y + dungeon.rooms[i].roomContent.walls[j].hitbox.height;
-                            }
-
-                            player.hitbox.y = player.position.y;
-                        }
-                    }
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.decor.size(); j++){
-                        if(dungeon.rooms[i].roomContent.decor[j].playerCollision && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.decor[j].hitbox)){
-                            if(player.direction.y > 0){
-                                player.position.y = dungeon.rooms[i].roomContent.decor[j].hitbox.y - player.hitbox.height;
-                            } else if(player.direction.y < 0){
-                                player.position.y = dungeon.rooms[i].roomContent.decor[j].hitbox.y + dungeon.rooms[i].roomContent.decor[j].hitbox.height;
-                            }
-
-                            player.hitbox.y = player.position.y;
-                        }
-                    }
-                }
-            }
-        }
     }
-    
+
     //Detect state
     if((xDir != 0.0f || yDir != 0.0f) && player.state != State::DASHING){
         player.state = State::WALKING;
@@ -229,80 +167,109 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
     }
+
+    //Get movement direction for collision detection
+    Vector2 movementDirection = player.direction;
+    if(player.state == State::DASHING){
+        movementDirection = player.tempDirection;
+    }
     
-    //Execute Dash
-    if(player.state == State::DASHING){                        
-        //Translate player, detect collision (x)
-        player.position.x += player.tempDirection.x * GetFrameTime();
-        player.hitbox.x = player.position.x;
-        if(!debugWall){
-            for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-                if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
-                        if(CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.walls[j].hitbox)){
-                            if (player.direction.x > 0){
-                                player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x - player.hitbox.width;
-                            } else if (player.direction.x < 0){
-                                player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x + dungeon.rooms[i].roomContent.walls[j].hitbox.width;
-                            }
-                            player.hitbox.x = player.position.x;
+    //Translate player, detect collision (x)
+    player.position.x += movementDirection.x * GetFrameTime();
+    player.hitbox.x = player.position.x;
+    if(!debugWall){
+        for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+            if(dungeon.rooms[i].exists == true){
+                //Wall collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
+                    if(CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.walls[j].hitbox)){
+                        if (movementDirection.x > 0){
+                            player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x - player.hitbox.width;
+                        } else if (movementDirection.x < 0){
+                            player.position.x = dungeon.rooms[i].roomContent.walls[j].hitbox.x + dungeon.rooms[i].roomContent.walls[j].hitbox.width;
                         }
+                        player.hitbox.x = player.position.x;
                     }
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.decor.size(); j++){
-                        if(dungeon.rooms[i].roomContent.decor[j].playerCollision && CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.decor[j].hitbox)){
-                            if (player.direction.x > 0){
-                                player.position.x = dungeon.rooms[i].roomContent.decor[j].hitbox.x - player.hitbox.width;
-                            } else if (player.direction.x < 0){
-                                player.position.x = dungeon.rooms[i].roomContent.decor[j].hitbox.x + dungeon.rooms[i].roomContent.decor[j].hitbox.width;
-                            }
-                            player.hitbox.x = player.position.x;
+                }
+                //Decor collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.decor.size(); j++){
+                    if(dungeon.rooms[i].roomContent.decor[j].playerCollision && CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.decor[j].hitbox)){
+                        if (movementDirection.x > 0){
+                            player.position.x = dungeon.rooms[i].roomContent.decor[j].hitbox.x - player.hitbox.width;
+                        } else if (movementDirection.x < 0){
+                            player.position.x = dungeon.rooms[i].roomContent.decor[j].hitbox.x + dungeon.rooms[i].roomContent.decor[j].hitbox.width;
                         }
+                        player.hitbox.x = player.position.x;
+                    }
+                }
+                //Door collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
+                    if(dungeon.rooms[i].roomContent.doors[j].active && CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.doors[j].hitbox)){
+                        if (movementDirection.x > 0){
+                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x - player.hitbox.width;
+                        } else if (movementDirection.x < 0){
+                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x + dungeon.rooms[i].roomContent.doors[j].hitbox.width;
+                        }
+                        player.hitbox.x = player.position.x;
                     }
                 }
             }
         }
-        
-        //Translate player, detect collision (y)
-        player.position.y += player.tempDirection.y * GetFrameTime();
-        player.hitbox.y = player.position.y;
-        if(!debugWall){
-            for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-                if(dungeon.rooms[i].exists == true){
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
-                        if(CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.walls[j].hitbox)){
-                            if(player.direction.y > 0){
-                                player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y - player.hitbox.height;
-                            } else if(player.direction.y < 0){
-                                player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y + dungeon.rooms[i].roomContent.walls[j].hitbox.height;
-                            }
-
-                            player.hitbox.y = player.position.y;
+    }
+    
+    //Translate player, detect collision (y)
+    player.position.y += movementDirection.y * GetFrameTime();
+    player.hitbox.y = player.position.y;
+    if(!debugWall){
+        for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+            if(dungeon.rooms[i].exists == true){
+                //Wall collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.walls.size(); j++){
+                    if(CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.walls[j].hitbox)){
+                        if(movementDirection.y > 0){
+                            player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y - player.hitbox.height;
+                        } else if(movementDirection.y < 0){
+                            player.position.y = dungeon.rooms[i].roomContent.walls[j].hitbox.y + dungeon.rooms[i].roomContent.walls[j].hitbox.height;
                         }
+
+                        player.hitbox.y = player.position.y;
                     }
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.decor.size(); j++){
-                        if(dungeon.rooms[i].roomContent.decor[j].playerCollision && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.decor[j].hitbox)){
-                            if(player.direction.y > 0){
-                                player.position.y = dungeon.rooms[i].roomContent.decor[j].hitbox.y - player.hitbox.height;
-                            } else if(player.direction.y < 0){
-                                player.position.y = dungeon.rooms[i].roomContent.decor[j].hitbox.y + dungeon.rooms[i].roomContent.decor[j].hitbox.height;
-                            }
-
-                            player.hitbox.y = player.position.y;
+                }
+                //Decor collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.decor.size(); j++){
+                    if(dungeon.rooms[i].roomContent.decor[j].playerCollision && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.decor[j].hitbox)){
+                        if(movementDirection.y > 0){
+                            player.position.y = dungeon.rooms[i].roomContent.decor[j].hitbox.y - player.hitbox.height;
+                        } else if(movementDirection.y < 0){
+                            player.position.y = dungeon.rooms[i].roomContent.decor[j].hitbox.y + dungeon.rooms[i].roomContent.decor[j].hitbox.height;
                         }
+
+                        player.hitbox.y = player.position.y;
+                    }
+                }
+                //Door collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
+                    if(dungeon.rooms[i].roomContent.doors[j].active && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.doors[j].hitbox)){
+                        if(movementDirection.x > 0){
+                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x - player.hitbox.width;
+                        } else if(movementDirection.x < 0){
+                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x + dungeon.rooms[i].roomContent.doors[j].hitbox.width;
+                        }
+                        player.hitbox.x = player.position.x;
                     }
                 }
             }
         }
+    }
     
-        //dashTimer
-        if(player.dashTimer > 0.0f){
-            player.dashTimer -= GetFrameTime();
+    //dashTimer
+    if(player.dashTimer > 0.0f){
+        player.dashTimer -= GetFrameTime();
 
-            if(player.dashTimer < 0.0f){
-                player.dashTimer = 0.0f;
-                player.state = State::IDLE;
-                player.dashCD = 1.0f;
-            }
+        if(player.dashTimer < 0.0f){
+            player.dashTimer = 0.0f;
+            player.state = State::IDLE;
+            player.dashCD = 1.0f;
         }
     }
     
@@ -349,6 +316,11 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         player.frameTimer += GetFrameTime();
         
         player.currentFrame = (int)((player.frameTimer * player.dashAnimationFrames) / player.dashTime); 
+
+        if(player.currentFrame >= player.dashAnimationFrames)
+        {
+            player.currentFrame = player.dashAnimationFrames - 1;
+        }
     }
     
     

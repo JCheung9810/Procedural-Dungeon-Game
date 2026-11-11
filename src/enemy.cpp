@@ -60,6 +60,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
             //Check x
             for(int j = 0; j < (int)dungeon.rooms.size(); j++){
                 if(dungeon.rooms[j].exists == true){
+                    //Wall collision
                     for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                         Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
 
@@ -74,6 +75,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
                             enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
                         }
                     }
+                    //Decor collision
                     for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
                         Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
 
@@ -88,12 +90,28 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
                             enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
                         }
                     }
+                    //Doors collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
+                        Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
+
+                        if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
+                            if(previousPosition.x + enemies[i].hitbox.width <= door.x){
+                                enemies[i].position.x = door.x - enemies[i].hitbox.width;
+                            } else if(previousPosition.x >= door.x + door.width){
+                                enemies[i].position.x = door.x + door.width;
+                            }
+
+                            enemies[i].hitbox.x = enemies[i].position.x;
+                            enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
+                        }
+                    }
                 }
             }
 
             //Check y
             for(int j = 0; j < (int)dungeon.rooms.size(); j++){
                 if(dungeon.rooms[j].exists == true){
+                    //Wall collision
                     for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
                         Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
 
@@ -108,6 +126,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
                             enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
                         }
                     }
+                    //Decor collision
                     for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
                         Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
 
@@ -116,6 +135,21 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
                                 enemies[i].position.y = decor.y - enemies[i].hitbox.height;
                             } else if(previousPosition.y >= decor.y + decor.height){
                                 enemies[i].position.y = decor.y + decor.height;
+                            }
+
+                            enemies[i].hitbox.y = enemies[i].position.y;
+                            enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
+                        }
+                    }
+                    //Doors collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
+                        Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
+
+                        if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
+                            if(previousPosition.y + enemies[i].hitbox.height <= door.y){
+                                enemies[i].position.y = door.y - enemies[i].hitbox.height;
+                            } else if(previousPosition.y >= door.y + door.height){
+                                enemies[i].position.y = door.y + door.height;
                             }
 
                             enemies[i].hitbox.y = enemies[i].position.y;

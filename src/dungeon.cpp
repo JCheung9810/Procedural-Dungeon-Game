@@ -123,7 +123,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
         room.roomContent.backgroundSize = Vector2{room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
         float scale =  room.roomContent.backgroundSize.x;
 
-        //Go through each wall type
+        //Go through each entry in the entities object
         for (auto i = entities.begin(); i != entities.end(); ++i) {
 
             //Go through each instance of the entities
@@ -178,6 +178,20 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                         entity["width"].get<float>() * scale,
                         entity["height"].get<float>() * scale
                     };
+                } else if(entity["layer"] == "Doors"){
+                    RoomDoor door;
+
+                    door.spriteID = GetSpriteID(i.key());
+
+                    door.hitbox = {
+                        entity["x"].get<float>() * scale + room.position.x,
+                        entity["y"].get<float>() * scale + room.position.y,
+                        entity["width"].get<float>() * scale,
+                        entity["height"].get<float>() * scale
+                    };
+
+                    door.active = false;
+                    room.roomContent.doors.push_back(door);
                 }
             }
         }
@@ -1072,6 +1086,10 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
         //Update room state to active if player is in the room
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hitbox)){
             dungeon.rooms[i].state = RoomState::ACTIVE;
+            //Close doors
+            for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
+                dungeon.rooms[i].roomContent.doors[j].active = true;
+            }
 
             //Spawn first wave of enemies
             for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
@@ -1090,6 +1108,10 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
                 if(dungeon.rooms[i].numEnemiesSpawned >= dungeon.rooms[i].numEnemiesToSpawn){
                     //Room cleared
                     dungeon.rooms[i].state = RoomState::CLEARED;
+                    //Open doors
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
+                        dungeon.rooms[i].roomContent.doors[j].active = false;
+                    }
                 } else {
                     int spawnedThisWave = 0;
                     //Spawn next wave of enemies
