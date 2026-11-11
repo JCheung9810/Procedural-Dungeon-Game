@@ -75,10 +75,6 @@ struct EnemySpawnPoint {
 struct RoomContent {
     //Room hitbox
     Rectangle hitbox;
-
-    //Enemy spawning
-    int numEnemiesToSpawn;
-    int numEnemiesPerWave;
     
     vector<EnemySpawnPoint> enemySpawnPoints;
     
@@ -113,6 +109,12 @@ enum RoomState {
 };
 
 struct Room {
+    //Enemy spawning
+    int wave;
+    int numEnemiesToSpawn;
+    int numEnemiesPerWave;
+    int numEnemiesSpawned;
+
     const char* type;     //2DNS, 2DEW, 2DNE, 2DES, 2DSW, 2DNW, 3DNEW, 3DNES, 3DESW, 3DNSW, 4DNESW
     string layoutType;
     
@@ -153,6 +155,7 @@ struct Dungeon {
 void InitializeDungeon(const char* filePath, Dungeon& dungeon);
 
 void SetRoomInfo(Dungeon& dungeon, Room& room);
+void AssignRoomEnemies(Dungeon& dungeon, Room& room);
 
 void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies);
 

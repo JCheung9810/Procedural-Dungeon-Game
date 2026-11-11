@@ -38,7 +38,7 @@
             "fireMode": "SINGLE",
             "bulletSpread": 15.0,
             "numProjectiles": 10,
-            "damage": 3.0
+            "damage": 100.0
         }
     ]
 }

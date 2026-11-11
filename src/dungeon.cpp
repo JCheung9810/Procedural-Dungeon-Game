@@ -87,8 +87,10 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     room.roomContent.breakables.clear();
     room.roomContent.usables.clear();
     room.roomContent.enemySpawnPoints.clear();
-    room.roomContent.numEnemiesToSpawn = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerRoom, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerRoom);
-    room.roomContent.numEnemiesPerWave = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerWave, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerWave);
+    room.numEnemiesToSpawn = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerRoom, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerRoom);
+    room.numEnemiesPerWave = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerWave, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerWave);
+    room.wave = 0;
+    room.numEnemiesSpawned = 0;
 
     //Load corresponding roomType
     const char* roomPath = TextFormat("ldtkSaves/map/simplified/_%s/data.json", room.layoutType.c_str());
@@ -141,17 +143,6 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                         entity["y"].get<float>() * scale + room.position.y
                     };
                     
-                    //Assign enemy names from pool
-                    float randomNum = GetRandomValue(1, 100) / 100.0f;
-                    for(int entityIt = 0; entityIt < (int)dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo.size(); entityIt++){
-                        if(randomNum < dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt].spawnWeight){
-                            enemySpawnPoint.names.push_back(dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt].name);
-                            break;
-                        } else {
-                            randomNum -= dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt].spawnWeight;
-                        }
-                    }
-                    
                     room.roomContent.enemySpawnPoints.push_back(enemySpawnPoint);
                     
                 } else if(entity["layer"] == "Decor"){
@@ -185,6 +176,35 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     catch (const json::exception& e) {
         TraceLog(LOG_ERROR, "Error loading level data: %s", e.what());
     }
+
+    if(room.roomContent.enemySpawnPoints.size() != 0){
+        AssignRoomEnemies(dungeon, room);
+    }
+}
+
+void AssignRoomEnemies(Dungeon& dungeon, Room& room) {
+    int spawnPointIndex = 0;
+
+    for(int k = 0; k < room.numEnemiesToSpawn; k++){
+        //Assign enemy names from pool
+        float randomNum = GetRandomValue(1, 100) / 100.0f;
+
+        //Select an enemy based on spawn weights
+        for(int entityIt = 0; entityIt < (int)dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo.size(); entityIt++){
+            const EnemySpawnInfo& enemyInfo = dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt];
+
+            if(randomNum < enemyInfo.spawnWeight){
+                room.roomContent.enemySpawnPoints[spawnPointIndex].names.push_back(enemyInfo.name);
+
+                spawnPointIndex++;
+                spawnPointIndex %= (int)room.roomContent.enemySpawnPoints.size();
+
+                break;
+            } else {
+                randomNum -= enemyInfo.spawnWeight;
+            }
+        }
+    }
 }
 
 void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
@@ -193,32 +213,28 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
             //Update room state to active if player is in the room
             dungeon.rooms[i].state = RoomState::ACTIVE;
 
-            //Spawn enemies because player is in the room
-            for(int j = 0; j < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); j++){
-                for(int k = 0; k < (int)dungeon.rooms[i].roomContent.enemySpawnPoints[j].names.size(); k++){
-                    AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[j].names[k], dungeon.rooms[i].roomContent.enemySpawnPoints[j].position);
-                }
-                dungeon.rooms[i].roomContent.enemySpawnPoints[j].names.clear();
-            }
-        } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
-            //Check if all enemies are dead
-            bool allEnemiesDead = true;
-            for(int j = 0; j < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); j++){
-                if(dungeon.rooms[i].roomContent.enemySpawnPoints[j].names.size() > 0){
-                    allEnemiesDead = false;
-                    break;
-                }
-            }
+            //Spawn first wave of enemies
+            //for(int spawnIndex = 0)
 
-            if(allEnemiesDead){
-                dungeon.rooms[i].state = RoomState::CLEARED;
+            dungeon.rooms[i].wave++;
+
+        } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
+            //When all enemies are cleared
+            if(enemies.size() == 0){
+                //Check if all enemies have been spawned
+                if(dungeon.rooms[i].wave * dungeon.rooms[i].numEnemiesPerWave >= dungeon.rooms[i].numEnemiesToSpawn){
+                    //Room cleared
+                    dungeon.rooms[i].state = RoomState::CLEARED;
+                } else {
+                    //Spawn next wave of enemies
+                    
+
+                    dungeon.rooms[i].wave++;
+                }
             }
 
         }
     }
-
-
-
 }
 
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
