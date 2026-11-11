@@ -9,9 +9,9 @@
 
 using namespace std;
 
-//Load sprite sheet with srcRec once
-//Load json for level once, for each wallType, assign a certain id and set hitbox values
-//When drawing use the srcRec based on ID
+struct Player;
+struct Enemy;
+
 struct Wall {
     Rectangle hitbox;
     SpriteID spriteID;
@@ -73,6 +73,9 @@ struct EnemySpawnPoint {
 };
 
 struct RoomContent {
+    //Room hitbox
+    Rectangle hitbox;
+
     //Enemy spawning
     int numEnemiesToSpawn;
     int numEnemiesPerWave;
@@ -104,6 +107,7 @@ struct RoomContent {
 
 enum RoomState {
     INACTIVE,
+    DISCOVERED,
     ACTIVE,
     CLEARED
 };
@@ -149,6 +153,9 @@ struct Dungeon {
 void InitializeDungeon(const char* filePath, Dungeon& dungeon);
 
 void SetRoomInfo(Dungeon& dungeon, Room& room);
+
+void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies);
+
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom);
 bool ValidRoomInDirection(const Room& currentRoom, char direction);
 void AddDirection(char directions[], char direction);

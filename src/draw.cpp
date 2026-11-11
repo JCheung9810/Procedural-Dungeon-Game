@@ -307,7 +307,7 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     
     //Draw hitbox
     if(debugHitbox){
-        DrawRectangleRec(player.hitBox, BLUE);  
+        DrawRectangleRec(player.hitbox, BLUE);  
     }
     
     //Draw sprite
@@ -337,14 +337,14 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     textWidth = MeasureText("Player", fontSize);
     DrawText(
         "Player", player.center.x - textWidth/2, 
-        player.hitBox.y - fontSize*2.2f, 
+        player.hitbox.y - fontSize*2.2f, 
         fontSize, 
         BLACK
     );   
     textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
     DrawText(
         TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
-        player.hitBox.y - fontSize*1.1f, 
+        player.hitbox.y - fontSize*1.1f, 
         fontSize, 
         BLACK
     );  

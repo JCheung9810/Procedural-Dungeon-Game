@@ -32,27 +32,6 @@ void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera, bool de
             }
         }
     }
-
-    bool isBoss = false;
-    if(playerRoom != -1){
-        isBoss =
-        (TextIsEqual(dungeon.rooms[playerRoom].type, "BossN") ||
-            TextIsEqual(dungeon.rooms[playerRoom].type, "BossE") ||
-            TextIsEqual(dungeon.rooms[playerRoom].type, "BossS") ||
-            TextIsEqual(dungeon.rooms[playerRoom].type, "BossW"));
-    }
-
-    //Camera mode
-    if(debugCam){
-        camera.target = player.center;
-        camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
-    } else {
-        if(!isBoss){
-            camera.zoom = 1.5f; 
-        } else {
-            camera.zoom = 1.5f;
-        }                
-    }
     
     //If found
     if (playerRoom != -1){
@@ -79,5 +58,26 @@ void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera, bool de
             roomBottom - halfCameraHeight
         );
     }    
+
+    bool isBoss = false;
+    if(playerRoom != -1){
+        isBoss =
+        (TextIsEqual(dungeon.rooms[playerRoom].type, "BossN") ||
+            TextIsEqual(dungeon.rooms[playerRoom].type, "BossE") ||
+            TextIsEqual(dungeon.rooms[playerRoom].type, "BossS") ||
+            TextIsEqual(dungeon.rooms[playerRoom].type, "BossW"));
+    }
+
+    //Camera mode
+    if(debugCam){
+        camera.target = player.center;
+        camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
+    } else {
+        if(!isBoss){
+            camera.zoom = 1.5f; 
+        } else {
+            camera.zoom = 1.5f;
+        }                
+    }
     
 }

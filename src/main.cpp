@@ -29,8 +29,11 @@ int main(void){
     int screenHeight = 450;
 
     //Window creation
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Procedural Dungeon Game");
-    ToggleBorderlessWindowed();
+    MaximizeWindow();
+    ClearWindowState(FLAG_WINDOW_RESIZABLE);
+    //ToggleBorderlessWindowed();
     
     //Update screen size param with monitor resolution
     screenWidth = GetScreenWidth();
@@ -58,7 +61,7 @@ int main(void){
     //Enemies
     vector<Enemy> enemies;
     
-    AddEnemy(enemies, "Dummy");
+    AddEnemy(enemies, "Dummy", Vector2{300, -300});
     
     //Camera
     Camera2D camera = {};
@@ -164,6 +167,9 @@ int main(void){
 
             //------------------------------CAMERA------------------------------      
             UpdateGameCamera(dungeon, player, camera, debug.cam);
+
+            //------------------------------DUNGEON------------------------------
+            UpdateDungeon(dungeon, player, enemies);
             
             //Debug
             if(debug.active){
@@ -209,8 +215,8 @@ int main(void){
                 
                 player.center = {0,0};
                 player.position = {
-                    player.center.x - (player.hitBox.width/2.0f), 
-                    player.center.y - (player.hitBox.height/2.0f)
+                    player.center.x - (player.hitbox.width/2.0f), 
+                    player.center.y - (player.hitbox.height/2.0f)
                 };
                 player.health = player.maxHealth;
                 

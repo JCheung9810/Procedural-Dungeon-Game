@@ -8,6 +8,8 @@
 
 #include "raylib.h"
 
+struct Dungeon;
+
 enum class State {
     IDLE,
     WALKING,
@@ -24,7 +26,7 @@ struct Player {
     float health;
     float iFrames;
 
-    Rectangle hitBox;
+    Rectangle hitbox;
 
     Vector2 tempDirection;
     int facingDirection;
@@ -65,4 +67,4 @@ struct PlayerConfig {
 PlayerConfig LoadPlayerConfig(const char* filePath);
 
 void InitializePlayer(Player& player, PlayerConfig playerConfig);
-void UpdatePlayer(Player& player, Dungeon dungeon, bool debugSpeed, bool debugWall);
+void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall);

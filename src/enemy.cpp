@@ -5,14 +5,16 @@
 
 #include <raymath.h>
 
+#include <vector>
+
 using namespace std;
 
-void AddEnemy(vector<Enemy>& enemies, const char* name){
+void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
     Enemy newEnemy;
     if(TextIsEqual(name, "Dummy")){
         newEnemy.name = "Dummy";
         newEnemy.speed = 150.0f;
-        newEnemy.position = Vector2{300,-300};
+        newEnemy.position = position;
         newEnemy.health = 100.0f;
         newEnemy.size = Vector2{40.0f,40.0f};
         
@@ -30,7 +32,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name){
     }
 }
 
-void UpdateEnemies(vector<Enemy>& enemies, Player player, Dungeon& dungeon){
+void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
     //Check every enemy
     for(int i = 0; i < (int)enemies.size(); i++){
 

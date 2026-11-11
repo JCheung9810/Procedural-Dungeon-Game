@@ -1,9 +1,13 @@
 #pragma once
 
-#include "player.h"
-#include "dungeon.h"
-
 #include "raylib.h"
+
+#include <vector>
+
+using namespace std;
+
+struct Player;
+struct Dungeon;
 
 struct Enemy {
     const char* name;
@@ -27,5 +31,5 @@ struct Enemy {
     
 };
 
-void AddEnemy(vector<Enemy>& enemies, const char* name);
-void UpdateEnemies(vector<Enemy>& enemies, Player player, Dungeon& dungeon);
+void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position);
+void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon);

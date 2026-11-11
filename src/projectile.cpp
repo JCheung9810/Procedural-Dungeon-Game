@@ -168,7 +168,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
         //Check player collision
         if(!collisionDetected && TextIsEqual(projectiles[i].team, "Enemy") &&
            player.iFrames <= 0.0f &&
-           CheckCollisionRecs(player.hitBox, projectiles[i].hitbox)){
+           CheckCollisionRecs(player.hitbox, projectiles[i].hitbox)){
 
             player.health -= projectiles[i].damage;
             player.iFrames = 1.0f;

@@ -1,6 +1,8 @@
 #include "dungeon.h"
 
 #include "assetManager.h"
+#include "player.h"
+#include "enemy.h"
 
 #include "json.hpp"
 
@@ -169,6 +171,13 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     
                     room.roomContent.decor.push_back(decor);
 
+                } else if(entity["layer"] == "RoomHitbox"){
+                    room.roomContent.hitbox = {
+                        entity["x"].get<float>() * scale + room.position.x,
+                        entity["y"].get<float>() * scale + room.position.y,
+                        entity["width"].get<float>() * scale,
+                        entity["height"].get<float>() * scale
+                    };
                 }
             }
         }
@@ -176,6 +185,40 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     catch (const json::exception& e) {
         TraceLog(LOG_ERROR, "Error loading level data: %s", e.what());
     }
+}
+
+void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+        if(dungeon.rooms[i].exists && dungeon.rooms[i].state != RoomState::CLEARED && dungeon.rooms[i].state != RoomState::ACTIVE && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hitbox)){
+            //Update room state to active if player is in the room
+            dungeon.rooms[i].state = RoomState::ACTIVE;
+
+            //Spawn enemies because player is in the room
+            for(int j = 0; j < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); j++){
+                for(int k = 0; k < (int)dungeon.rooms[i].roomContent.enemySpawnPoints[j].names.size(); k++){
+                    AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[j].names[k], dungeon.rooms[i].roomContent.enemySpawnPoints[j].position);
+                }
+                dungeon.rooms[i].roomContent.enemySpawnPoints[j].names.clear();
+            }
+        } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
+            //Check if all enemies are dead
+            bool allEnemiesDead = true;
+            for(int j = 0; j < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); j++){
+                if(dungeon.rooms[i].roomContent.enemySpawnPoints[j].names.size() > 0){
+                    allEnemiesDead = false;
+                    break;
+                }
+            }
+
+            if(allEnemiesDead){
+                dungeon.rooms[i].state = RoomState::CLEARED;
+            }
+
+        }
+    }
+
+
+
 }
 
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
