@@ -21,5 +21,32 @@
 		"Background.png",
 		"Floor.png"
 	],
-	"entities" : {}
+	"entities": {
+		"EnemySpawnPoint": [
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "a3a14920-bde0-11f1-bb0c-01fbc488b0d0",
+				"layer": "EnemySpawnPoint",
+				"x": 1368,
+				"y": 920,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			}
+		],
+		"RoomHitbox": [
+			{
+				"id": "RoomHitbox",
+				"iid": "5338ae20-bde0-11f1-bb0c-8764aabf864e",
+				"layer": "RoomHitbox",
+				"x": 768,
+				"y": 784,
+				"width": 256,
+				"height": 256,
+				"color": 14120515,
+				"customFields" : {}
+			}
+		]
+	}
 }

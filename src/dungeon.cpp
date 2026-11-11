@@ -85,12 +85,19 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     room.roomContent.breakables.clear();
     room.roomContent.usables.clear();
     room.roomContent.enemySpawnPoints.clear();
-    room.numEnemiesToSpawn = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerRoom, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerRoom);
     room.wave = 0;
     room.numEnemiesSpawned = 0;
     if(TextIsEqual(room.type, "Spawn")){
         room.state = RoomState::CLEARED;
+    } else if(TextIsEqual(room.type, "BossN") || TextIsEqual(room.type, "BossE") || TextIsEqual(room.type, "BossS") || TextIsEqual(room.type, "BossW")){
+        room.numEnemiesToSpawn = 1;
+        room.state = RoomState::INACTIVE;
+    } else if(!room.exists || TextIsEqual(room.type, "EndN") || TextIsEqual(room.type, "EndE") || TextIsEqual(room.type, "EndS") || TextIsEqual(room.type, "EndW")){
+        room.numEnemiesToSpawn = 0;
+        room.state = RoomState::INACTIVE;
+        
     } else {
+        room.numEnemiesToSpawn = GetRandomValue(dungeon.floorSpawnPools[dungeon.floor].minEnemiesPerRoom, dungeon.floorSpawnPools[dungeon.floor].maxEnemiesPerRoom);
         room.state = RoomState::INACTIVE;
     }
 
@@ -1021,6 +1028,14 @@ void GenerateDungeon(Dungeon& dungeon){
             SetRoomInfo(dungeon, dungeon.rooms[i]);
         }
     }
+
+    //Purge empty rooms
+    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+        if(dungeon.rooms[i].exists == false){
+            dungeon.rooms.erase(dungeon.rooms.begin() + i);
+            i--;
+        }
+    }
 }
 
 bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
@@ -1056,9 +1071,7 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
                 }
             }
 
-            dungeon.rooms[i].wave++;
-
-        //If player is in the room (state is active)
+        //If room state is active
         } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
             //When all enemies are cleared
             if(enemies.size() == 0){
@@ -1080,6 +1093,7 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
                 }
             }
 
+        //If room state is inactive, check if an active room is adjacent to it and connected
         } else if(dungeon.rooms[i].state == RoomState::INACTIVE){
             if(ActiveRoomAdjacent(dungeon, dungeon.rooms[i])){
                 dungeon.rooms[i].state = RoomState::DISCOVERED;

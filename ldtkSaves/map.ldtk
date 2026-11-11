@@ -2350,7 +2350,24 @@
 					"seed": 1647369,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "32474cd0-bde0-11f1-bb0c-952770bd0b45",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -128,
+							"__worldY": 2336
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -3648,7 +3665,72 @@
 					"seed": 9628110,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "434fff80-bde0-11f1-bb0c-d5478afc7048",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 1832
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "443f8fa0-bde0-11f1-bb0c-457f8e0ee28d",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "44e804a0-bde0-11f1-bb0c-475d7b2c22ec",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 1832
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "45792110-bde0-11f1-bb0c-ad98390d592d",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 2008
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -4273,7 +4355,24 @@
 					"seed": 7406633,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3cbbd820-bde0-11f1-bb0c-6d646a5a5279",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -128,
+							"__worldY": 1792
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -6294,7 +6393,24 @@
 					"seed": 6573083,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "364d44b0-bde0-11f1-bb0c-a3910e41532c",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 352,
+							"__worldY": 2336
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -7592,7 +7708,72 @@
 					"seed": 9889707,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "478e1e60-bde0-11f1-bb0c-d982cffa563e",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 456,
+							"__worldY": 1832
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "48226f20-bde0-11f1-bb0c-2979169ecbb2",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 456,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "48c7d6e0-bde0-11f1-bb0c-23b13103342f",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 632,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "49bb85b0-bde0-11f1-bb0c-9b4ffc650e3f",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 632,
+							"__worldY": 1832
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -8315,7 +8496,24 @@
 					"seed": 440485,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3be6d4e0-bde0-11f1-bb0c-0db9d16b632f",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 416,
+							"__worldY": 1792
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -10311,7 +10509,24 @@
 					"seed": 8160108,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "37300390-bde0-11f1-bb0c-c71bd127ee90",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 832,
+							"__worldY": 2336
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -11609,7 +11824,72 @@
 					"seed": 3270691,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4ac66600-bde0-11f1-bb0c-3f7d5ddb8a6f",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 1000,
+							"__worldY": 1832
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4b21a560-bde0-11f1-bb0c-1bab51c9a57b",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 1000,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4b8ee620-bde0-11f1-bb0c-4bf2e3b49adf",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 1176,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4c1ef120-bde0-11f1-bb0c-5fc9c8a1e19a",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 1176,
+							"__worldY": 1832
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -12307,7 +12587,24 @@
 					"seed": 3858547,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3adf01d0-bde0-11f1-bb0c-13d03d93eca4",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 960,
+							"__worldY": 1792
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -14328,7 +14625,24 @@
 					"seed": 9803067,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3859b680-bde0-11f1-bb0c-454a8d7f76ab",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 1312,
+							"__worldY": 2336
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -15626,7 +15940,72 @@
 					"seed": 4802946,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4dcc04e0-bde0-11f1-bb0c-11914ce1c996",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 1544,
+							"__worldY": 1832
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4e4d42d0-bde0-11f1-bb0c-81df7ae54d92",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 1544,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4ef5b7d0-bde0-11f1-bb0c-37553d22dbe8",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 1720,
+							"__worldY": 2008
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "4fac0f80-bde0-11f1-bb0c-8bffda13bddd",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 1720,
+							"__worldY": 1832
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -16349,7 +16728,24 @@
 					"seed": 5505103,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "39fe65d0-bde0-11f1-bb0c-af96482f2113",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 1504,
+							"__worldY": 1792
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -17647,72 +18043,7 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "EnemySpawnPoint",
-							"__grid": [20,20],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#BE4A2F",
-							"iid": "08f41180-bde0-11f1-8f80-8d87e807e9a4",
-							"width": 16,
-							"height": 16,
-							"defUid": 79,
-							"px": [328,328],
-							"fieldInstances": [],
-							"__worldX": 88,
-							"__worldY": 3096
-						},
-						{
-							"__identifier": "EnemySpawnPoint",
-							"__grid": [9,20],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#BE4A2F",
-							"iid": "09724230-bde0-11f1-8f80-c581cb9c545d",
-							"width": 16,
-							"height": 16,
-							"defUid": 79,
-							"px": [152,328],
-							"fieldInstances": [],
-							"__worldX": -88,
-							"__worldY": 3096
-						},
-						{
-							"__identifier": "EnemySpawnPoint",
-							"__grid": [9,9],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#BE4A2F",
-							"iid": "0a167170-bde0-11f1-8f80-2ddf2b1356ab",
-							"width": 16,
-							"height": 16,
-							"defUid": 79,
-							"px": [152,152],
-							"fieldInstances": [],
-							"__worldX": -88,
-							"__worldY": 2920
-						},
-						{
-							"__identifier": "EnemySpawnPoint",
-							"__grid": [20,9],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#BE4A2F",
-							"iid": "0b5448a0-bde0-11f1-8f80-5d32dd13a2fb",
-							"width": 16,
-							"height": 16,
-							"defUid": 79,
-							"px": [328,152],
-							"fieldInstances": [],
-							"__worldX": 88,
-							"__worldY": 2920
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Decor",
@@ -18683,9 +19014,9 @@
 							"__tags": ["Room"],
 							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#D77643",
-							"iid": "3aae3b60-bde0-11f1-a0ab-af761b816ebe",
-							"width": 112,
-							"height": 112,
+							"iid": "33d5b500-bde0-11f1-bb0c-511a55428535",
+							"width": 256,
+							"height": 256,
 							"defUid": 111,
 							"px": [112,112],
 							"fieldInstances": [],
@@ -20032,7 +20363,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "52b5cd10-bde0-11f1-bb0c-0bcbed245aac",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 1352
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "536d0f20-bde0-11f1-bb0c-213d4aa69d43",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 1352
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "55082180-bde0-11f1-bb0c-41ee9d9fa987",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 1528
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "557fe990-bde0-11f1-bb0c-a557f68669db",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 1528
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -20995,7 +21391,24 @@
 					"seed": 4380897,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3dbe5400-bde0-11f1-bb0c-b574cc03999e",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -128,
+							"__worldY": 1312
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -22335,7 +22748,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "997c3d60-bde0-11f1-bb0c-8559a038ac76",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": -72,
+							"__worldY": -648
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "99f62850-bde0-11f1-bb0c-3ddf45fb62fc",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": -72,
+							"__worldY": -472
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "9a502f30-bde0-11f1-bb0c-0fa0e359784c",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 104,
+							"__worldY": -472
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "9ab818c0-bde0-11f1-bb0c-71de55be3f8c",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 104,
+							"__worldY": -648
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -23298,7 +23776,24 @@
 					"seed": 1950258,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "48a35460-bde0-11f1-bb0c-b5e91faa213a",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -112,
+							"__worldY": -688
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -24638,7 +25133,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "96987e60-bde0-11f1-bb0c-bb3155a045a8",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 392,
+							"__worldY": -88
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "97039c40-bde0-11f1-bb0c-4d0d024becfe",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 392,
+							"__worldY": 88
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "976962f0-bde0-11f1-bb0c-2760cfe1ad54",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 568,
+							"__worldY": 88
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "97dbd3d0-bde0-11f1-bb0c-c9ab5541a826",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 568,
+							"__worldY": -88
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -25482,7 +26042,24 @@
 					"seed": 3985744,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "468a1150-bde0-11f1-bb0c-df9aad9b86f6",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 352,
+							"__worldY": -128
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -26794,7 +27371,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "929d34e0-bde0-11f1-bb0c-055851e72b11",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": -88
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "9369d3b0-bde0-11f1-bb0c-410dd363483f",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": -88
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "93f7e2e0-bde0-11f1-bb0c-3db9e83edaac",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 88
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "9473c9a0-bde0-11f1-bb0c-2b57f53d4dd8",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 88
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -27515,7 +28157,24 @@
 					"seed": 6800710,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "8ee8df70-bde0-11f1-bb0c-973df30d837e",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -128,
+							"__worldY": -128
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -28827,7 +29486,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "60b13530-bde0-11f1-bb0c-e313a61b7f32",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 1352,
+							"__worldY": 872
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6116fbe0-bde0-11f1-bb0c-03a07652f6fc",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 1352,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "61d7b3d0-bde0-11f1-bb0c-61edcfe7e903",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 1528,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "623d7a80-bde0-11f1-bb0c-ebda05340cdb",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 1528,
+							"__worldY": 872
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -29669,7 +30393,24 @@
 					"seed": 7646016,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "4150c990-bde0-11f1-bb0c-775e83ebc74d",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 1312,
+							"__worldY": 832
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -30995,7 +31736,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "64d192e0-bde0-11f1-bb0c-6bef46b4d8be",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 1352,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "65473810-bde0-11f1-bb0c-7d277c31545f",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 1352,
+							"__worldY": 568
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "65bf2730-bde0-11f1-bb0c-711ff5d561f0",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 1528,
+							"__worldY": 568
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "663ae6e0-bde0-11f1-bb0c-df34eae23a11",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 1528,
+							"__worldY": 392
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -31741,7 +32547,24 @@
 					"seed": 528518,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "423f4840-bde0-11f1-bb0c-276d4a0430f9",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 1312,
+							"__worldY": 352
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -33053,7 +33876,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5d627f60-bde0-11f1-bb0c-97bb953f6674",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 872,
+							"__worldY": 872
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5ddf9ea0-bde0-11f1-bb0c-03b3f708cf60",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 872,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5e82bc70-bde0-11f1-bb0c-79cb36410dc4",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 1048,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5effdbb0-bde0-11f1-bb0c-e3d0a4322f81",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 1048,
+							"__worldY": 872
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -33993,7 +34881,24 @@
 					"seed": 1100766,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "40638360-bde0-11f1-bb0c-137ca86e2328",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 832,
+							"__worldY": 832
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -35325,7 +36230,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6752bf80-bde0-11f1-bb0c-356344bf4e39",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 1048,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "67e5fed0-bde0-11f1-bb0c-f3c1bfc60458",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 1048,
+							"__worldY": 568
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "68edd1e0-bde0-11f1-bb0c-c16dea44e577",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 872,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6967bcd0-bde0-11f1-bb0c-6da7ac4924a7",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 872,
+							"__worldY": 568
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -36144,7 +37114,24 @@
 					"seed": 4258171,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "4340d9c0-bde0-11f1-bb0c-8b8e3eddf2cf",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 832,
+							"__worldY": 352
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -37463,7 +38450,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5a45af00-bde0-11f1-bb0c-fbdc8fed9a17",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 392,
+							"__worldY": 872
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5aba42c0-bde0-11f1-bb0c-d5461968a545",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 392,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5b76dc00-bde0-11f1-bb0c-db2bdff69088",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 568,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "5c5bbdc0-bde0-11f1-bb0c-016dbbcda426",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 568,
+							"__worldY": 872
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -38305,7 +39357,24 @@
 					"seed": 5979902,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3f96e490-bde0-11f1-bb0c-9ffe6838011f",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 352,
+							"__worldY": 832
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -39638,7 +40707,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6a7d4b80-bde0-11f1-bb0c-e9507b7edb5c",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 568,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6b00ac50-bde0-11f1-bb0c-81a018b037ff",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": 392,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6b8852e0-bde0-11f1-bb0c-1b8368285af2",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": 392,
+							"__worldY": 568
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6c012c60-bde0-11f1-bb0c-dd5ff55e7ec3",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 568,
+							"__worldY": 568
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -40457,7 +41591,24 @@
 					"seed": 4848078,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "43e81640-bde0-11f1-bb0c-b7069c89ba86",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": 352,
+							"__worldY": 352
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -41777,7 +42928,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6e14f130-bde0-11f1-bb0c-4d04071317cc",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6e8fed90-bde0-11f1-bb0c-e79412fb075a",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 568
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6eeb2cf0-bde0-11f1-bb0c-95ddbb3561d1",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 568
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "6f6713b0-bde0-11f1-bb0c-f77fec78b8c2",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 392
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -42523,7 +43739,24 @@
 					"seed": 2626755,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "44bd1980-bde0-11f1-bb0c-8d7c180980b0",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -128,
+							"__worldY": 352
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -43841,7 +45074,72 @@
 					"seed": 1669084,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "572e0ec0-bde0-11f1-bb0c-0bd669d23625",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,152],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 872
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [9,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "579fbc50-bde0-11f1-bb0c-73b35d86819e",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [152,328],
+							"fieldInstances": [],
+							"__worldX": -88,
+							"__worldY": 1048
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "584d6170-bde0-11f1-bb0c-4ff9cad80d4f",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,152],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 872
+						},
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [20,20],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "592264b0-bde0-11f1-bb0c-35e8022d56ba",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [328,328],
+							"fieldInstances": [],
+							"__worldX": 88,
+							"__worldY": 1048
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -44708,7 +46006,24 @@
 					"seed": 7389975,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [7,7],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "3eba8e50-bde0-11f1-bb0c-1b5374192093",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [112,112],
+							"fieldInstances": [],
+							"__worldX": -128,
+							"__worldY": 832
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -46034,7 +47349,24 @@
 					"seed": 1796571,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [46,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "a1226670-bde0-11f1-bb0c-9fec035155c2",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [744,920],
+							"fieldInstances": [],
+							"__worldX": -2680,
+							"__worldY": 664
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -46159,7 +47491,24 @@
 					"seed": 4800338,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [54,49],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "751580e0-bde0-11f1-bb0c-d7b076b4a973",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [864,784],
+							"fieldInstances": [],
+							"__worldX": -2560,
+							"__worldY": 528
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -61072,7 +62421,24 @@
 					"seed": 6198809,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [60,24],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "a46fe3c0-bde0-11f1-bb0c-9d18a10eea66",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [968,392],
+							"fieldInstances": [],
+							"__worldX": -8216,
+							"__worldY": 136
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -61197,7 +62563,24 @@
 					"seed": 7961597,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [53,46],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "53f01740-bde0-11f1-bb0c-9dcac7384c33",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [848,736],
+							"fieldInstances": [],
+							"__worldX": -8336,
+							"__worldY": 480
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -76110,7 +77493,24 @@
 					"seed": 3063529,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [85,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "a3a14920-bde0-11f1-bb0c-01fbc488b0d0",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [1368,920],
+							"fieldInstances": [],
+							"__worldX": -5896,
+							"__worldY": 664
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -76235,7 +77635,24 @@
 					"seed": 7610279,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [48,49],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "5338ae20-bde0-11f1-bb0c-8764aabf864e",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [768,784],
+							"fieldInstances": [],
+							"__worldX": -6496,
+							"__worldY": 528
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",
@@ -91148,7 +92565,24 @@
 					"seed": 281523,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "EnemySpawnPoint",
+							"__grid": [62,81],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 96, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "a27ffaa0-bde0-11f1-bb0c-710b268dc8ad",
+							"width": 16,
+							"height": 16,
+							"defUid": 79,
+							"px": [1000,1304],
+							"fieldInstances": [],
+							"__worldX": -4344,
+							"__worldY": 1048
+						}
+					]
 				},
 				{
 					"__identifier": "Decor",
@@ -91273,7 +92707,24 @@
 					"seed": 322824,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "RoomHitbox",
+							"__grid": [55,54],
+							"__pivot": [0,0],
+							"__tags": ["Room"],
+							"__tile": { "tilesetUid": 10, "x": 384, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#D77643",
+							"iid": "51dd15c0-bde0-11f1-bb0c-cbb2a6e449f8",
+							"width": 256,
+							"height": 256,
+							"defUid": 111,
+							"px": [880,864],
+							"fieldInstances": [],
+							"__worldX": -4464,
+							"__worldY": 608
+						}
+					]
 				},
 				{
 					"__identifier": "Floor",

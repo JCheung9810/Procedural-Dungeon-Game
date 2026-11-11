@@ -443,6 +443,19 @@
 				"color": 9905959,
 				"customFields" : {}
 			}
+		],
+		"RoomHitbox": [
+			{
+				"id": "RoomHitbox",
+				"iid": "37300390-bde0-11f1-bb0c-c71bd127ee90",
+				"layer": "RoomHitbox",
+				"x": 112,
+				"y": 112,
+				"width": 256,
+				"height": 256,
+				"color": 14120515,
+				"customFields" : {}
+			}
 		]
 	}
 }
