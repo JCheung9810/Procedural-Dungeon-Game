@@ -11,7 +11,7 @@
 	"iid": "0d346600-bde0-11f1-a8a5-fd950294a5af",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 116,
+	"nextUid": 117,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "Free",
@@ -1738,6 +1738,41 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "HorizontalDoor",
+			"uid": 116,
+			"tags": ["Spawning"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 32,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#EAD4AA",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 10,
+			"tileRenderMode": "Repeat",
+			"tileRect": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -2405,7 +2440,24 @@
 					"seed": 2399101,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "70b7a390-bde0-11f1-8258-ff1149b14059",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 2304
+						}
+					]
 				},
 				{
 					"__identifier": "RoomHitbox",
@@ -4435,7 +4487,24 @@
 					"seed": 2399101,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "7cbcb9f0-bde0-11f1-8258-153db3a52566",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 1760
+						}
+					]
 				},
 				{
 					"__identifier": "RoomHitbox",
@@ -6501,7 +6570,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -6510,9 +6579,9 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 608,
+							"__worldX": 624,
 							"__worldY": 2448
 						}
 					]
@@ -8646,7 +8715,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -8655,9 +8724,9 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 672,
+							"__worldX": 688,
 							"__worldY": 1904
 						}
 					]
@@ -10698,7 +10767,24 @@
 					"seed": 2399101,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "7742e6c0-bde0-11f1-8258-81c24d3239bb",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 944,
+							"__worldY": 2608
+						}
+					]
 				},
 				{
 					"__identifier": "RoomHitbox",
@@ -12801,7 +12887,24 @@
 					"seed": 2399101,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "7fe745f0-bde0-11f1-8258-272785345a0d",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 1072,
+							"__worldY": 2064
+						}
+					]
 				},
 				{
 					"__identifier": "RoomHitbox",
@@ -14867,7 +14970,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -14876,9 +14979,9 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 1296,
+							"__worldX": 1280,
 							"__worldY": 2448
 						}
 					]
@@ -17012,7 +17115,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -17021,9 +17124,9 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 1488,
+							"__worldX": 1472,
 							"__worldY": 1904
 						}
 					]
@@ -19332,7 +19435,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -19341,14 +19444,14 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 128,
+							"__worldX": 144,
 							"__worldY": 2992
 						},
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -19357,10 +19460,42 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": -144,
+							"__worldX": -160,
 							"__worldY": 2992
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "5ad782c0-bde0-11f1-8258-291588a1650f",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 2848
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "5bbb5310-bde0-11f1-8258-bb2a0d7474bd",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 3152
 						}
 					]
 				},
@@ -21775,7 +21910,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -21784,14 +21919,14 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": -144,
+							"__worldX": -160,
 							"__worldY": 1424
 						},
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -21800,10 +21935,42 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 128,
+							"__worldX": 144,
 							"__worldY": 1424
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "84e33690-bde0-11f1-8258-a15c1829023f",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 1280
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "860129b0-bde0-11f1-8258-8d93fd1236ce",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 1584
 						}
 					]
 				},
@@ -24217,35 +24384,67 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#EAD4AA",
-							"iid": "21e9a690-bde0-11f1-824f-5187e23ddb93",
+							"iid": "608a8e60-bde0-11f1-8258-652403201ad1",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 0,
+							"__worldY": -416
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "61c9c520-bde0-11f1-8258-19a47225a6e5",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": 0,
+							"__worldY": -720
+						},
+						{
+							"__identifier": "VerticalDoor",
+							"__grid": [5,14],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "64a7ded0-bde0-11f1-8258-7b694cc5615d",
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": -128,
+							"__worldX": -144,
 							"__worldY": -576
 						},
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#EAD4AA",
-							"iid": "22628010-bde0-11f1-824f-ed688b0a427d",
+							"iid": "655276b0-bde0-11f1-8258-e156668fc3cc",
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 144,
+							"__worldX": 160,
 							"__worldY": -576
 						}
 					]
@@ -26542,7 +26741,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -26551,14 +26750,14 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 336,
+							"__worldX": 320,
 							"__worldY": -16
 						},
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -26567,9 +26766,9 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 608,
+							"__worldX": 624,
 							"__worldY": -16
 						}
 					]
@@ -28712,7 +28911,40 @@
 					"seed": 2399101,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "a09e8470-bde0-11f1-8258-7fa4e899d77d",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 144
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "a133e6a0-bde0-11f1-8258-b12512b80c61",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": -160
+						}
+					]
 				},
 				{
 					"__identifier": "RoomHitbox",
@@ -30976,7 +31208,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -30985,10 +31217,42 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 1296,
+							"__worldX": 1280,
 							"__worldY": 944
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "9435ca40-bde0-11f1-8258-3ff08744e50e",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 1424,
+							"__worldY": 1104
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "94b95220-bde0-11f1-8258-25234e2e03c4",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": 1424,
+							"__worldY": 800
 						}
 					]
 				},
@@ -33172,7 +33436,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -33181,10 +33445,26 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 1296,
+							"__worldX": 1280,
 							"__worldY": 464
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "9e734000-bde0-11f1-8258-0b980f9c08fa",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": 1424,
+							"__worldY": 320
 						}
 					]
 				},
@@ -35548,7 +35828,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -35557,14 +35837,14 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 816,
+							"__worldX": 800,
 							"__worldY": 944
 						},
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -35573,10 +35853,26 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 1088,
+							"__worldX": 1104,
 							"__worldY": 944
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "90e0d2e0-bde0-11f1-8258-479cbd59b111",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 944,
+							"__worldY": 1104
 						}
 					]
 				},
@@ -37839,7 +38135,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -37848,10 +38144,26 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": 816,
+							"__worldX": 800,
 							"__worldY": 464
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "9be89d80-bde0-11f1-8258-a38eedaa6d57",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 944,
+							"__worldY": 624
 						}
 					]
 				},
@@ -40124,7 +40436,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -40133,10 +40445,42 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 608,
+							"__worldX": 624,
 							"__worldY": 944
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "8ca2b400-bde0-11f1-8258-e557a8cb9709",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": 464,
+							"__worldY": 800
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "8d4c3a70-bde0-11f1-8258-ff07714094ec",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 464,
+							"__worldY": 1104
 						}
 					]
 				},
@@ -42400,7 +42744,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -42409,10 +42753,26 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 608,
+							"__worldX": 624,
 							"__worldY": 464
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,24],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "99390de0-bde0-11f1-8258-15c7db1fb7f6",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,384],
+							"fieldInstances": [],
+							"__worldX": 464,
+							"__worldY": 624
 						}
 					]
 				},
@@ -44590,7 +44950,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -44599,10 +44959,26 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 128,
+							"__worldX": 144,
 							"__worldY": 464
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "981e2800-bde0-11f1-8258-373c4defc309",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 320
 						}
 					]
 				},
@@ -46899,7 +47275,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [6,14],
+							"__grid": [5,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -46908,14 +47284,14 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [96,224],
+							"px": [80,224],
 							"fieldInstances": [],
-							"__worldX": -144,
+							"__worldX": -160,
 							"__worldY": 944
 						},
 						{
 							"__identifier": "VerticalDoor",
-							"__grid": [23,14],
+							"__grid": [24,14],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
 							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
@@ -46924,10 +47300,26 @@
 							"width": 16,
 							"height": 32,
 							"defUid": 114,
-							"px": [368,224],
+							"px": [384,224],
 							"fieldInstances": [],
-							"__worldX": 128,
+							"__worldX": 144,
 							"__worldY": 944
+						},
+						{
+							"__identifier": "HorizontalDoor",
+							"__grid": [14,5],
+							"__pivot": [0,0],
+							"__tags": ["Spawning"],
+							"__tile": { "tilesetUid": 10, "x": 336, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "8b320d00-bde0-11f1-8258-bf6a155a9520",
+							"width": 32,
+							"height": 16,
+							"defUid": 116,
+							"px": [224,80],
+							"fieldInstances": [],
+							"__worldX": -16,
+							"__worldY": 800
 						}
 					]
 				},

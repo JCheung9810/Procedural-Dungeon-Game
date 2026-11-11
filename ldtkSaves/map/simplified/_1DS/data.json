@@ -481,6 +481,19 @@
 				"customFields" : {}
 			}
 		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "7fe745f0-bde0-11f1-8258-272785345a0d",
+				"layer": "Doors",
+				"x": 224,
+				"y": 384,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",

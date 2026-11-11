@@ -602,10 +602,34 @@
 				"id": "VerticalDoor",
 				"iid": "1a7b7d70-bde0-11f1-824f-b14a01f1557c",
 				"layer": "Doors",
-				"x": 96,
+				"x": 80,
 				"y": 224,
 				"width": 16,
 				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "9435ca40-bde0-11f1-8258-3ff08744e50e",
+				"layer": "Doors",
+				"x": 224,
+				"y": 384,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "HorizontalDoor",
+				"iid": "94b95220-bde0-11f1-8258-25234e2e03c4",
+				"layer": "Doors",
+				"x": 224,
+				"y": 80,
+				"width": 32,
+				"height": 16,
 				"color": 15389866,
 				"customFields" : {}
 			}

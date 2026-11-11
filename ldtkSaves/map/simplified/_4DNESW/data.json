@@ -685,7 +685,7 @@
 				"id": "VerticalDoor",
 				"iid": "fed0f870-bde0-11f1-824f-e92c275be438",
 				"layer": "Doors",
-				"x": 96,
+				"x": 80,
 				"y": 224,
 				"width": 16,
 				"height": 32,
@@ -696,10 +696,34 @@
 				"id": "VerticalDoor",
 				"iid": "ffb0aa10-bde0-11f1-824f-8baba355311d",
 				"layer": "Doors",
-				"x": 368,
+				"x": 384,
 				"y": 224,
 				"width": 16,
 				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "84e33690-bde0-11f1-8258-a15c1829023f",
+				"layer": "Doors",
+				"x": 224,
+				"y": 80,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "HorizontalDoor",
+				"iid": "860129b0-bde0-11f1-8258-8d93fd1236ce",
+				"layer": "Doors",
+				"x": 224,
+				"y": 384,
+				"width": 32,
+				"height": 16,
 				"color": 15389866,
 				"customFields" : {}
 			}

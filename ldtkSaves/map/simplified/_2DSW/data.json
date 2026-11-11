@@ -598,10 +598,23 @@
 				"id": "VerticalDoor",
 				"iid": "1c4763d0-bde0-11f1-824f-fd9c22d3f950",
 				"layer": "Doors",
-				"x": 96,
+				"x": 80,
 				"y": 224,
 				"width": 16,
 				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "9be89d80-bde0-11f1-8258-a38eedaa6d57",
+				"layer": "Doors",
+				"x": 224,
+				"y": 384,
+				"width": 32,
+				"height": 16,
 				"color": 15389866,
 				"customFields" : {}
 			}
