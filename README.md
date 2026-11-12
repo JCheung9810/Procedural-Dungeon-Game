@@ -37,7 +37,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Shop 
 
 # Priority List (Highest to Lowest)
-  - Advanced enemy ai
+  - Advanced enemy ai (state changing, pathing, different behaviors)
   - Make enemies spawn in the center of the spawn point
   - Add enemy getting hit effect (change their color to white (gun and entity))
   - Better projectile hitbox
