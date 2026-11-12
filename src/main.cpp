@@ -47,7 +47,7 @@ int main(void){
     
     //Debugging
     Debug debug{};
-    
+
     //Disable escape key to close window
     SetExitKey(KEY_NULL);
     bool exitWindowRequested = false;
