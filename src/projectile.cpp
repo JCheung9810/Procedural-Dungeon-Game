@@ -23,7 +23,9 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
     if(TextIsEqual(team,"Player")){
         projectilesToCreate = player.weapons[player.equippedWeaponIndex].numProjectiles;
     } else if(TextIsEqual(team,"Enemy")){
-        projectilesToCreate = 1;
+        projectilesToCreate = enemy->weapon.numProjectiles;
+    } else {
+        TraceLog(LOG_ERROR, "Unknown team passed into FireProjectile");
     }
     
     for (int i = 0; i < projectilesToCreate; i++){
@@ -33,10 +35,10 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
         //Start lifespan
         projectile.lifeSpan = projectileLifespan; 
 
-        if(TextIsEqual(team,"Player")){
-            //Set projectile team
-            projectile.team = "Player";
-            
+        //Set projectile team
+        projectile.team = team;
+
+        if(TextIsEqual(team,"Player")){          
             //Projectile rotation from gun barrel to target
             int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
             float randSpread = GetRandomValue(-spread, spread) / 10.0f;
@@ -55,21 +57,27 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
 
         } else if(TextIsEqual(team,"Enemy")){
 
-            if(enemy == nullptr)
+            //Null catch
+            if(enemy == nullptr){
+                TraceLog(LOG_ERROR, "nullptr passed in for FiringProjectile");
                 return;
-            
-            //Set projectile team
-            projectile.team = "Enemy";
+            }
             
             //Projectile rotation from center to player center
-            projectile.rotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
+            int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
+            float randSpread = GetRandomValue(-spread, spread) / 10.0f;
+            float projectileRotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x)  * RAD2DEG + randSpread;
+            projectile.rotation = projectileRotation * DEG2RAD;
             
             //Projectile starting position
-            projectile.position = enemy->center;
+            projectile.position = Vector2{
+                enemy->center.x + cos(projectile.rotation) * (enemy->weapon.projectileOffset), 
+                enemy->center.y + sin(projectile.rotation) * (enemy->weapon.projectileOffset)
+            };
             
             //Set projectile damage and type
-            projectile.damage = 1.0f;
-            projectile.type = "Pistol";
+            projectile.damage = enemy->weapon.damage;
+            projectile.type = enemy->weapon.type;
         }
         
         //Set trajectory

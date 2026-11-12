@@ -21,6 +21,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
         newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
         newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
         
+        newEnemy.weapon = LoadWeapon("config/weapon.json", "EnemyPistol");
         newEnemy.attackRate = 1.0f;
         newEnemy.attackCD = newEnemy.attackRate;
         

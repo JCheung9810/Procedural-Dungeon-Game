@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include "weapon.h"
+
 #include <vector>
 
 using namespace std;
@@ -20,11 +22,13 @@ struct Enemy {
     float speed;
     
     Rectangle hitbox;
+
+    Weapon weapon;
     
-    float attackRate;
-    float attackCD;
+    float attackRate;       //How often entity can attack, at most  (what the timer is set to)
+    float attackCD;         //How long before entity can attack again (timer)
     
-    const char* state;    //idle, walking
+    const char* state;      //idle, walking, attacking
     
     bool active;
     Texture2D texture;

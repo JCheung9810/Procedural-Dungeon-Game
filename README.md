@@ -18,10 +18,10 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different weapon types and functionality
 - UI shows current weapon, magSize, bullets left, reload on counter
 - LDTK level loading
+- Room enemy encounter trigger
 
 # To Do
 - COMBAT
-  - Make enemies use weapon objects (make firing use those stats) 
   - Draw enemy weapons 
   - Better projectile hitbox 
   - Advanced enemy ai 
@@ -39,7 +39,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # Priority List (Highest to Lowest)
   - Advanced enemy ai
-  - Make enemies use weapon objects (make firing use those stats)
   - Draw enemy weapons
   - Better projectile hitbox
   - Pickups (ammo,health)
