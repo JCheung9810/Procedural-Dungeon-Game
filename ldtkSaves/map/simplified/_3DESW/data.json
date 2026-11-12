@@ -93,7 +93,8 @@
 				"customFields": {
 					"projCollision": false,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -108,7 +109,8 @@
 				"customFields": {
 					"projCollision": true,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -123,7 +125,8 @@
 				"customFields": {
 					"projCollision": false,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -138,7 +141,8 @@
 				"customFields": {
 					"projCollision": true,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -153,7 +157,8 @@
 				"customFields": {
 					"projCollision": false,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -168,7 +173,8 @@
 				"customFields": {
 					"projCollision": true,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -183,7 +189,8 @@
 				"customFields": {
 					"projCollision": false,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -198,7 +205,8 @@
 				"customFields": {
 					"projCollision": true,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			}
 		],
@@ -215,7 +223,8 @@
 				"customFields": {
 					"projCollision": false,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			},
 			{
@@ -230,7 +239,8 @@
 				"customFields": {
 					"projCollision": true,
 					"playerCollision": true,
-					"alwaysOnTop": false
+					"alwaysOnTop": false,
+					"alwaysOnBottom": false
 				}
 			}
 		],
