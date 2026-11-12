@@ -12,11 +12,11 @@
             "maxEnemiesPerRoom": 9,
             "enemyPool": [
                 {   
-                    "name": "Dummy",
+                    "name": "Dummy Pistol",
                     "spawnWeight": 0.75
                 },
                 {
-                    "name": "Dummy",
+                    "name": "Dummy Double Barrel",
                     "spawnWeight": 0.25
                 }
             ]

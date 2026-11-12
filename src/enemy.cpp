@@ -11,8 +11,9 @@ using namespace std;
 
 void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
     Enemy newEnemy;
-    if(TextIsEqual(name, "Dummy")){
-        newEnemy.name = "Dummy";
+    newEnemy.name = name;
+
+    if(TextIsEqual(name, "Dummy Pistol")){
         newEnemy.speed = 150.0f;
         newEnemy.position = position;
         newEnemy.health = 100.0f;
@@ -21,16 +22,31 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
         newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
         newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
         
-        newEnemy.weapon = LoadWeapon("config/weapon.json", "EnemyPistol");
+        newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Pistol");
         newEnemy.attackRate = 1.0f;
         newEnemy.attackCD = newEnemy.attackRate;
-        
-        newEnemy.state = "idle";
-        
-        newEnemy.active = true;
 
-        enemies.push_back(newEnemy);
+    } else if(TextIsEqual(name, "Dummy Double Barrel")){
+        newEnemy.speed = 150.0f;
+        newEnemy.position = position;
+        newEnemy.health = 100.0f;
+        newEnemy.size = Vector2{40.0f,40.0f};
+        
+        newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
+        newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
+        
+        newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Double Barrel");
+        newEnemy.attackRate = 1.0f;
+        newEnemy.attackCD = newEnemy.attackRate;
+    } else {
+        TraceLog(LOG_ERROR, "Enemy type for spawning not found");
+        return;
     }
+
+    newEnemy.state = "idle";
+    newEnemy.active = true;
+
+    enemies.push_back(newEnemy);
 }
 
 void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
@@ -52,7 +68,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
             Vector2 previousPosition = enemies[i].position;
 
             //Straight line towards player
-            if(TextIsEqual(enemies[i].name,"Dummy")){
+            if(TextIsEqual(enemies[i].name,"Dummy Pistol") || TextIsEqual(enemies[i].name,"Dummy Double Barrel")){
                 rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
                 enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
                 enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;

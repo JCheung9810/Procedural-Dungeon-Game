@@ -17,4 +17,5 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
 );
 
 void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox);
-void DrawWeapon(Player player, float playerToMouseRotation);
+void DrawEnemies(vector<Enemy>& enemies);
+void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& enemies);

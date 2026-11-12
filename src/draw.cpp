@@ -153,26 +153,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             DrawPlayer(player, debugHurtbox, debugHitbox);
 
             //Draw enemies
-            for (int i = 0; i < (int)enemies.size(); i++){
-                if (enemies[i].active){
-                    fontSize = 15;
-                    textWidth = MeasureText(enemies[i].name, fontSize);
-                    DrawText(
-                        enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                        enemies[i].position.y - fontSize*2.2f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
-                    DrawText(
-                        TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                        enemies[i].position.y - fontSize*1.1f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    DrawRectangleRec(enemies[i].hitbox, RED);
-                }
-            }
+            DrawEnemies(enemies);
 
             //Draw projectiles
             for (int i = 0; i < (int)projectiles.size(); i++){
@@ -181,7 +162,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             } 
 
             //Draw weapon
-            DrawWeapon(player, playerToMouseRotation);
+            DrawWeapons(player, playerToMouseRotation, enemies);
 
             //Draw in front of player walls/decor
             for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
@@ -435,12 +416,36 @@ void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
     
 }
 
-void DrawWeapon(Player player, float playerToMouseRotation){
+void DrawEnemies(vector<Enemy>& enemies){
+    for (int i = 0; i < (int)enemies.size(); i++){
+                if (enemies[i].active){
+                    int fontSize = 15;
+                    int textWidth = MeasureText(enemies[i].name, fontSize);
+                    DrawText(
+                        enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                        enemies[i].position.y - fontSize*2.2f, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
+                    DrawText(
+                        TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                        enemies[i].position.y - fontSize*1.1f, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    DrawRectangleRec(enemies[i].hitbox, RED);
+                }
+            }
+}
+
+void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& enemies){
     Vector2 gunPos;
     Rectangle gunSrc;
     Rectangle gunDest;
     float gunAngle;
     
+    //Player gun
     gunPos = {
         player.center.x + cos(playerToMouseRotation) * player.weapons[player.equippedWeaponIndex].positionOffset.x,
         player.center.y + sin(playerToMouseRotation) * player.weapons[player.equippedWeaponIndex].positionOffset.x
@@ -463,4 +468,21 @@ void DrawWeapon(Player player, float playerToMouseRotation){
     
     DrawTexturePro(player.weapons[player.equippedWeaponIndex].texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, gunAngle, opacity);
     //              texture                                           source   dest               origin/pivot              rotation   color
+
+    //Enemy guns
+    for(int i = 0; i < (int)enemies.size(); i++){
+        gunAngle = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x) * RAD2DEG;
+        gunPos = {
+            enemies[i].center.x + cos(gunAngle * DEG2RAD) * enemies[i].weapon.positionOffset.x,
+            enemies[i].center.y + sin(gunAngle * DEG2RAD) * enemies[i].weapon.positionOffset.x
+        };
+        gunSrc = {0,0,(float)enemies[i].weapon.texture.width / enemies[i].weapon.textureFrames,(float)enemies[i].weapon.texture.height - enemies[i].weapon.positionOffset.y};
+        gunDest = {gunPos.x,gunPos.y,enemies[i].weapon.size,enemies[i].weapon.size};
+        
+        if (gunAngle < -90 || gunAngle > 90){
+            gunSrc.height = -gunSrc.height;
+        }
+        
+        DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, gunAngle, WHITE);
+    }
 }

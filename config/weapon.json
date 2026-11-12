@@ -70,7 +70,7 @@
 
 
         {
-            "name": "EnemyPistol",
+            "name": "Enemy Pistol",
             "type": "Pistol",
             "texturePath": "assets/textures/Pistol.png",
             "textureFrames": 6,
@@ -88,6 +88,26 @@
             "bulletSpread": 5.0,
             "numProjectiles": 1,
             "damage": 1
+        },
+        {
+            "name": "Enemy Double Barrel",
+            "type": "Shotgun",
+            "texturePath": "assets/textures/DoubleBarrel.png",
+            "textureFrames": 1,
+            "hudTexturePath": "assets/textures/DoubleBarrelHud.png",
+            "shotSoundPath": "assets/sounds/shotgunShot.mp3",
+            "reloadSoundPath": "assets/sounds/doubleBarrelReload.mp3",
+            "size": 80.0,
+            "positionOffset": [-20.0, 30.0],
+            "projectileOffset": 50.0,
+            "projectileSize": 1.0,
+            "reloadTime": 3.0,
+            "magSize": 2,
+            "fireTime": 1.0,
+            "fireMode": "SINGLE",
+            "bulletSpread": 15.0,
+            "numProjectiles": 10,
+            "damage": 1.0
         }
     ]
 }

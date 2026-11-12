@@ -61,7 +61,7 @@ int main(void){
     //Enemies
     vector<Enemy> enemies;
     
-    AddEnemy(enemies, "Dummy", Vector2{300, -300});
+    //AddEnemy(enemies, "Dummy Double Barrel", Vector2{300, -300});
     
     //Camera
     Camera2D camera = {};

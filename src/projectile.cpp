@@ -64,7 +64,7 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
             }
             
             //Projectile rotation from center to player center
-            int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
+            int spread = (int) (enemy->weapon.bulletSpread * 10);
             float randSpread = GetRandomValue(-spread, spread) / 10.0f;
             float projectileRotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x)  * RAD2DEG + randSpread;
             projectile.rotation = projectileRotation * DEG2RAD;
@@ -107,8 +107,8 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
         PlaySound(player.weapons[player.equippedWeaponIndex].shotSound);
 
         
-    } else if(TextIsEqual(team,"Enemy")){ //&& projectilesCreated >= enemy.weapons[equippedWeaponIndex].numProjectiles){
-        
+    } else if(TextIsEqual(team,"Enemy")){
+        PlaySound(enemy->weapon.shotSound);
     }
 }
 

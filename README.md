@@ -22,7 +22,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # To Do
 - COMBAT
-  - Draw enemy weapons 
   - Better projectile hitbox 
   - Advanced enemy ai 
 - UI
@@ -39,7 +38,8 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # Priority List (Highest to Lowest)
   - Advanced enemy ai
-  - Draw enemy weapons
+  - Make enemies spawn in the center of the spawn point
+  - Add enemy getting hit effect (change their color to white (gun and entity))
   - Better projectile hitbox
   - Pickups (ammo,health)
   - Reload mouse cursor
@@ -53,3 +53,5 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 # Distant Features
 - Free placed rooms instead of grid
 - Different sized rooms
+
+# Notes to Self
