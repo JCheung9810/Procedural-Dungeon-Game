@@ -90,7 +90,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -122,7 +122,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -154,7 +154,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -186,7 +186,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -220,7 +220,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -236,6 +236,214 @@
 					"projCollision": true,
 					"playerCollision": true,
 					"alwaysOnTop": false,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"Void": [
+			{
+				"id": "Void",
+				"iid": "70a703f0-bde0-11f1-8a28-5f2ca370fc2d",
+				"layer": "Decor",
+				"x": 0,
+				"y": 256,
+				"width": 96,
+				"height": 16,
+				"color": 4065004,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			},
+			{
+				"id": "Void",
+				"iid": "71c85270-bde0-11f1-8a28-f7bd8394eb67",
+				"layer": "Decor",
+				"x": 96,
+				"y": 368,
+				"width": 288,
+				"height": 16,
+				"color": 4065004,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			},
+			{
+				"id": "Void",
+				"iid": "73185210-bde0-11f1-8a28-a142661e813c",
+				"layer": "Decor",
+				"x": 384,
+				"y": 256,
+				"width": 96,
+				"height": 16,
+				"color": 4065004,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallBottom": [
+			{
+				"id": "HalfWallBottom",
+				"iid": "75083b30-bde0-11f1-8a28-4dc693eef4fb",
+				"layer": "Decor",
+				"x": 0,
+				"y": 240,
+				"width": 96,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			},
+			{
+				"id": "HalfWallBottom",
+				"iid": "76164fd0-bde0-11f1-8a28-4d9aa2e5bc9c",
+				"layer": "Decor",
+				"x": 112,
+				"y": 352,
+				"width": 256,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			},
+			{
+				"id": "HalfWallBottom",
+				"iid": "77466b60-bde0-11f1-8a28-79259153f6c8",
+				"layer": "Decor",
+				"x": 384,
+				"y": 240,
+				"width": 96,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"WallLeft": [
+			{
+				"id": "WallLeft",
+				"iid": "7a0c6930-bde0-11f1-8a28-8bab78cb01d1",
+				"layer": "Decor",
+				"x": 96,
+				"y": 256,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"WallRight": [
+			{
+				"id": "WallRight",
+				"iid": "7b045dc0-bde0-11f1-8a28-630a5a06408c",
+				"layer": "Decor",
+				"x": 368,
+				"y": 256,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallOuterCornerBottomLeft": [
+			{
+				"id": "HalfWallOuterCornerBottomLeft",
+				"iid": "7be2d6e0-bde0-11f1-8a28-25536dad273b",
+				"layer": "Decor",
+				"x": 96,
+				"y": 240,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallOuterCornerBottomRight": [
+			{
+				"id": "HalfWallOuterCornerBottomRight",
+				"iid": "7cbe1bb0-bde0-11f1-8a28-4df64086c14a",
+				"layer": "Decor",
+				"x": 368,
+				"y": 240,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallInnerCornerBottomLeft": [
+			{
+				"id": "HalfWallInnerCornerBottomLeft",
+				"iid": "7de18d10-bde0-11f1-8a28-2b4c46ba46ff",
+				"layer": "Decor",
+				"x": 96,
+				"y": 352,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallInnerCornerBottomRight": [
+			{
+				"id": "HalfWallInnerCornerBottomRight",
+				"iid": "7f0302a0-bde0-11f1-8a28-873845c9d94f",
+				"layer": "Decor",
+				"x": 368,
+				"y": 352,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
 					"alwaysOnBottom": false
 				}
 			}

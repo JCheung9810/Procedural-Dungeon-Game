@@ -73,7 +73,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -105,7 +105,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -139,7 +139,7 @@
 					"projCollision": false,
 					"playerCollision": true,
 					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"alwaysOnBottom": true
 				}
 			},
 			{
@@ -155,6 +155,182 @@
 					"projCollision": true,
 					"playerCollision": true,
 					"alwaysOnTop": false,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"Void": [
+			{
+				"id": "Void",
+				"iid": "f9c44050-bde0-11f1-8a28-476b115246a4",
+				"layer": "Decor",
+				"x": 96,
+				"y": 368,
+				"width": 112,
+				"height": 16,
+				"color": 4065004,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			},
+			{
+				"id": "Void",
+				"iid": "fb0aa300-bde0-11f1-8a28-910dc5fde801",
+				"layer": "Decor",
+				"x": 272,
+				"y": 368,
+				"width": 112,
+				"height": 16,
+				"color": 4065004,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"WallLeft": [
+			{
+				"id": "WallLeft",
+				"iid": "fdcc8220-bde0-11f1-8a28-171f7d1b8433",
+				"layer": "Decor",
+				"x": 208,
+				"y": 368,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"WallRight": [
+			{
+				"id": "WallRight",
+				"iid": "fe96aff0-bde0-11f1-8a28-15f9c4781ef2",
+				"layer": "Decor",
+				"x": 256,
+				"y": 368,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallOuterCornerBottomLeft": [
+			{
+				"id": "HalfWallOuterCornerBottomLeft",
+				"iid": "00295de0-bde0-11f1-8a28-7913cf30ef3a",
+				"layer": "Decor",
+				"x": 208,
+				"y": 352,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallOuterCornerBottomRight": [
+			{
+				"id": "HalfWallOuterCornerBottomRight",
+				"iid": "00e1d870-bde0-11f1-8a28-4f8e8760467d",
+				"layer": "Decor",
+				"x": 256,
+				"y": 352,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallBottom": [
+			{
+				"id": "HalfWallBottom",
+				"iid": "023819a0-bde0-11f1-8a28-fdbc4752475d",
+				"layer": "Decor",
+				"x": 112,
+				"y": 352,
+				"width": 96,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			},
+			{
+				"id": "HalfWallBottom",
+				"iid": "02aa8a80-bde0-11f1-8a28-e1b15d7fb01c",
+				"layer": "Decor",
+				"x": 272,
+				"y": 352,
+				"width": 96,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallInnerCornerBottomLeft": [
+			{
+				"id": "HalfWallInnerCornerBottomLeft",
+				"iid": "0694e410-bde0-11f1-8a28-47ec9d8a1404",
+				"layer": "Decor",
+				"x": 96,
+				"y": 352,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
+					"alwaysOnBottom": false
+				}
+			}
+		],
+		"HalfWallInnerCornerBottomRight": [
+			{
+				"id": "HalfWallInnerCornerBottomRight",
+				"iid": "07c2dcc0-bde0-11f1-8a28-2dfde6544c06",
+				"layer": "Decor",
+				"x": 368,
+				"y": 352,
+				"width": 16,
+				"height": 16,
+				"color": 4073265,
+				"customFields": {
+					"projCollision": false,
+					"playerCollision": false,
+					"alwaysOnTop": true,
 					"alwaysOnBottom": false
 				}
 			}
