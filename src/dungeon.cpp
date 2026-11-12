@@ -304,59 +304,59 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
     return available;
 }
 
-bool ValidRoomInDirection(const Room& currentRoom, char direction){
+bool ValidRoomInDirection(const char* type, char direction){
     bool valid = false;
     bool isBoss;
     bool isEnd;
     
     isBoss =
-        (TextIsEqual(currentRoom.type, "BossN") ||
-         TextIsEqual(currentRoom.type, "BossE") ||
-         TextIsEqual(currentRoom.type, "BossS") ||
-         TextIsEqual(currentRoom.type, "BossW"));
+        (TextIsEqual(type, "BossN") ||
+         TextIsEqual(type, "BossE") ||
+         TextIsEqual(type, "BossS") ||
+         TextIsEqual(type, "BossW"));
          
     isEnd =
-        (TextIsEqual(currentRoom.type, "EndN") ||
-         TextIsEqual(currentRoom.type, "EndE") ||
-         TextIsEqual(currentRoom.type, "EndS") ||
-         TextIsEqual(currentRoom.type, "EndW"));
+        (TextIsEqual(type, "EndN") ||
+         TextIsEqual(type, "EndE") ||
+         TextIsEqual(type, "EndS") ||
+         TextIsEqual(type, "EndW"));
     
-    if(TextIsEqual(currentRoom.type,"4DNESW") || TextIsEqual(currentRoom.type,"Spawn") || isBoss || isEnd){
+    if(TextIsEqual(type,"4DNESW") || TextIsEqual(type,"Spawn") || isBoss || isEnd){
         return true;
     }
     
     if(direction == 'N'){
         valid = ( 
-            TextIsEqual(currentRoom.type,"2DNS") || 
-            TextIsEqual(currentRoom.type,"2DES") || 
-            TextIsEqual(currentRoom.type,"2DSW") || 
-            TextIsEqual(currentRoom.type,"3DESW") || 
-            TextIsEqual(currentRoom.type,"3DNES") || 
-            TextIsEqual(currentRoom.type,"3DNSW"));
+            TextIsEqual(type,"2DNS") || 
+            TextIsEqual(type,"2DES") || 
+            TextIsEqual(type,"2DSW") || 
+            TextIsEqual(type,"3DESW") || 
+            TextIsEqual(type,"3DNES") || 
+            TextIsEqual(type,"3DNSW"));
     } else if(direction == 'E'){
         valid = (
-            TextIsEqual(currentRoom.type,"2DEW") || 
-            TextIsEqual(currentRoom.type,"2DSW") || 
-            TextIsEqual(currentRoom.type,"2DNW") || 
-            TextIsEqual(currentRoom.type,"3DNSW") || 
-            TextIsEqual(currentRoom.type,"3DESW") || 
-            TextIsEqual(currentRoom.type,"3DNEW"));
+            TextIsEqual(type,"2DEW") || 
+            TextIsEqual(type,"2DSW") || 
+            TextIsEqual(type,"2DNW") || 
+            TextIsEqual(type,"3DNSW") || 
+            TextIsEqual(type,"3DESW") || 
+            TextIsEqual(type,"3DNEW"));
     } else if(direction == 'S'){
         valid = (
-            TextIsEqual(currentRoom.type,"2DNS") || 
-            TextIsEqual(currentRoom.type,"2DNW") || 
-            TextIsEqual(currentRoom.type,"2DNE") || 
-            TextIsEqual(currentRoom.type,"3DNEW") || 
-            TextIsEqual(currentRoom.type,"3DNSW") || 
-            TextIsEqual(currentRoom.type,"3DNES"));
+            TextIsEqual(type,"2DNS") || 
+            TextIsEqual(type,"2DNW") || 
+            TextIsEqual(type,"2DNE") || 
+            TextIsEqual(type,"3DNEW") || 
+            TextIsEqual(type,"3DNSW") || 
+            TextIsEqual(type,"3DNES"));
     } else if(direction == 'W'){
         valid = (
-            TextIsEqual(currentRoom.type,"2DEW") || 
-            TextIsEqual(currentRoom.type,"2DNE") || 
-            TextIsEqual(currentRoom.type,"2DES") || 
-            TextIsEqual(currentRoom.type,"3DNES") || 
-            TextIsEqual(currentRoom.type,"3DNEW") || 
-            TextIsEqual(currentRoom.type,"3DESW"));
+            TextIsEqual(type,"2DEW") || 
+            TextIsEqual(type,"2DNE") || 
+            TextIsEqual(type,"2DES") || 
+            TextIsEqual(type,"3DNES") || 
+            TextIsEqual(type,"3DNEW") || 
+            TextIsEqual(type,"3DESW"));
     }
     
     return valid;
@@ -381,145 +381,145 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
         
         if(TextIsEqual(currentRoom.type, "2DNS")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DEW")){
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DNE")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DES")){
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DSW")){
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "2DNW")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DNEW")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DNES")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DESW")){
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "3DNSW")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
         
         else if(TextIsEqual(currentRoom.type, "4DNESW")){
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N')){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N')){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'E')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'E')){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S')){
                 AddDirection(directions, 'S');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W')){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W')){
                 AddDirection(directions, 'W');
             }
         }
@@ -541,19 +541,19 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
             }
             
             if((dungeon.rooms[i].gridPos == Vector2{0,-1} + currentRoom.gridPos) &&
-               !ValidRoomInDirection(dungeon.rooms[i], 'N') && (bossGridPos != currentRoom.gridPos + Vector2{0,-3})){
+               !ValidRoomInDirection(dungeon.rooms[i].type, 'N') && (bossGridPos != currentRoom.gridPos + Vector2{0,-3})){
                 AddDirection(directions, 'N');
             }
             if((dungeon.rooms[i].gridPos == Vector2{1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'E') && (bossGridPos != currentRoom.gridPos + Vector2{3,0})){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'E') && (bossGridPos != currentRoom.gridPos + Vector2{3,0})){
                 AddDirection(directions, 'E');
             }
             if((dungeon.rooms[i].gridPos == Vector2{0,1} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'S') && (bossGridPos != currentRoom.gridPos + Vector2{0,3})){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'S') && (bossGridPos != currentRoom.gridPos + Vector2{0,3})){
                 AddDirection(directions, 'S');
             }
             if((dungeon.rooms[i].gridPos == Vector2{-1,0} + currentRoom.gridPos) &&
-                    !ValidRoomInDirection(dungeon.rooms[i], 'W') && (bossGridPos != currentRoom.gridPos + Vector2{-3,0})){
+                    !ValidRoomInDirection(dungeon.rooms[i].type, 'W') && (bossGridPos != currentRoom.gridPos + Vector2{-3,0})){
                 AddDirection(directions, 'W');
             }
         }
@@ -1070,10 +1070,10 @@ bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
     
     for(int i = 0; i < (int)dungeon.rooms.size(); i++){
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::CLEARED){
-            if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-1} && ValidRoomInDirection(dungeon.rooms[i], 'N'))|| 
-               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{1,0} && ValidRoomInDirection(dungeon.rooms[i], 'E'))|| 
-               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,1} && ValidRoomInDirection(dungeon.rooms[i], 'S'))|| 
-               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{-1,0} && ValidRoomInDirection(dungeon.rooms[i], 'W'))){
+            if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'N'))|| 
+               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{1,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'E'))|| 
+               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'S'))|| 
+               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{-1,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'W'))){
                 activeRoomAdjacent = true;
                 break;
             }

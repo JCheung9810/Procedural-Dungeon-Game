@@ -159,7 +159,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room);
 void AssignRoomEnemies(Dungeon& dungeon, Room& room);
 
 bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom);
-bool ValidRoomInDirection(const Room& currentRoom, char direction);
+bool ValidRoomInDirection(const char* type, char direction);
 void AddDirection(char directions[], char direction);
 const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom);
 void SortRooms(Dungeon& dungeon);

@@ -66,13 +66,14 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
             //Projectile rotation from center to player center
             int spread = (int) (enemy->weapon.bulletSpread * 10);
             float randSpread = GetRandomValue(-spread, spread) / 10.0f;
-            float projectileRotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x)  * RAD2DEG + randSpread;
+            float enemyToPlayerRotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
+            float projectileRotation =  enemyToPlayerRotation * RAD2DEG + randSpread;
             projectile.rotation = projectileRotation * DEG2RAD;
             
             //Projectile starting position
             projectile.position = Vector2{
-                enemy->center.x + cos(projectile.rotation) * (enemy->weapon.projectileOffset), 
-                enemy->center.y + sin(projectile.rotation) * (enemy->weapon.projectileOffset)
+                enemy->center.x + cos(enemyToPlayerRotation) * (enemy->weapon.projectileOffset), 
+                enemy->center.y + sin(enemyToPlayerRotation) * (enemy->weapon.projectileOffset)
             };
             
             //Set projectile damage and type
