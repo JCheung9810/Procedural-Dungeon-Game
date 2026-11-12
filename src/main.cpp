@@ -152,10 +152,15 @@ int main(void){
                     }
                 }
             }
+
+            float deltaTime = GetFrameTime();
+            if(deltaTime > 0.05f){
+                deltaTime = 0.05f;
+            }
             
             //Fire test enemy projectiles     
             for(int i = 0; i < (int)enemies.size(); i++){
-                enemies[i].attackCD -= GetFrameTime();
+                enemies[i].attackCD -= deltaTime;
                 if(enemies[i].attackCD <= 0.0f){
                     FireProjectile(projectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, &enemies[i]);
                     enemies[i].attackCD = enemies[i].attackRate;

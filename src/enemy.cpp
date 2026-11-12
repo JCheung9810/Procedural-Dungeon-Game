@@ -33,6 +33,12 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
 }
 
 void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
+    float deltaTime = GetFrameTime();
+
+    if(deltaTime > 0.05f){
+        deltaTime = 0.05f;
+    }
+
     //Check every enemy
     for(int i = 0; i < (int)enemies.size(); i++){
 
@@ -47,8 +53,8 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
             //Straight line towards player
             if(TextIsEqual(enemies[i].name,"Dummy")){
                 rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
-                enemies[i].position.x += (cos(rot) * enemies[i].speed) * GetFrameTime();
-                enemies[i].position.y += (sin(rot) * enemies[i].speed) * GetFrameTime();
+                enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
+                enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
                 enemies[i].state = "walking";
             }
 

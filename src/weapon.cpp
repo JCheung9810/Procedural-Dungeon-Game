@@ -108,10 +108,16 @@ void ReloadWeapon(Player& player){
 }
 
 void UpdateWeapon(Player& player){
+    float deltaTime = GetFrameTime();
+
+    if(deltaTime > 0.05f){
+        deltaTime = 0.05f;
+    }
+
     //Update reload and fire times
     for(int i = 0; i < (int)player.weapons.size(); i++){
         if(player.weapons[i].reloading == true){
-            player.weapons[i].reloadTimer -= GetFrameTime();
+            player.weapons[i].reloadTimer -= deltaTime;
             if(player.weapons[i].reloadTimer <= 0.0f){
                 player.weapons[i].reloadTimer = 0.0f;
                 player.weapons[i].reloading = false;
@@ -120,7 +126,7 @@ void UpdateWeapon(Player& player){
         }
         
         if(player.weapons[i].fireTimer > 0.0f){
-            player.weapons[i].fireTimer -= GetFrameTime();
+            player.weapons[i].fireTimer -= deltaTime;
             if(player.weapons[i].fireTimer < 0.0f){
                 player.weapons[i].fireTimer = 0.0f;
             }

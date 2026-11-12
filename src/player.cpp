@@ -107,6 +107,12 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
 }
 
 void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall){
+
+    float deltaTime = GetFrameTime();
+
+    if(deltaTime > 0.05f){
+        deltaTime = 0.05f;
+    }
     
     //------------------------------MOVEMENT------------------------------
     float xDir = 0;
@@ -181,7 +187,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     }
     
     //Translate player, detect collision (x)
-    player.position.x += movementDirection.x * GetFrameTime();
+    player.position.x += movementDirection.x * deltaTime;
     player.hurtbox.x = player.position.x;
     player.hitbox.x = player.position.x;
     if(!debugWall){
@@ -228,7 +234,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     }
     
     //Translate player, detect collision (y)
-    player.position.y += movementDirection.y * GetFrameTime();
+    player.position.y += movementDirection.y * deltaTime;
     player.hurtbox.y = player.position.y;
     player.hitbox.y = player.position.y + player.hurtbox.height - 3.0f;
     if(!debugWall){
@@ -278,7 +284,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     
     //dashTimer
     if(player.dashTimer > 0.0f){
-        player.dashTimer -= GetFrameTime();
+        player.dashTimer -= deltaTime;
 
         if(player.dashTimer < 0.0f){
             player.dashTimer = 0.0f;
@@ -289,7 +295,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     
     //dashCD
     if(player.dashCD > 0.0f){
-        player.dashCD -= GetFrameTime();
+        player.dashCD -= deltaTime;
 
         if(player.dashCD < 0.0f){
             player.dashCD = 0.0f;
@@ -298,7 +304,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         
     //Player iFrames
     if(player.iFrames > 0.0f){
-        player.iFrames -= GetFrameTime();
+        player.iFrames -= deltaTime;
 
         if(player.iFrames < 0.0f){
             player.iFrames = 0.0f;
@@ -313,7 +319,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
 
     //Animation  
     if(player.state == State::WALKING){
-        player.frameTimer += GetFrameTime();
+        player.frameTimer += deltaTime;
 
         if(player.frameTimer >= player.frameSpeed){
             player.frameTimer = 0.0f;
@@ -327,7 +333,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
     } else if(player.state == State::DASHING){    
-        player.frameTimer += GetFrameTime();
+        player.frameTimer += deltaTime;
         
         player.currentFrame = (int)((player.frameTimer * player.dashAnimationFrames) / player.dashTime); 
 

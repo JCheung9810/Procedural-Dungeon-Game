@@ -107,11 +107,17 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
 
 void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector<Enemy>& enemies, Player& player){
 
+    float deltaTime = GetFrameTime();
+
+    if(deltaTime > 0.05f){
+        deltaTime = 0.05f;
+    }
+
     for(int i = 0; i < (int)projectiles.size(); i++){
 
         //Translate projectile
-        projectiles[i].position.x += projectiles[i].speed.x * GetFrameTime();
-        projectiles[i].position.y += projectiles[i].speed.y * GetFrameTime();
+        projectiles[i].position.x += projectiles[i].speed.x * deltaTime;
+        projectiles[i].position.y += projectiles[i].speed.y * deltaTime;
 
         //Update hitbox
         projectiles[i].hitbox = {
@@ -187,7 +193,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
         }
 
         //Update lifespan
-        projectiles[i].lifeSpan -= GetFrameTime();
+        projectiles[i].lifeSpan -= deltaTime;
 
         //Remove projectile
         if(collisionDetected || projectiles[i].lifeSpan <= 0.0f){
