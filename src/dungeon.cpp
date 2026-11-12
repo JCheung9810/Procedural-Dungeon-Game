@@ -1086,7 +1086,7 @@ bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
 void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
     for(int i = 0; i < (int)dungeon.rooms.size(); i++){
         //Update room state to active if player is in the room
-        if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hitbox)){
+        if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hurtbox)){
             dungeon.rooms[i].state = RoomState::ACTIVE;
             //Close doors
             for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){

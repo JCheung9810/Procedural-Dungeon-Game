@@ -27,6 +27,7 @@ struct Player {
     float iFrames;
 
     Rectangle hitbox;
+    Rectangle hurtbox;
 
     Vector2 tempDirection;
     int facingDirection;

@@ -178,8 +178,11 @@ int main(void){
                     SetRandomSeed(seed);
                     GenerateDungeon(dungeon);
                 }
-                if(IsKeyPressed(KEY_SIX)){
+                if(IsKeyPressed(KEY_FIVE)){
                     debug.hitbox = debug.hitbox ^ true;
+                }
+                if(IsKeyPressed(KEY_SIX)){
+                    debug.hurtbox = debug.hurtbox ^ true;
                 }
                 if(IsKeyPressed(KEY_SEVEN)){
                     debug.speed = debug.speed ^ true;
@@ -190,7 +193,7 @@ int main(void){
                 if(IsKeyPressed(KEY_NINE)){
                     debug.wall = debug.wall ^ true;
                 }
-                if(IsKeyPressed(KEY_FIVE)){
+                if(IsKeyPressed(KEY_FOUR)){
                     TraceLog(LOG_DEBUG, "Current Seed: %i",seed);
                 }
             }   
@@ -215,8 +218,8 @@ int main(void){
                 
                 player.center = {0,0};
                 player.position = {
-                    player.center.x - (player.hitbox.width/2.0f), 
-                    player.center.y - (player.hitbox.height/2.0f)
+                    player.center.x - (player.hurtbox.width/2.0f), 
+                    player.center.y - (player.hurtbox.height/2.0f)
                 };
                 player.health = player.maxHealth;
                 
@@ -229,7 +232,7 @@ int main(void){
             heartTexture, weaponHudBoxTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
-            debug.hitbox,
+            debug.hurtbox, debug.hitbox,
             exitWindowRequested);
     }
     

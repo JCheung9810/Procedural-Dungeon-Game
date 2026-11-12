@@ -12,7 +12,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             Texture2D heartTexture, Texture2D weaponHudBoxTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
-            bool debugHitbox,            
+            bool debugHurtbox, bool debugHitbox,            
             bool exitWindowRequested){
                 
                 
@@ -87,7 +87,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
 
-                        if(decor.hitbox.height + decor.hitbox.y < player.hitbox.y + player.hitbox.height || decor.alwaysOnBottom){
+                        if(decor.hitbox.height + decor.hitbox.y < player.hurtbox.y + player.hurtbox.height || decor.alwaysOnBottom){
 
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
@@ -150,7 +150,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             }
 
             //Draw player
-            DrawPlayer(player, debugHitbox);
+            DrawPlayer(player, debugHurtbox, debugHitbox);
 
             //Draw enemies
             for (int i = 0; i < (int)enemies.size(); i++){
@@ -223,7 +223,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
                         
-                        if((decor.hitbox.height + decor.hitbox.y >= player.hitbox.y + player.hitbox.height && !decor.alwaysOnBottom) || decor.alwaysOnTop){
+                        if((decor.hitbox.height + decor.hitbox.y >= player.hurtbox.y + player.hurtbox.height && !decor.alwaysOnBottom) || decor.alwaysOnTop){
 
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
@@ -366,7 +366,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
     EndDrawing();
 }
 
-void DrawPlayer(const Player& player, bool debugHitbox){
+void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
     
     int fontSize;
     int textWidth;
@@ -385,9 +385,13 @@ void DrawPlayer(const Player& player, bool debugHitbox){
         playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.dashTexture.height};
     }
     
+    //Draw hurtbox
+    if(debugHurtbox){
+        DrawRectangleRec(player.hurtbox, BLUE);  
+    }
     //Draw hitbox
     if(debugHitbox){
-        DrawRectangleRec(player.hitbox, BLUE);  
+        DrawRectangleRec(player.hitbox, ORANGE);
     }
     
     //Draw sprite
@@ -417,14 +421,14 @@ void DrawPlayer(const Player& player, bool debugHitbox){
     textWidth = MeasureText("Player", fontSize);
     DrawText(
         "Player", player.center.x - textWidth/2, 
-        player.hitbox.y - fontSize*2.2f, 
+        player.hurtbox.y - fontSize*2.2f, 
         fontSize, 
         BLACK
     );   
     textWidth = MeasureText(TextFormat("%0.2f",player.health), fontSize);
     DrawText(
         TextFormat("%0.2f",player.health), player.center.x - textWidth/2, 
-        player.hitbox.y - fontSize*1.1f, 
+        player.hurtbox.y - fontSize*1.1f, 
         fontSize, 
         BLACK
     );  

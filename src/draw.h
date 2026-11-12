@@ -12,9 +12,9 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             Texture2D heartTexture, Texture2D weaponHudBoxTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight, 
-            bool debugHitbox,
+            bool debugHurtbox, bool debugHitbox,  
             bool exitWindowRequested
 );
 
-void DrawPlayer(const Player& player, bool debugHitbox);
+void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox);
 void DrawWeapon(Player player, float playerToMouseRotation);

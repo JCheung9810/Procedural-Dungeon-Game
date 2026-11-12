@@ -8,6 +8,7 @@ struct Debug {
     bool speed = false;
     bool wall = false;
     bool cam = false;
+    bool hurtbox = false;
     bool hitbox = false;
 
 };
