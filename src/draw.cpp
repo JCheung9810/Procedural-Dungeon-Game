@@ -119,6 +119,34 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             //Draw player
             DrawPlayer(player, debugHitbox);
 
+            //Draw enemies
+            for (int i = 0; i < (int)enemies.size(); i++){
+                if (enemies[i].active){
+                    fontSize = 15;
+                    textWidth = MeasureText(enemies[i].name, fontSize);
+                    DrawText(
+                        enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                        enemies[i].position.y - fontSize*2.2f, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
+                    DrawText(
+                        TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                        enemies[i].position.y - fontSize*1.1f, 
+                        fontSize, 
+                        BLACK
+                    );   
+                    DrawRectangleRec(enemies[i].hitbox, RED);
+                }
+            }
+
+            //Draw projectiles
+            for (int i = 0; i < (int)projectiles.size(); i++){
+                //DrawRectanglePro(projectiles[i].hitbox, Vector2{projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
+                DrawRectangleRec(projectiles[i].hitbox, YELLOW);
+            } 
+
             //Draw weapon
             DrawWeapon(player, playerToMouseRotation);
 
@@ -195,7 +223,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
                         
-                        if(decor.hitbox.height + decor.hitbox.y >= player.hitbox.y + player.hitbox.height && !decor.alwaysOnBottom || decor.alwaysOnTop){
+                        if((decor.hitbox.height + decor.hitbox.y >= player.hitbox.y + player.hitbox.height && !decor.alwaysOnBottom) || decor.alwaysOnTop){
 
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
@@ -223,34 +251,6 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     }
                 }
             }
-            
-            //Draw dummy
-            for (int i = 0; i < (int)enemies.size(); i++){
-                if (enemies[i].active){
-                    fontSize = 15;
-                    textWidth = MeasureText(enemies[i].name, fontSize);
-                    DrawText(
-                        enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                        enemies[i].position.y - fontSize*2.2f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
-                    DrawText(
-                        TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                        enemies[i].position.y - fontSize*1.1f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    DrawRectangleRec(enemies[i].hitbox, RED);
-                }
-            }
-            
-            //Draw projectiles
-            for (int i = 0; i < (int)projectiles.size(); i++){
-                //DrawRectanglePro(projectiles[i].hitbox, Vector2{projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
-                DrawRectangleRec(projectiles[i].hitbox, YELLOW);
-            } 
       
         EndMode2D();
         

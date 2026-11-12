@@ -118,6 +118,18 @@ void AssetManager::LoadSpriteInfo(){
     SetSpriteInfo(FitWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(VerticalDoor, 13, 1, borderSpacing, spacing, size);
     SetSpriteInfo(HorizontalDoor, 13, 1, borderSpacing, spacing, size);
+
+    //Decor walls
+    SetSpriteInfo(HalfWallBottom, 13, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(WallLeft, 3, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(WallRight, 3, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(HalfWallOuterCornerBottomLeft, 12, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(HalfWallOuterCornerBottomRight, 11, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(HalfWallInnerCornerBottomLeft, 14, 2, borderSpacing, spacing, size);
+    SetSpriteInfo(HalfWallInnerCornerBottomRight, 14, 1, borderSpacing, spacing, size);
+
+    //Void
+    SetSpriteInfo(Void, 11, 1, borderSpacing, spacing, size);
 }
 
 SpriteID GetSpriteID(const string& name) {
@@ -151,7 +163,15 @@ SpriteID GetSpriteID(const string& name) {
         {"LargeWall", LargeWall},
         {"FitWall", FitWall},
         {"VerticalDoor", VerticalDoor},
-        {"HorizontalDoor", HorizontalDoor}
+        {"HorizontalDoor", HorizontalDoor},
+        {"HalfWallBottom", HalfWallBottom},
+        {"WallLeft", WallLeft},
+        {"WallRight", WallRight},
+        {"HalfWallOuterCornerBottomLeft", HalfWallOuterCornerBottomLeft},
+        {"HalfWallOuterCornerBottomRight", HalfWallOuterCornerBottomRight},
+        {"HalfWallInnerCornerBottomLeft", HalfWallInnerCornerBottomLeft},
+        {"HalfWallInnerCornerBottomRight", HalfWallInnerCornerBottomRight},
+        {"Void", Void}
     };
 
     auto i = wallIDs.find(name);
