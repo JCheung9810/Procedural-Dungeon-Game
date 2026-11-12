@@ -55,3 +55,4 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
+- Adjust projectile spawn location and rotation (currently spawns offset with spread rotation, keep seperate, make origin gun tip, then rotate)
