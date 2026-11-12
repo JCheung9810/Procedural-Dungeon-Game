@@ -168,6 +168,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     
                     decor.playerCollision = entity["customFields"].at("playerCollision").get<bool>();
                     decor.projCollision = entity["customFields"].at("projCollision").get<bool>();
+                    decor.alwaysOnTop = entity["customFields"].at("alwaysOnTop").get<bool>();
                     
                     room.roomContent.decor.push_back(decor);
 

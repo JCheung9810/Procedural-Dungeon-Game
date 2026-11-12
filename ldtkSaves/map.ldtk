@@ -11,7 +11,7 @@
 	"iid": "0d346600-bde0-11f1-a8a5-fd950294a5af",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 117,
+	"nextUid": 124,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "Free",
@@ -1230,7 +1230,7 @@
 			"showName": true,
 			"tilesetId": 20,
 			"tileRenderMode": "FitInside",
-			"tileRect": { "tilesetUid": 20, "x": 53, "y": 19, "w": 16, "h": 16 },
+			"tileRect": { "tilesetUid": 20, "x": 206, "y": 19, "w": 16, "h": 16 },
 			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
@@ -1238,7 +1238,128 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "projCollision",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 117,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ false ]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "playerCollision",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 118,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ false ]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "alwaysOnTop",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 123,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ true ]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "SmallWall",
@@ -1345,6 +1466,43 @@
 						"id": "V_Bool",
 						"params": [ true ]
 					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "alwaysOnTop",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 122,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
 					"autoChainRef": true,
@@ -1469,6 +1627,43 @@
 					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "alwaysOnTop",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 121,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -1577,6 +1772,43 @@
 						"id": "V_Bool",
 						"params": [ true ]
 					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "alwaysOnTop",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 120,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
 					"autoChainRef": true,
@@ -1701,6 +1933,43 @@
 					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "alwaysOnTop",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 119,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -1815,8 +2084,8 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "1111111111110000111111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-				"averageColors": "f222f222f444f444f555f555f444f444f444f444f000f4440000000000000000f222f222f444f444f555f555f444f444f444f44400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+				"opaqueTiles": "1111111111111000111111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+				"averageColors": "f222f222f444f444f555f555f444f444f444f444f000f444f520a66600000000f222f222f444f444f555f555f444f444f444f444a666a666a555a6660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000b666b555b4446666000000000000000000000000000000000000000000005444b666b555b00065550000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 			}
 		}
 	], "enums": [], "externalEnums": [], "levelFields": [] },
@@ -1905,7 +2174,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 2320
@@ -1927,7 +2197,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 2304
@@ -1946,7 +2217,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 2320
@@ -1968,7 +2240,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 2304
@@ -3952,7 +4225,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 1776
@@ -3974,7 +4248,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 1760
@@ -3993,7 +4268,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 1776
@@ -4015,7 +4291,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 1760
@@ -5934,7 +6211,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": 2320
@@ -5956,7 +6234,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": 2304
@@ -5975,7 +6254,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": 2320
@@ -5997,7 +6277,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": 2304
@@ -6016,7 +6297,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 464,
 							"__worldY": 2320
@@ -6038,7 +6320,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 464,
 							"__worldY": 2304
@@ -6057,7 +6340,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": 2432
@@ -6079,7 +6363,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": 2416
@@ -8079,7 +8364,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 416,
 							"__worldY": 1776
@@ -8101,7 +8387,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 416,
 							"__worldY": 1760
@@ -8120,7 +8407,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 560,
 							"__worldY": 1776
@@ -8142,7 +8430,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 560,
 							"__worldY": 1760
@@ -8161,7 +8450,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 528,
 							"__worldY": 1776
@@ -8183,7 +8473,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 528,
 							"__worldY": 1760
@@ -8202,7 +8493,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 672,
 							"__worldY": 1888
@@ -8224,7 +8516,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 672,
 							"__worldY": 1872
@@ -10159,7 +10452,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 832,
 							"__worldY": 2320
@@ -10181,7 +10475,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 832,
 							"__worldY": 2304
@@ -10200,7 +10495,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 944,
 							"__worldY": 2320
@@ -10222,7 +10518,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 944,
 							"__worldY": 2304
@@ -10241,7 +10538,8 @@
 							"px": [336,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1056,
 							"__worldY": 2320
@@ -10263,7 +10561,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1056,
 							"__worldY": 2304
@@ -12279,7 +12578,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 960,
 							"__worldY": 1776
@@ -12301,7 +12601,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 960,
 							"__worldY": 1760
@@ -12320,7 +12621,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1072,
 							"__worldY": 1776
@@ -12342,7 +12644,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1072,
 							"__worldY": 1760
@@ -12361,7 +12664,8 @@
 							"px": [336,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1184,
 							"__worldY": 1776
@@ -12383,7 +12687,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1184,
 							"__worldY": 1760
@@ -14334,7 +14639,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1200,
 							"__worldY": 2432
@@ -14356,7 +14662,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1200,
 							"__worldY": 2416
@@ -14375,7 +14682,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1312,
 							"__worldY": 2320
@@ -14397,7 +14705,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1312,
 							"__worldY": 2304
@@ -14416,7 +14725,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1424,
 							"__worldY": 2320
@@ -14438,7 +14748,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1424,
 							"__worldY": 2304
@@ -14457,7 +14768,8 @@
 							"px": [336,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1536,
 							"__worldY": 2320
@@ -14479,7 +14791,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1536,
 							"__worldY": 2304
@@ -16479,7 +16792,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1392,
 							"__worldY": 1888
@@ -16501,7 +16815,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1392,
 							"__worldY": 1872
@@ -16520,7 +16835,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1504,
 							"__worldY": 1776
@@ -16542,7 +16858,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1504,
 							"__worldY": 1760
@@ -16561,7 +16878,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1616,
 							"__worldY": 1776
@@ -16583,7 +16901,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1616,
 							"__worldY": 1760
@@ -16602,7 +16921,8 @@
 							"px": [336,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1728,
 							"__worldY": 1776
@@ -16624,7 +16944,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 1728,
 							"__worldY": 1760
@@ -18559,7 +18880,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 2864
@@ -18581,7 +18903,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 2848
@@ -18600,7 +18923,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 2864
@@ -18622,7 +18946,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 2848
@@ -18641,7 +18966,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 2976
@@ -18663,7 +18989,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 2960
@@ -18682,7 +19009,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -240,
 							"__worldY": 2976
@@ -18704,7 +19032,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -240,
 							"__worldY": 2960
@@ -21034,7 +21363,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 1296
@@ -21056,7 +21386,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 1280
@@ -21075,7 +21406,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 1296
@@ -21097,7 +21429,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 1280
@@ -21116,7 +21449,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 1408
@@ -21138,7 +21472,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 1392
@@ -21157,7 +21492,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -240,
 							"__worldY": 1408
@@ -21179,7 +21515,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -240,
 							"__worldY": 1392
@@ -23509,7 +23846,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -112,
 							"__worldY": -704
@@ -23531,7 +23869,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -112,
 							"__worldY": -720
@@ -23550,7 +23889,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 32,
 							"__worldY": -704
@@ -23572,7 +23912,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 32,
 							"__worldY": -720
@@ -23591,7 +23932,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 144,
 							"__worldY": -592
@@ -23613,7 +23955,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 144,
 							"__worldY": -608
@@ -23632,7 +23975,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -224,
 							"__worldY": -592
@@ -23654,7 +23998,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -224,
 							"__worldY": -608
@@ -25984,7 +26329,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": -144
@@ -26006,7 +26352,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": -160
@@ -26025,7 +26372,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": -144
@@ -26047,7 +26395,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": -160
@@ -26066,7 +26415,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": -32
@@ -26088,7 +26438,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": -48
@@ -26107,7 +26458,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 240,
 							"__worldY": -32
@@ -26129,7 +26481,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 240,
 							"__worldY": -48
@@ -26148,7 +26501,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 464,
 							"__worldY": -144
@@ -26170,7 +26524,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 464,
 							"__worldY": -160
@@ -28280,7 +28635,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": -144
@@ -28302,7 +28658,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": -160
@@ -28321,7 +28678,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": -144
@@ -28343,7 +28701,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": -160
@@ -30453,7 +30812,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1312,
 							"__worldY": 816
@@ -30475,7 +30835,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1312,
 							"__worldY": 800
@@ -30494,7 +30855,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1456,
 							"__worldY": 816
@@ -30516,7 +30878,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1456,
 							"__worldY": 800
@@ -30535,7 +30898,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1200,
 							"__worldY": 928
@@ -30557,7 +30921,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1200,
 							"__worldY": 912
@@ -32777,7 +33142,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1312,
 							"__worldY": 336
@@ -32799,7 +33165,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1312,
 							"__worldY": 320
@@ -32818,7 +33185,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1456,
 							"__worldY": 336
@@ -32840,7 +33208,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1456,
 							"__worldY": 320
@@ -32859,7 +33228,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1200,
 							"__worldY": 448
@@ -32881,7 +33251,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1200,
 							"__worldY": 432
@@ -34975,7 +35346,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 832,
 							"__worldY": 816
@@ -34997,7 +35369,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 832,
 							"__worldY": 800
@@ -35016,7 +35389,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 976,
 							"__worldY": 816
@@ -35038,7 +35412,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 976,
 							"__worldY": 800
@@ -35057,7 +35432,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1088,
 							"__worldY": 928
@@ -35079,7 +35455,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 1088,
 							"__worldY": 912
@@ -35098,7 +35475,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 720,
 							"__worldY": 928
@@ -35120,7 +35498,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 720,
 							"__worldY": 912
@@ -35139,7 +35518,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 944,
 							"__worldY": 816
@@ -35161,7 +35541,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 944,
 							"__worldY": 800
@@ -37403,7 +37784,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 832,
 							"__worldY": 336
@@ -37425,7 +37807,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 832,
 							"__worldY": 320
@@ -37444,7 +37827,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 976,
 							"__worldY": 336
@@ -37466,7 +37850,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 976,
 							"__worldY": 320
@@ -37485,7 +37870,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 720,
 							"__worldY": 448
@@ -37507,7 +37893,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 720,
 							"__worldY": 432
@@ -37526,7 +37913,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 944,
 							"__worldY": 336
@@ -37548,7 +37936,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 944,
 							"__worldY": 320
@@ -39681,7 +40070,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": 816
@@ -39703,7 +40093,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": 800
@@ -39722,7 +40113,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": 816
@@ -39744,7 +40136,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": 800
@@ -39763,7 +40156,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": 928
@@ -39785,7 +40179,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": 912
@@ -42012,7 +42407,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": 336
@@ -42034,7 +42430,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 352,
 							"__worldY": 320
@@ -42053,7 +42450,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": 336
@@ -42075,7 +42473,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 496,
 							"__worldY": 320
@@ -42094,7 +42493,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": 448
@@ -42116,7 +42516,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 608,
 							"__worldY": 432
@@ -42135,7 +42536,8 @@
 							"px": [224,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 88, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 464,
 							"__worldY": 336
@@ -42157,7 +42559,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 90, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 121, "realEditorValues": [] }
 							],
 							"__worldX": 464,
 							"__worldY": 320
@@ -44291,7 +44694,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 336
@@ -44313,7 +44717,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 320
@@ -44332,7 +44737,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 336
@@ -44354,7 +44760,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 320
@@ -44373,7 +44780,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 448
@@ -44395,7 +44803,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 432
@@ -46495,7 +46904,8 @@
 							"px": [112,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 816
@@ -46517,7 +46927,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -128,
 							"__worldY": 800
@@ -46536,7 +46947,8 @@
 							"px": [256,96],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 816
@@ -46558,7 +46970,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 16,
 							"__worldY": 800
@@ -46577,7 +46990,8 @@
 							"px": [368,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 928
@@ -46599,7 +47013,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": 128,
 							"__worldY": 912
@@ -46618,7 +47033,8 @@
 							"px": [0,208],
 							"fieldInstances": [
 								{ "__identifier": "projCollision", "__type": "Bool", "__value": false, "__tile": null, "defUid": 93, "realEditorValues": [] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -240,
 							"__worldY": 928
@@ -46640,7 +47056,8 @@
 									"id": "V_Bool",
 									"params": [ true ]
 								}] },
-								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] }
+								{ "__identifier": "playerCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 94, "realEditorValues": [] },
+								{ "__identifier": "alwaysOnTop", "__type": "Bool", "__value": false, "__tile": null, "defUid": 119, "realEditorValues": [] }
 							],
 							"__worldX": -240,
 							"__worldY": 912

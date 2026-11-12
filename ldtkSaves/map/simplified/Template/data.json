@@ -71,7 +71,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": false,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -85,7 +86,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": true,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -99,7 +101,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": false,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -113,7 +116,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": true,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -127,7 +131,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": false,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -141,7 +146,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": true,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -155,7 +161,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": false,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			},
 			{
@@ -169,7 +176,8 @@
 				"color": 5631,
 				"customFields": {
 					"projCollision": true,
-					"playerCollision": true
+					"playerCollision": true,
+					"alwaysOnTop": false
 				}
 			}
 		],

@@ -28,10 +28,9 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - UI
   - Reload mouse cursor 
   - Minimap/map 
-  - Decor layer draw order
+  - Door animation
 - MECHANICS 
   - Pickups (ammo,health) 
-  - Doors close until cleared 
   - Breakable room objects
   - Usable/Interactable room objects
 - OTHER
@@ -39,9 +38,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Shop 
 
 # Priority List (Highest to Lowest)
-  - Doors close until cleared
   - Advanced enemy ai
-  - Decor layer draw order
   - Make enemies use weapon objects (make firing use those stats)
   - Draw enemy weapons
   - Better projectile hitbox
@@ -52,6 +49,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Lobby/main menu
   - Breakable room objects
   - Usable/Interactable room objects
+  - Door animation
   
 # Distant Features
 - Free placed rooms instead of grid
