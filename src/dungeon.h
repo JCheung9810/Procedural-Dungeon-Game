@@ -32,6 +32,7 @@ struct RoomDecor {
     bool projCollision;
     bool playerCollision;
     bool alwaysOnTop;
+    bool alwaysOnBottom;
     
 };
 

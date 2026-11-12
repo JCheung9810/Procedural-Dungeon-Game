@@ -41,6 +41,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     float scale = room.roomContent.backgroundSize.x;
                     float tileSize = 16 * scale;
 
+                    //Draw background
                     DrawTextureEx(
                         room.roomContent.backgroundTexture,
                         room.position,
@@ -48,40 +49,12 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         scale,
                         WHITE
                     );
-
-                    //Draw walls
-                    for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){
-                        Wall& wall = room.roomContent.walls[wallIt];
-
-                        int tilesX = (int)roundf(wall.hitbox.width / tileSize);
-                        int tilesY = (int)roundf(wall.hitbox.height / tileSize);
-
-                        for(int x = 0; x < tilesX; x++){
-                            for(int y = 0; y < tilesY; y++){
-                                Rectangle dest = {
-                                    wall.hitbox.x + x * tileSize,
-                                    wall.hitbox.y + y * tileSize,
-                                    tileSize,
-                                    tileSize
-                                };
-
-                                DrawTexturePro(
-                                    assets.textures.at("assets/textures/dungeonTileset.png"),
-                                    assets.spriteInfo[wall.spriteID].textureSrc,
-                                    dest,
-                                    Vector2{0, 0},
-                                    0.0f,
-                                    WHITE
-                                );
-                            }
-                        }
-                    }
                     
                     //Draw decor
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
 
-                        if(decor.hitbox.height + decor.hitbox.y < player.hitbox.y + player.hitbox.height){
+                        if(decor.hitbox.height + decor.hitbox.y < player.hitbox.y + player.hitbox.height || decor.alwaysOnBottom){
 
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
@@ -104,39 +77,6 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                         WHITE
                                     );
                                 }
-                            }
-                        }
-                    }
-
-                    //Draw doors
-                    for(int doorIt = 0; doorIt < (int)room.roomContent.doors.size(); doorIt++){
-                        //Temporary: Only draw active doors
-                        if(!room.roomContent.doors[doorIt].active){
-                            continue;
-                        }
-
-                        RoomDoor& door = room.roomContent.doors[doorIt];
-
-                        int tilesX = (int)roundf(door.hitbox.width / tileSize);
-                        int tilesY = (int)roundf(door.hitbox.height / tileSize);
-
-                        for(int x = 0; x < tilesX; x++){
-                            for(int y = 0; y < tilesY; y++){
-                                Rectangle dest = {
-                                    door.hitbox.x + x * tileSize,
-                                    door.hitbox.y + y * tileSize,
-                                    tileSize,
-                                    tileSize
-                                };
-
-                                DrawTexturePro(
-                                    assets.textures.at("assets/textures/dungeonTileset.png"),
-                                    assets.spriteInfo[door.spriteID].textureSrc,
-                                    dest,
-                                    Vector2{0, 0},
-                                    0.0f,
-                                    WHITE
-                                );
                             }
                         }
                     }
@@ -182,7 +122,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             //Draw weapon
             DrawWeapon(player, playerToMouseRotation);
 
-            //Draw decor that is in front of the player
+            //Draw in front of player walls/doors/decor
             for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
                 Room& room = dungeon.rooms[roomIt];
 
@@ -190,10 +130,72 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     float scale = room.roomContent.backgroundSize.x;
                     float tileSize = 16 * scale;
 
+                    //Draw walls
+                    for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){
+                        Wall& wall = room.roomContent.walls[wallIt];
+
+                        int tilesX = (int)roundf(wall.hitbox.width / tileSize);
+                        int tilesY = (int)roundf(wall.hitbox.height / tileSize);
+
+                        for(int x = 0; x < tilesX; x++){
+                            for(int y = 0; y < tilesY; y++){
+                                Rectangle dest = {
+                                    wall.hitbox.x + x * tileSize,
+                                    wall.hitbox.y + y * tileSize,
+                                    tileSize,
+                                    tileSize
+                                };
+
+                                DrawTexturePro(
+                                    assets.textures.at("assets/textures/dungeonTileset.png"),
+                                    assets.spriteInfo[wall.spriteID].textureSrc,
+                                    dest,
+                                    Vector2{0, 0},
+                                    0.0f,
+                                    WHITE
+                                );
+                            }
+                        }
+                    }
+
+                    //Draw doors
+                    for(int doorIt = 0; doorIt < (int)room.roomContent.doors.size(); doorIt++){
+                        //Temporary: Only draw active doors
+                        if(!room.roomContent.doors[doorIt].active){
+                            continue;
+                        }
+
+                        RoomDoor& door = room.roomContent.doors[doorIt];
+
+                        int tilesX = (int)roundf(door.hitbox.width / tileSize);
+                        int tilesY = (int)roundf(door.hitbox.height / tileSize);
+
+                        for(int x = 0; x < tilesX; x++){
+                            for(int y = 0; y < tilesY; y++){
+                                Rectangle dest = {
+                                    door.hitbox.x + x * tileSize,
+                                    door.hitbox.y + y * tileSize,
+                                    tileSize,
+                                    tileSize
+                                };
+
+                                DrawTexturePro(
+                                    assets.textures.at("assets/textures/dungeonTileset.png"),
+                                    assets.spriteInfo[door.spriteID].textureSrc,
+                                    dest,
+                                    Vector2{0, 0},
+                                    0.0f,
+                                    WHITE
+                                );
+                            }
+                        }
+                    }
+
+                    //Draw decor that is in front of the player
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
                         
-                        if(decor.hitbox.height + decor.hitbox.y >= player.hitbox.y + player.hitbox.height || decor.alwaysOnTop){
+                        if(decor.hitbox.height + decor.hitbox.y >= player.hitbox.y + player.hitbox.height && !decor.alwaysOnBottom || decor.alwaysOnTop){
 
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
