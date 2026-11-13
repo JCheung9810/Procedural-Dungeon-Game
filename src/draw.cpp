@@ -180,35 +180,6 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         scale,
                         WHITE
                     );
-                    /*
-                    //Draw walls
-                    for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){
-                        Wall& wall = room.roomContent.walls[wallIt];
-
-                        int tilesX = (int)roundf(wall.hitbox.width / tileSize);
-                        int tilesY = (int)roundf(wall.hitbox.height / tileSize);
-
-                        for(int x = 0; x < tilesX; x++){
-                            for(int y = 0; y < tilesY; y++){
-                                Rectangle dest = {
-                                    wall.hitbox.x + x * tileSize,
-                                    wall.hitbox.y + y * tileSize,
-                                    tileSize,
-                                    tileSize
-                                };
-
-                                DrawTexturePro(
-                                    assets.textures.at("assets/textures/dungeonTileset.png"),
-                                    assets.spriteInfo[wall.spriteID].textureSrc,
-                                    dest,
-                                    Vector2{0, 0},
-                                    0.0f,
-                                    WHITE
-                                );
-                            }
-                        }
-                    }
-                    */
 
                     //Draw decor that is in front of the player
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){

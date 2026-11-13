@@ -57,4 +57,3 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
-- Line 135 dungeon.cpp, Line 17 dungeon.h, Lines 175-203 draw.cpp, all dealing with wall sprite drawing commented out

@@ -15,7 +15,6 @@ struct Enemy;
 struct Wall {
     Rectangle hitbox;
     Rectangle hitboxSides[2];
-    //SpriteID spriteID;
 
     bool projectileCollision;
     
