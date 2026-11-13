@@ -1,15 +1,23 @@
 {
 	"identifier": "_EndW",
-	"uniqueIdentifer": "953f6b20-bde0-11f1-aa29-cb3ccd845670",
+	"uniqueIdentifer": "93261360-bde0-11f1-bcee-554227701818",
 	"x": 1200,
-	"y": 2224,
+	"y": 2160,
 	"width": 480,
 	"height": 480,
 	"bgColor": "#696A79",
 	"neighbourLevels": [
 		{
-			"levelIid": "94684500-bde0-11f1-aa29-1ba0338372e9",
+			"levelIid": "217723d0-bde0-11f1-bcee-f717b7429546",
+			"dir": "nw"
+		},
+		{
+			"levelIid": "6768df00-bde0-11f1-bcee-5bda09d954f8",
 			"dir": "w"
+		},
+		{
+			"levelIid": "7669a930-bde0-11f1-bcee-831144be32ee",
+			"dir": "n"
 		}
 	],
 	"customFields" : {},
@@ -18,282 +26,149 @@
 		"Foreground.png"
 	],
 	"entities": {
-		"FitWall": [
+		"Wall": [
 			{
-				"id": "FitWall",
-				"iid": "1c495270-bde0-11f1-a865-d53273e0b410",
-				"layer": "Decor",
+				"id": "Wall",
+				"iid": "93261362-bde0-11f1-bcee-573553b3e734",
+				"layer": "Walls",
+				"x": 0,
+				"y": 0,
+				"width": 112,
+				"height": 208,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "93261363-bde0-11f1-bcee-efe7eab4312e",
+				"layer": "Walls",
+				"x": 112,
+				"y": 96,
+				"width": 256,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "93261364-bde0-11f1-bcee-35030216af1e",
+				"layer": "Walls",
+				"x": 112,
+				"y": 0,
+				"width": 368,
+				"height": 96,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "93261365-bde0-11f1-bcee-5fcf901107cc",
+				"layer": "Walls",
+				"x": 368,
+				"y": 96,
+				"width": 112,
+				"height": 384,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "93261366-bde0-11f1-bcee-392187e1c8ba",
+				"layer": "Walls",
+				"x": 0,
+				"y": 368,
+				"width": 368,
+				"height": 112,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "93261367-bde0-11f1-bcee-95121b107c24",
+				"layer": "Walls",
+				"x": 0,
+				"y": 256,
+				"width": 112,
+				"height": 112,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "93261368-bde0-11f1-bcee-bf10b1e1175e",
+				"layer": "Walls",
 				"x": 0,
 				"y": 208,
 				"width": 112,
 				"height": 16,
-				"color": 5631,
+				"color": 16690740,
 				"customFields": {
-					"projCollision": false,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": true
-				}
-			},
-			{
-				"id": "FitWall",
-				"iid": "1c70b090-bde0-11f1-a865-0750df77a8ac",
-				"layer": "Decor",
-				"x": 0,
-				"y": 192,
-				"width": 112,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": true,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": false
-				}
-			},
-			{
-				"id": "FitWall",
-				"iid": "1d972f30-bde0-11f1-a865-23d8c64b1f9c",
-				"layer": "Decor",
-				"x": 112,
-				"y": 96,
-				"width": 112,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": true
-				}
-			},
-			{
-				"id": "FitWall",
-				"iid": "1dc2d310-bde0-11f1-a865-658fa23af22c",
-				"layer": "Decor",
-				"x": 112,
-				"y": 80,
-				"width": 112,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": true,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": false
-				}
-			},
-			{
-				"id": "FitWall",
-				"iid": "1ec54ef0-bde0-11f1-a865-dd78bf418eca",
-				"layer": "Decor",
-				"x": 224,
-				"y": 96,
-				"width": 112,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": true
-				}
-			},
-			{
-				"id": "FitWall",
-				"iid": "1ef1b620-bde0-11f1-a865-d7326acda10b",
-				"layer": "Decor",
-				"x": 224,
-				"y": 80,
-				"width": 112,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": true,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": false
+					"projectileCollision": false
 				}
 			}
 		],
-		"MediumWall": [
+		"EnemySpawnPoint": [
 			{
-				"id": "MediumWall",
-				"iid": "208f1270-bde0-11f1-a865-efdaeec73aef",
-				"layer": "Decor",
-				"x": 336,
-				"y": 96,
-				"width": 32,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": true
-				}
-			},
-			{
-				"id": "MediumWall",
-				"iid": "21202ee0-bde0-11f1-a865-c9958f134788",
-				"layer": "Decor",
-				"x": 336,
-				"y": 80,
-				"width": 32,
-				"height": 16,
-				"color": 5631,
-				"customFields": {
-					"projCollision": true,
-					"playerCollision": true,
-					"alwaysOnTop": false,
-					"alwaysOnBottom": false
-				}
-			}
-		],
-		"HalfWallInnerCornerBottomRight": [
-			{
-				"id": "HalfWallInnerCornerBottomRight",
-				"iid": "5ede03f0-bde0-11f1-8a28-c1851c50764b",
-				"layer": "Decor",
-				"x": 368,
-				"y": 352,
+				"id": "EnemySpawnPoint",
+				"iid": "9326136a-bde0-11f1-bcee-190f0870ab95",
+				"layer": "EnemySpawnPoint",
+				"x": 152,
+				"y": 152,
 				"width": 16,
 				"height": 16,
-				"color": 4073265,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
-			}
-		],
-		"Void": [
-			{
-				"id": "Void",
-				"iid": "604ab350-bde0-11f1-8a28-0f927cf4d083",
-				"layer": "Decor",
-				"x": 96,
-				"y": 368,
-				"width": 288,
-				"height": 16,
-				"color": 4065004,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
+				"color": 12470831,
+				"customFields" : {}
 			},
 			{
-				"id": "Void",
-				"iid": "6e5a18a0-bde0-11f1-8a28-9d365883529d",
-				"layer": "Decor",
-				"x": 0,
-				"y": 256,
-				"width": 96,
+				"id": "EnemySpawnPoint",
+				"iid": "9326136b-bde0-11f1-bcee-97a22719fa81",
+				"layer": "EnemySpawnPoint",
+				"x": 328,
+				"y": 152,
+				"width": 16,
 				"height": 16,
-				"color": 4065004,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
-			}
-		],
-		"HalfWallBottom": [
-			{
-				"id": "HalfWallBottom",
-				"iid": "62bff910-bde0-11f1-8a28-7f0faa95d693",
-				"layer": "Decor",
-				"x": 112,
-				"y": 352,
-				"width": 256,
-				"height": 16,
-				"color": 4073265,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
+				"color": 12470831,
+				"customFields" : {}
 			},
 			{
-				"id": "HalfWallBottom",
-				"iid": "7031bed0-bde0-11f1-8a28-97a7cf54c67e",
-				"layer": "Decor",
-				"x": 0,
-				"y": 240,
-				"width": 96,
-				"height": 16,
-				"color": 4073265,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
-			}
-		],
-		"HalfWallInnerCornerBottomLeft": [
-			{
-				"id": "HalfWallInnerCornerBottomLeft",
-				"iid": "692b5830-bde0-11f1-8a28-dd900a8a69db",
-				"layer": "Decor",
-				"x": 96,
-				"y": 352,
+				"id": "EnemySpawnPoint",
+				"iid": "9326136c-bde0-11f1-bcee-2153d8366bd7",
+				"layer": "EnemySpawnPoint",
+				"x": 152,
+				"y": 328,
 				"width": 16,
 				"height": 16,
-				"color": 4073265,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
-			}
-		],
-		"HalfWallOuterCornerBottomLeft": [
+				"color": 12470831,
+				"customFields" : {}
+			},
 			{
-				"id": "HalfWallOuterCornerBottomLeft",
-				"iid": "6c06b2c0-bde0-11f1-8a28-69117bcd637a",
-				"layer": "Decor",
-				"x": 96,
-				"y": 240,
+				"id": "EnemySpawnPoint",
+				"iid": "9326136d-bde0-11f1-bcee-0de73cc98b27",
+				"layer": "EnemySpawnPoint",
+				"x": 328,
+				"y": 328,
 				"width": 16,
 				"height": 16,
-				"color": 4073265,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
-			}
-		],
-		"WallLeft": [
-			{
-				"id": "WallLeft",
-				"iid": "6d3595d0-bde0-11f1-8a28-5134df703c0a",
-				"layer": "Decor",
-				"x": 96,
-				"y": 256,
-				"width": 16,
-				"height": 16,
-				"color": 4073265,
-				"customFields": {
-					"projCollision": false,
-					"playerCollision": false,
-					"alwaysOnTop": true,
-					"alwaysOnBottom": false
-				}
+				"color": 12470831,
+				"customFields" : {}
 			}
 		],
 		"VerticalDoor": [
 			{
 				"id": "VerticalDoor",
-				"iid": "10b7f2a0-bde0-11f1-824f-57cd2d5339d9",
+				"iid": "93261371-bde0-11f1-bcee-8793f333c2ef",
 				"layer": "Doors",
 				"x": 80,
 				"y": 224,
@@ -306,7 +181,7 @@
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
-				"iid": "3859b680-bde0-11f1-bb0c-454a8d7f76ab",
+				"iid": "93261375-bde0-11f1-bcee-8d0d67f8ab33",
 				"layer": "RoomHitbox",
 				"x": 112,
 				"y": 112,

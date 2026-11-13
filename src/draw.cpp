@@ -172,6 +172,14 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     float scale = room.roomContent.roomUnscaledSize.x;
                     float tileSize = 16 * scale;
 
+                    //Draw foreground
+                    DrawTextureEx(
+                        room.roomContent.foregroundTexture,
+                        room.position,
+                        0.0f,
+                        scale,
+                        WHITE
+                    );
                     /*
                     //Draw walls
                     for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){

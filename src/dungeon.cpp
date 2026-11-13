@@ -107,8 +107,12 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     ifstream file(roomPath);
     
     //Load corresponding background
-    const char* backgroundPath = TextFormat("ldtkSaves/map/simplified/_%s/_composite.png", room.layoutType.c_str());
+    const char* backgroundPath = TextFormat("ldtkSaves/map/simplified/_%s/Background.png", room.layoutType.c_str());
     room.roomContent.backgroundTexture = assets.LoadGameTexture(backgroundPath);
+
+    //Load corresponding foreground
+    const char* foregroundPath = TextFormat("ldtkSaves/map/simplified/_%s/Foreground.png", room.layoutType.c_str());
+    room.roomContent.foregroundTexture = assets.LoadGameTexture(foregroundPath);
 
     if (!file.is_open()) {
         TraceLog(LOG_ERROR, "Could not open level data");
