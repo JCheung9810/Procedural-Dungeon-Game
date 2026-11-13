@@ -38,7 +38,8 @@
 	],
 	"customFields" : {},
 	"layers": [
-		"Background.png"
+		"Background.png",
+		"Foreground.png"
 	],
 	"entities": {
 		"EnemySpawnPoint": [
