@@ -19,6 +19,8 @@ struct Projectile {
     const char* type;
     
     float damage;
+
+    float initialYPosition;
     
     Color color;
     Texture2D sprite;

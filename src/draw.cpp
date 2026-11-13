@@ -38,7 +38,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
 
                 if(room.exists == true){
 
-                    float scale = room.roomContent.backgroundSize.x;
+                    float scale = room.roomContent.roomUnscaledSize.x;
                     float tileSize = 16 * scale;
 
                     //Draw background
@@ -169,7 +169,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                 Room& room = dungeon.rooms[roomIt];
 
                 if(room.exists == true){
-                    float scale = room.roomContent.backgroundSize.x;
+                    float scale = room.roomContent.roomUnscaledSize.x;
                     float tileSize = 16 * scale;
 
                     /*

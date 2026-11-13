@@ -14,7 +14,10 @@ struct Enemy;
 
 struct Wall {
     Rectangle hitbox;
+    Rectangle hitboxSides[2];
     //SpriteID spriteID;
+
+    bool projectileCollision;
     
 };
 
@@ -97,8 +100,11 @@ struct RoomContent {
     
     //Background
     Texture2D backgroundTexture;
+
+    //Foreground
+    Texture2D foregroundTexture;
     
-    Vector2 backgroundSize;
+    Vector2 roomUnscaledSize;
     
     
 };

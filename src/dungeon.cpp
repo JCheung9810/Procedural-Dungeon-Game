@@ -87,6 +87,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     room.roomContent.enemySpawnPoints.clear();
     room.wave = 0;
     room.numEnemiesSpawned = 0;
+    
     if(TextIsEqual(room.type, "Spawn")){
         room.state = RoomState::CLEARED;
     } else if(TextIsEqual(room.type, "BossN") || TextIsEqual(room.type, "BossE") || TextIsEqual(room.type, "BossS") || TextIsEqual(room.type, "BossW")){
@@ -120,8 +121,8 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 
         const auto& entities = data["entities"];
         
-        room.roomContent.backgroundSize = Vector2{room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
-        float scale =  room.roomContent.backgroundSize.x;
+        room.roomContent.roomUnscaledSize = Vector2{room.size.x / data.at("width").get<float>(), room.size.y / data.at("height").get<float>()};
+        float scale =  room.roomContent.roomUnscaledSize.x;
 
         //Go through each entry in the entities object
         for (auto i = entities.begin(); i != entities.end(); ++i) {
@@ -140,6 +141,22 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                         entity["width"].get<float>() * scale,
                         entity["height"].get<float>() * scale
                     };
+                    //Left
+                    wall.hitboxSides[0] = {
+                        wall.hitbox.x, 
+                        wall.hitbox.y,
+                        1,
+                        wall.hitbox.height
+                    };
+                    //Right
+                    wall.hitboxSides[1] = {
+                        wall.hitbox.x + wall.hitbox.width, 
+                        wall.hitbox.y,
+                        1,
+                        wall.hitbox.height
+                    };
+
+                    wall.projectileCollision = entity["customFields"].at("projectileCollision").get<bool>();
                     
                     room.roomContent.walls.push_back(wall);
                     

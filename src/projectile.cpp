@@ -14,6 +14,7 @@ void InitializeProjectile(Projectile& projectile){
     projectile.damage = 0.0f;
     projectile.color = RED;
     projectile.hitbox = {projectile.position.x, projectile.position.y, projectile.size.x, projectile.size.y};
+    projectile.initialYPosition = 0;
            
 }
 
@@ -54,6 +55,9 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
             //Set projectile damage and type
             projectile.damage = player.weapons[player.equippedWeaponIndex].damage;
             projectile.type = player.weapons[player.equippedWeaponIndex].type;
+
+            //Set initial position
+            projectile.initialYPosition = player.hitbox.y + player.hitbox.height;
 
         } else if(TextIsEqual(team,"Enemy")){
 
@@ -113,7 +117,6 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
     }
 }
 
-
 void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector<Enemy>& enemies, Player& player){
 
     float deltaTime = GetFrameTime();
@@ -146,9 +149,27 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
 
             for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
 
-                if(CheckCollisionRecs(dungeon.rooms[j].roomContent.walls[k].hitbox, projectiles[i].hitbox)){
-                    collisionDetected = true;
-                    break;
+                Wall& wall = dungeon.rooms[j].roomContent.walls[k];
+
+                if(CheckCollisionRecs(wall.hitbox, projectiles[i].hitbox)) {
+                    //bool firedFromBelow =
+                    //    projectiles[i].initialYPosition > wall.hitbox.y + wall.hitbox.height;
+
+                    bool hitWallSide =
+                        CheckCollisionRecs(wall.hitboxSides[0], projectiles[i].hitbox) ||
+                        CheckCollisionRecs(wall.hitboxSides[1], projectiles[i].hitbox);
+
+                    //bool movingTowardWall =
+                    //    projectiles[i].speed.y < 0;
+
+                    if(wall.projectileCollision ||
+                        hitWallSide){
+                    //!firedFromBelow){
+                    //(hitWallSide && movingTowardWall)) {
+
+                        collisionDetected = true;
+                        break;
+                    }
                 }
             }
 
