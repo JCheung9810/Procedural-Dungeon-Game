@@ -172,6 +172,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     float scale = room.roomContent.backgroundSize.x;
                     float tileSize = 16 * scale;
 
+                    /*
                     //Draw walls
                     for(int wallIt = 0; wallIt < (int)room.roomContent.walls.size(); wallIt++){
                         Wall& wall = room.roomContent.walls[wallIt];
@@ -199,6 +200,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                             }
                         }
                     }
+                    */
 
                     //Draw decor that is in front of the player
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){

@@ -132,7 +132,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                 if(entity["layer"] == "Walls"){
                     Wall wall;
 
-                    wall.spriteID = GetSpriteID(i.key());
+                    //wall.spriteID = GetSpriteID(i.key());
 
                     wall.hitbox = {
                         entity["x"].get<float>() * scale + room.position.x,

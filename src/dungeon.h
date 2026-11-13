@@ -14,7 +14,7 @@ struct Enemy;
 
 struct Wall {
     Rectangle hitbox;
-    SpriteID spriteID;
+    //SpriteID spriteID;
     
 };
 

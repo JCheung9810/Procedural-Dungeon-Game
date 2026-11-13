@@ -24,6 +24,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - COMBAT
   - Better projectile hitbox 
   - Advanced enemy ai 
+  - Enemy lead shooting
 - UI
   - Reload mouse cursor 
   - Minimap/map 
@@ -38,6 +39,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # Priority List (Highest to Lowest)
   - Advanced enemy ai (state changing, pathing, different behaviors)
+  - Enemy lead shooting
   - Make enemies spawn in the center of the spawn point
   - Add enemy getting hit effect (change their color to white (gun and entity))
   - Better projectile hitbox
@@ -55,3 +57,4 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
+- Line 135 dungeon.cpp, Line 17 dungeon.h, Lines 175-203 draw.cpp, all dealing with wall sprite drawing commented out
