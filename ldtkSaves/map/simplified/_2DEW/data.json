@@ -27,7 +27,8 @@
 	"customFields" : {},
 	"layers": [
 		"Background.png",
-		"Floor.png"
+		"Floor.png",
+		"TestingRoomVisual.png"
 	],
 	"entities": {
 		"EnemySpawnPoint": [
