@@ -49,11 +49,11 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Shop
   - Lobby/main menu
   - Breakable room objects
-  - Usable/Interactable room objects
+  - Usable/Interactable room obje cts
   - Door animation
   
 # Distant Features
 - Free placed rooms instead of grid
 - Different sized rooms
 
-# Notes to Self0
+# Notes to Self
