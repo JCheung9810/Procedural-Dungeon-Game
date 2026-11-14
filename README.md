@@ -23,7 +23,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 # To Do
 - COMBAT
   - Better projectile hitbox 
-  - Advanced enemy ai 
+  - Intermediate enemy AI
   - Enemy lead shooting
 - UI
   - Reload mouse cursor 
@@ -38,22 +38,25 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Shop 
 
 # Priority List (Highest to Lowest)
-  - Advanced enemy ai (state changing, pathing, different behaviors)
-  - Enemy lead shooting
-  - Make enemies spawn in the center of the spawn point
+  - Intermediate enemy AI (state changing, different behaviors)
+  - Enemy lead shooting (build in intelligence)
+  - Make enemies spawn in the center of the spawn point (offset by size/2)
   - Add enemy getting hit effect (change their color to white (gun and entity))
-  - Better projectile hitbox
   - Pickups (ammo,health)
   - Reload mouse cursor
   - Minimap/map
   - Shop
   - Lobby/main menu
   - Breakable room objects
-  - Usable/Interactable room obje cts
+  - Usable/Interactable room objects
   - Door animation
   
 # Distant Features
+- Better projectile hitbox (for guns that dont shoot circular projectiles)
+- Advanced enemy AI (path finding)
 - Free placed rooms instead of grid
 - Different sized rooms
 
 # Notes to Self
+-change outline of gun box ui to be white
+-change cursor to be silver/white
