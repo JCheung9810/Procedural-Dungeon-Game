@@ -1,6 +1,6 @@
 {
 	"identifier": "_EndS",
-	"uniqueIdentifer": "6768df00-bde0-11f1-bcee-5bda09d954f8",
+	"uniqueIdentifer": "afeb8c30-bde0-11f1-b98d-475749929d49",
 	"x": 720,
 	"y": 2160,
 	"width": 480,
@@ -16,7 +16,7 @@
 			"dir": "ne"
 		},
 		{
-			"levelIid": "93261360-bde0-11f1-bcee-554227701818",
+			"levelIid": "b3c766d0-bde0-11f1-b98d-c30329a1b928",
 			"dir": "e"
 		},
 		{
@@ -24,7 +24,7 @@
 			"dir": "nw"
 		},
 		{
-			"levelIid": "666be160-bde0-11f1-bcee-f95dfd330b1c",
+			"levelIid": "abcd2a50-bde0-11f1-b98d-3397b805f815",
 			"dir": "w"
 		}
 	],
@@ -37,7 +37,33 @@
 		"Wall": [
 			{
 				"id": "Wall",
-				"iid": "6768df02-bde0-11f1-bcee-438cbc4bfbfa",
+				"iid": "afeb8c32-bde0-11f1-b98d-f5f9664743d2",
+				"layer": "Walls",
+				"x": 0,
+				"y": 360,
+				"width": 224,
+				"height": 120,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "afeb8c33-bde0-11f1-b98d-c1f4b84c3a50",
+				"layer": "Walls",
+				"x": 0,
+				"y": 0,
+				"width": 112,
+				"height": 360,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "afeb8c34-bde0-11f1-b98d-afdf914f8027",
 				"layer": "Walls",
 				"x": 112,
 				"y": 0,
@@ -50,20 +76,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "6768df03-bde0-11f1-bcee-152456600efe",
-				"layer": "Walls",
-				"x": 112,
-				"y": 96,
-				"width": 256,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "6768df04-bde0-11f1-bcee-5b78d8296755",
+				"iid": "afeb8c35-bde0-11f1-b98d-0d744fde9b3d",
 				"layer": "Walls",
 				"x": 368,
 				"y": 96,
@@ -76,12 +89,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "6768df05-bde0-11f1-bcee-c7cb87f906e1",
+				"iid": "afeb8c36-bde0-11f1-b98d-9bade618ed42",
 				"layer": "Walls",
 				"x": 256,
-				"y": 368,
+				"y": 360,
 				"width": 112,
-				"height": 112,
+				"height": 120,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -89,81 +102,22 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "6768df06-bde0-11f1-bcee-83a95fa4b095",
+				"iid": "afeb8c37-bde0-11f1-b98d-81a1b2f7034e",
 				"layer": "Walls",
-				"x": 0,
-				"y": 368,
-				"width": 224,
-				"height": 112,
+				"x": 112,
+				"y": 96,
+				"width": 256,
+				"height": 16,
 				"color": 16690740,
 				"customFields": {
-					"projectileCollision": true
+					"projectileCollision": false
 				}
-			},
-			{
-				"id": "Wall",
-				"iid": "6768df07-bde0-11f1-bcee-2da562e61379",
-				"layer": "Walls",
-				"x": 0,
-				"y": 0,
-				"width": 112,
-				"height": 368,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			}
-		],
-		"EnemySpawnPoint": [
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "6768df09-bde0-11f1-bcee-adc49365be0b",
-				"layer": "EnemySpawnPoint",
-				"x": 152,
-				"y": 152,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "6768df0a-bde0-11f1-bcee-f369b4147010",
-				"layer": "EnemySpawnPoint",
-				"x": 328,
-				"y": 152,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "6768df0b-bde0-11f1-bcee-f9595d7b6023",
-				"layer": "EnemySpawnPoint",
-				"x": 152,
-				"y": 328,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "6768df0c-bde0-11f1-bcee-dd78389308e6",
-				"layer": "EnemySpawnPoint",
-				"x": 328,
-				"y": 328,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
 			}
 		],
 		"HorizontalDoor": [
 			{
 				"id": "HorizontalDoor",
-				"iid": "6768df12-bde0-11f1-bcee-49c6672113ad",
+				"iid": "afebda58-bde0-11f1-b98d-71ab654b9315",
 				"layer": "Doors",
 				"x": 224,
 				"y": 384,
@@ -176,7 +130,7 @@
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
-				"iid": "6768df14-bde0-11f1-bcee-0d3fcc3ac723",
+				"iid": "afebda5a-bde0-11f1-b98d-87440541b888",
 				"layer": "RoomHitbox",
 				"x": 112,
 				"y": 112,

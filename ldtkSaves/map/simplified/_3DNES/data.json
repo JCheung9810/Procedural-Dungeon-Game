@@ -8,7 +8,7 @@
 	"bgColor": "#696A79",
 	"neighbourLevels": [
 		{
-			"levelIid": "a43085b0-bde0-11f1-bcee-791480c5db3b",
+			"levelIid": "2a101f40-bde0-11f1-b98d-457ca163cd58",
 			"dir": "sw"
 		},
 		{
@@ -41,24 +41,11 @@
 		"Wall": [
 			{
 				"id": "Wall",
-				"iid": "3eb66f12-bde0-11f1-bcee-13e372d2bca9",
+				"iid": "d5ad7dd0-bde0-11f1-b98d-63fe3cac5fb9",
 				"layer": "Walls",
 				"x": 0,
 				"y": 0,
-				"width": 112,
-				"height": 368,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "3eb66f13-bde0-11f1-bcee-fbf7f3a964a7",
-				"layer": "Walls",
-				"x": 112,
-				"y": 0,
-				"width": 112,
+				"width": 224,
 				"height": 96,
 				"color": 16690740,
 				"customFields": {
@@ -67,20 +54,59 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "3eb66f14-bde0-11f1-bcee-cd05ef8da6b2",
+				"iid": "d80ddc00-bde0-11f1-b98d-27b9fe3e10f8",
 				"layer": "Walls",
-				"x": 112,
+				"x": 0,
 				"y": 96,
 				"width": 112,
-				"height": 16,
+				"height": 384,
 				"color": 16690740,
 				"customFields": {
-					"projectileCollision": false
+					"projectileCollision": true
 				}
 			},
 			{
 				"id": "Wall",
-				"iid": "3eb66f15-bde0-11f1-bcee-d9b2c677c0bc",
+				"iid": "db5517c0-bde0-11f1-b98d-95b7bd43f038",
+				"layer": "Walls",
+				"x": 112,
+				"y": 360,
+				"width": 112,
+				"height": 120,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "dcd15780-bde0-11f1-b98d-ef602a7ea815",
+				"layer": "Walls",
+				"x": 256,
+				"y": 360,
+				"width": 112,
+				"height": 120,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "deaf6650-bde0-11f1-b98d-dd7d22c42b27",
+				"layer": "Walls",
+				"x": 368,
+				"y": 248,
+				"width": 112,
+				"height": 232,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "e0fa67c0-bde0-11f1-b98d-c56cc0d9bf85",
 				"layer": "Walls",
 				"x": 256,
 				"y": 0,
@@ -93,7 +119,33 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "3eb66f16-bde0-11f1-bcee-572c18fb8428",
+				"iid": "e27a02e0-bde0-11f1-b98d-974f1c0339ea",
+				"layer": "Walls",
+				"x": 368,
+				"y": 96,
+				"width": 112,
+				"height": 112,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "e4c30880-bde0-11f1-b98d-01ddc678dffa",
+				"layer": "Walls",
+				"x": 112,
+				"y": 96,
+				"width": 112,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "e6a64770-bde0-11f1-b98d-73bf8da952d9",
 				"layer": "Walls",
 				"x": 256,
 				"y": 96,
@@ -106,59 +158,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "3eb66f17-bde0-11f1-bcee-591d4769fbc7",
-				"layer": "Walls",
-				"x": 368,
-				"y": 96,
-				"width": 112,
-				"height": 112,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "3eb66f18-bde0-11f1-bcee-01d4c5468cf2",
-				"layer": "Walls",
-				"x": 368,
-				"y": 256,
-				"width": 112,
-				"height": 224,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "3eb66f19-bde0-11f1-bcee-99f68b05101f",
-				"layer": "Walls",
-				"x": 256,
-				"y": 368,
-				"width": 112,
-				"height": 112,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "3eb66f1a-bde0-11f1-bcee-19a8454356fd",
-				"layer": "Walls",
-				"x": 0,
-				"y": 368,
-				"width": 224,
-				"height": 112,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "3eb66f1d-bde0-11f1-bcee-2dad104aa244",
+				"iid": "e8abb460-bde0-11f1-b98d-2993189be37d",
 				"layer": "Walls",
 				"x": 368,
 				"y": 208,

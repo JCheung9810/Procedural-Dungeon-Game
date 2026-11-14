@@ -1,6 +1,6 @@
 {
 	"identifier": "_EndW",
-	"uniqueIdentifer": "93261360-bde0-11f1-bcee-554227701818",
+	"uniqueIdentifer": "b3c766d0-bde0-11f1-b98d-c30329a1b928",
 	"x": 1200,
 	"y": 2160,
 	"width": 480,
@@ -12,7 +12,7 @@
 			"dir": "nw"
 		},
 		{
-			"levelIid": "6768df00-bde0-11f1-bcee-5bda09d954f8",
+			"levelIid": "afeb8c30-bde0-11f1-b98d-475749929d49",
 			"dir": "w"
 		},
 		{
@@ -29,7 +29,7 @@
 		"Wall": [
 			{
 				"id": "Wall",
-				"iid": "93261362-bde0-11f1-bcee-573553b3e734",
+				"iid": "b3c766d2-bde0-11f1-b98d-edcf1a58ede6",
 				"layer": "Walls",
 				"x": 0,
 				"y": 0,
@@ -42,20 +42,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "93261363-bde0-11f1-bcee-efe7eab4312e",
-				"layer": "Walls",
-				"x": 112,
-				"y": 96,
-				"width": 256,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "93261364-bde0-11f1-bcee-35030216af1e",
+				"iid": "b3c766d3-bde0-11f1-b98d-255b17221e5d",
 				"layer": "Walls",
 				"x": 112,
 				"y": 0,
@@ -68,7 +55,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "93261365-bde0-11f1-bcee-5fcf901107cc",
+				"iid": "b3c766d4-bde0-11f1-b98d-4b2c5d4f1a29",
 				"layer": "Walls",
 				"x": 368,
 				"y": 96,
@@ -81,25 +68,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "93261366-bde0-11f1-bcee-392187e1c8ba",
+				"iid": "b3c766d5-bde0-11f1-b98d-21d987ad296f",
 				"layer": "Walls",
 				"x": 0,
-				"y": 368,
-				"width": 368,
-				"height": 112,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "93261367-bde0-11f1-bcee-95121b107c24",
-				"layer": "Walls",
-				"x": 0,
-				"y": 256,
+				"y": 248,
 				"width": 112,
-				"height": 112,
+				"height": 232,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -107,7 +81,33 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "93261368-bde0-11f1-bcee-bf10b1e1175e",
+				"iid": "b3c766d6-bde0-11f1-b98d-e727add60cc4",
+				"layer": "Walls",
+				"x": 112,
+				"y": 360,
+				"width": 256,
+				"height": 120,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "b3c766d7-bde0-11f1-b98d-bfc9a16bd32f",
+				"layer": "Walls",
+				"x": 112,
+				"y": 96,
+				"width": 256,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "b3c766d8-bde0-11f1-b98d-efa229529a53",
 				"layer": "Walls",
 				"x": 0,
 				"y": 208,
@@ -119,56 +119,10 @@
 				}
 			}
 		],
-		"EnemySpawnPoint": [
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "9326136a-bde0-11f1-bcee-190f0870ab95",
-				"layer": "EnemySpawnPoint",
-				"x": 152,
-				"y": 152,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "9326136b-bde0-11f1-bcee-97a22719fa81",
-				"layer": "EnemySpawnPoint",
-				"x": 328,
-				"y": 152,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "9326136c-bde0-11f1-bcee-2153d8366bd7",
-				"layer": "EnemySpawnPoint",
-				"x": 152,
-				"y": 328,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "9326136d-bde0-11f1-bcee-0de73cc98b27",
-				"layer": "EnemySpawnPoint",
-				"x": 328,
-				"y": 328,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			}
-		],
 		"VerticalDoor": [
 			{
 				"id": "VerticalDoor",
-				"iid": "93261371-bde0-11f1-bcee-8793f333c2ef",
+				"iid": "b3c78de2-bde0-11f1-b98d-517e87718fd3",
 				"layer": "Doors",
 				"x": 80,
 				"y": 224,
@@ -181,7 +135,7 @@
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
-				"iid": "93261375-bde0-11f1-bcee-8d0d67f8ab33",
+				"iid": "b3c78de4-bde0-11f1-b98d-9141da3c78b6",
 				"layer": "RoomHitbox",
 				"x": 112,
 				"y": 112,

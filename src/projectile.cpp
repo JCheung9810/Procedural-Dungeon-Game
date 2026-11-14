@@ -152,18 +152,21 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
                 Wall& wall = dungeon.rooms[j].roomContent.walls[k];
 
                 if(CheckCollisionRecs(wall.hitbox, projectiles[i].hitbox)) {
-                    //bool firedFromBelow =
-                    //    projectiles[i].initialYPosition > wall.hitbox.y + wall.hitbox.height;
+                    /*
+                    bool firedFromBelow =
+                        projectiles[i].initialYPosition > wall.hitbox.y + wall.hitbox.height;
 
                     bool hitWallSide =
                         CheckCollisionRecs(wall.hitboxSides[0], projectiles[i].hitbox) ||
                         CheckCollisionRecs(wall.hitboxSides[1], projectiles[i].hitbox);
+                    */
 
                     //bool movingTowardWall =
                     //    projectiles[i].speed.y < 0;
 
-                    if(wall.projectileCollision ||
-                        hitWallSide){
+                    if(wall.projectileCollision){ //||
+                        //(hitWallSide && !firedFromBelow)){
+                        //hitWallSide){
                     //!firedFromBelow){
                     //(hitWallSide && movingTowardWall)) {
 

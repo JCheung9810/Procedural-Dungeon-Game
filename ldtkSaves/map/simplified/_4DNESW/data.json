@@ -1,6 +1,6 @@
 {
 	"identifier": "_4DNESW",
-	"uniqueIdentifer": "a43085b0-bde0-11f1-bcee-791480c5db3b",
+	"uniqueIdentifer": "2a101f40-bde0-11f1-b98d-457ca163cd58",
 	"x": -240,
 	"y": 1200,
 	"width": 480,
@@ -33,7 +33,7 @@
 		"Wall": [
 			{
 				"id": "Wall",
-				"iid": "a43085b2-bde0-11f1-bcee-4fddaf9ae9a8",
+				"iid": "2a101f42-bde0-11f1-b98d-2782b7091e78",
 				"layer": "Walls",
 				"x": 0,
 				"y": 0,
@@ -46,7 +46,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085b3-bde0-11f1-bcee-5d6530ca4f43",
+				"iid": "2a101f43-bde0-11f1-b98d-dde201c7e5d8",
 				"layer": "Walls",
 				"x": 112,
 				"y": 0,
@@ -59,20 +59,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085b4-bde0-11f1-bcee-474c66858d7c",
-				"layer": "Walls",
-				"x": 112,
-				"y": 96,
-				"width": 112,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "a43085b5-bde0-11f1-bcee-d5c1c841307d",
+				"iid": "2a101f44-bde0-11f1-b98d-7f1305d8ed42",
 				"layer": "Walls",
 				"x": 256,
 				"y": 0,
@@ -85,20 +72,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085b6-bde0-11f1-bcee-f1449f734979",
-				"layer": "Walls",
-				"x": 256,
-				"y": 96,
-				"width": 112,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "a43085b7-bde0-11f1-bcee-93fd3efb1f6f",
+				"iid": "2a101f45-bde0-11f1-b98d-fdae9dd1b671",
 				"layer": "Walls",
 				"x": 368,
 				"y": 96,
@@ -111,12 +85,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085b8-bde0-11f1-bcee-f7941099e1ab",
+				"iid": "2a101f46-bde0-11f1-b98d-3db7e949d1aa",
 				"layer": "Walls",
 				"x": 368,
-				"y": 256,
+				"y": 248,
 				"width": 112,
-				"height": 224,
+				"height": 232,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -124,12 +98,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085b9-bde0-11f1-bcee-25279374e7b2",
+				"iid": "2a101f47-bde0-11f1-b98d-7d0380713408",
 				"layer": "Walls",
 				"x": 256,
-				"y": 368,
+				"y": 360,
 				"width": 112,
-				"height": 112,
+				"height": 120,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -137,12 +111,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085ba-bde0-11f1-bcee-0d42bc3f0101",
+				"iid": "2a101f48-bde0-11f1-b98d-bdb1b27136ae",
 				"layer": "Walls",
 				"x": 0,
-				"y": 368,
+				"y": 360,
 				"width": 224,
-				"height": 112,
+				"height": 120,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -150,10 +124,10 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085bb-bde0-11f1-bcee-93375e1b3374",
+				"iid": "2a101f49-bde0-11f1-b98d-173aa07fde0e",
 				"layer": "Walls",
 				"x": 0,
-				"y": 256,
+				"y": 248,
 				"width": 112,
 				"height": 112,
 				"color": 16690740,
@@ -163,7 +137,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085bc-bde0-11f1-bcee-a1e5de14ae3b",
+				"iid": "2a101f4a-bde0-11f1-b98d-cf63ae7ebfb9",
 				"layer": "Walls",
 				"x": 0,
 				"y": 208,
@@ -176,7 +150,33 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "a43085bd-bde0-11f1-bcee-2ded99d40094",
+				"iid": "2a101f4b-bde0-11f1-b98d-45e384ea250c",
+				"layer": "Walls",
+				"x": 112,
+				"y": 96,
+				"width": 112,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "2a101f4c-bde0-11f1-b98d-e3d07fa450a5",
+				"layer": "Walls",
+				"x": 256,
+				"y": 96,
+				"width": 112,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "2a101f4d-bde0-11f1-b98d-dd37d6f19dd1",
 				"layer": "Walls",
 				"x": 368,
 				"y": 208,
@@ -191,7 +191,7 @@
 		"EnemySpawnPoint": [
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "a43085bf-bde0-11f1-bcee-6dda58ae5081",
+				"iid": "2a101f50-bde0-11f1-b98d-6d5fd5439d2e",
 				"layer": "EnemySpawnPoint",
 				"x": 152,
 				"y": 152,
@@ -202,7 +202,7 @@
 			},
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "a43085c0-bde0-11f1-bcee-d5da4b0745f1",
+				"iid": "2a101f51-bde0-11f1-b98d-f12f5fcc7ac7",
 				"layer": "EnemySpawnPoint",
 				"x": 328,
 				"y": 152,
@@ -213,7 +213,7 @@
 			},
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "a43085c1-bde0-11f1-bcee-bd794bf48dbb",
+				"iid": "2a101f52-bde0-11f1-b98d-21e4f7578178",
 				"layer": "EnemySpawnPoint",
 				"x": 152,
 				"y": 328,
@@ -224,7 +224,7 @@
 			},
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "a43085c2-bde0-11f1-bcee-ef57a6c4b112",
+				"iid": "2a101f53-bde0-11f1-b98d-5f9a859023ad",
 				"layer": "EnemySpawnPoint",
 				"x": 328,
 				"y": 328,
@@ -237,7 +237,7 @@
 		"VerticalDoor": [
 			{
 				"id": "VerticalDoor",
-				"iid": "a43085c5-bde0-11f1-bcee-55b13a048a2d",
+				"iid": "2a101f56-bde0-11f1-b98d-85e66794f4d3",
 				"layer": "Doors",
 				"x": 384,
 				"y": 224,
@@ -248,7 +248,7 @@
 			},
 			{
 				"id": "VerticalDoor",
-				"iid": "a43085c6-bde0-11f1-bcee-313bdd49c16a",
+				"iid": "2a101f57-bde0-11f1-b98d-7386698cb1a1",
 				"layer": "Doors",
 				"x": 80,
 				"y": 224,
@@ -261,7 +261,7 @@
 		"HorizontalDoor": [
 			{
 				"id": "HorizontalDoor",
-				"iid": "a43085c7-bde0-11f1-bcee-337d94254252",
+				"iid": "2a101f58-bde0-11f1-b98d-812b51f6bfa0",
 				"layer": "Doors",
 				"x": 224,
 				"y": 80,
@@ -272,7 +272,7 @@
 			},
 			{
 				"id": "HorizontalDoor",
-				"iid": "a43085c8-bde0-11f1-bcee-cb8b2b801095",
+				"iid": "2a101f59-bde0-11f1-b98d-c11d918487c8",
 				"layer": "Doors",
 				"x": 224,
 				"y": 384,
@@ -285,7 +285,7 @@
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
-				"iid": "a430d3d0-bde0-11f1-bcee-55015c08ac5d",
+				"iid": "2a101f5b-bde0-11f1-b98d-bfa39e525ea3",
 				"layer": "RoomHitbox",
 				"x": 112,
 				"y": 112,
