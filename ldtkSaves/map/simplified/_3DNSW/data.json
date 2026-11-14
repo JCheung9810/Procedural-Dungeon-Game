@@ -26,6 +26,52 @@
 		"Foreground.png"
 	],
 	"entities": {
+		"EnemySpawnPoint": [
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "81be77df-bde0-11f1-bcee-51cee16c64e1",
+				"layer": "EnemySpawnPoint",
+				"x": 152,
+				"y": 152,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "81be77e0-bde0-11f1-bcee-7739b04aaa40",
+				"layer": "EnemySpawnPoint",
+				"x": 328,
+				"y": 152,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "81be77e1-bde0-11f1-bcee-bb4e533663a5",
+				"layer": "EnemySpawnPoint",
+				"x": 152,
+				"y": 328,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "81be77e2-bde0-11f1-bcee-eff89d59d7ab",
+				"layer": "EnemySpawnPoint",
+				"x": 328,
+				"y": 328,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			}
+		],
 		"Wall": [
 			{
 				"id": "Wall",
@@ -158,49 +204,16 @@
 				}
 			}
 		],
-		"EnemySpawnPoint": [
+		"RoomHitbox": [
 			{
-				"id": "EnemySpawnPoint",
-				"iid": "81be77df-bde0-11f1-bcee-51cee16c64e1",
-				"layer": "EnemySpawnPoint",
-				"x": 152,
-				"y": 152,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "81be77e0-bde0-11f1-bcee-7739b04aaa40",
-				"layer": "EnemySpawnPoint",
-				"x": 328,
-				"y": 152,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "81be77e1-bde0-11f1-bcee-bb4e533663a5",
-				"layer": "EnemySpawnPoint",
-				"x": 152,
-				"y": 328,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
-				"customFields" : {}
-			},
-			{
-				"id": "EnemySpawnPoint",
-				"iid": "81be77e2-bde0-11f1-bcee-eff89d59d7ab",
-				"layer": "EnemySpawnPoint",
-				"x": 328,
-				"y": 328,
-				"width": 16,
-				"height": 16,
-				"color": 12470831,
+				"id": "RoomHitbox",
+				"iid": "81bec5f2-bde0-11f1-bcee-99cb7b927328",
+				"layer": "RoomHitbox",
+				"x": 112,
+				"y": 112,
+				"width": 256,
+				"height": 256,
+				"color": 14120515,
 				"customFields" : {}
 			}
 		],
@@ -238,19 +251,6 @@
 				"width": 32,
 				"height": 16,
 				"color": 15389866,
-				"customFields" : {}
-			}
-		],
-		"RoomHitbox": [
-			{
-				"id": "RoomHitbox",
-				"iid": "81bec5f2-bde0-11f1-bcee-99cb7b927328",
-				"layer": "RoomHitbox",
-				"x": 112,
-				"y": 112,
-				"width": 256,
-				"height": 256,
-				"color": 14120515,
 				"customFields" : {}
 			}
 		]

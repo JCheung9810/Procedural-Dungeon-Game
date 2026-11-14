@@ -8,7 +8,7 @@
 	"bgColor": "#696A79",
 	"neighbourLevels": [
 		{
-			"levelIid": "c6d6d240-bde0-11f1-bbf2-5de7fee8ca8c",
+			"levelIid": "6bf29ce0-bde0-11f1-8516-5985d4a876c8",
 			"dir": "w"
 		}
 	],
@@ -23,11 +23,182 @@
 				"id": "EnemySpawnPoint",
 				"iid": "a1226670-bde0-11f1-bb0c-9fec035155c2",
 				"layer": "EnemySpawnPoint",
-				"x": 744,
-				"y": 920,
+				"x": 856,
+				"y": 968,
 				"width": 16,
 				"height": 16,
 				"color": 12470831,
+				"customFields" : {}
+			}
+		],
+		"Wall": [
+			{
+				"id": "Wall",
+				"iid": "298ff150-bde0-11f1-8516-99384be41fa2",
+				"layer": "Walls",
+				"x": 800,
+				"y": 1128,
+				"width": 176,
+				"height": 792,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "3474caa0-bde0-11f1-8516-2dffdd5b6f63",
+				"layer": "Walls",
+				"x": 0,
+				"y": 968,
+				"width": 800,
+				"height": 952,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "3e5616a0-bde0-11f1-8516-552d6caf37ca",
+				"layer": "Walls",
+				"x": 976,
+				"y": 1128,
+				"width": 144,
+				"height": 792,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "43e8a1f0-bde0-11f1-8516-71c1e738fa68",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 968,
+				"width": 800,
+				"height": 952,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "4aac0c20-bde0-11f1-8516-27f9239c2d4f",
+				"layer": "Walls",
+				"x": 0,
+				"y": 0,
+				"width": 800,
+				"height": 928,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "54332a30-bde0-11f1-8516-adeb4ff49407",
+				"layer": "Walls",
+				"x": 800,
+				"y": 0,
+				"width": 176,
+				"height": 784,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "587df340-bde0-11f1-8516-c3abb4dd379f",
+				"layer": "Walls",
+				"x": 976,
+				"y": 0,
+				"width": 144,
+				"height": 784,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "5c9b6ac0-bde0-11f1-8516-d58fc5ef03aa",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 0,
+				"width": 800,
+				"height": 928,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "62339b60-bde0-11f1-8516-43f2d88fb13d",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 928,
+				"width": 800,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "68cdd2b0-bde0-11f1-8516-fdbafca30977",
+				"layer": "Walls",
+				"x": 976,
+				"y": 784,
+				"width": 144,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "6b18fb30-bde0-11f1-8516-c15a0944cd43",
+				"layer": "Walls",
+				"x": 800,
+				"y": 784,
+				"width": 176,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "6e5ded00-bde0-11f1-8516-0bac4b0f022c",
+				"layer": "Walls",
+				"x": 0,
+				"y": 928,
+				"width": 800,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			}
+		],
+		"RoomHitbox": [
+			{
+				"id": "RoomHitbox",
+				"iid": "751580e0-bde0-11f1-bb0c-d7b076b4a973",
+				"layer": "RoomHitbox",
+				"x": 800,
+				"y": 800,
+				"width": 320,
+				"height": 336,
+				"color": 14120515,
 				"customFields" : {}
 			}
 		],
@@ -36,8 +207,8 @@
 				"id": "VerticalDoor",
 				"iid": "25b97340-bde0-11f1-824f-cb933511941e",
 				"layer": "Doors",
-				"x": 1120,
-				"y": 896,
+				"x": 1136,
+				"y": 944,
 				"width": 16,
 				"height": 32,
 				"color": 15389866,
@@ -47,24 +218,11 @@
 				"id": "VerticalDoor",
 				"iid": "29fce950-bde0-11f1-824f-bb9e85340f65",
 				"layer": "Doors",
-				"x": 688,
-				"y": 896,
+				"x": 768,
+				"y": 944,
 				"width": 16,
 				"height": 32,
 				"color": 15389866,
-				"customFields" : {}
-			}
-		],
-		"RoomHitbox": [
-			{
-				"id": "RoomHitbox",
-				"iid": "751580e0-bde0-11f1-bb0c-d7b076b4a973",
-				"layer": "RoomHitbox",
-				"x": 864,
-				"y": 784,
-				"width": 256,
-				"height": 256,
-				"color": 14120515,
 				"customFields" : {}
 			}
 		]

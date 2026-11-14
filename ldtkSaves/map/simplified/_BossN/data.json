@@ -1,6 +1,6 @@
 {
 	"identifier": "_BossN",
-	"uniqueIdentifer": "c9cdcb20-bde0-11f1-bbf2-bdabdd8b1052",
+	"uniqueIdentifer": "fd357610-bde0-11f1-8516-b9cc2685e07d",
 	"x": -9184,
 	"y": -256,
 	"width": 1920,
@@ -8,7 +8,7 @@
 	"bgColor": "#696A79",
 	"neighbourLevels": [
 		{
-			"levelIid": "c88593b0-bde0-11f1-bbf2-2184230c8947",
+			"levelIid": "d6c90910-bde0-11f1-8516-a764c5a9f1be",
 			"dir": "e"
 		}
 	],
@@ -21,26 +21,182 @@
 		"EnemySpawnPoint": [
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "a46fe3c0-bde0-11f1-bb0c-9d18a10eea66",
+				"iid": "fd357612-bde0-11f1-8516-7520594469d1",
 				"layer": "EnemySpawnPoint",
-				"x": 968,
-				"y": 392,
+				"x": 952,
+				"y": 1080,
 				"width": 16,
 				"height": 16,
 				"color": 12470831,
 				"customFields" : {}
 			}
 		],
+		"Wall": [
+			{
+				"id": "Wall",
+				"iid": "fd357614-bde0-11f1-8516-b79216d5492e",
+				"layer": "Walls",
+				"x": 800,
+				"y": 1128,
+				"width": 144,
+				"height": 792,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd357615-bde0-11f1-8516-c1c375612c00",
+				"layer": "Walls",
+				"x": 0,
+				"y": 968,
+				"width": 800,
+				"height": 952,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd357616-bde0-11f1-8516-472f24b8d724",
+				"layer": "Walls",
+				"x": 976,
+				"y": 1128,
+				"width": 144,
+				"height": 792,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd357617-bde0-11f1-8516-83e4826e1f00",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 968,
+				"width": 800,
+				"height": 952,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd357618-bde0-11f1-8516-07ecb45b035f",
+				"layer": "Walls",
+				"x": 0,
+				"y": 0,
+				"width": 800,
+				"height": 968,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd357619-bde0-11f1-8516-9b55b125b8c9",
+				"layer": "Walls",
+				"x": 800,
+				"y": 0,
+				"width": 144,
+				"height": 784,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd35761a-bde0-11f1-8516-23f0a2d7f56d",
+				"layer": "Walls",
+				"x": 976,
+				"y": 0,
+				"width": 144,
+				"height": 784,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd35761b-bde0-11f1-8516-ddc2d8f008fe",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 0,
+				"width": 800,
+				"height": 968,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd35761d-bde0-11f1-8516-1b8f174dbc77",
+				"layer": "Walls",
+				"x": 976,
+				"y": 784,
+				"width": 144,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "fd35761e-bde0-11f1-8516-bfd6f1d504fe",
+				"layer": "Walls",
+				"x": 800,
+				"y": 784,
+				"width": 144,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			}
+		],
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
-				"iid": "53f01740-bde0-11f1-bb0c-9dcac7384c33",
+				"iid": "fd357621-bde0-11f1-8516-6b5108026fb4",
 				"layer": "RoomHitbox",
-				"x": 848,
-				"y": 736,
-				"width": 256,
-				"height": 256,
+				"x": 800,
+				"y": 800,
+				"width": 320,
+				"height": 336,
 				"color": 14120515,
+				"customFields" : {}
+			}
+		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "5e2c0060-bde0-11f1-8516-d960760d5706",
+				"layer": "Doors",
+				"x": 944,
+				"y": 768,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "HorizontalDoor",
+				"iid": "63763810-bde0-11f1-8516-d7c1dfc9bec1",
+				"layer": "Doors",
+				"x": 944,
+				"y": 1168,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
 				"customFields" : {}
 			}
 		]

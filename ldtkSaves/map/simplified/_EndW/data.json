@@ -119,19 +119,6 @@
 				}
 			}
 		],
-		"VerticalDoor": [
-			{
-				"id": "VerticalDoor",
-				"iid": "b3c78de2-bde0-11f1-b98d-517e87718fd3",
-				"layer": "Doors",
-				"x": 80,
-				"y": 224,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			}
-		],
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
@@ -142,6 +129,19 @@
 				"width": 256,
 				"height": 256,
 				"color": 14120515,
+				"customFields" : {}
+			}
+		],
+		"VerticalDoor": [
+			{
+				"id": "VerticalDoor",
+				"iid": "b3c78de2-bde0-11f1-b98d-517e87718fd3",
+				"layer": "Doors",
+				"x": 80,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
 				"customFields" : {}
 			}
 		]

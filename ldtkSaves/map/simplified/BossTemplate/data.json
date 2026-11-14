@@ -1,0 +1,225 @@
+{
+	"identifier": "BossTemplate",
+	"uniqueIdentifer": "808599b0-bde0-11f1-8516-25f88fe21bdb",
+	"x": -9200,
+	"y": -3024,
+	"width": 1920,
+	"height": 1920,
+	"bgColor": "#696A79",
+	"neighbourLevels": [],
+	"customFields" : {},
+	"layers": [
+		"Background.png",
+		"Foreground.png"
+	],
+	"entities": {
+		"EnemySpawnPoint": [
+			{
+				"id": "EnemySpawnPoint",
+				"iid": "808599c2-bde0-11f1-8516-1b9c50226ca4",
+				"layer": "EnemySpawnPoint",
+				"x": 744,
+				"y": 920,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			}
+		],
+		"Wall": [
+			{
+				"id": "Wall",
+				"iid": "808599b2-bde0-11f1-8516-71ca12edeeb7",
+				"layer": "Walls",
+				"x": 800,
+				"y": 1128,
+				"width": 144,
+				"height": 792,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b3-bde0-11f1-8516-2d96bd1988a3",
+				"layer": "Walls",
+				"x": 0,
+				"y": 968,
+				"width": 800,
+				"height": 952,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b4-bde0-11f1-8516-9178dcb15b10",
+				"layer": "Walls",
+				"x": 976,
+				"y": 1128,
+				"width": 144,
+				"height": 792,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b5-bde0-11f1-8516-99b975d420a7",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 968,
+				"width": 800,
+				"height": 952,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b6-bde0-11f1-8516-4f53e2331144",
+				"layer": "Walls",
+				"x": 0,
+				"y": 0,
+				"width": 800,
+				"height": 928,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b7-bde0-11f1-8516-c35bd068e0cd",
+				"layer": "Walls",
+				"x": 800,
+				"y": 0,
+				"width": 144,
+				"height": 784,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b8-bde0-11f1-8516-35e86f6547cb",
+				"layer": "Walls",
+				"x": 976,
+				"y": 0,
+				"width": 144,
+				"height": 784,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599b9-bde0-11f1-8516-c396a4800327",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 0,
+				"width": 800,
+				"height": 928,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599ba-bde0-11f1-8516-d15409de9479",
+				"layer": "Walls",
+				"x": 1120,
+				"y": 928,
+				"width": 800,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599bb-bde0-11f1-8516-6925b5921c56",
+				"layer": "Walls",
+				"x": 976,
+				"y": 784,
+				"width": 144,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599bc-bde0-11f1-8516-c78173c097d7",
+				"layer": "Walls",
+				"x": 800,
+				"y": 784,
+				"width": 144,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "808599bd-bde0-11f1-8516-95e9d9f25951",
+				"layer": "Walls",
+				"x": 0,
+				"y": 928,
+				"width": 800,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			}
+		],
+		"RoomHitbox": [
+			{
+				"id": "RoomHitbox",
+				"iid": "808599bf-bde0-11f1-8516-1d4826752837",
+				"layer": "RoomHitbox",
+				"x": 800,
+				"y": 800,
+				"width": 320,
+				"height": 336,
+				"color": 14120515,
+				"customFields" : {}
+			}
+		],
+		"VerticalDoor": [
+			{
+				"id": "VerticalDoor",
+				"iid": "808599c5-bde0-11f1-8516-cf08ad5498cf",
+				"layer": "Doors",
+				"x": 1120,
+				"y": 896,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "VerticalDoor",
+				"iid": "808599c6-bde0-11f1-8516-412763edaf60",
+				"layer": "Doors",
+				"x": 688,
+				"y": 896,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		]
+	}
+}
