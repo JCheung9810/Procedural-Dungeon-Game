@@ -80,6 +80,19 @@
 				"customFields" : {}
 			}
 		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "21774af7-bde0-11f1-bcee-93cf48dd6c0d",
+				"layer": "Doors",
+				"x": 224,
+				"y": 384,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
 		"Wall": [
 			{
 				"id": "Wall",
@@ -170,19 +183,6 @@
 				"width": 256,
 				"height": 256,
 				"color": 14120515,
-				"customFields" : {}
-			}
-		],
-		"HorizontalDoor": [
-			{
-				"id": "HorizontalDoor",
-				"iid": "21774af7-bde0-11f1-bcee-93cf48dd6c0d",
-				"layer": "Doors",
-				"x": 224,
-				"y": 384,
-				"width": 32,
-				"height": 16,
-				"color": 15389866,
 				"customFields" : {}
 			}
 		]

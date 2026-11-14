@@ -76,6 +76,54 @@
 				"customFields" : {}
 			}
 		],
+		"VerticalDoor": [
+			{
+				"id": "VerticalDoor",
+				"iid": "2a101f56-bde0-11f1-b98d-85e66794f4d3",
+				"layer": "Doors",
+				"x": 384,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "VerticalDoor",
+				"iid": "2a101f57-bde0-11f1-b98d-7386698cb1a1",
+				"layer": "Doors",
+				"x": 80,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "2a101f58-bde0-11f1-b98d-812b51f6bfa0",
+				"layer": "Doors",
+				"x": 224,
+				"y": 80,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			},
+			{
+				"id": "HorizontalDoor",
+				"iid": "2a101f59-bde0-11f1-b98d-c11d918487c8",
+				"layer": "Doors",
+				"x": 224,
+				"y": 384,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
 		"Wall": [
 			{
 				"id": "Wall",
@@ -244,54 +292,6 @@
 				"width": 256,
 				"height": 256,
 				"color": 14120515,
-				"customFields" : {}
-			}
-		],
-		"VerticalDoor": [
-			{
-				"id": "VerticalDoor",
-				"iid": "2a101f56-bde0-11f1-b98d-85e66794f4d3",
-				"layer": "Doors",
-				"x": 384,
-				"y": 224,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			},
-			{
-				"id": "VerticalDoor",
-				"iid": "2a101f57-bde0-11f1-b98d-7386698cb1a1",
-				"layer": "Doors",
-				"x": 80,
-				"y": 224,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			}
-		],
-		"HorizontalDoor": [
-			{
-				"id": "HorizontalDoor",
-				"iid": "2a101f58-bde0-11f1-b98d-812b51f6bfa0",
-				"layer": "Doors",
-				"x": 224,
-				"y": 80,
-				"width": 32,
-				"height": 16,
-				"color": 15389866,
-				"customFields" : {}
-			},
-			{
-				"id": "HorizontalDoor",
-				"iid": "2a101f59-bde0-11f1-b98d-c11d918487c8",
-				"layer": "Doors",
-				"x": 224,
-				"y": 384,
-				"width": 32,
-				"height": 16,
-				"color": 15389866,
 				"customFields" : {}
 			}
 		]

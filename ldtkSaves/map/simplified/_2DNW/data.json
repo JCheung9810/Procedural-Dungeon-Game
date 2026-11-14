@@ -72,6 +72,32 @@
 				"customFields" : {}
 			}
 		],
+		"VerticalDoor": [
+			{
+				"id": "VerticalDoor",
+				"iid": "f8afa556-bde0-11f1-bcee-abc1ea81f890",
+				"layer": "Doors",
+				"x": 80,
+				"y": 224,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
+		"HorizontalDoor": [
+			{
+				"id": "HorizontalDoor",
+				"iid": "f8afa557-bde0-11f1-bcee-d75192c41e3c",
+				"layer": "Doors",
+				"x": 224,
+				"y": 80,
+				"width": 32,
+				"height": 16,
+				"color": 15389866,
+				"customFields" : {}
+			}
+		],
 		"Wall": [
 			{
 				"id": "Wall",
@@ -201,32 +227,6 @@
 				"width": 256,
 				"height": 256,
 				"color": 14120515,
-				"customFields" : {}
-			}
-		],
-		"VerticalDoor": [
-			{
-				"id": "VerticalDoor",
-				"iid": "f8afa556-bde0-11f1-bcee-abc1ea81f890",
-				"layer": "Doors",
-				"x": 80,
-				"y": 224,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			}
-		],
-		"HorizontalDoor": [
-			{
-				"id": "HorizontalDoor",
-				"iid": "f8afa557-bde0-11f1-bcee-d75192c41e3c",
-				"layer": "Doors",
-				"x": 224,
-				"y": 80,
-				"width": 32,
-				"height": 16,
-				"color": 15389866,
 				"customFields" : {}
 			}
 		]
