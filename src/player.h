@@ -21,10 +21,13 @@ struct Player {
     Vector2 center;
     Vector2 direction;
 
-    float speed;
+    float baseSpeed;
+    float currentSpeed;
     float maxHealth;
     float health;
     float iFrames;
+
+    Vector2 size;
 
     Rectangle hitbox;
     Rectangle hurtbox;
@@ -53,21 +56,11 @@ struct Player {
     
     
     Texture2D texture;
-    Texture2D dashTexture;
-};
-
-struct PlayerConfig {
-    float maxHealth;
-    float speed;   
-    float dashDistance;
-    float dashTime;
-    int walkAnimationFrames;
-    int dashAnimationFrames;
     const char* texturePath;
+
+    Texture2D dashTexture;
     const char* dashTexturePath;
 };
 
-PlayerConfig LoadPlayerConfig(const char* filePath);
-
-void InitializePlayer(Player& player, PlayerConfig playerConfig);
-void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall, PlayerConfig playerConfig);
+void InitializePlayer(Player& player);
+void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall);

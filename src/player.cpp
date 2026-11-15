@@ -13,102 +13,90 @@ using namespace std;
 
 #include <raymath.h>
 
-PlayerConfig LoadPlayerConfig(const char* filePath) {
-    ifstream file(filePath);
+void InitializePlayer(Player& player){
+
+    ifstream file("config/player.json");
 
     if (!file.is_open()) {
-        TraceLog(LOG_ERROR, "Could not open player config: %s", filePath);
-        return {};
+        TraceLog(LOG_ERROR, "Could not open player config: config/player.json");
     }
 
     try {
         json data;
         file >> data;
 
-        PlayerConfig config;
-
-        config.maxHealth = data.at("maxHealth").get<float>();
-        config.speed = data.at("speed").get<float>();
+        player.maxHealth = data.at("maxHealth").get<float>();
+        player.baseSpeed = data.at("speed").get<float>();
         
-        config.dashDistance = data.at("dashDistance").get<float>();
-        config.dashTime = data.at("dashTime").get<float>();
+        player.dashDistance = data.at("dashDistance").get<float>();
+        player.dashTime = data.at("dashTime").get<float>();
         
-        config.walkAnimationFrames = data.at("walkAnimationFrames").get<int>();
-        config.dashAnimationFrames = data.at("dashAnimationFrames").get<int>();
+        player.walkAnimationFrames = data.at("walkAnimationFrames").get<int>();
+        player.dashAnimationFrames = data.at("dashAnimationFrames").get<int>();
         
         string texturePath = data.at("texturePath").get<string>();
         string dashTexturePath = data.at("dashTexturePath").get<string>();
         
-        config.texturePath = strdup(texturePath.c_str());
-        config.dashTexturePath = strdup(dashTexturePath.c_str());
+        player.texturePath = strdup(texturePath.c_str());
+        player.dashTexturePath = strdup(dashTexturePath.c_str());
 
-        return config;
+        vector size = data.at("size").get<vector<float>>();
+        player.size = {size[0],size[1]};
+
+        player.health = player.maxHealth;
+        player.iFrames = 0.0f;
+        
+        player.center = {0,0};
+        player.position = {
+            player.center.x - (player.size.x/2.0f), 
+            player.center.y - (player.size.y/2.0f)
+        };
+        player.hurtbox = {
+            player.position.x, 
+            player.position.y, 
+            player.size.x, 
+            player.size.y
+        };
+        player.hitbox = {
+            player.position.x,
+            player.position.y + player.hurtbox.height - 3.0f,
+            player.size.x,
+            3.0f
+        };
+        
+        player.currentSpeed = player.baseSpeed;
+        player.direction = {0, 0};
+        
+        player.tempDirection = {0, 0};
+        player.facingDirection = 1;
+        
+        player.currentFrame = 0;
+        player.frameTimer = 0.0f;
+        player.frameSpeed = 0.1f;
+    
+        player.state = State::IDLE;
+
+        player.equippedWeaponIndex = 0;
+        
+        player.dashTimer = 0.0f;
+        player.dashCD = 0.0f;
+        
+        player.texture = assets.LoadGameTexture(player.texturePath); 
+        player.dashTexture = assets.LoadGameTexture(player.dashTexturePath); 
+
+        player.maxWeapons = 3;
+        player.weapons.push_back(LoadWeapon("Pistol"));
+        player.weapons.push_back(LoadWeapon("Double Barrel"));
+        player.weapons.push_back(LoadWeapon("Dev Gun"));
+
     }
     catch (const exception& e) {
         TraceLog(LOG_ERROR, "Invalid player config: %s", e.what());
         throw;
-    }
+    } 
 }
 
-void InitializePlayer(Player& player, PlayerConfig playerConfig){
-
-    Vector2 playerSize = {35.0f, 45.0f};
-    player.speed = playerConfig.speed;
-    player.maxHealth = playerConfig.maxHealth;
-    player.health = player.maxHealth;
-    player.iFrames = 0.0f;
-    
-    player.center = {0,0};
-    player.position = {
-        player.center.x - (playerSize.x/2.0f), 
-        player.center.y - (playerSize.y/2.0f)
-    };
-    player.hurtbox = {
-        player.position.x, 
-        player.position.y, 
-        playerSize.x, 
-        playerSize.y
-    };
-    player.hitbox = {
-        player.position.x,
-        player.position.y + player.hurtbox.height - 3.0f,
-        playerSize.x,
-        3.0f
-    };
-    
-    player.direction = {0, 0};
-    
-    player.tempDirection = {0, 0};
-    player.facingDirection = 1;
-    
-    player.currentFrame = 0;
-    player.frameTimer = 0.0f;
-    player.frameSpeed = 0.1f;
-    
-    player.walkAnimationFrames = playerConfig.walkAnimationFrames;
- 
-    player.state = State::IDLE;
-    
-    player.maxWeapons = 3;
-    player.equippedWeaponIndex = 0;
-    
-    player.weapons.push_back(LoadWeapon("config/weapon.json", "Pistol"));
-    player.weapons.push_back(LoadWeapon("config/weapon.json", "Double Barrel"));
-    player.weapons.push_back(LoadWeapon("config/weapon.json", "Dev Gun"));
-
-    player.dashDistance = playerConfig.dashDistance;
-    player.dashTime = playerConfig.dashTime;
-    player.dashTimer = 0.0f;
-    player.dashCD = 0.0f;
-    
-    player.dashAnimationFrames = playerConfig.dashAnimationFrames;
-    
-    player.texture = assets.LoadGameTexture(playerConfig.texturePath); 
-    player.dashTexture = assets.LoadGameTexture(playerConfig.dashTexturePath); 
-    
-}
-
-void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall, PlayerConfig playerConfig){
+void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall){
 
     float deltaTime = GetFrameTime();
 
@@ -121,9 +109,9 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     float yDir = 0;
     
     if(debugSpeed){
-        player.speed = playerConfig.speed * 2.0f;
+        player.currentSpeed = player.baseSpeed * 2.0f;
     } else {
-        player.speed = playerConfig.speed;
+        player.currentSpeed = player.baseSpeed;
     }
     
     //Execute movement
@@ -144,7 +132,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         player.direction = Vector2Normalize({xDir,yDir});
         
         //Scale
-        player.direction = Vector2Scale(player.direction, player.speed);
+        player.direction = Vector2Scale(player.direction, player.currentSpeed);
         
         //Update facing player.direction
         if(player.direction.x > 0){
@@ -165,7 +153,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     //Detect dash
     if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.state == State::WALKING){
         player.state = State::DASHING;
-        float dashSpeed = (player.dashDistance / player.dashTime) / player.speed;
+        float dashSpeed = (player.dashDistance / player.dashTime) / player.currentSpeed;
         player.tempDirection = Vector2Scale(player.direction, dashSpeed);            //Dash speed = Distance/time
         player.dashTimer = player.dashTime;
         //Check ongoing iFrames

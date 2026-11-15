@@ -12,15 +12,15 @@
 using json = nlohmann::json;
 using namespace std;
 
-Weapon LoadWeapon(const char* filePath, const char* weaponName){
+Weapon LoadWeapon(const char* weaponName){
     Weapon weapon{};
 
     TraceLog(LOG_INFO, "Loading weapon: %s", weaponName);
 
-    ifstream file(filePath);
+    ifstream file("config/weapon.json");
 
     if(!file.is_open()) {
-        TraceLog(LOG_ERROR, "Failed to open weapon config: %s", filePath);
+        TraceLog(LOG_ERROR, "Failed to open weapon config: config/weapon.json");
         return weapon;
     }
 

@@ -21,7 +21,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Swap out passing in config json file names, make it built in
   - Add projectileSpeed to json
   - Enemy lead shooting (build in intelligence)
   - Make AttackState for player (shooting, reloading, idle)

@@ -1,6 +1,7 @@
 {
     "maxHealth": 8,
     "speed": 450.0,
+    "size": [35.0, 45.0],
     "dashTime": 0.7,
     "dashDistance": 350.0,
     "walkAnimationFrames": 4,

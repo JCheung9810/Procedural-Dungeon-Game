@@ -46,7 +46,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.maxRange = item.at("maxRange").get<float>();
 
                 string weapon = item.at("weapon").get<string>();
-                newEnemy.weapon = LoadWeapon("config/weapon.json", weapon.c_str());
+                newEnemy.weapon = LoadWeapon(weapon.c_str());
 
                 newEnemy.name = name;
                 newEnemy.position = position;

@@ -58,6 +58,6 @@ struct Weapon {
     
 };
 
-Weapon LoadWeapon(const char* filePath, const char* weaponName);
+Weapon LoadWeapon(const char* weaponName);
 void ReloadWeapon(Player& player);
 void UpdateWeapon(Player& player);

@@ -55,8 +55,7 @@ int main(void){
     
     //Player
     Player player;
-    PlayerConfig playerConfig = LoadPlayerConfig("config/player.json");
-    InitializePlayer(player, playerConfig);
+    InitializePlayer(player);
     
     //Enemies
     vector<Enemy> enemies;
@@ -104,7 +103,7 @@ int main(void){
         if(!exitWindowRequested && player.health > 0.0f){
             //------------------------------PLAYER------------------------------
             //Update player
-            UpdatePlayer(player, dungeon, debug.speed, debug.wall, playerConfig);
+            UpdatePlayer(player, dungeon, debug.speed, debug.wall);
             
             //Weapon swap
             if(IsKeyPressed(KEY_Q)){
