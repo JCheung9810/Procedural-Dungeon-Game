@@ -49,7 +49,9 @@ struct Player {
 
     float dashDistance;         //Distance of dash
     float dashTime;             //Duration of dash
-    float dashTimer;            //Timer for dash cooldown
+    float dashTimer;            //Timer for duration of dash
+
+    float dashCDTimer;          //Timer for dash cooldown
     float dashCD;               //Cooldown amount for dashing
     
     int dashAnimationFrames;

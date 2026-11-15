@@ -43,6 +43,8 @@ void InitializePlayer(Player& player){
         vector size = data.at("size").get<vector<float>>();
         player.size = {size[0],size[1]};
 
+        player.dashCD = data.at("dashCD").get<float>();
+
         player.health = player.maxHealth;
         player.iFrames = 0.0f;
         
@@ -79,7 +81,7 @@ void InitializePlayer(Player& player){
         player.equippedWeaponIndex = 0;
         
         player.dashTimer = 0.0f;
-        player.dashCD = 0.0f;
+        player.dashCDTimer = 0.0f;
 
         player.maxWeapons = 3;
         player.weapons.push_back(LoadWeapon("Pistol"));
@@ -148,7 +150,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     }
             
     //Detect dash
-    if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.state == State::WALKING){
+    if(IsKeyPressed(KEY_SPACE) && player.dashCDTimer <= 0.0f && player.state == State::WALKING){
         player.state = State::DASHING;
         float dashSpeed = (player.dashDistance / player.dashTime) / player.currentSpeed;
         player.tempDirection = Vector2Scale(player.direction, dashSpeed);            //Dash speed = Distance/time
@@ -277,16 +279,16 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         if(player.dashTimer < 0.0f){
             player.dashTimer = 0.0f;
             player.state = State::IDLE;
-            player.dashCD = 1.0f;
+            player.dashCDTimer = player.dashCD;
         }
     }
     
-    //dashCD
-    if(player.dashCD > 0.0f){
-        player.dashCD -= deltaTime;
+    //dashCDTimer
+    if(player.dashCDTimer > 0.0f){
+        player.dashCDTimer -= deltaTime;
 
-        if(player.dashCD < 0.0f){
-            player.dashCD = 0.0f;
+        if(player.dashCDTimer < 0.0f){
+            player.dashCDTimer = 0.0f;
         }
     }
         
