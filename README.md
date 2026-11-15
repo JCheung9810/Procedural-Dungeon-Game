@@ -20,26 +20,10 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - LDTK level loading
 - Room enemy encounter trigger
 
-# To Do
-- COMBAT
-  - Better projectile hitbox 
-  - Enemy lead shooting
-- UI
-  - Reload mouse cursor 
-  - Minimap/map 
-  - Door animation
-- MECHANICS 
-  - Pickups (ammo,health) 
-  - Breakable room objects
-  - Usable/Interactable room objects
-- OTHER
-  - Lobby/Main menu 
-  - Shop 
-
-# Priority List (Highest to Lowest)
-  - Add melee enemy
+# To Do Priority List (Highest to Lowest)
+  - Swap out passing in config json file names, make it built in
+  - Add projectileSpeed to json
   - Enemy lead shooting (build in intelligence)
-  - Add json for enemy types (name, attackType, intelligenceLevel, speed, size, etc..)
   - Make AttackState for player (shooting, reloading, idle)
   - Make enemies spawn in the center of the spawn point (offset by size/2)
   - Add enemy getting hit effect (change their color to white (gun and entity))

@@ -26,6 +26,7 @@ enum class AttackState {
 
 struct Enemy {
     const char* name;
+    const char* type;
     
     Vector2 size;
     Vector2 position;
@@ -43,6 +44,9 @@ struct Enemy {
     
     float attackRate;       //How often entity can attack, at most  (what the timer is set to)
     float attackCD;         //How long before entity can attack again (timer)
+
+    float minRange;         //How close until enemy starts moving away
+    float maxRange;         //How far until enemy starts moving towards
     
     bool active;
     Texture2D texture;

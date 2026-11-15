@@ -1,0 +1,37 @@
+{
+    "enemies": [
+        {
+            "name": "Dummy Pistol",
+            "type": "Ranged",
+            "health": 100.0,
+            "speed": 150.0,
+            "size": [40.0, 40.0],
+            "attackRate": 1.0,
+            "minRange": 225.0,
+            "maxRange": 250.0,
+            "weapon": "Enemy Pistol"
+        },
+        {
+            "name": "Dummy Double Barrel",
+            "type": "Ranged",
+            "health": 120.0,
+            "speed": 100.0,
+            "size": [40.0, 40.0],
+            "attackRate": 2.0,
+            "minRange": 150.0,
+            "maxRange": 180.0,
+            "weapon": "Enemy Double Barrel"
+        },
+        {
+            "name": "Dummy Suicide Bomber",
+            "type": "Melee",
+            "health": 40.0,
+            "speed": 200.0,
+            "size": [40.0, 40.0],
+            "attackRate": 1.0,
+            "minRange": 50.0,
+            "maxRange": 60.0,
+            "weapon": "Enemy Suicide Bomb"
+        }
+    ]
+}

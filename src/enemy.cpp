@@ -4,63 +4,72 @@
 #include "dungeon.h"
 #include "projectile.h"
 
+#include "json.hpp"
+
 #include <raymath.h>
 
+#include <fstream>
+#include <cstring>
+#include <string>
 #include <vector>
 
+using json = nlohmann::json;
 using namespace std;
 
 void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
     Enemy newEnemy;
-    newEnemy.name = name;
 
-    if(TextIsEqual(name, "Dummy Pistol")){
-        newEnemy.speed = 150.0f;
-        newEnemy.position = position;
-        newEnemy.health = 100.0f;
-        newEnemy.size = Vector2{40.0f,40.0f};
-        
-        newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
-        newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
-        
-        newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Pistol");
-        newEnemy.attackRate = 1.0f;
-        newEnemy.attackCD = newEnemy.attackRate;
+    ifstream file("config/enemy.json");
 
-    } else if(TextIsEqual(name, "Dummy Double Barrel")){
-        newEnemy.speed = 150.0f;
-        newEnemy.position = position;
-        newEnemy.health = 100.0f;
-        newEnemy.size = Vector2{40.0f,40.0f};
-        
-        newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
-        newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
-        
-        newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Double Barrel");
-        newEnemy.attackRate = 1.0f;
-        newEnemy.attackCD = newEnemy.attackRate;
-    } else if(TextIsEqual(name, "Dummy Suicide Bomber")){
-        newEnemy.speed = 200.0f;
-        newEnemy.position = position;
-        newEnemy.health = 40.0f;
-        newEnemy.size = Vector2{40.0f,40.0f};
-        
-        newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
-        newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
-        
-        newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Suicide Bomb");
-        newEnemy.attackRate = 1.0f;
-        newEnemy.attackCD = newEnemy.attackRate;
-    } else {
-        TraceLog(LOG_ERROR, "Enemy type for spawning not found");
-        return;
+    if(!file.is_open()) {
+        TraceLog(LOG_ERROR, "Failed to open enemy json: config/enemy.json");
     }
 
-    newEnemy.movementState = MovementState::IDLE;
-    newEnemy.attackState = AttackState::IDLE;
-    newEnemy.active = true;
+    try {
+        json data;
+        file >> data;
 
-    enemies.push_back(newEnemy);
+        for (const auto& item : data.at("enemies")) {
+            if (item.at("name").get<string>() == name) {
+
+                string type = item.at("type").get<string>();
+                newEnemy.type = strdup(type.c_str());
+
+                newEnemy.health = item.at("health").get<float>();
+                newEnemy.speed = item.at("speed").get<float>();
+
+                vector<float> size = item.at("size").get<vector<float>>();
+                newEnemy.size = {size[0], size[1]};
+
+                newEnemy.attackRate = item.at("attackRate").get<float>();
+                newEnemy.minRange = item.at("minRange").get<float>();
+                newEnemy.maxRange = item.at("maxRange").get<float>();
+
+                string weapon = item.at("weapon").get<string>();
+                newEnemy.weapon = LoadWeapon("config/weapon.json", weapon.c_str());
+
+                newEnemy.name = name;
+                newEnemy.position = position;
+                newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
+                newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
+                newEnemy.attackCD = newEnemy.attackRate;
+
+                newEnemy.movementState = MovementState::IDLE;
+                newEnemy.attackState = AttackState::IDLE;
+                newEnemy.active = true;
+
+                enemies.push_back(newEnemy);
+                break;
+            }
+        }
+
+
+
+    }
+    catch (const exception& e)
+    {
+        TraceLog(LOG_ERROR, "Error reading enemy JSON: %s", e.what());
+    }
 }
 
 void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vector<Projectile>& projectiles){
