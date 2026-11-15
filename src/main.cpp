@@ -105,7 +105,7 @@ int main(void){
         if(!exitWindowRequested && player.health > 0.0f){
             //------------------------------PLAYER------------------------------
             //Update player
-            UpdatePlayer(player, dungeon, debug.speed, debug.wall);
+            UpdatePlayer(player, dungeon, debug.speed, debug.wall, playerConfig);
             
             //Weapon swap
             if(IsKeyPressed(KEY_Q)){

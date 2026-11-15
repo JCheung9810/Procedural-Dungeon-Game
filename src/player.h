@@ -44,9 +44,10 @@ struct Player {
     vector<Weapon> weapons;
     int maxWeapons;
 
-    float dashTime;
-    float dashTimer;
-    float dashCD;
+    float dashDistance;         //Distance of dash
+    float dashTime;             //Duration of dash
+    float dashTimer;            //Timer for dash cooldown
+    float dashCD;               //Cooldown amount for dashing
     
     int dashAnimationFrames;
     
@@ -58,6 +59,7 @@ struct Player {
 struct PlayerConfig {
     float maxHealth;
     float speed;   
+    float dashDistance;
     float dashTime;
     int walkAnimationFrames;
     int dashAnimationFrames;
@@ -68,4 +70,4 @@ struct PlayerConfig {
 PlayerConfig LoadPlayerConfig(const char* filePath);
 
 void InitializePlayer(Player& player, PlayerConfig playerConfig);
-void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall);
+void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall, PlayerConfig playerConfig);

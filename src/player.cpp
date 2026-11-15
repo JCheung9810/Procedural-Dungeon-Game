@@ -30,6 +30,7 @@ PlayerConfig LoadPlayerConfig(const char* filePath) {
         config.maxHealth = data.at("maxHealth").get<float>();
         config.speed = data.at("speed").get<float>();
         
+        config.dashDistance = data.at("dashDistance").get<float>();
         config.dashTime = data.at("dashTime").get<float>();
         
         config.walkAnimationFrames = data.at("walkAnimationFrames").get<int>();
@@ -95,6 +96,7 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     player.weapons.push_back(LoadWeapon("config/weapon.json", "Double Barrel"));
     player.weapons.push_back(LoadWeapon("config/weapon.json", "Dev Gun"));
 
+    player.dashDistance = playerConfig.dashDistance;
     player.dashTime = playerConfig.dashTime;
     player.dashTimer = 0.0f;
     player.dashCD = 0.0f;
@@ -106,7 +108,7 @@ void InitializePlayer(Player& player, PlayerConfig playerConfig){
     
 }
 
-void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall){
+void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall, PlayerConfig playerConfig){
 
     float deltaTime = GetFrameTime();
 
@@ -119,9 +121,9 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     float yDir = 0;
     
     if(debugSpeed){
-        player.speed = 1800.0f;
+        player.speed = playerConfig.speed * 2.0f;
     } else {
-        player.speed = 600.0f;
+        player.speed = playerConfig.speed;
     }
     
     //Execute movement
@@ -163,7 +165,8 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     //Detect dash
     if(IsKeyPressed(KEY_SPACE) && player.dashCD <= 0.0f && player.state == State::WALKING){
         player.state = State::DASHING;
-        player.tempDirection = Vector2Scale(player.direction, 2.0f);            //Dash speed = double normal speed
+        float dashSpeed = (player.dashDistance / player.dashTime) / player.speed;
+        player.tempDirection = Vector2Scale(player.direction, dashSpeed);            //Dash speed = Distance/time
         player.dashTimer = player.dashTime;
         //Check ongoing iFrames
         if(player.iFrames > 0.0f){
@@ -172,7 +175,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
                 player.iFrames = player.dashTime;
             }
         } else {
-            player.iFrames = player.dashTime;
+            player.iFrames = player.dashTime / 2.0f;
         }
         
         //Reset frames for animation
