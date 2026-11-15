@@ -40,10 +40,14 @@ Weapon LoadWeapon(const char* weaponName){
 
                 weapon.name = strdup(name.c_str());
                 weapon.type = strdup(type.c_str());
-                weapon.texturePath = strdup(texturePath.c_str());
-                weapon.hudTexturePath = strdup(hudTexturePath.c_str());
-                weapon.shotSoundPath = strdup(shotSoundPath.c_str());
-                weapon.reloadSoundPath = strdup(reloadSoundPath.c_str());
+
+                weapon.texture = assets.LoadGameTexture(strdup(texturePath.c_str()));
+
+                weapon.hudTexture = assets.LoadGameTexture(strdup(hudTexturePath.c_str()));
+
+                weapon.shotSound = assets.LoadGameSound(strdup(shotSoundPath.c_str()));
+
+                weapon.reloadSound = assets.LoadGameSound(strdup(reloadSoundPath.c_str()));
 
                 weapon.textureFrames = item.at("textureFrames").get<int>();
                 weapon.size = item.at("size").get<float>();
@@ -60,9 +64,8 @@ Weapon LoadWeapon(const char* weaponName){
                 weapon.projectileSize = {projectileSize[0], projectileSize[1]};
 
                 string projectileTexturePath = item.at("projectileTexturePath").get<string>();
-                weapon.projectileTexturePath = strdup(projectileTexturePath.c_str());
 
-                weapon.projectileTexture = assets.LoadGameTexture(weapon.projectileTexturePath);
+                weapon.projectileTexture = assets.LoadGameTexture(strdup(projectileTexturePath.c_str()));
 
                 weapon.reloadTime = item.at("reloadTime").get<float>();
                 weapon.magSize = item.at("magSize").get<int>();
@@ -70,12 +73,6 @@ Weapon LoadWeapon(const char* weaponName){
                 weapon.bulletSpread = item.at("bulletSpread").get<float>();
                 weapon.numProjectiles = item.at("numProjectiles").get<int>();
                 weapon.damage = item.at("damage").get<float>();
-
-                weapon.texture = assets.LoadGameTexture(weapon.texturePath);
-                weapon.hudTexture = assets.LoadGameTexture(weapon.hudTexturePath);
-
-                weapon.shotSound = assets.LoadGameSound(weapon.shotSoundPath);
-                weapon.reloadSound = assets.LoadGameSound(weapon.reloadSoundPath);
                 
                 weapon.fireTimer = 0.0f;
                 weapon.firerate = 1.0f / weapon.fireTime;
@@ -90,7 +87,7 @@ Weapon LoadWeapon(const char* weaponName){
                 }
 
                 if (weapon.texture.id == 0) {
-                    TraceLog(LOG_ERROR, "Failed to load weapon texture: %s", weapon.texturePath);
+                    TraceLog(LOG_ERROR, "Failed to load weapon texture");
                 }
                 else {
                     TraceLog(LOG_INFO, "Loaded weapon: %s (Type: %s)", weapon.name, weapon.type);

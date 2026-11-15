@@ -37,8 +37,8 @@ void InitializePlayer(Player& player){
         string texturePath = data.at("texturePath").get<string>();
         string dashTexturePath = data.at("dashTexturePath").get<string>();
         
-        player.texturePath = strdup(texturePath.c_str());
-        player.dashTexturePath = strdup(dashTexturePath.c_str());
+        player.texture = assets.LoadGameTexture(strdup(texturePath.c_str())); 
+        player.dashTexture = assets.LoadGameTexture(strdup(dashTexturePath.c_str())); 
 
         vector size = data.at("size").get<vector<float>>();
         player.size = {size[0],size[1]};
@@ -80,9 +80,6 @@ void InitializePlayer(Player& player){
         
         player.dashTimer = 0.0f;
         player.dashCD = 0.0f;
-        
-        player.texture = assets.LoadGameTexture(player.texturePath); 
-        player.dashTexture = assets.LoadGameTexture(player.dashTexturePath); 
 
         player.maxWeapons = 3;
         player.weapons.push_back(LoadWeapon("Pistol"));

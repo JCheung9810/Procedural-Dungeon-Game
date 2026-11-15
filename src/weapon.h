@@ -16,17 +16,13 @@ struct Weapon {
     const char* name;               //Display name (specific)
     const char* type;               //General weapon type (Pistol, Smg, etc..)
     
-    const char* texturePath;
     int textureFrames;
     Texture2D texture;
     
-    const char* hudTexturePath;
     Texture2D hudTexture;
     
-    const char* shotSoundPath;
     Sound shotSound;
     
-    const char* reloadSoundPath;
     Sound reloadSound;
     
     float size;
@@ -36,7 +32,6 @@ struct Weapon {
     Vector2 projectileSize;
     float projectileLifeSpan;
 
-    const char* projectileTexturePath;
     Texture2D projectileTexture;
 
     float projectileSpeed;

@@ -56,10 +56,8 @@ struct Player {
     
     
     Texture2D texture;
-    const char* texturePath;
 
     Texture2D dashTexture;
-    const char* dashTexturePath;
 };
 
 void InitializePlayer(Player& player);
