@@ -158,7 +158,22 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             //Draw projectiles
             for (int i = 0; i < (int)projectiles.size(); i++){
                 //DrawRectanglePro(projectiles[i].hitbox, Vector2{projectiles[i].size.x / 2.0f, projectiles[i].size.y / 2.0f}, projectiles[i].rotation * RAD2DEG, projectiles[i].color);
-                DrawRectangleRec(projectiles[i].hitbox, YELLOW);
+                //DrawRectangleRec(projectiles[i].hitbox, RED);
+                Rectangle srcRec = {
+                    0,
+                    0,
+                    (float)projectiles[i].sprite.width,
+                    (float)projectiles[i].sprite.height
+                };
+
+                Rectangle destRec = {
+                    projectiles[i].hitbox.x,
+                    projectiles[i].hitbox.y,
+                    (float)projectiles[i].hitbox.width,
+                    (float)projectiles[i].hitbox.height
+                };
+
+                DrawTexturePro(projectiles[i].sprite, srcRec, destRec, {0,0}, 0.0f, WHITE);
             } 
 
             //Draw weapon

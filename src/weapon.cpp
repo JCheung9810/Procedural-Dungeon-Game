@@ -57,6 +57,11 @@ Weapon LoadWeapon(const char* weaponName){
                 vector<float> projectileSize = item.at("projectileSize").get<vector<float>>();
                 weapon.projectileSize = {projectileSize[0], projectileSize[1]};
 
+                string projectileTexturePath = item.at("projectileTexturePath").get<string>();
+                weapon.projectileTexturePath = strdup(projectileTexturePath.c_str());
+
+                weapon.projectileTexture = assets.LoadGameTexture(weapon.projectileTexturePath);
+
                 weapon.reloadTime = item.at("reloadTime").get<float>();
                 weapon.magSize = item.at("magSize").get<int>();
                 weapon.fireTime = item.at("fireTime").get<float>();

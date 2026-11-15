@@ -60,6 +60,9 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
             //Set lifespan
             projectile.lifeSpan = player.weapons[player.equippedWeaponIndex].projectileLifeSpan;
 
+            //Set texture
+            projectile.sprite = player.weapons[player.equippedWeaponIndex].projectileTexture;
+
         } else if(TextIsEqual(team,"Enemy")){
 
             //Null catch
@@ -88,6 +91,9 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
 
             //Set lifeSpan
             projectile.lifeSpan = enemy->weapon.projectileLifeSpan;
+
+            //Set texture
+            projectile.sprite = enemy->weapon.projectileTexture;
         }
         
         //Set trajectory

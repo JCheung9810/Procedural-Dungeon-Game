@@ -238,26 +238,35 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 }
 
 void AssignRoomEnemies(Dungeon& dungeon, Room& room) {
+    if(room.roomContent.enemySpawnPoints.empty()) 
+        return;
+
+    if(dungeon.floor < 0 || dungeon.floor >= (int)dungeon.floorSpawnPools.size()) 
+        return;
+
+    const auto& spawnPool = dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo;
+
+    if(spawnPool.empty()) 
+        return;
+
     int spawnPointIndex = 0;
 
     for(int k = 0; k < room.numEnemiesToSpawn; k++){
-        //Assign enemy names from pool
-        float randomNum = GetRandomValue(1, 100) / 100.0f;
+        float randomNum = (float)GetRandomValue(0, 9999) / 10000.0f;
 
-        //Select an enemy based on spawn weights
-        for(int entityIt = 0; entityIt < (int)dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo.size(); entityIt++){
-            const EnemySpawnInfo& enemyInfo = dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo[entityIt];
+        for(int entityIt = 0; entityIt < (int)spawnPool.size(); entityIt++){
+            const EnemySpawnInfo& enemyInfo = spawnPool[entityIt];
 
-            if(randomNum <= enemyInfo.spawnWeight){
+            if(randomNum < enemyInfo.spawnWeight){
                 room.roomContent.enemySpawnPoints[spawnPointIndex].names.push_back(enemyInfo.name);
 
                 spawnPointIndex++;
                 spawnPointIndex %= (int)room.roomContent.enemySpawnPoints.size();
 
                 break;
-            } else {
-                randomNum -= enemyInfo.spawnWeight;
             }
+
+            randomNum -= enemyInfo.spawnWeight;
         }
     }
 }

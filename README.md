@@ -22,6 +22,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # To Do Priority List (Highest to Lowest)
   - Add projectileSpeed to json
+  - Remove stored paths and just load textures
   - Enemy lead shooting (build in intelligence)
   - Make AttackState for player (shooting, reloading, idle)
   - Make enemies spawn in the center of the spawn point (offset by size/2)

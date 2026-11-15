@@ -35,6 +35,9 @@ struct Weapon {
     float projectileOffset;         //Offset for projectile to come out of the barrel (distance from center rotation/hypotenuse)
     Vector2 projectileSize;
     float projectileLifeSpan;
+
+    const char* projectileTexturePath;
+    Texture2D projectileTexture;
     
     int numProjectiles;     //Projectiles in 1 shot
     
