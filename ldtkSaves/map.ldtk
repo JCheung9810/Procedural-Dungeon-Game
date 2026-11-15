@@ -56562,19 +56562,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [110,90],
+							"__grid": [110,91],
 							"__pivot": [0,0],
 							"__tags": ["Wall"],
 							"__tile": { "tilesetUid": 10, "x": 272, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#FEAE34",
 							"iid": "ec85d880-bde0-11f1-8f43-0bf8221e0577",
 							"width": 560,
-							"height": 720,
+							"height": 712,
 							"defUid": 201,
-							"px": [880,720],
+							"px": [880,728],
 							"fieldInstances": [{ "__identifier": "projectileCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 219, "realEditorValues": [] }],
 							"__worldX": -8080,
-							"__worldY": -1600
+							"__worldY": -1592
 						},
 						{
 							"__identifier": "Wall",
@@ -74058,19 +74058,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [110,90],
+							"__grid": [110,91],
 							"__pivot": [0,0],
 							"__tags": ["Wall"],
 							"__tile": { "tilesetUid": 10, "x": 272, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#FEAE34",
 							"iid": "473f66b9-bde0-11f1-8f43-fb265c98719c",
 							"width": 560,
-							"height": 720,
+							"height": 712,
 							"defUid": 201,
-							"px": [880,720],
+							"px": [880,728],
 							"fieldInstances": [{ "__identifier": "projectileCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 219, "realEditorValues": [] }],
 							"__worldX": -8064,
-							"__worldY": 1104
+							"__worldY": 1112
 						},
 						{
 							"__identifier": "Wall",
@@ -91554,19 +91554,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [110,90],
+							"__grid": [110,91],
 							"__pivot": [0,0],
 							"__tags": ["Wall"],
 							"__tile": { "tilesetUid": 10, "x": 272, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#FEAE34",
 							"iid": "564c17ce-bde0-11f1-8f43-6f278733728e",
 							"width": 560,
-							"height": 720,
+							"height": 712,
 							"defUid": 201,
-							"px": [880,720],
+							"px": [880,728],
 							"fieldInstances": [{ "__identifier": "projectileCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 219, "realEditorValues": [] }],
 							"__worldX": -6624,
-							"__worldY": 1104
+							"__worldY": 1112
 						},
 						{
 							"__identifier": "Wall",
@@ -109050,19 +109050,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [110,90],
+							"__grid": [110,91],
 							"__pivot": [0,0],
 							"__tags": ["Wall"],
 							"__tile": { "tilesetUid": 10, "x": 272, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#FEAE34",
 							"iid": "57b2377e-bde0-11f1-8f43-8b816473d1a9",
 							"width": 560,
-							"height": 720,
+							"height": 712,
 							"defUid": 201,
-							"px": [880,720],
+							"px": [880,728],
 							"fieldInstances": [{ "__identifier": "projectileCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 219, "realEditorValues": [] }],
 							"__worldX": -5184,
-							"__worldY": 1104
+							"__worldY": 1112
 						},
 						{
 							"__identifier": "Wall",
@@ -126546,19 +126546,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [110,90],
+							"__grid": [110,91],
 							"__pivot": [0,0],
 							"__tags": ["Wall"],
 							"__tile": { "tilesetUid": 10, "x": 272, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#FEAE34",
 							"iid": "58ce2eca-bde0-11f1-8f43-e75941e6e35b",
 							"width": 560,
-							"height": 720,
+							"height": 712,
 							"defUid": 201,
-							"px": [880,720],
+							"px": [880,728],
 							"fieldInstances": [{ "__identifier": "projectileCollision", "__type": "Bool", "__value": true, "__tile": null, "defUid": 219, "realEditorValues": [] }],
 							"__worldX": -3744,
-							"__worldY": 1104
+							"__worldY": 1112
 						},
 						{
 							"__identifier": "Wall",

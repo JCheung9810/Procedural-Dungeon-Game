@@ -154,9 +154,9 @@
 				"iid": "57b2377e-bde0-11f1-8f43-8b816473d1a9",
 				"layer": "Walls",
 				"x": 880,
-				"y": 720,
+				"y": 728,
 				"width": 560,
-				"height": 720,
+				"height": 712,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
