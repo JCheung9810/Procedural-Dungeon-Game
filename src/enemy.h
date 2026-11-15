@@ -10,6 +10,7 @@ using namespace std;
 
 struct Player;
 struct Dungeon;
+struct Projectile;
 
 enum class MovementState {
     IDLE,
@@ -49,4 +50,4 @@ struct Enemy {
 };
 
 void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position);
-void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon);
+void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vector<Projectile>& projectiles);

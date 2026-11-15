@@ -51,8 +51,12 @@ Weapon LoadWeapon(const char* filePath, const char* weaponName){
                 vector<float> posOffset = item.at("positionOffset").get<vector<float>>();
                 weapon.positionOffset = {posOffset[0], posOffset[1]};
                 
+                weapon.projectileLifeSpan = item.at("projectileLifeSpan").get<float>();
                 weapon.projectileOffset = item.at("projectileOffset").get<float>();
-                weapon.projectileSize = item.at("projectileSize").get<float>();
+
+                vector<float> projectileSize = item.at("projectileSize").get<vector<float>>();
+                weapon.projectileSize = {projectileSize[0], projectileSize[1]};
+
                 weapon.reloadTime = item.at("reloadTime").get<float>();
                 weapon.magSize = item.at("magSize").get<int>();
                 weapon.fireTime = item.at("fireTime").get<float>();

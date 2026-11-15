@@ -33,7 +33,8 @@ struct Weapon {
     
     Vector2 positionOffset;         //Offset for gun to appear centered around entity
     float projectileOffset;         //Offset for projectile to come out of the barrel (distance from center rotation/hypotenuse)
-    float projectileSize;
+    Vector2 projectileSize;
+    float projectileLifeSpan;
     
     int numProjectiles;     //Projectiles in 1 shot
     

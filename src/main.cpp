@@ -84,7 +84,6 @@ int main(void){
     assets.LoadSpriteInfo();
     
     //Projectile
-    float projectileLifespan = 5.0f;
     vector<Projectile> projectiles;
     
     //Dungeon
@@ -127,7 +126,7 @@ int main(void){
             
             //------------------------------ENEMY------------------------------
             //Update enemies
-            UpdateEnemies(enemies, player, dungeon);
+            UpdateEnemies(enemies, player, dungeon, projectiles);
             
             //------------------------------PROJECTILES------------------------------
             //Update mouse
@@ -141,29 +140,15 @@ int main(void){
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f && 
                     player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
-                        FireProjectile(projectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
+                        FireProjectile(projectiles, &playerToMouseRotation, "Player", player, nullptr);
                     }
                 } else if(player.weapons[player.equippedWeaponIndex].fireMode == FireMode::AUTOMATIC){
                     if(IsMouseButtonDown(MOUSE_LEFT_BUTTON) && player.weapons[player.equippedWeaponIndex].mag >= 1 && 
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f &&
                     player.weapons[player.equippedWeaponIndex].reloading == false)
                     {
-                        FireProjectile(projectiles, playerToMouseRotation, "Player", projectileLifespan, player, nullptr);
+                        FireProjectile(projectiles, &playerToMouseRotation, "Player", player, nullptr);
                     }
-                }
-            }
-
-            float deltaTime = GetFrameTime();
-            if(deltaTime > 0.05f){
-                deltaTime = 0.05f;
-            }
-            
-            //Fire test enemy projectiles     
-            for(int i = 0; i < (int)enemies.size(); i++){
-                enemies[i].attackCD -= deltaTime;
-                if(enemies[i].attackCD <= 0.0f){
-                    FireProjectile(projectiles, playerToMouseRotation, "Enemy", projectileLifespan, player, &enemies[i]);
-                    enemies[i].attackCD = enemies[i].attackRate;
                 }
             }
             

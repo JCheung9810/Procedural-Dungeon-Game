@@ -12,7 +12,7 @@
             "maxEnemiesPerRoom": 9,
             "enemyPool": [
                 {   
-                    "name": "Dummy Pistol",
+                    "name": "Dummy Suicide Bomber",
                     "spawnWeight": 0.75
                 },
                 {

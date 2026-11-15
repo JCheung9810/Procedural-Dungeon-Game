@@ -2,6 +2,7 @@
 
 #include "player.h"
 #include "dungeon.h"
+#include "projectile.h"
 
 #include <raymath.h>
 
@@ -38,6 +39,18 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
         newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Double Barrel");
         newEnemy.attackRate = 1.0f;
         newEnemy.attackCD = newEnemy.attackRate;
+    } else if(TextIsEqual(name, "Dummy Suicide Bomber")){
+        newEnemy.speed = 200.0f;
+        newEnemy.position = position;
+        newEnemy.health = 40.0f;
+        newEnemy.size = Vector2{40.0f,40.0f};
+        
+        newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
+        newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
+        
+        newEnemy.weapon = LoadWeapon("config/weapon.json", "Enemy Suicide Bomb");
+        newEnemy.attackRate = 1.0f;
+        newEnemy.attackCD = newEnemy.attackRate;
     } else {
         TraceLog(LOG_ERROR, "Enemy type for spawning not found");
         return;
@@ -50,7 +63,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
     enemies.push_back(newEnemy);
 }
 
-void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
+void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vector<Projectile>& projectiles){
     float deltaTime = GetFrameTime();
 
     if(deltaTime > 0.05f){
@@ -66,15 +79,42 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
             
         if(enemies[i].active == true){
             float rot = 0.0f;
+            rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
             Vector2 previousPosition = enemies[i].position;
+            Vector2 vectorToPlayer = player.center - enemies[i].center;
+            float distanceToPlayer = Vector2Length(vectorToPlayer);
+            float minDistanceToPlayer;
+            float maxDistanceToPlayer;
 
-            //Straight line towards player
+            //Movement pattern
             if(TextIsEqual(enemies[i].name,"Dummy Pistol") || TextIsEqual(enemies[i].name,"Dummy Double Barrel")){
-                rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
+                if(TextIsEqual(enemies[i].name,"Dummy Pistol")){
+                    maxDistanceToPlayer = 250.0f;
+                    minDistanceToPlayer = 225.0f;
+                } else if(TextIsEqual(enemies[i].name,"Dummy Double Barrel")){
+                    maxDistanceToPlayer = 180.0f;
+                    minDistanceToPlayer = 150.0f;
+                } else {
+                    maxDistanceToPlayer = 60.0f;
+                    minDistanceToPlayer = 50.0f;
+                    TraceLog(LOG_ERROR, "Enemy max and min distance not set");
+                }
+
+                if(distanceToPlayer >= maxDistanceToPlayer){
+                    enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
+                    enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
+                    enemies[i].movementState = MovementState::WALKING;
+                } else if(distanceToPlayer < minDistanceToPlayer){
+                    enemies[i].position.x -= (cos(rot) * enemies[i].speed) * deltaTime;
+                    enemies[i].position.y -= (sin(rot) * enemies[i].speed) * deltaTime;
+                    enemies[i].movementState = MovementState::WALKING;
+                } else {
+                    enemies[i].movementState = MovementState::IDLE;
+                }
+            } else if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber")){
                 enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
                 enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
                 enemies[i].movementState = MovementState::WALKING;
-                enemies[i].attackState = AttackState::IDLE;
             }
 
             //Update enemy positions
@@ -183,6 +223,25 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
                     }
                 }
             }
+
+
+            //Enemy attacking
+            enemies[i].attackCD -= deltaTime;
+
+            if(enemies[i].attackCD <= 0.0f){
+                enemies[i].attackState = AttackState::ATTACKING;
+            }
+
+            if(enemies[i].attackState == AttackState::ATTACKING){
+                if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber")){
+                    if(distanceToPlayer < 50.0f){
+                        FireProjectile(projectiles, nullptr, "Enemy", player, &enemies[i]);
+                    }
+                } else {
+                    FireProjectile(projectiles, nullptr, "Enemy", player, &enemies[i]);
+                }
+            }
+
         } else {
             //Remove inactive enemy
             enemies.erase(enemies.begin() + i);  

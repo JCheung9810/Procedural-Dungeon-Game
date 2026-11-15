@@ -18,7 +18,7 @@ void InitializeProjectile(Projectile& projectile){
            
 }
 
-void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation, const char* team, float projectileLifespan, Player& player, Enemy* enemy){    
+void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotation, const char* team, Player& player, Enemy* enemy){    
     
     int projectilesToCreate = 0;
     if(TextIsEqual(team,"Player")){
@@ -33,9 +33,6 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
         Projectile projectile;
         InitializeProjectile(projectile);
 
-        //Start lifespan
-        projectile.lifeSpan = projectileLifespan; 
-
         //Set projectile team
         projectile.team = team;
 
@@ -43,13 +40,14 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
             //Projectile rotation from gun barrel to target
             int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
             float randSpread = GetRandomValue(-spread, spread) / 10.0f;
-            float projectileRotation = playerToMouseRotation * RAD2DEG + randSpread;
+            float projectileRotation = *playerToMouseRotation * RAD2DEG + randSpread;
             projectile.rotation = projectileRotation * DEG2RAD;
+            projectile.size = player.weapons[player.equippedWeaponIndex].projectileSize;
             
             //Projectile starting position
             projectile.position = Vector2{
-                player.center.x + cos(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
-                player.center.y + sin(playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
+                player.center.x + cos(*playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
+                player.center.y + sin(*playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
             };
             
             //Set projectile damage and type
@@ -58,6 +56,9 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
 
             //Set initial position
             projectile.initialYPosition = player.hitbox.y + player.hitbox.height;
+
+            //Set lifespan
+            projectile.lifeSpan = player.weapons[player.equippedWeaponIndex].projectileLifeSpan;
 
         } else if(TextIsEqual(team,"Enemy")){
 
@@ -73,6 +74,7 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
             float enemyToPlayerRotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
             float projectileRotation =  enemyToPlayerRotation * RAD2DEG + randSpread;
             projectile.rotation = projectileRotation * DEG2RAD;
+            projectile.size = enemy->weapon.projectileSize;
             
             //Projectile starting position
             projectile.position = Vector2{
@@ -83,6 +85,9 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
             //Set projectile damage and type
             projectile.damage = enemy->weapon.damage;
             projectile.type = enemy->weapon.type;
+
+            //Set lifeSpan
+            projectile.lifeSpan = enemy->weapon.projectileLifeSpan;
         }
         
         //Set trajectory
@@ -114,6 +119,11 @@ void FireProjectile(vector<Projectile>& projectiles, float playerToMouseRotation
         
     } else if(TextIsEqual(team,"Enemy")){
         PlaySound(enemy->weapon.shotSound);
+        enemy->attackCD = enemy->attackRate;
+        enemy->attackState = AttackState::IDLE;
+        if(TextIsEqual(enemy->name, "Dummy Suicide Bomber")){
+            enemy->health = 0.0f;
+        }
     }
 }
 
