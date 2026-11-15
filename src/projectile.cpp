@@ -21,6 +21,8 @@ void InitializeProjectile(Projectile& projectile){
 void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotation, const char* team, Player& player, Enemy* enemy){    
     
     int projectilesToCreate = 0;
+    float projectileSpeed = 0.0f;
+
     if(TextIsEqual(team,"Player")){
         projectilesToCreate = player.weapons[player.equippedWeaponIndex].numProjectiles;
     } else if(TextIsEqual(team,"Enemy")){
@@ -63,6 +65,9 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
             //Set texture
             projectile.sprite = player.weapons[player.equippedWeaponIndex].projectileTexture;
 
+            //Set speed
+            projectileSpeed = player.weapons[player.equippedWeaponIndex].projectileSpeed;
+
         } else if(TextIsEqual(team,"Enemy")){
 
             //Null catch
@@ -94,11 +99,14 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
 
             //Set texture
             projectile.sprite = enemy->weapon.projectileTexture;
+
+            //Set speed
+            projectileSpeed = enemy->weapon.projectileSpeed;
         }
         
         //Set trajectory
-        projectile.speed.x = cos(projectile.rotation) * 500;
-        projectile.speed.y = sin(projectile.rotation) * 500;
+        projectile.speed.x = cos(projectile.rotation) * projectileSpeed;
+        projectile.speed.y = sin(projectile.rotation) * projectileSpeed;
         
         //Set projectile hitbox
         projectile.hitbox = {projectile.position.x - projectile.size.x/2.0f, projectile.position.y  - projectile.size.y/2.0f, projectile.size.x, projectile.size.y};

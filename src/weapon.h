@@ -38,6 +38,8 @@ struct Weapon {
 
     const char* projectileTexturePath;
     Texture2D projectileTexture;
+
+    float projectileSpeed;
     
     int numProjectiles;     //Projectiles in 1 shot
     

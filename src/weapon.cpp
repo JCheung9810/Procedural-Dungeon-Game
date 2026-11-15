@@ -54,6 +54,8 @@ Weapon LoadWeapon(const char* weaponName){
                 weapon.projectileLifeSpan = item.at("projectileLifeSpan").get<float>();
                 weapon.projectileOffset = item.at("projectileOffset").get<float>();
 
+                weapon.projectileSpeed = item.at("projectileSpeed").get<float>();
+
                 vector<float> projectileSize = item.at("projectileSize").get<vector<float>>();
                 weapon.projectileSize = {projectileSize[0], projectileSize[1]};
 
