@@ -43,7 +43,8 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
         return;
     }
 
-    newEnemy.state = "idle";
+    newEnemy.movementState = MovementState::IDLE;
+    newEnemy.attackState = AttackState::IDLE;
     newEnemy.active = true;
 
     enemies.push_back(newEnemy);
@@ -72,7 +73,8 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon){
                 rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
                 enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
                 enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
-                enemies[i].state = "walking";
+                enemies[i].movementState = MovementState::WALKING;
+                enemies[i].attackState = AttackState::IDLE;
             }
 
             //Update enemy positions

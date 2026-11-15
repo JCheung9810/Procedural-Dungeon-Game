@@ -11,6 +11,18 @@ using namespace std;
 struct Player;
 struct Dungeon;
 
+enum class MovementState {
+    IDLE,
+    WALKING
+};
+
+enum class AttackState {
+    IDLE,
+    ATTACKING,
+    RELOADING
+
+};
+
 struct Enemy {
     const char* name;
     
@@ -24,11 +36,12 @@ struct Enemy {
     Rectangle hitbox;
 
     Weapon weapon;
+
+    MovementState movementState;
+    AttackState attackState;
     
     float attackRate;       //How often entity can attack, at most  (what the timer is set to)
     float attackCD;         //How long before entity can attack again (timer)
-    
-    const char* state;      //idle, walking, attacking
     
     bool active;
     Texture2D texture;

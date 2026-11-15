@@ -40,13 +40,19 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 # Priority List (Highest to Lowest)
   - Intermediate enemy AI (state changing, different behaviors)
   - Enemy lead shooting (build in intelligence)
+  - Make AttackState for player (shooting, reloading, idle)
   - Make enemies spawn in the center of the spawn point (offset by size/2)
   - Add enemy getting hit effect (change their color to white (gun and entity))
   - Pickups (ammo,health)
-  - Reload mouse cursor
+  - Make a boss entrance
   - Minimap/map
   - Shop
   - Lobby/main menu
+  - Change outline of gun box ui to be white
+  - Change cursor to be silver/white
+  - Black layer, change opacity over time when passed through door, 
+  - Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
+  - Reload mouse cursor
   - Breakable room objects
   - Usable/Interactable room objects
   - Door animation
@@ -58,5 +64,3 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
--change outline of gun box ui to be white
--change cursor to be silver/white
