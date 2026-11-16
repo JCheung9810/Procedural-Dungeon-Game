@@ -3,6 +3,7 @@
         {
             "name": "Dummy Pistol",
             "type": "Ranged",
+            "intelligence": 0.3,
             "health": 100.0,
             "speed": 150.0,
             "size": [40.0, 40.0],
@@ -14,6 +15,7 @@
         {
             "name": "Dummy Double Barrel",
             "type": "Ranged",
+            "intelligence": 0.1,
             "health": 120.0,
             "speed": 100.0,
             "size": [40.0, 40.0],
@@ -25,6 +27,7 @@
         {
             "name": "Dummy Suicide Bomber",
             "type": "Melee",
+            "intelligence": 0.0,
             "health": 40.0,
             "speed": 200.0,
             "size": [40.0, 40.0],

@@ -47,6 +47,10 @@ struct Enemy {
 
     float minRange;         //How close until enemy starts moving away
     float maxRange;         //How far until enemy starts moving towards
+
+    float aimAngle;
+
+    float intelligence;
     
     bool active;
     Texture2D texture;

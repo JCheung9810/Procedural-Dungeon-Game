@@ -21,7 +21,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Enemy lead shooting (build in intelligence)
   - Make AttackState for player (shooting, reloading, idle)
   - Make enemies spawn in the center of the spawn point (offset by size/2)
   - Add enemy getting hit effect (change their color to white (gun and entity))

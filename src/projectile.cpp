@@ -14,7 +14,7 @@ void InitializeProjectile(Projectile& projectile){
     projectile.damage = 0.0f;
     projectile.color = RED;
     projectile.hitbox = {projectile.position.x, projectile.position.y, projectile.size.x, projectile.size.y};
-    projectile.initialYPosition = 0;
+    //projectile.initialYPosition = 0;
            
 }
 
@@ -38,35 +38,31 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
         //Set projectile team
         projectile.team = team;
 
-        if(TextIsEqual(team,"Player")){          
-            //Projectile rotation from gun barrel to target
+        if(TextIsEqual(team,"Player")){      
+            //Projectile properties
+            projectile.size = player.weapons[player.equippedWeaponIndex].projectileSize;
+            projectile.damage = player.weapons[player.equippedWeaponIndex].damage;
+            projectile.type = player.weapons[player.equippedWeaponIndex].type;
+            projectile.lifeSpan = player.weapons[player.equippedWeaponIndex].projectileLifeSpan;
+            projectile.sprite = player.weapons[player.equippedWeaponIndex].projectileTexture;
+            projectileSpeed = player.weapons[player.equippedWeaponIndex].projectileSpeed;
+            
+            //Calculate projectile rotation
             int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
             float randSpread = GetRandomValue(-spread, spread) / 10.0f;
+
             float projectileRotation = *playerToMouseRotation * RAD2DEG + randSpread;
+
             projectile.rotation = projectileRotation * DEG2RAD;
-            projectile.size = player.weapons[player.equippedWeaponIndex].projectileSize;
             
             //Projectile starting position
             projectile.position = Vector2{
                 player.center.x + cos(*playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset), 
                 player.center.y + sin(*playerToMouseRotation) * (player.weapons[player.equippedWeaponIndex].projectileOffset)
             };
-            
-            //Set projectile damage and type
-            projectile.damage = player.weapons[player.equippedWeaponIndex].damage;
-            projectile.type = player.weapons[player.equippedWeaponIndex].type;
 
             //Set initial position
-            projectile.initialYPosition = player.hitbox.y + player.hitbox.height;
-
-            //Set lifespan
-            projectile.lifeSpan = player.weapons[player.equippedWeaponIndex].projectileLifeSpan;
-
-            //Set texture
-            projectile.sprite = player.weapons[player.equippedWeaponIndex].projectileTexture;
-
-            //Set speed
-            projectileSpeed = player.weapons[player.equippedWeaponIndex].projectileSpeed;
+            //projectile.initialYPosition = player.hitbox.y + player.hitbox.height;
 
         } else if(TextIsEqual(team,"Enemy")){
 
@@ -75,33 +71,28 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
                 TraceLog(LOG_ERROR, "nullptr passed in for FiringProjectile");
                 return;
             }
+
+            //Projectile properties
+            projectile.size = enemy->weapon.projectileSize;
+            projectile.damage = enemy->weapon.damage;
+            projectile.type = enemy->weapon.type;
+            projectile.lifeSpan = enemy->weapon.projectileLifeSpan;
+            projectile.sprite = enemy->weapon.projectileTexture;
+            projectileSpeed = enemy->weapon.projectileSpeed;
             
-            //Projectile rotation from center to player center
+            //Calculate projectile rotation
             int spread = (int) (enemy->weapon.bulletSpread * 10);
             float randSpread = GetRandomValue(-spread, spread) / 10.0f;
-            float enemyToPlayerRotation = atan2(player.center.y - enemy->center.y, player.center.x - enemy->center.x);
-            float projectileRotation =  enemyToPlayerRotation * RAD2DEG + randSpread;
+
+            float projectileRotation =  enemy->aimAngle * RAD2DEG + randSpread;
+
             projectile.rotation = projectileRotation * DEG2RAD;
-            projectile.size = enemy->weapon.projectileSize;
             
             //Projectile starting position
             projectile.position = Vector2{
-                enemy->center.x + cos(enemyToPlayerRotation) * (enemy->weapon.projectileOffset), 
-                enemy->center.y + sin(enemyToPlayerRotation) * (enemy->weapon.projectileOffset)
+                enemy->center.x + cos(enemy->aimAngle) * (enemy->weapon.projectileOffset), 
+                enemy->center.y + sin(enemy->aimAngle) * (enemy->weapon.projectileOffset)
             };
-            
-            //Set projectile damage and type
-            projectile.damage = enemy->weapon.damage;
-            projectile.type = enemy->weapon.type;
-
-            //Set lifeSpan
-            projectile.lifeSpan = enemy->weapon.projectileLifeSpan;
-
-            //Set texture
-            projectile.sprite = enemy->weapon.projectileTexture;
-
-            //Set speed
-            projectileSpeed = enemy->weapon.projectileSpeed;
         }
         
         //Set trajectory

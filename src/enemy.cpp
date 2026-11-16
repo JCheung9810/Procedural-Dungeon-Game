@@ -35,6 +35,8 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 string type = item.at("type").get<string>();
                 newEnemy.type = strdup(type.c_str());
 
+                newEnemy.intelligence = item.at("intelligence").get<float>();
+
                 newEnemy.health = item.at("health").get<float>();
                 newEnemy.speed = item.at("speed").get<float>();
 
@@ -53,6 +55,8 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
                 newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
                 newEnemy.attackCD = newEnemy.attackRate;
+
+                newEnemy.aimAngle = 0.0f;
 
                 newEnemy.movementState = MovementState::IDLE;
                 newEnemy.attackState = AttackState::IDLE;
@@ -94,6 +98,13 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             float distanceToPlayer = Vector2Length(vectorToPlayer);
             float minDistanceToPlayer;
             float maxDistanceToPlayer;
+
+            //Aiming
+            float leadAmount = enemies[i].intelligence;
+            float timeToReachPlayer = distanceToPlayer/enemies[i].weapon.projectileSpeed;
+
+            Vector2 predictedPlayerPosition = Vector2Add(player.center, Vector2Scale(player.direction, (timeToReachPlayer * leadAmount)));
+            enemies[i].aimAngle = atan2f(predictedPlayerPosition.y - enemies[i].center.y, predictedPlayerPosition.x - enemies[i].center.x);
 
             //Movement pattern
             if(TextIsEqual(enemies[i].name,"Dummy Pistol") || TextIsEqual(enemies[i].name,"Dummy Double Barrel")){

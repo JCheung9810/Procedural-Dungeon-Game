@@ -20,7 +20,7 @@ struct Projectile {
     
     float damage;
 
-    float initialYPosition;
+    //float initialYPosition;
     
     Color color;
     Texture2D sprite;
