@@ -354,10 +354,10 @@ void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
     
     Vector2 playerTextureSize = {80.0f, 80.0f};
     
-    if(player.state == State::IDLE || player.state == State::WALKING){
+    if(player.movementState == PlayerMovementState::IDLE || player.movementState == PlayerMovementState::WALKING){
         frameWidth = (float)player.texture.width / player.walkAnimationFrames;
         playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.texture.height};
-    } else if(player.state == State::DASHING){
+    } else if(player.movementState == PlayerMovementState::DASHING){
         frameWidth = (float)player.dashTexture.width / player.dashAnimationFrames;
         playerRec = {frameWidth * player.currentFrame,0,frameWidth,(float)player.dashTexture.height};
     }
@@ -381,15 +381,15 @@ void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
     
     Color opacity;
     
-    if(player.iFrames != 0.0f && player.state != State::DASHING && (int)(player.iFrames * 10)% 2 == 0){
+    if(player.iFrames != 0.0f && player.movementState != PlayerMovementState::DASHING && (int)(player.iFrames * 10)% 2 == 0){
         opacity = Color{255, 255, 255, 128};
     } else {
         opacity = Color{WHITE};
     }
     
-    if(player.state == State::IDLE || player.state == State::WALKING){
+    if(player.movementState == PlayerMovementState::IDLE || player.movementState == PlayerMovementState::WALKING){
         DrawTexturePro(player.texture, playerRec, playerDest, Vector2{0, 0}, 0, opacity);
-    } else if(player.state == State::DASHING){
+    } else if(player.movementState == PlayerMovementState::DASHING){
         DrawTexturePro(player.dashTexture, playerRec, playerDest, Vector2{0, 0}, 0, opacity);
     }
     
@@ -456,7 +456,7 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
     
     Color opacity;
 
-    if(player.iFrames != 0.0f && player.state != State::DASHING && (int)(player.iFrames * 10)% 2 == 0){
+    if(player.iFrames != 0.0f && player.movementState != PlayerMovementState::DASHING && (int)(player.iFrames * 10)% 2 == 0){
         opacity = Color{255, 255, 255, 128};
     } else {
         opacity = Color{WHITE};

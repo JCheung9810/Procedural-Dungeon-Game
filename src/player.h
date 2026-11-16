@@ -10,10 +10,16 @@
 
 struct Dungeon;
 
-enum class State {
+enum class PlayerMovementState {
     IDLE,
     WALKING,
     DASHING
+};
+
+enum class PlayerAttackState {
+    IDLE,
+    ATTACKING,
+    RELOADING
 };
 
 struct Player {
@@ -41,7 +47,8 @@ struct Player {
     
     int walkAnimationFrames;
     
-    State state;
+    PlayerMovementState movementState;
+    PlayerAttackState attackState;
     
     int equippedWeaponIndex;
     vector<Weapon> weapons;

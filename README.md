@@ -21,7 +21,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Make AttackState for player (shooting, reloading, idle)
   - Make enemies spawn in the center of the spawn point (offset by size/2)
   - Add enemy getting hit effect (change their color to white (gun and entity))
   - Change outline of gun box ui to be white
@@ -38,7 +37,9 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Lobby/main menu
   - Black layer, change opacity over time when passed through door, 
   - Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
+  - Remove camera clamp, make camera positioned at some point between player and mouse
   - Reload mouse cursor
+  - Reload bar above head
   - Breakable room objects
   - Usable/Interactable room objects
   - Door animation

@@ -133,7 +133,7 @@ int main(void){
             playerToMouseRotation = atan2(mouseWorldPos.y - player.center.y, mouseWorldPos.x - player.center.x);    //RADIANS
             
             //Fire player projectile
-            if(player.state != State::DASHING){
+            if(player.movementState != PlayerMovementState::DASHING){
                 if(player.weapons[player.equippedWeaponIndex].fireMode == FireMode::SINGLE){
                     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && player.weapons[player.equippedWeaponIndex].mag >= 1 && 
                     player.weapons[player.equippedWeaponIndex].fireTimer <= 0.0f && 

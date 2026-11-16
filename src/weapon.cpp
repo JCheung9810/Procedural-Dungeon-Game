@@ -108,7 +108,7 @@ Weapon LoadWeapon(const char* weaponName){
 }
 
 void ReloadWeapon(Player& player){
-    if(player.weapons[player.equippedWeaponIndex].reloading == false && player.weapons[player.equippedWeaponIndex].mag < player.weapons[player.equippedWeaponIndex].magSize){
+    if(player.attackState != PlayerAttackState::RELOADING && player.weapons[player.equippedWeaponIndex].mag < player.weapons[player.equippedWeaponIndex].magSize){
         player.weapons[player.equippedWeaponIndex].reloading = true;
         player.weapons[player.equippedWeaponIndex].reloadTimer = player.weapons[player.equippedWeaponIndex].reloadTime;
         PlaySound(player.weapons[player.equippedWeaponIndex].reloadSound);

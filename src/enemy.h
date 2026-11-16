@@ -12,12 +12,12 @@ struct Player;
 struct Dungeon;
 struct Projectile;
 
-enum class MovementState {
+enum class EnemyMovementState {
     IDLE,
     WALKING
 };
 
-enum class AttackState {
+enum class EnemyAttackState {
     IDLE,
     ATTACKING,
     RELOADING
@@ -39,8 +39,8 @@ struct Enemy {
 
     Weapon weapon;
 
-    MovementState movementState;
-    AttackState attackState;
+    EnemyMovementState movementState;
+    EnemyAttackState attackState;
     
     float attackRate;       //How often entity can attack, at most  (what the timer is set to)
     float attackCD;         //How long before entity can attack again (timer)

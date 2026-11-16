@@ -76,7 +76,8 @@ void InitializePlayer(Player& player){
         player.frameTimer = 0.0f;
         player.frameSpeed = 0.1f;
     
-        player.state = State::IDLE;
+        player.movementState = PlayerMovementState::IDLE;
+        player.attackState = PlayerAttackState::IDLE;
 
         player.equippedWeaponIndex = 0;
         
@@ -114,7 +115,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     }
     
     //Execute movement
-    if(player.state != State::DASHING){
+    if(player.movementState != PlayerMovementState::DASHING){
         if(IsKeyDown(KEY_D))
             xDir += 1.0f;
         
@@ -143,15 +144,15 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     }
 
     //Detect state
-    if((xDir != 0.0f || yDir != 0.0f) && player.state != State::DASHING){
-        player.state = State::WALKING;
-    } else if(player.state != State::DASHING){
-        player.state = State::IDLE;
+    if((xDir != 0.0f || yDir != 0.0f) && player.movementState != PlayerMovementState::DASHING){
+        player.movementState = PlayerMovementState::WALKING;
+    } else if(player.movementState != PlayerMovementState::DASHING){
+        player.movementState = PlayerMovementState::IDLE;
     }
             
     //Detect dash
-    if(IsKeyPressed(KEY_SPACE) && player.dashCDTimer <= 0.0f && player.state == State::WALKING){
-        player.state = State::DASHING;
+    if(IsKeyPressed(KEY_SPACE) && player.dashCDTimer <= 0.0f && player.movementState == PlayerMovementState::WALKING){
+        player.movementState = PlayerMovementState::DASHING;
         float dashSpeed = (player.dashDistance / player.dashTime) / player.currentSpeed;
         player.tempDirection = Vector2Scale(player.direction, dashSpeed);            //Dash speed = Distance/time
         player.dashTimer = player.dashTime;
@@ -172,7 +173,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
 
     //Get movement direction for collision detection
     Vector2 movementDirection = player.direction;
-    if(player.state == State::DASHING){
+    if(player.movementState == PlayerMovementState::DASHING){
         movementDirection = player.tempDirection;
     }
     
@@ -278,7 +279,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
 
         if(player.dashTimer < 0.0f){
             player.dashTimer = 0.0f;
-            player.state = State::IDLE;
+            player.movementState = PlayerMovementState::IDLE;
             player.dashCDTimer = player.dashCD;
         }
     }
@@ -307,8 +308,16 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
         player.position.y + player.hurtbox.height/2.0f
     };
 
+    //Update attack state
+    if(player.weapons[player.equippedWeaponIndex].reloading == true){
+        player.attackState = PlayerAttackState::RELOADING;
+    } else if(player.attackState != PlayerAttackState::ATTACKING || player.attackState != PlayerAttackState::RELOADING){
+        player.attackState = PlayerAttackState::IDLE;
+    }
+
+
     //Animation  
-    if(player.state == State::WALKING){
+    if(player.movementState == PlayerMovementState::WALKING){
         player.frameTimer += deltaTime;
 
         if(player.frameTimer >= player.frameSpeed){
@@ -318,11 +327,11 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
             if (player.currentFrame >= 4)
                 player.currentFrame = 0;
         }
-    } else if(player.state == State::IDLE){
+    } else if(player.movementState == PlayerMovementState::IDLE){
         //Reset to idle animation
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
-    } else if(player.state == State::DASHING){    
+    } else if(player.movementState == PlayerMovementState::DASHING){    
         player.frameTimer += deltaTime;
         
         player.currentFrame = (int)((player.frameTimer * player.dashAnimationFrames) / player.dashTime); 

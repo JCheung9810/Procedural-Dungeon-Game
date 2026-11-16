@@ -58,8 +58,8 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
 
                 newEnemy.aimAngle = 0.0f;
 
-                newEnemy.movementState = MovementState::IDLE;
-                newEnemy.attackState = AttackState::IDLE;
+                newEnemy.movementState = EnemyMovementState::IDLE;
+                newEnemy.attackState = EnemyAttackState::IDLE;
                 newEnemy.active = true;
 
                 enemies.push_back(newEnemy);
@@ -123,18 +123,18 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                 if(distanceToPlayer >= maxDistanceToPlayer){
                     enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
                     enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
-                    enemies[i].movementState = MovementState::WALKING;
+                    enemies[i].movementState = EnemyMovementState::WALKING;
                 } else if(distanceToPlayer < minDistanceToPlayer){
                     enemies[i].position.x -= (cos(rot) * enemies[i].speed) * deltaTime;
                     enemies[i].position.y -= (sin(rot) * enemies[i].speed) * deltaTime;
-                    enemies[i].movementState = MovementState::WALKING;
+                    enemies[i].movementState = EnemyMovementState::WALKING;
                 } else {
-                    enemies[i].movementState = MovementState::IDLE;
+                    enemies[i].movementState = EnemyMovementState::IDLE;
                 }
             } else if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber")){
                 enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
                 enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
-                enemies[i].movementState = MovementState::WALKING;
+                enemies[i].movementState = EnemyMovementState::WALKING;
             }
 
             //Update enemy positions
@@ -249,10 +249,10 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             enemies[i].attackCD -= deltaTime;
 
             if(enemies[i].attackCD <= 0.0f){
-                enemies[i].attackState = AttackState::ATTACKING;
+                enemies[i].attackState = EnemyAttackState::ATTACKING;
             }
 
-            if(enemies[i].attackState == AttackState::ATTACKING){
+            if(enemies[i].attackState == EnemyAttackState::ATTACKING){
                 if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber")){
                     if(distanceToPlayer < 50.0f){
                         FireProjectile(projectiles, nullptr, "Enemy", player, &enemies[i]);

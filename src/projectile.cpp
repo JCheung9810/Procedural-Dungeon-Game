@@ -25,6 +25,7 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
 
     if(TextIsEqual(team,"Player")){
         projectilesToCreate = player.weapons[player.equippedWeaponIndex].numProjectiles;
+        player.attackState = PlayerAttackState::ATTACKING;
     } else if(TextIsEqual(team,"Enemy")){
         projectilesToCreate = enemy->weapon.numProjectiles;
     } else {
@@ -120,12 +121,13 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
         }
         
         PlaySound(player.weapons[player.equippedWeaponIndex].shotSound);
+        player.attackState = PlayerAttackState::IDLE;
 
         
     } else if(TextIsEqual(team,"Enemy")){
         PlaySound(enemy->weapon.shotSound);
         enemy->attackCD = enemy->attackRate;
-        enemy->attackState = AttackState::IDLE;
+        enemy->attackState = EnemyAttackState::IDLE;
         if(TextIsEqual(enemy->name, "Dummy Suicide Bomber")){
             enemy->health = 0.0f;
         }
