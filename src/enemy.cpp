@@ -51,9 +51,9 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.weapon = LoadWeapon(weapon.c_str());
 
                 newEnemy.name = name;
-                newEnemy.position = position;
+                newEnemy.center = position;
                 newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
-                newEnemy.center = Vector2{newEnemy.position.x + newEnemy.size.x/2 ,newEnemy.position.y + newEnemy.size.y/2};
+                newEnemy.position = Vector2{newEnemy.center.x - newEnemy.size.x/2 ,newEnemy.center.y - newEnemy.size.y/2};
                 newEnemy.attackCD = newEnemy.attackRate;
 
                 newEnemy.aimAngle = 0.0f;
