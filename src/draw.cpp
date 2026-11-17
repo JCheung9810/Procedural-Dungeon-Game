@@ -285,7 +285,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
         DrawText(
             TextFormat("/"), 
             weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth/2, 
-            weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+            weaponHudBoxPos.y + (weaponHudBoxSize.y / 8), 
             fontSize, 
             WHITE
         );
@@ -296,7 +296,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             DrawText(
                 TextFormat("%i", player.weapons[player.equippedWeaponIndex].mag), 
                 weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
-                weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+                weaponHudBoxPos.y + (weaponHudBoxSize.y / 8), 
                 fontSize, 
                 WHITE
             ); 
@@ -305,21 +305,49 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             DrawText(
                 TextFormat("-"), 
                 weaponHudBoxPos.x + weaponHudBoxSize.x/2 - textWidth - MeasureText(TextFormat("/"), fontSize), 
-                weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
+                weaponHudBoxPos.y + (weaponHudBoxSize.y / 8), 
                 fontSize, 
                 WHITE
             ); 
         }
         
         //Draw magSize counter
-        textWidth = MeasureText(TextFormat("%i", player.weapons[player.equippedWeaponIndex].magSize), fontSize);
-        DrawText(
-            TextFormat("%i", player.weapons[player.equippedWeaponIndex].magSize), 
-            weaponHudBoxPos.x + weaponHudBoxSize.x/2 + (MeasureText(TextFormat("/"), fontSize) / 2) + 10, 
-            weaponHudBoxPos.y + weaponHudBoxSize.y / 8, 
-            fontSize, 
-            WHITE
-        );
+        if(player.weapons[player.equippedWeaponIndex].maxAmmo != -1){
+            textWidth = MeasureText(TextFormat("%i", player.weapons[player.equippedWeaponIndex].currentAmmo), fontSize);
+            DrawText(
+                TextFormat("%i", player.weapons[player.equippedWeaponIndex].currentAmmo), 
+                weaponHudBoxPos.x + weaponHudBoxSize.x/2 + (MeasureText(TextFormat("/"), fontSize) / 2) + 10, 
+                weaponHudBoxPos.y + (weaponHudBoxSize.y / 8), 
+                fontSize, 
+                WHITE
+            );
+        } else {
+            int codepoints[] = { 0x221E };
+
+            Font ammoFont = LoadFontEx(
+                "assets/fonts/unifont-18.0.01.otf",
+                32,
+                codepoints,
+                1
+            );
+
+            const char* infinitySymbol = "\u221E";
+
+            fontSize = 66;
+            textWidth = MeasureTextEx(ammoFont, infinitySymbol, fontSize, 0).x;
+
+            DrawTextEx(
+                ammoFont,
+                infinitySymbol,
+                Vector2{
+                    weaponHudBoxPos.x + weaponHudBoxSize.x / 2 + (MeasureText("/", fontSize) / 2),
+                    weaponHudBoxPos.y + (weaponHudBoxSize.y / 8) - 25
+                },
+                fontSize,
+                0,
+                WHITE
+            );
+        }
         
     } else if(exitWindowRequested){  
     

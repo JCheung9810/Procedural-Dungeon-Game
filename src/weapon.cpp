@@ -28,7 +28,7 @@ Weapon LoadWeapon(const char* weaponName){
         json data;
         file >> data;
 
-        for (const auto& item : data.at("weapons")) {
+        for (const auto& item : data.at("playerWeapons")) {
             if (item.at("name").get<string>() == weaponName) {
                 string name = item.at("name").get<string>();
                 string type = item.at("type").get<string>();
@@ -44,6 +44,74 @@ Weapon LoadWeapon(const char* weaponName){
                 weapon.texture = assets.LoadGameTexture(strdup(texturePath.c_str()));
 
                 weapon.hudTexture = assets.LoadGameTexture(strdup(hudTexturePath.c_str()));
+
+                weapon.shotSound = assets.LoadGameSound(strdup(shotSoundPath.c_str()));
+
+                weapon.reloadSound = assets.LoadGameSound(strdup(reloadSoundPath.c_str()));
+
+                weapon.textureFrames = item.at("textureFrames").get<int>();
+                weapon.size = item.at("size").get<float>();
+                
+                vector<float> posOffset = item.at("positionOffset").get<vector<float>>();
+                weapon.positionOffset = {posOffset[0], posOffset[1]};
+                
+                weapon.projectileLifeSpan = item.at("projectileLifeSpan").get<float>();
+                weapon.projectileOffset = item.at("projectileOffset").get<float>();
+
+                weapon.projectileSpeed = item.at("projectileSpeed").get<float>();
+
+                vector<float> projectileSize = item.at("projectileSize").get<vector<float>>();
+                weapon.projectileSize = {projectileSize[0], projectileSize[1]};
+
+                string projectileTexturePath = item.at("projectileTexturePath").get<string>();
+
+                weapon.projectileTexture = assets.LoadGameTexture(strdup(projectileTexturePath.c_str()));
+
+                weapon.reloadTime = item.at("reloadTime").get<float>();
+                weapon.maxAmmo = item.at("maxAmmo").get<int>();
+                weapon.currentAmmo = weapon.maxAmmo;
+                weapon.magSize = item.at("magSize").get<int>();
+                weapon.fireTime = item.at("fireTime").get<float>();
+                weapon.bulletSpread = item.at("bulletSpread").get<float>();
+                weapon.numProjectiles = item.at("numProjectiles").get<int>();
+                weapon.damage = item.at("damage").get<float>();
+                
+                weapon.fireTimer = 0.0f;
+                weapon.firerate = 1.0f / weapon.fireTime;
+                weapon.mag = weapon.magSize;
+                
+                if(fireMode == "SINGLE"){
+                    weapon.fireMode = FireMode::SINGLE;
+                } else if(fireMode == "AUTOMATIC"){
+                    weapon.fireMode = FireMode::AUTOMATIC;
+                } else {
+                    TraceLog(LOG_ERROR, "Unknown fire mode: %s", fireMode.c_str());
+                }
+
+                if (weapon.texture.id == 0) {
+                    TraceLog(LOG_ERROR, "Failed to load weapon texture");
+                }
+                else {
+                    TraceLog(LOG_INFO, "Loaded weapon: %s (Type: %s)", weapon.name, weapon.type);
+                }
+
+                return weapon;
+            }
+        }
+
+        for (const auto& item : data.at("enemyWeapons")) {
+            if (item.at("name").get<string>() == weaponName) {
+                string name = item.at("name").get<string>();
+                string type = item.at("type").get<string>();
+                string texturePath = item.at("texturePath").get<string>();
+                string fireMode = item.at("fireMode").get<string>();
+                string shotSoundPath = item.at("shotSoundPath").get<string>();
+                string reloadSoundPath = item.at("reloadSoundPath").get<string>();
+
+                weapon.name = strdup(name.c_str());
+                weapon.type = strdup(type.c_str());
+
+                weapon.texture = assets.LoadGameTexture(strdup(texturePath.c_str()));
 
                 weapon.shotSound = assets.LoadGameSound(strdup(shotSoundPath.c_str()));
 
@@ -108,7 +176,7 @@ Weapon LoadWeapon(const char* weaponName){
 }
 
 void ReloadWeapon(Player& player){
-    if(player.attackState != PlayerAttackState::RELOADING && player.weapons[player.equippedWeaponIndex].mag < player.weapons[player.equippedWeaponIndex].magSize){
+    if(player.attackState != PlayerAttackState::RELOADING && player.weapons[player.equippedWeaponIndex].mag < player.weapons[player.equippedWeaponIndex].magSize && player.weapons[player.equippedWeaponIndex].currentAmmo != 0){
         player.weapons[player.equippedWeaponIndex].reloading = true;
         player.weapons[player.equippedWeaponIndex].reloadTimer = player.weapons[player.equippedWeaponIndex].reloadTime;
         PlaySound(player.weapons[player.equippedWeaponIndex].reloadSound);
@@ -129,7 +197,27 @@ void UpdateWeapon(Player& player){
             if(player.weapons[i].reloadTimer <= 0.0f){
                 player.weapons[i].reloadTimer = 0.0f;
                 player.weapons[i].reloading = false;
-                player.weapons[i].mag = player.weapons[i].magSize;
+
+                //Test if weapon has infinite ammo
+                if(player.weapons[i].maxAmmo != -1){
+                    int numBulletsToLoad = (player.weapons[i].magSize - player.weapons[i].mag);
+
+                    //Test for number of bullets to load
+                    if(player.weapons[i].currentAmmo >= numBulletsToLoad){
+                        //Load full mag
+                        player.weapons[i].currentAmmo -= numBulletsToLoad;
+                        player.weapons[i].mag += numBulletsToLoad;
+                    } else {
+                        //Load partial mag
+                        player.weapons[i].mag += player.weapons[i].currentAmmo;
+                        player.weapons[i].currentAmmo = 0;
+                    }
+                } else {
+                    //Load full mag
+                    player.weapons[i].mag = player.weapons[i].magSize;
+                }
+
+                
             }
         }
         

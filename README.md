@@ -26,6 +26,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Enemy sprites, animations (idle, walking, stunned)
   - Offset shooting start times
   - Pickups (ammo,health)
+  - Add shields (temp health, always takes a full 1 hit no matter the damage)
   - Make a boss entrance
   - Make floor exit
   - Minimap/map

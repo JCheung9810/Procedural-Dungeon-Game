@@ -1,5 +1,5 @@
 {
-    "weapons": [
+    "playerWeapons": [
         {
             "name": "Pistol",
             "type": "Pistol",
@@ -15,6 +15,7 @@
             "projectileSpeed": 600.0,
             "projectileTexturePath": "assets/textures/PlayerSmallBullet.png",
             "reloadTime": 2.0,
+            "maxAmmo": 15,
             "magSize": 10,
             "fireTime": 0.1,
             "fireMode": "SINGLE",
@@ -38,6 +39,7 @@
             "projectileSpeed": 600.0,
             "projectileTexturePath": "assets/textures/PlayerSmallBullet.png",
             "reloadTime": 3.0,
+            "maxAmmo": 80,
             "magSize": 2,
             "fireTime": 1.0,
             "fireMode": "SINGLE",
@@ -61,6 +63,7 @@
             "projectileSpeed": 600.0,
             "projectileTexturePath": "assets/textures/PlayerSmallBullet.png",
             "reloadTime": 0.1,
+            "maxAmmo": -1,
             "magSize": 1000,
             "fireTime": 0.1,
             "fireMode": "AUTOMATIC",
@@ -68,22 +71,14 @@
             "bulletSpread": 0.0,
             "numProjectiles": 1,
             "damage": 10000.0
-        },
-
-
-
-
-
-
-
-
-
+        }
+    ],
+    "enemyWeapons":[
         {
             "name": "Enemy Pistol",
             "type": "Pistol",
             "texturePath": "assets/textures/Pistol.png",
             "textureFrames": 6,
-            "hudTexturePath": "assets/textures/Empty.png",
             "shotSoundPath": "assets/sounds/pistolShot.mp3",
             "reloadSoundPath": "assets/sounds/pistolReload.mp3",
             "size": 80.0,
@@ -93,20 +88,20 @@
             "projectileSpeed": 325.0,
             "projectileTexturePath": "assets/textures/EnemySmallBullet.png",
             "reloadTime": 2.0,
+            "maxAmmo": -1,
             "magSize": 10,
             "fireTime": 0.5,
             "fireMode": "SINGLE",
             "projectileLifeSpan": 5.0,
             "bulletSpread": 5.0,
             "numProjectiles": 1,
-            "damage": 1
+            "damage": 1.0
         },
         {
             "name": "Enemy Double Barrel",
             "type": "Shotgun",
             "texturePath": "assets/textures/DoubleBarrel.png",
             "textureFrames": 1,
-            "hudTexturePath": "assets/textures/Empty.png",
             "shotSoundPath": "assets/sounds/shotgunShot.mp3",
             "reloadSoundPath": "assets/sounds/doubleBarrelReload.mp3",
             "size": 80.0,
@@ -116,6 +111,7 @@
             "projectileSpeed": 325.0,
             "projectileTexturePath": "assets/textures/EnemySmallBullet.png",
             "reloadTime": 3.0,
+            "maxAmmo": -1,
             "magSize": 2,
             "fireTime": 1.0,
             "fireMode": "SINGLE",
@@ -129,7 +125,6 @@
             "type": "Explosive",
             "texturePath": "assets/textures/SuicideBomb.png",
             "textureFrames": 1,
-            "hudTexturePath": "assets/textures/Empty.png",
             "shotSoundPath": "assets/sounds/shotgunShot.mp3",
             "reloadSoundPath": "assets/sounds/doubleBarrelReload.mp3",
             "size": 80.0,
@@ -139,13 +134,14 @@
             "projectileSpeed": 0.0,
             "projectileTexturePath": "assets/textures/EnemyLargeBullet.png",
             "reloadTime": 3.0,
+            "maxAmmo": -1,
             "magSize": 1,
             "fireTime": 1.0,
             "fireMode": "SINGLE",
             "projectileLifeSpan": 0.05,
             "bulletSpread": 0.0,
             "numProjectiles": 2,
-            "damage": 1.0
+            "damage": 2.0
         }
     ]
 }

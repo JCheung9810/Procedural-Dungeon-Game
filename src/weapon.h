@@ -42,6 +42,8 @@ struct Weapon {
     float reloadTimer;
     bool reloading;
     
+    int maxAmmo;            //Max capacity of bullets total
+    int currentAmmo;        //Current capacity of bullets total
     int magSize;            //Max number of bullets in mag
     int mag;                //Number of bullets in mag
     
