@@ -18,6 +18,7 @@ struct Projectile {
     const char* team;
     const char* type;
     
+    float knockBack;
     float damage;
 
     //float initialYPosition;

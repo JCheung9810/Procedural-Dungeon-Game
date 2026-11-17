@@ -56,6 +56,7 @@ struct Weapon {
     
     float bulletSpread;     //Range of angle deviating from player to target        5 = +- 5 degrees
     
+    float knockback;         //Knockback force applied to enemies when hit by projectile
     float damage;
     
 };

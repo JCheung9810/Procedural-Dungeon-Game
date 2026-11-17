@@ -40,6 +40,9 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.health = item.at("health").get<float>();
                 newEnemy.speed = item.at("speed").get<float>();
 
+                newEnemy.stunDuration = 0.0f;
+                newEnemy.stunTime = 0.2f;
+
                 vector<float> size = item.at("size").get<vector<float>>();
                 newEnemy.size = {size[0], size[1]};
 
@@ -62,6 +65,9 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.attackState = EnemyAttackState::IDLE;
                 newEnemy.active = true;
 
+                newEnemy.knockbackDirection = {0,0};
+                newEnemy.knockbackForce = 0.0f;
+
                 enemies.push_back(newEnemy);
                 break;
             }
@@ -74,6 +80,17 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
     {
         TraceLog(LOG_ERROR, "Error reading enemy JSON: %s", e.what());
     }
+}
+
+Vector2 KnockbackHandler(Enemy& enemy){
+    //Calculate ease
+    //1 = start of ease, 0 = end of ease (decay)
+    float easeT = (enemy.stunDuration / enemy.stunTime);
+    //Quint decay
+    float easeOutput = easeT * easeT * easeT;
+    Vector2 knockbackInitialVelocity = Vector2Scale(enemy.knockbackDirection, enemy.knockbackForce);
+    Vector2 knockbackFinalVelocity = Vector2Scale(knockbackInitialVelocity, easeOutput);
+    return knockbackFinalVelocity;
 }
 
 void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vector<Projectile>& projectiles){
@@ -98,6 +115,8 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             float distanceToPlayer = Vector2Length(vectorToPlayer);
             float minDistanceToPlayer;
             float maxDistanceToPlayer;
+
+            Vector2 realVelocityScaledDirection = Vector2Scale({(cos(rot) * enemies[i].speed), (sin(rot) * enemies[i].speed)}, deltaTime);
 
             //Enemy stun state
             if(enemies[i].stunDuration > 0.0f){
@@ -128,129 +147,127 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                     }
 
                     if(distanceToPlayer >= maxDistanceToPlayer){
-                        enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
-                        enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
+                        enemies[i].position.x += realVelocityScaledDirection.x;
+                        enemies[i].position.y += realVelocityScaledDirection.y;
                         enemies[i].movementState = EnemyMovementState::WALKING;
                     } else if(distanceToPlayer < minDistanceToPlayer){
-                        enemies[i].position.x -= (cos(rot) * enemies[i].speed) * deltaTime;
-                        enemies[i].position.y -= (sin(rot) * enemies[i].speed) * deltaTime;
+                        enemies[i].position.x -= realVelocityScaledDirection.x;
+                        enemies[i].position.y -= realVelocityScaledDirection.y;
                         enemies[i].movementState = EnemyMovementState::WALKING;
                     } else {
                         enemies[i].movementState = EnemyMovementState::IDLE;
                     }
-                } else if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber")){
-                    enemies[i].position.x += (cos(rot) * enemies[i].speed) * deltaTime;
-                    enemies[i].position.y += (sin(rot) * enemies[i].speed) * deltaTime;
+                } else if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber") || TextIsEqual(enemies[i].name,"Dummy God")){
+                    enemies[i].position.x += realVelocityScaledDirection.x;
+                    enemies[i].position.y += realVelocityScaledDirection.y;
                     enemies[i].movementState = EnemyMovementState::WALKING;
                 }
 
+            } else if(enemies[i].movementState == EnemyMovementState::STUNNED){
+                //Handle knockback
+                Vector2 knockbackVelocity = KnockbackHandler(enemies[i]);
+
                 //Update enemy positions
-                enemies[i].hitbox.x = enemies[i].position.x;
-                enemies[i].hitbox.y = enemies[i].position.y;
-                enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
+                enemies[i].position.x += knockbackVelocity.x * deltaTime;
+                enemies[i].position.y += knockbackVelocity.y * deltaTime;
+            }
 
-                //Check x
-                for(int j = 0; j < (int)dungeon.rooms.size(); j++){
-                    if(dungeon.rooms[j].exists == true){
-                        //Wall collision
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
-                            Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
+            //Check collisions
 
-                            if(CheckCollisionRecs(enemies[i].hitbox, wall)){
-                                if(previousPosition.x + enemies[i].hitbox.width <= wall.x){
-                                    enemies[i].position.x = wall.x - enemies[i].hitbox.width;
-                                } else if(previousPosition.x >= wall.x + wall.width){
-                                    enemies[i].position.x = wall.x + wall.width;
-                                }
+            //Update enemy positions before
+            enemies[i].hitbox.x = enemies[i].position.x;
+            enemies[i].hitbox.y = enemies[i].position.y;
+            enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
 
-                                enemies[i].hitbox.x = enemies[i].position.x;
-                                enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
-                            }
-                        }
-                        //Decor collision
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
-                            Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
 
-                            if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitbox, decor)){
-                                if(previousPosition.x + enemies[i].hitbox.width <= decor.x){
-                                    enemies[i].position.x = decor.x - enemies[i].hitbox.width;
-                                } else if(previousPosition.x >= decor.x + decor.width){
-                                    enemies[i].position.x = decor.x + decor.width;
-                                }
+            //Check x
+            for(int j = 0; j < (int)dungeon.rooms.size(); j++){
+                if(dungeon.rooms[j].exists == true){
+                    //Wall collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
+                        Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
 
-                                enemies[i].hitbox.x = enemies[i].position.x;
-                                enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
-                            }
-                        }
-                        //Doors collision
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
-                            Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
-
-                            if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
-                                if(previousPosition.x + enemies[i].hitbox.width <= door.x){
-                                    enemies[i].position.x = door.x - enemies[i].hitbox.width;
-                                } else if(previousPosition.x >= door.x + door.width){
-                                    enemies[i].position.x = door.x + door.width;
-                                }
-
-                                enemies[i].hitbox.x = enemies[i].position.x;
-                                enemies[i].center.x = enemies[i].position.x + enemies[i].size.x/2;
+                        if(CheckCollisionRecs(enemies[i].hitbox, wall)){
+                            if(previousPosition.x + enemies[i].hitbox.width <= wall.x){
+                                enemies[i].position.x = wall.x - enemies[i].hitbox.width;
+                            } else if(previousPosition.x >= wall.x + wall.width){
+                                enemies[i].position.x = wall.x + wall.width;
                             }
                         }
                     }
-                }
+                    //Decor collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
+                        Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
 
-                //Check y
-                for(int j = 0; j < (int)dungeon.rooms.size(); j++){
-                    if(dungeon.rooms[j].exists == true){
-                        //Wall collision
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
-                            Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
-
-                            if(CheckCollisionRecs(enemies[i].hitbox, wall)){
-                                if(previousPosition.y + enemies[i].hitbox.height <= wall.y){
-                                    enemies[i].position.y = wall.y - enemies[i].hitbox.height;
-                                } else if(previousPosition.y >= wall.y + wall.height){
-                                    enemies[i].position.y = wall.y + wall.height;
-                                }
-
-                                enemies[i].hitbox.y = enemies[i].position.y;
-                                enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
+                        if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitbox, decor)){
+                            if(previousPosition.x + enemies[i].hitbox.width <= decor.x){
+                                enemies[i].position.x = decor.x - enemies[i].hitbox.width;
+                            } else if(previousPosition.x >= decor.x + decor.width){
+                                enemies[i].position.x = decor.x + decor.width;
                             }
                         }
-                        //Decor collision
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
-                            Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
+                    }
+                    //Doors collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
+                        Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
 
-                            if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitbox, decor)){
-                                if(previousPosition.y + enemies[i].hitbox.height <= decor.y){
-                                    enemies[i].position.y = decor.y - enemies[i].hitbox.height;
-                                } else if(previousPosition.y >= decor.y + decor.height){
-                                    enemies[i].position.y = decor.y + decor.height;
-                                }
-
-                                enemies[i].hitbox.y = enemies[i].position.y;
-                                enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
-                            }
-                        }
-                        //Doors collision
-                        for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
-                            Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
-
-                            if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
-                                if(previousPosition.y + enemies[i].hitbox.height <= door.y){
-                                    enemies[i].position.y = door.y - enemies[i].hitbox.height;
-                                } else if(previousPosition.y >= door.y + door.height){
-                                    enemies[i].position.y = door.y + door.height;
-                                }
-
-                                enemies[i].hitbox.y = enemies[i].position.y;
-                                enemies[i].center.y = enemies[i].position.y + enemies[i].size.y/2;
+                        if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
+                            if(previousPosition.x + enemies[i].hitbox.width <= door.x){
+                                enemies[i].position.x = door.x - enemies[i].hitbox.width;
+                            } else if(previousPosition.x >= door.x + door.width){
+                                enemies[i].position.x = door.x + door.width;
                             }
                         }
                     }
                 }
             }
+
+            //Check y
+            for(int j = 0; j < (int)dungeon.rooms.size(); j++){
+                if(dungeon.rooms[j].exists == true){
+                    //Wall collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.walls.size(); k++){
+                        Rectangle wall = dungeon.rooms[j].roomContent.walls[k].hitbox;
+
+                        if(CheckCollisionRecs(enemies[i].hitbox, wall)){
+                            if(previousPosition.y + enemies[i].hitbox.height <= wall.y){
+                                enemies[i].position.y = wall.y - enemies[i].hitbox.height;
+                            } else if(previousPosition.y >= wall.y + wall.height){
+                                enemies[i].position.y = wall.y + wall.height;
+                            }
+                        }
+                    }
+                    //Decor collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.decor.size(); k++){
+                        Rectangle decor = dungeon.rooms[j].roomContent.decor[k].hitbox;
+
+                        if(dungeon.rooms[j].roomContent.decor[k].playerCollision && CheckCollisionRecs(enemies[i].hitbox, decor)){
+                            if(previousPosition.y + enemies[i].hitbox.height <= decor.y){
+                                enemies[i].position.y = decor.y - enemies[i].hitbox.height;
+                            } else if(previousPosition.y >= decor.y + decor.height){
+                                enemies[i].position.y = decor.y + decor.height;
+                            }
+                        }
+                    }
+                    //Doors collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
+                        Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
+
+                        if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
+                            if(previousPosition.y + enemies[i].hitbox.height <= door.y){
+                                enemies[i].position.y = door.y - enemies[i].hitbox.height;
+                            } else if(previousPosition.y >= door.y + door.height){
+                                enemies[i].position.y = door.y + door.height;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Update enemy positions after
+            enemies[i].hitbox.x = enemies[i].position.x;
+            enemies[i].hitbox.y = enemies[i].position.y;
+            enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
 
             //Enemy attack
             float leadAmount = enemies[i].intelligence;

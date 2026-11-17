@@ -35,6 +35,18 @@
             "minRange": 50.0,
             "maxRange": 60.0,
             "weapon": "Enemy Suicide Bomb"
+        },
+        {
+            "name": "Dummy God",
+            "type": "Melee",
+            "intelligence": 0.0,
+            "health": 99999.0,
+            "speed": 50.0,
+            "size": [40.0, 40.0],
+            "attackRate": 99999999.0,
+            "minRange": 50.0,
+            "maxRange": 60.0,
+            "weapon": "Enemy Suicide Bomb"
         }
     ]
 }

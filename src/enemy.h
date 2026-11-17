@@ -38,7 +38,11 @@ struct Enemy {
     float speed;
 
     float stunDuration;     //How much longer until the enemy gets out of stun (timer)
+    float stunTime;         //How long the enemy is stunned for (what the timer is set to)
     //float iFrames
+
+    Vector2 knockbackDirection;
+    float knockbackForce;
     
     Rectangle hitbox;
 
@@ -63,4 +67,5 @@ struct Enemy {
 };
 
 void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position);
+Vector2 KnockbackHandler(Enemy& enemy);
 void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vector<Projectile>& projectiles);

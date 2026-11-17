@@ -14,6 +14,7 @@ void InitializeProjectile(Projectile& projectile){
     projectile.damage = 0.0f;
     projectile.color = RED;
     projectile.hitbox = {projectile.position.x, projectile.position.y, projectile.size.x, projectile.size.y};
+    projectile.knockBack = 0;
     //projectile.initialYPosition = 0;
            
 }
@@ -47,6 +48,7 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
             projectile.lifeSpan = player.weapons[player.equippedWeaponIndex].projectileLifeSpan;
             projectile.sprite = player.weapons[player.equippedWeaponIndex].projectileTexture;
             projectileSpeed = player.weapons[player.equippedWeaponIndex].projectileSpeed;
+            projectile.knockBack = player.weapons[player.equippedWeaponIndex].knockback;
             
             //Calculate projectile rotation
             float projectileRotation;
@@ -237,7 +239,10 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
                 if(enemies[j].active && CheckCollisionRecs(enemies[j].hitbox, projectiles[i].hitbox) && enemies[j].health > 0.0f){
 
                     enemies[j].health -= projectiles[i].damage;
-                    enemies[j].stunDuration = 0.25f;
+                    enemies[j].stunDuration = enemies[j].stunTime;
+                    //Knockback based on direction of projectile
+                    enemies[j].knockbackDirection = Vector2Normalize({projectiles[i].speed.x, projectiles[i].speed.y});
+                    enemies[j].knockbackForce = projectiles[i].knockBack;
                     collisionDetected = true;
                     break;
                 }

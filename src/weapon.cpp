@@ -74,6 +74,7 @@ Weapon LoadWeapon(const char* weaponName){
                 weapon.fireTime = item.at("fireTime").get<float>();
                 weapon.bulletSpread = item.at("bulletSpread").get<float>();
                 weapon.numProjectiles = item.at("numProjectiles").get<int>();
+                weapon.knockback = item.at("knockback").get<float>();
                 weapon.damage = item.at("damage").get<float>();
                 
                 weapon.fireTimer = 0.0f;
@@ -117,6 +118,8 @@ Weapon LoadWeapon(const char* weaponName){
 
                 weapon.reloadSound = assets.LoadGameSound(strdup(reloadSoundPath.c_str()));
 
+                weapon.hudTexture = {0};
+
                 weapon.textureFrames = item.at("textureFrames").get<int>();
                 weapon.size = item.at("size").get<float>();
                 
@@ -140,6 +143,7 @@ Weapon LoadWeapon(const char* weaponName){
                 weapon.fireTime = item.at("fireTime").get<float>();
                 weapon.bulletSpread = item.at("bulletSpread").get<float>();
                 weapon.numProjectiles = item.at("numProjectiles").get<int>();
+                weapon.knockback = 0.0f;
                 weapon.damage = item.at("damage").get<float>();
                 
                 weapon.fireTimer = 0.0f;
