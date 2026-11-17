@@ -49,10 +49,15 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
             projectileSpeed = player.weapons[player.equippedWeaponIndex].projectileSpeed;
             
             //Calculate projectile rotation
-            int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
-            float randSpread = GetRandomValue(-spread, spread) / 10.0f;
-
-            float projectileRotation = *playerToMouseRotation * RAD2DEG + randSpread;
+            float projectileRotation;
+            if(projectilesToCreate > 1){
+                float spread = (player.weapons[player.equippedWeaponIndex].bulletSpread * 2.0f / (projectilesToCreate - 1)) * i;
+                projectileRotation =  *playerToMouseRotation * RAD2DEG + spread - player.weapons[player.equippedWeaponIndex].bulletSpread;
+            } else {
+                int spread = (int) (player.weapons[player.equippedWeaponIndex].bulletSpread * 10);
+                float randSpread = GetRandomValue(-spread, spread) / 10.0f;
+                projectileRotation = *playerToMouseRotation * RAD2DEG + randSpread;
+            }
 
             projectile.rotation = projectileRotation * DEG2RAD;
             
@@ -82,10 +87,16 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
             projectileSpeed = enemy->weapon.projectileSpeed;
             
             //Calculate projectile rotation
-            int spread = (int) (enemy->weapon.bulletSpread * 10);
-            float randSpread = GetRandomValue(-spread, spread) / 10.0f;
-
-            float projectileRotation =  enemy->aimAngle * RAD2DEG + randSpread;
+            float projectileRotation;
+            float spread;
+            if(projectilesToCreate > 1){
+                spread = (enemy->weapon.bulletSpread * 2.0f / (projectilesToCreate - 1)) * i;
+                projectileRotation =  enemy->aimAngle * RAD2DEG + spread - enemy->weapon.bulletSpread;
+            } else {
+                spread = enemy->weapon.bulletSpread * 10.0f;
+                float randSpread = GetRandomValue(-spread, spread) / 10.0f;
+                projectileRotation =  enemy->aimAngle * RAD2DEG + randSpread;
+            }
 
             projectile.rotation = projectileRotation * DEG2RAD;
             
