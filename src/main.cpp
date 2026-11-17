@@ -79,6 +79,7 @@ int main(void){
     //Images
     Texture2D heartTexture = assets.LoadGameTexture("assets/textures/Heart.png");
     Texture2D weaponHudBoxTexture = assets.LoadGameTexture("assets/textures/weaponHudBox.png");
+    Texture2D weaponHudBoxBackgroundTexture = assets.LoadGameTexture("assets/textures/weaponHudBoxBackground.png");
     assets.LoadGameTexture("assets/textures/dungeonTileset.png");
     assets.LoadSpriteInfo();
     
@@ -218,7 +219,7 @@ int main(void){
 
         //------------------------------DRAW------------------------------
         DrawGame(camera, player, dungeon, enemies, projectiles,  
-            heartTexture, weaponHudBoxTexture,
+            heartTexture, weaponHudBoxTexture, weaponHudBoxBackgroundTexture,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
             debug.hurtbox, debug.hitbox,

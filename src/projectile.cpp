@@ -226,6 +226,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
                 if(enemies[j].active && CheckCollisionRecs(enemies[j].hitbox, projectiles[i].hitbox) && enemies[j].health > 0.0f){
 
                     enemies[j].health -= projectiles[i].damage;
+                    enemies[j].stunDuration = 0.25f;
                     collisionDetected = true;
                     break;
                 }

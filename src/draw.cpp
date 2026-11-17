@@ -9,7 +9,7 @@
 #include <raymath.h>
 
 void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
-            Texture2D heartTexture, Texture2D weaponHudBoxTexture,
+            Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
             bool debugHurtbox, bool debugHitbox,            
@@ -269,6 +269,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
         Rectangle weaponHudBoxTextureDest = {weaponHudBoxPos.x,weaponHudBoxPos.y,weaponHudBoxSize.x,weaponHudBoxSize.y};
         
         DrawTexturePro(weaponHudBoxTexture, weaponHudBoxTextureSrc, weaponHudBoxTextureDest, {0,0}, 0, WHITE);
+        DrawTexturePro(weaponHudBoxBackgroundTexture, weaponHudBoxTextureSrc, weaponHudBoxTextureDest, {0,0}, 0, Color{255,255,255,150});
         
         //Draw weapon inside hud
         Rectangle weaponHudTextureSrc = {0,0, (float)player.weapons[player.equippedWeaponIndex].hudTexture.width, (float)player.weapons[player.equippedWeaponIndex].hudTexture.height};
@@ -430,7 +431,11 @@ void DrawEnemies(vector<Enemy>& enemies){
                         fontSize, 
                         BLACK
                     );   
-                    DrawRectangleRec(enemies[i].hitbox, RED);
+                    if(enemies[i].stunDuration <= 0.0f){
+                        DrawRectangleRec(enemies[i].hitbox, RED);
+                    } else {
+                        DrawRectangleRec(enemies[i].hitbox, Color{255, 207 ,207, 255});
+                    }
                 }
             }
 }
@@ -477,7 +482,10 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
         if (enemies[i].aimAngle * RAD2DEG < -90 || enemies[i].aimAngle * RAD2DEG > 90){
             gunSrc.height = -gunSrc.height;
         }
-        
-        DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, WHITE);
+        if(enemies[i].stunDuration <= 0.0f){
+            DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, WHITE);
+        } else {
+            DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, Color{255,255,255,130});
+        }
     }
 }

@@ -14,13 +14,15 @@ struct Projectile;
 
 enum class EnemyMovementState {
     IDLE,
-    WALKING
+    WALKING,
+    STUNNED
 };
 
 enum class EnemyAttackState {
     IDLE,
     ATTACKING,
-    RELOADING
+    RELOADING,
+    STUNNED
 
 };
 
@@ -34,6 +36,9 @@ struct Enemy {
     
     float health;
     float speed;
+
+    float stunDuration;     //How much longer until the enemy gets out of stun (timer)
+    //float iFrames
     
     Rectangle hitbox;
 
