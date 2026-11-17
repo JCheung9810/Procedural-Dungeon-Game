@@ -22,7 +22,7 @@
             "projectileLifeSpan": 5.0,
             "bulletSpread": 5.0,
             "numProjectiles": 1,
-            "knockback": 500.0,
+            "knockback": 1000.0,
             "damage": 10.0
         },
         {

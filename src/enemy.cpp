@@ -41,7 +41,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.speed = item.at("speed").get<float>();
 
                 newEnemy.stunDuration = 0.0f;
-                newEnemy.stunTime = 0.2f;
+                newEnemy.stunTime = 0.1f;
 
                 vector<float> size = item.at("size").get<vector<float>>();
                 newEnemy.size = {size[0], size[1]};
