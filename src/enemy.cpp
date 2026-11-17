@@ -254,7 +254,10 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
 
             //Enemy attack
             float leadAmount = enemies[i].intelligence;
-            float timeToReachPlayer = distanceToPlayer/enemies[i].weapon.projectileSpeed;
+            float timeToReachPlayer = 0.0f;
+            if(enemies[i].weapon.projectileSpeed != 0.0f){
+                timeToReachPlayer = distanceToPlayer/enemies[i].weapon.projectileSpeed;
+            }
 
             Vector2 predictedPlayerPosition = Vector2Add(player.center, Vector2Scale(player.direction, (timeToReachPlayer * leadAmount)));
             

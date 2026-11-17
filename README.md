@@ -21,7 +21,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Give enemy their own bullet png
   - Make enemy shots to be more consistent (no spread for single, shotgun uses spread and bullets are spread even)
   - Implement enemies getting knockback, build in knockback stat
   - Enemy sprites, animations (idle, walking, stunned)
