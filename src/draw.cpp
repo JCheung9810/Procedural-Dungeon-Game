@@ -72,7 +72,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                 };
 
                                 DrawTexturePro(
-                                    assets.textures.at("assets/textures/dungeonTileset.png"),
+                                    assets.textures.at("assets/textures/environment/dungeonTileset.png"),
                                     assets.spriteInfo[door.spriteID].textureSrc,
                                     dest,
                                     Vector2{0, 0},
@@ -102,7 +102,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                     };
 
                                     DrawTexturePro(
-                                        assets.textures.at("assets/textures/dungeonTileset.png"),
+                                        assets.textures.at("assets/textures/environment/dungeonTileset.png"),
                                         assets.spriteInfo[decor.spriteID].textureSrc,
                                         dest,
                                         Vector2{0, 0},
@@ -215,7 +215,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                     };
 
                                     DrawTexturePro(
-                                        assets.textures.at("assets/textures/dungeonTileset.png"),
+                                        assets.textures.at("assets/textures/environment/dungeonTileset.png"),
                                         assets.spriteInfo[decor.spriteID].textureSrc,
                                         dest,
                                         Vector2{0, 0},

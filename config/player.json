@@ -7,6 +7,6 @@
     "dashCD": 0.0,
     "walkAnimationFrames": 4,
     "dashAnimationFrames": 7,
-    "texturePath": "assets/textures/PlayerWalk.png",
-    "dashTexturePath": "assets/textures/PlayerDash.png"
+    "texturePath": "assets/textures/player/PlayerWalk.png",
+    "dashTexturePath": "assets/textures/player/PlayerDash.png"
 }

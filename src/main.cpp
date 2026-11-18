@@ -74,13 +74,13 @@ int main(void){
     HideCursor();
     
     //Cursor Image
-    Texture2D cursorTexture = assets.LoadGameTexture("assets/textures/Cursor.png");
+    Texture2D cursorTexture = assets.LoadGameTexture("assets/textures/UI/Cursor.png");
     
     //Images
-    Texture2D heartTexture = assets.LoadGameTexture("assets/textures/Heart.png");
-    Texture2D weaponHudBoxTexture = assets.LoadGameTexture("assets/textures/weaponHudBox.png");
-    Texture2D weaponHudBoxBackgroundTexture = assets.LoadGameTexture("assets/textures/weaponHudBoxBackground.png");
-    assets.LoadGameTexture("assets/textures/dungeonTileset.png");
+    Texture2D heartTexture = assets.LoadGameTexture("assets/textures/UI/Heart.png");
+    Texture2D weaponHudBoxTexture = assets.LoadGameTexture("assets/textures/UI/weaponHudBox.png");
+    Texture2D weaponHudBoxBackgroundTexture = assets.LoadGameTexture("assets/textures/UI/weaponHudBoxBackground.png");
+    assets.LoadGameTexture("assets/textures/environment/dungeonTileset.png");
     assets.LoadSpriteInfo();
     
     //Projectile
