@@ -28,19 +28,19 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Make a boss entrance
   - Make floor exit
   - Minimap/map
-  - Item inventory
-  - Shop
+  - Special rooms (Shop,chest)
   - Lobby/main menu
   - Black layer, change opacity over time when passed through door, 
   - Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
   - Remove camera clamp, make camera positioned at some point between player and mouse
   - Reload mouse cursor
   - Reload bar above head
-  - Breakable room objects
-  - Usable/Interactable room objects
-  - Door animation
   
 # Distant Features
+- Item inventory
+- Breakable room objects
+- Usable/Interactable room objects
+- Door animation
 - Better projectile hitbox (for guns that dont shoot circular projectiles)
 - Advanced enemy AI (path finding)
 - Free placed rooms instead of grid
