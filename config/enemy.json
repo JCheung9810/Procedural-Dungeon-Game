@@ -10,7 +10,10 @@
             "attackRate": 1.0,
             "minRange": 225.0,
             "maxRange": 250.0,
-            "weapon": "Enemy Pistol"
+            "weapon": "Enemy Pistol",
+            "texturePath": "assets/textures/enemies/PistolEnemy.png",
+            "walkAnimationFrames": 4,
+            "deathAnimationFrames": 2
         },
         {
             "name": "Dummy Double Barrel",
@@ -22,7 +25,10 @@
             "attackRate": 2.0,
             "minRange": 150.0,
             "maxRange": 180.0,
-            "weapon": "Enemy Double Barrel"
+            "weapon": "Enemy Double Barrel",
+            "texturePath": "assets/textures/enemies/PistolEnemy.png",
+            "walkAnimationFrames": 4,
+            "deathAnimationFrames": 2
         },
         {
             "name": "Dummy Suicide Bomber",
@@ -34,7 +40,10 @@
             "attackRate": 1.0,
             "minRange": 50.0,
             "maxRange": 60.0,
-            "weapon": "Enemy Suicide Bomb"
+            "weapon": "Enemy Suicide Bomb",
+            "texturePath": "assets/textures/enemies/PistolEnemy.png",
+            "walkAnimationFrames": 4,
+            "deathAnimationFrames": 2
         },
         {
             "name": "Dummy God",
@@ -46,7 +55,10 @@
             "attackRate": 99999999.0,
             "minRange": 50.0,
             "maxRange": 60.0,
-            "weapon": "Enemy Suicide Bomb"
+            "weapon": "Enemy Suicide Bomb",
+            "texturePath": "assets/textures/enemies/PistolEnemy.png",
+            "walkAnimationFrames": 4,
+            "deathAnimationFrames": 2
         }
     ]
 }

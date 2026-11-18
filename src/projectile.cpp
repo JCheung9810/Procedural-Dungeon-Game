@@ -240,6 +240,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
 
                     enemies[j].health -= projectiles[i].damage;
                     enemies[j].stunDuration = enemies[j].stunTime;
+                    enemies[j].currentFrame = 0;
                     //Knockback based on direction of projectile
                     enemies[j].knockbackDirection = Vector2Normalize({projectiles[i].speed.x, projectiles[i].speed.y});
                     enemies[j].knockbackForce = projectiles[i].knockBack;

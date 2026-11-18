@@ -3,6 +3,7 @@
 #include "player.h"
 #include "dungeon.h"
 #include "projectile.h"
+#include "assetManager.h"
 
 #include "json.hpp"
 
@@ -60,6 +61,19 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.attackCD = newEnemy.attackRate;
 
                 newEnemy.aimAngle = 0.0f;
+
+                string texturePath = item.at("texturePath").get<string>();
+                newEnemy.texture = assets.LoadGameTexture(texturePath.c_str());
+
+                newEnemy.walkAnimationFrames = item.at("walkAnimationFrames").get<int>();
+                newEnemy.deathAnimationFrames = item.at("deathAnimationFrames").get<int>();
+
+                newEnemy.currentFrame = 0;
+                newEnemy.frameTime = 0.1f;
+                newEnemy.frameTimer = 0.0f;
+
+                newEnemy.despawnTime = 3.0f;
+                newEnemy.despawnTimer = 0.0f;
 
                 newEnemy.movementState = EnemyMovementState::IDLE;
                 newEnemy.attackState = EnemyAttackState::IDLE;
@@ -306,6 +320,27 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             //Remove inactive enemy
             enemies.erase(enemies.begin() + i);  
             i--;        
+        }
+
+        //Animation
+        if(enemies[i].movementState == EnemyMovementState::IDLE){
+            enemies[i].currentFrame = 0;
+            enemies[i].frameTimer = 0.0f;
+        } else if(enemies[i].movementState == EnemyMovementState::WALKING){
+            enemies[i].frameTimer += deltaTime;
+            if(enemies[i].frameTimer >= enemies[i].frameTime){
+                enemies[i].currentFrame++;
+                enemies[i].currentFrame = enemies[i].currentFrame % enemies[i].walkAnimationFrames;
+                enemies[i].frameTimer = 0.0f;
+            }
+        } else if(enemies[i].movementState == EnemyMovementState::STUNNED){
+            enemies[i].frameTimer += deltaTime;
+            if(enemies[i].frameTimer >= enemies[i].frameTime){
+                if(enemies[i].currentFrame < enemies[i].deathAnimationFrames - 1){
+                    enemies[i].currentFrame++;
+                }
+                enemies[i].frameTimer = 0.0f;
+            }
         }
         
     }

@@ -23,7 +23,11 @@ enum class EnemyAttackState {
     ATTACKING,
     RELOADING,
     STUNNED
+};
 
+enum class EnemyStatus {
+    ALIVE,
+    DEAD
 };
 
 struct Enemy {
@@ -63,6 +67,16 @@ struct Enemy {
     
     bool active;
     Texture2D texture;
+
+    int walkAnimationFrames;
+    int deathAnimationFrames;
+
+    float frameTimer;       //Timer for changing frames
+    float frameTime;        //What the timer is set to for changing frames
+    int currentFrame;       //Current animation frame
+
+    float despawnTime;      //What the time is set to for despawn time
+    float despawnTimer;     //Timer for despawning
     
 };
 

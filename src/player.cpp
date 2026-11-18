@@ -1,5 +1,6 @@
 #include "player.h"
 
+#include "assetManager.h"
 #include "dungeon.h"
 
 #include "json.hpp"
@@ -74,7 +75,7 @@ void InitializePlayer(Player& player){
         
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
-        player.frameSpeed = 0.1f;
+        player.frameTime = 0.1f;
     
         player.movementState = PlayerMovementState::IDLE;
         player.attackState = PlayerAttackState::IDLE;
@@ -320,7 +321,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     if(player.movementState == PlayerMovementState::WALKING){
         player.frameTimer += deltaTime;
 
-        if(player.frameTimer >= player.frameSpeed){
+        if(player.frameTimer >= player.frameTime){
             player.frameTimer = 0.0f;
             player.currentFrame++;
 

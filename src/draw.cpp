@@ -492,20 +492,22 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
 
     //Enemy guns
     for(int i = 0; i < (int)enemies.size(); i++){
-        gunPos = {
-            enemies[i].center.x + cos(enemies[i].aimAngle) * enemies[i].weapon.positionOffset.x,
-            enemies[i].center.y + sin(enemies[i].aimAngle) * enemies[i].weapon.positionOffset.x
-        };
-        gunSrc = {0,0,(float)enemies[i].weapon.texture.width / enemies[i].weapon.textureFrames,(float)enemies[i].weapon.texture.height - enemies[i].weapon.positionOffset.y};
-        gunDest = {gunPos.x,gunPos.y,enemies[i].weapon.size,enemies[i].weapon.size};
-        
-        if (enemies[i].aimAngle * RAD2DEG < -90 || enemies[i].aimAngle * RAD2DEG > 90){
-            gunSrc.height = -gunSrc.height;
-        }
-        if(enemies[i].stunDuration <= 0.0f){
-            DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, WHITE);
-        } else {
-            DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, Color{255,255,255,130});
+        if(enemies[i].active){
+            gunPos = {
+                enemies[i].center.x + cos(enemies[i].aimAngle) * enemies[i].weapon.positionOffset.x,
+                enemies[i].center.y + sin(enemies[i].aimAngle) * enemies[i].weapon.positionOffset.x
+            };
+            gunSrc = {0,0,(float)enemies[i].weapon.texture.width / enemies[i].weapon.textureFrames,(float)enemies[i].weapon.texture.height - enemies[i].weapon.positionOffset.y};
+            gunDest = {gunPos.x,gunPos.y,enemies[i].weapon.size,enemies[i].weapon.size};
+            
+            if (enemies[i].aimAngle * RAD2DEG < -90 || enemies[i].aimAngle * RAD2DEG > 90){
+                gunSrc.height = -gunSrc.height;
+            }
+            if(enemies[i].stunDuration <= 0.0f){
+                DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, WHITE);
+            } else {
+                DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, Color{255,255,255,130});
+            }
         }
     }
 }

@@ -1133,7 +1133,13 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
         //If room state is active
         } else if(dungeon.rooms[i].state == RoomState::ACTIVE){
             //When all enemies are cleared
-            if(enemies.size() == 0){
+            int numActive = 0;
+            for(int enemyIt = 0; enemyIt < (int)enemies.size(); enemyIt++){
+                if(enemies[enemyIt].active){
+                    numActive++;
+                }
+            }
+            if(numActive++ == 0){
                 //Check if all enemies have been spawned
                 if(dungeon.rooms[i].numEnemiesSpawned >= dungeon.rooms[i].numEnemiesToSpawn){
                     //Room cleared

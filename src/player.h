@@ -2,7 +2,6 @@
 
 #include "dungeon.h"
 #include "weapon.h"
-#include "assetManager.h"
 
 #include <vector>
 
@@ -42,8 +41,8 @@ struct Player {
     int facingDirection;
     
     int currentFrame;
-    float frameTimer;
-    float frameSpeed;
+    float frameTimer;           //Timer for changing frames
+    float frameTime;           //What the frameTimer is set to
     
     int walkAnimationFrames;
     

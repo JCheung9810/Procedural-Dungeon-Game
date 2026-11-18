@@ -22,6 +22,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # To Do Priority List (Highest to Lowest)
   - Enemy visuals
+  - Update enemy.active to enum
   - Offset shooting start times
   - Pickups (ammo,health)
   - Add shields (temp health, always takes a full 1 hit no matter the damage)
