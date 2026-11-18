@@ -82,6 +82,15 @@ int main(void){
     Texture2D weaponHudBoxBackgroundTexture = assets.LoadGameTexture("assets/textures/UI/weaponHudBoxBackground.png");
     assets.LoadGameTexture("assets/textures/environment/dungeonTileset.png");
     assets.LoadSpriteInfo();
+
+    //Font
+    int codepoints[] = { 0x221E };
+    Font font = LoadFontEx(
+        "assets/fonts/unifont-18.0.01.otf",
+        32,
+        codepoints,
+        1
+    );
     
     //Projectile
     vector<Projectile> projectiles;
@@ -219,7 +228,7 @@ int main(void){
 
         //------------------------------DRAW------------------------------
         DrawGame(camera, player, dungeon, enemies, projectiles,  
-            heartTexture, weaponHudBoxTexture, weaponHudBoxBackgroundTexture,
+            heartTexture, weaponHudBoxTexture, weaponHudBoxBackgroundTexture, font,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
             debug.hurtbox, debug.hitbox,

@@ -9,7 +9,7 @@
 #include <raymath.h>
 
 void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
-            Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture,
+            Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture, Font font, 
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight,
             bool debugHurtbox, bool debugHitbox,            
@@ -322,22 +322,14 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                 WHITE
             );
         } else {
-            int codepoints[] = { 0x221E };
-
-            Font ammoFont = LoadFontEx(
-                "assets/fonts/unifont-18.0.01.otf",
-                32,
-                codepoints,
-                1
-            );
 
             const char* infinitySymbol = "\u221E";
 
             fontSize = 66;
-            textWidth = MeasureTextEx(ammoFont, infinitySymbol, fontSize, 0).x;
+            textWidth = MeasureTextEx(font, infinitySymbol, fontSize, 0).x;
 
             DrawTextEx(
-                ammoFont,
+                font,
                 infinitySymbol,
                 Vector2{
                     weaponHudBoxPos.x + weaponHudBoxSize.x / 2 + (MeasureText("/", fontSize) / 2),

@@ -9,7 +9,7 @@
 #include "raylib.h"
 
 void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles,  
-            Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture,
+            Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture, Font font,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             int screenWidth, int screenHeight, 
             bool debugHurtbox, bool debugHitbox,  
