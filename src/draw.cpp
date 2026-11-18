@@ -435,27 +435,67 @@ void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
 
 void DrawEnemies(vector<Enemy>& enemies){
     for (int i = 0; i < (int)enemies.size(); i++){
-                if (enemies[i].active){
-                    int fontSize = 15;
-                    int textWidth = MeasureText(enemies[i].name, fontSize);
-                    DrawText(
-                        enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                        enemies[i].position.y - fontSize*2.2f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
-                    DrawText(
-                        TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
-                        enemies[i].position.y - fontSize*1.1f, 
-                        fontSize, 
-                        BLACK
-                    );   
-                    if(enemies[i].stunDuration <= 0.0f){
-                        DrawRectangleRec(enemies[i].hitbox, RED);
+
+                int fontSize = 15;
+                int textWidth = MeasureText(enemies[i].name, fontSize);
+                DrawText(
+                    enemies[i].name, enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                    enemies[i].position.y - fontSize*2.2f, 
+                    fontSize, 
+                    BLACK
+                );   
+                textWidth = MeasureText(TextFormat("%0.2f",enemies[i].health), fontSize);
+                DrawText(
+                    TextFormat("%0.2f",enemies[i].health), enemies[i].position.x + enemies[i].size.x/2.0f - textWidth/2, 
+                    enemies[i].position.y - fontSize*1.1f, 
+                    fontSize, 
+                    BLACK
+                );   
+
+                Rectangle srcRec;
+                Rectangle destRec;
+                Vector2 enemyTextureSize = {80.0f, 80.0f};
+                float frameWidth = (float)enemies[i].texture.width / enemies[i].walkAnimationFrames;
+                int textureRow;
+                if(enemies[i].status != EnemyStatus::DEAD){
+                    if(enemies[i].movementState != EnemyMovementState::STUNNED){
+                        textureRow = 0;
+                        //DrawRectangleRec(enemies[i].hitbox, RED);
                     } else {
-                        DrawRectangleRec(enemies[i].hitbox, Color{255, 207 ,207, 255});
+                        textureRow = 1;
+                        //DrawRectangleRec(enemies[i].hitbox, Color{255, 207 ,207, 255});
                     }
+                } else {
+                    textureRow = 2;
+                }
+
+                if(enemies[i].movementVector.x >= 0.0f){
+                    srcRec = {
+                        frameWidth * enemies[i].currentFrame,
+                        ((float)enemies[i].texture.height / 3.0f) * (float)textureRow,
+                        frameWidth,
+                        (float)enemies[i].texture.height / 3.0f
+                    };
+                } else {
+                    srcRec = {
+                        frameWidth * enemies[i].currentFrame,
+                        ((float)enemies[i].texture.height / 3.0f) * (float)textureRow,
+                        -frameWidth,
+                        (float)enemies[i].texture.height / 3.0f
+                    };
+                }
+
+                destRec = {
+                    enemies[i].center.x - enemyTextureSize.x/2.0f,
+                    enemies[i].center.y - enemyTextureSize.y/2.0f + 1.5f,
+                    enemyTextureSize.x,
+                    enemyTextureSize.y
+                };
+            
+                if(enemies[i].status != EnemyStatus::DEAD){
+                    DrawTexturePro(enemies[i].texture, srcRec, destRec, Vector2{0, 0}, 0, WHITE);
+                } else {
+                    DrawTexturePro(enemies[i].texture, srcRec, destRec, Vector2{0, 0}, 0, Color{130,130,130,130});
                 }
             }
 }
@@ -492,7 +532,7 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
 
     //Enemy guns
     for(int i = 0; i < (int)enemies.size(); i++){
-        if(enemies[i].active){
+        if(enemies[i].status != EnemyStatus::DEAD){
             gunPos = {
                 enemies[i].center.x + cos(enemies[i].aimAngle) * enemies[i].weapon.positionOffset.x,
                 enemies[i].center.y + sin(enemies[i].aimAngle) * enemies[i].weapon.positionOffset.x

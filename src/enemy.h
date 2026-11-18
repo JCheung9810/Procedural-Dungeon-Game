@@ -27,6 +27,7 @@ enum class EnemyAttackState {
 
 enum class EnemyStatus {
     ALIVE,
+    STUNNED,
     DEAD
 };
 
@@ -37,6 +38,8 @@ struct Enemy {
     Vector2 size;
     Vector2 position;
     Vector2 center;
+
+    Vector2 movementVector;
     
     float health;
     float speed;
@@ -54,6 +57,7 @@ struct Enemy {
 
     EnemyMovementState movementState;
     EnemyAttackState attackState;
+    EnemyStatus status;
     
     float attackRate;       //How often entity can attack, at most  (what the timer is set to)
     float attackCD;         //How long before entity can attack again (timer)
@@ -65,7 +69,6 @@ struct Enemy {
 
     float intelligence;
     
-    bool active;
     Texture2D texture;
 
     int walkAnimationFrames;

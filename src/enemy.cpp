@@ -42,7 +42,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.speed = item.at("speed").get<float>();
 
                 newEnemy.stunDuration = 0.0f;
-                newEnemy.stunTime = 0.1f;
+                newEnemy.stunTime = 0.5f;
 
                 vector<float> size = item.at("size").get<vector<float>>();
                 newEnemy.size = {size[0], size[1]};
@@ -77,7 +77,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
 
                 newEnemy.movementState = EnemyMovementState::IDLE;
                 newEnemy.attackState = EnemyAttackState::IDLE;
-                newEnemy.active = true;
+                newEnemy.status = EnemyStatus::ALIVE;
 
                 newEnemy.knockbackDirection = {0,0};
                 newEnemy.knockbackForce = 0.0f;
@@ -117,11 +117,13 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
     //Check every enemy
     for(int i = 0; i < (int)enemies.size(); i++){
 
-        if(enemies[i].health <= 0.0f){
-            enemies[i].active = false;
+        if(enemies[i].status != EnemyStatus::DEAD && enemies[i].health <= 0.0f){
+            enemies[i].status = EnemyStatus::DEAD;
+            enemies[i].movementState = EnemyMovementState::STUNNED;
+            enemies[i].despawnTimer = enemies[i].despawnTime;
         }
             
-        if(enemies[i].active){
+        if(enemies[i].status != EnemyStatus::DEAD){
             float rot = 0.0f;
             rot = atan2(player.center.y - enemies[i].center.y, player.center.x - enemies[i].center.x);
             Vector2 previousPosition = enemies[i].position;
@@ -130,7 +132,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             float minDistanceToPlayer;
             float maxDistanceToPlayer;
 
-            Vector2 realVelocityScaledDirection = Vector2Scale({(cos(rot) * enemies[i].speed), (sin(rot) * enemies[i].speed)}, deltaTime);
+            enemies[i].movementVector = Vector2Scale({(cos(rot) * enemies[i].speed), (sin(rot) * enemies[i].speed)}, deltaTime);
 
             //Enemy stun state
             if(enemies[i].stunDuration > 0.0f){
@@ -161,19 +163,19 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                     }
 
                     if(distanceToPlayer >= maxDistanceToPlayer){
-                        enemies[i].position.x += realVelocityScaledDirection.x;
-                        enemies[i].position.y += realVelocityScaledDirection.y;
+                        enemies[i].position.x += enemies[i].movementVector.x;
+                        enemies[i].position.y += enemies[i].movementVector.y;
                         enemies[i].movementState = EnemyMovementState::WALKING;
                     } else if(distanceToPlayer < minDistanceToPlayer){
-                        enemies[i].position.x -= realVelocityScaledDirection.x;
-                        enemies[i].position.y -= realVelocityScaledDirection.y;
+                        enemies[i].position.x -= enemies[i].movementVector.x;
+                        enemies[i].position.y -= enemies[i].movementVector.y;
                         enemies[i].movementState = EnemyMovementState::WALKING;
                     } else {
                         enemies[i].movementState = EnemyMovementState::IDLE;
                     }
                 } else if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber") || TextIsEqual(enemies[i].name,"Dummy God")){
-                    enemies[i].position.x += realVelocityScaledDirection.x;
-                    enemies[i].position.y += realVelocityScaledDirection.y;
+                    enemies[i].position.x += enemies[i].movementVector.x;
+                    enemies[i].position.y += enemies[i].movementVector.y;
                     enemies[i].movementState = EnemyMovementState::WALKING;
                 }
 
@@ -317,30 +319,63 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             }
 
         } else {
-            //Remove inactive enemy
-            enemies.erase(enemies.begin() + i);  
-            i--;        
+            //Start despawn   
+            enemies[i].despawnTimer -= deltaTime;
+            if(enemies[i].despawnTimer < 0.0f){
+                enemies[i].despawnTimer = 0;
+            }
+
         }
 
         //Animation
-        if(enemies[i].movementState == EnemyMovementState::IDLE){
-            enemies[i].currentFrame = 0;
-            enemies[i].frameTimer = 0.0f;
-        } else if(enemies[i].movementState == EnemyMovementState::WALKING){
-            enemies[i].frameTimer += deltaTime;
-            if(enemies[i].frameTimer >= enemies[i].frameTime){
-                enemies[i].currentFrame++;
-                enemies[i].currentFrame = enemies[i].currentFrame % enemies[i].walkAnimationFrames;
+        if(enemies[i].status != EnemyStatus::DEAD){
+            if(enemies[i].movementState == EnemyMovementState::IDLE){
+                enemies[i].currentFrame = 0;
                 enemies[i].frameTimer = 0.0f;
-            }
-        } else if(enemies[i].movementState == EnemyMovementState::STUNNED){
-            enemies[i].frameTimer += deltaTime;
-            if(enemies[i].frameTimer >= enemies[i].frameTime){
-                if(enemies[i].currentFrame < enemies[i].deathAnimationFrames - 1){
+            } else if(enemies[i].movementState == EnemyMovementState::WALKING){
+                enemies[i].frameTimer += deltaTime;
+                if(enemies[i].frameTimer >= enemies[i].frameTime){
                     enemies[i].currentFrame++;
+                    enemies[i].currentFrame = enemies[i].currentFrame % enemies[i].walkAnimationFrames;
+                    enemies[i].frameTimer = 0.0f;
                 }
-                enemies[i].frameTimer = 0.0f;
+            } else if(enemies[i].movementState == EnemyMovementState::STUNNED){
+                enemies[i].frameTimer += deltaTime;
+                if(enemies[i].frameTimer >= enemies[i].frameTime){
+                    if(enemies[i].currentFrame < enemies[i].deathAnimationFrames - 1){
+                        enemies[i].currentFrame++;
+                    }
+                    enemies[i].frameTimer = 0.0f;
+                }
             }
+        } else if(enemies[i].status == EnemyStatus::DEAD){
+            enemies[i].currentFrame = 0;
+
+            if(enemies[i].movementState == EnemyMovementState::STUNNED){
+                //Handle knockback
+                Vector2 knockbackVelocity = KnockbackHandler(enemies[i]);
+
+                //Update enemy positions
+                enemies[i].position.x += knockbackVelocity.x * deltaTime;
+                enemies[i].position.y += knockbackVelocity.y * deltaTime;
+
+                enemies[i].hitbox.x = enemies[i].position.x;
+                enemies[i].hitbox.y = enemies[i].position.y;
+                enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
+            
+                if(enemies[i].stunDuration > 0.0f){
+                    enemies[i].stunDuration -= deltaTime;
+                    if(enemies[i].stunDuration <= 0.0f){
+                        enemies[i].stunDuration = 0.0f;
+                    }
+                }
+            }
+        }
+
+        //Remove inactive enemy
+        if(enemies[i].status == EnemyStatus::DEAD && enemies[i].despawnTimer <= 0.0f){
+            enemies.erase(enemies.begin() + i);  
+            i--;  
         }
         
     }

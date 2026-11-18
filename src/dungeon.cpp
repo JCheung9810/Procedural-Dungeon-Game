@@ -1135,7 +1135,7 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
             //When all enemies are cleared
             int numActive = 0;
             for(int enemyIt = 0; enemyIt < (int)enemies.size(); enemyIt++){
-                if(enemies[enemyIt].active){
+                if(enemies[enemyIt].status != EnemyStatus::DEAD){
                     numActive++;
                 }
             }

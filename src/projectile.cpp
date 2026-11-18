@@ -236,7 +236,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
 
             for(int j = 0; j < (int)enemies.size(); j++){
 
-                if(enemies[j].active && CheckCollisionRecs(enemies[j].hitbox, projectiles[i].hitbox) && enemies[j].health > 0.0f){
+                if(enemies[j].status != EnemyStatus::DEAD && CheckCollisionRecs(enemies[j].hitbox, projectiles[i].hitbox) && enemies[j].health > 0.0f){
 
                     enemies[j].health -= projectiles[i].damage;
                     enemies[j].stunDuration = enemies[j].stunTime;
