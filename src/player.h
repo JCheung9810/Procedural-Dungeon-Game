@@ -34,8 +34,8 @@ struct Player {
 
     Vector2 size;
 
-    Rectangle hitbox;
-    Rectangle hurtbox;
+    Rectangle hitbox;           //Movement collision
+    Rectangle hurtbox;          //Projectile collisions
 
     Vector2 tempDirection;
     int facingDirection;

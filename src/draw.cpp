@@ -90,7 +90,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
 
-                        if(decor.hitbox.height + decor.hitbox.y < player.hurtbox.y + player.hurtbox.height || decor.alwaysOnBottom){
+                        if(decor.hitbox.height + decor.hitbox.y < player.hitbox.y + player.hitbox.height || decor.alwaysOnBottom){
 
                             tileSize = 16 * scale;
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
@@ -122,7 +122,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int usableIt = 0; usableIt < (int)room.roomContent.usables.size(); usableIt++){
                         RoomUsable& usable = room.roomContent.usables[usableIt];
 
-                        if(usable.hitbox.height + usable.hitbox.y < player.hurtbox.y + player.hurtbox.height){
+                        if(usable.hitbox.height + usable.hitbox.y < player.hitbox.y + player.hitbox.height){
 
                             tileSize = 24 * scale;
                             int tilesX = (int)roundf(usable.hitbox.width / tileSize);
@@ -143,6 +143,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                         tileSize
                                     };
 
+                                    DrawRectangleV({usable.hitbox.x,usable.hitbox.y}, {usable.hitbox.width, usable.hitbox.height}, WHITE);
                                     DrawTexturePro(
                                         usable.texture,
                                         src,
@@ -243,7 +244,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int decorIt = 0; decorIt < (int)room.roomContent.decor.size(); decorIt++){
                         RoomDecor& decor = room.roomContent.decor[decorIt];
                         
-                        if((decor.hitbox.height + decor.hitbox.y >= player.hurtbox.y + player.hurtbox.height && !decor.alwaysOnBottom) || decor.alwaysOnTop){
+                        if((decor.hitbox.height + decor.hitbox.y >= player.hitbox.y + player.hitbox.height && !decor.alwaysOnBottom) || decor.alwaysOnTop){
 
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
@@ -276,7 +277,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int usableIt = 0; usableIt < (int)room.roomContent.usables.size(); usableIt++){
                         RoomUsable& usable = room.roomContent.usables[usableIt];
 
-                        if(usable.hitbox.height + usable.hitbox.y >= player.hurtbox.y + player.hurtbox.height){
+                        if(usable.hitbox.height + usable.hitbox.y >= player.hitbox.y + player.hitbox.height){
                             
                             tileSize = 24 * scale;
                             int tilesX = (int)roundf(usable.hitbox.width / tileSize);
@@ -285,10 +286,10 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                             for(int x = 0; x < tilesX; x++){
                                 for(int y = 0; y < tilesY; y++){
                                     Rectangle src{
-                                        usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
-                                        0,
-                                        (float)usable.texture.width / (float)usable.numFrames,
-                                        (float)usable.texture.height / 2
+                                        (usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames) + 256,
+                                        256,
+                                        (float)usable.texture.width / (float)usable.numFrames - 544,
+                                        (float)usable.texture.height / 2 - 480
                                     };
                                     Rectangle dest = {
                                         usable.hitbox.x + x * tileSize,
@@ -297,6 +298,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                         tileSize
                                     };
 
+                                    DrawRectangleV({usable.hitbox.x,usable.hitbox.y}, {usable.hitbox.width, usable.hitbox.height}, WHITE);
                                     DrawTexturePro(
                                         usable.texture,
                                         src,
