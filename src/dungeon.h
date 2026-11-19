@@ -63,6 +63,12 @@ struct RoomUsable {
     bool visible;
 };
 
+struct RoomClearItemSpawnPool {
+    string name;
+    Texture2D texture;
+    float spawnWeight;
+};
+
 struct EnemySpawnInfo {
     const char* name;
     float spawnWeight;
@@ -152,6 +158,7 @@ struct Dungeon {
     int bestFloor;
     
     vector<FloorSpawnPool> floorSpawnPools;
+    vector<RoomClearItemSpawnPool> roomClearItemSpawnPool;
     
     vector<Room> rooms;
     

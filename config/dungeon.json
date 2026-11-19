@@ -40,5 +40,27 @@
                 }
             ]
         }
+    ],
+    "roomClearItemSpawnPool":[
+        {
+            "name": "FullHeartItem",
+            "texturePath": "assets/textures/environment/FullHeartItem.png",
+            "spawnWeight": 0.25
+        },
+        {
+            "name": "HalfHeartItem",
+            "texturePath": "assets/textures/environment/HalfHeartItem.png",
+            "spawnWeight": 0.25
+        },
+        {
+            "name": "AmmoBoxItem",
+            "texturePath": "assets/textures/environment/AmmoBoxItem.png",
+            "spawnWeight": 0.25
+        },
+        {
+            "name": "SpreadAmmoBoxItem",
+            "texturePath": "assets/textures/environment/SpreadAmmoBoxItem.png",
+            "spawnWeight": 0.25
+        }
     ]
 }

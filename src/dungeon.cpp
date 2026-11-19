@@ -62,6 +62,18 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
             
             dungeon.floorSpawnPools.push_back(floorSpawnPool);
         }
+
+        //Go through each instance from roomClearItemSpawnPool
+        for(const auto& itemInfo : data.at("roomClearItemSpawnPool")){
+
+            RoomClearItemSpawnPool roomClearItemSpawnPool;
+
+            roomClearItemSpawnPool.name = itemInfo.at("name").get<string>();
+            roomClearItemSpawnPool.texture = assets.LoadGameTexture(strdup(itemInfo.at("texturePath").get<string>().c_str()));
+            roomClearItemSpawnPool.spawnWeight = itemInfo.at("spawnWeight").get<float>();
+            
+            dungeon.roomClearItemSpawnPool.push_back(roomClearItemSpawnPool);
+        }
         
         //Initialize vars
         dungeon.floor = 0;
@@ -221,30 +233,17 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     usable.type = entity["id"];
                     if(entity["id"] == "RoomClearRewardSpawn"){
                         int randomNum = GetRandomValue(1,100);
-                        if(randomNum <= 25){
-                            usable.name = "HalfHeartItem";
-                            usable.texture = assets.LoadGameTexture("assets/textures/environment/HalfHeartItem.png");
-                            usable.visible = false;
-                            usable.numFrames = 5;
-                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
-                        } else if(randomNum <= 50){
-                            usable.name = "FullHeartItem";
-                            usable.texture = assets.LoadGameTexture("assets/textures/environment/FullHeartItem.png");
-                            usable.visible = false;
-                            usable.numFrames = 5;
-                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
-                        } else if(randomNum <= 75){
-                            usable.name = "AmmoBoxItem";
-                            usable.texture = assets.LoadGameTexture("assets/textures/environment/AmmoBoxItem.png");
-                            usable.visible = false;
-                            usable.numFrames = 5;
-                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
-                        } else if(randomNum <= 100){
-                            usable.name = "SpreadAmmoBoxItem";
-                            usable.texture = assets.LoadGameTexture("assets/textures/environment/SpreadAmmoBoxItem.png");
-                            usable.visible = false;
-                            usable.numFrames = 5;
-                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        for(int roomClearItemIt = 0; roomClearItemIt < (int)dungeon.roomClearItemSpawnPool.size(); roomClearItemIt++){
+                            if(randomNum <= dungeon.roomClearItemSpawnPool[roomClearItemIt].spawnWeight * 100){
+                                usable.name = dungeon.roomClearItemSpawnPool[roomClearItemIt].name;
+                                usable.visible = false;
+                                usable.numFrames = 5;
+                                usable.texture = dungeon.roomClearItemSpawnPool[roomClearItemIt].texture;
+                                usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                                break;
+                            } else {
+                                randomNum -= dungeon.roomClearItemSpawnPool[roomClearItemIt].spawnWeight * 100;
+                            }
                         }
                     }
 
