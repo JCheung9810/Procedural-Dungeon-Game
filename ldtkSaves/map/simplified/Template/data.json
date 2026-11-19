@@ -24,7 +24,8 @@
 				"height": 24,
 				"color": 6539085,
 				"customFields": {
-					"active": false
+					"active": false,
+					"visible": false
 				}
 			},
 			{
@@ -37,7 +38,8 @@
 				"height": 10,
 				"color": 6539085,
 				"customFields": {
-					"active": false
+					"active": false,
+					"visible": false
 				}
 			},
 			{
@@ -50,7 +52,8 @@
 				"height": 24,
 				"color": 6539085,
 				"customFields": {
-					"active": false
+					"active": false,
+					"visible": false
 				}
 			}
 		],

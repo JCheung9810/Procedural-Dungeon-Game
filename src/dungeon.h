@@ -51,7 +51,7 @@ struct RoomUsable {
     SpriteID spriteID;
     
     bool active;
-    
+    bool visible;
 };
 
 struct EnemySpawnInfo {
