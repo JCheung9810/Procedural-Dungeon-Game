@@ -213,6 +213,35 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 
                     door.active = false;
                     room.roomContent.doors.push_back(door);
+                } else if(entity["layer"] == "Usable"){
+                    RoomUsable usable;
+
+                    usable.visible = true;
+                    usable.numFrames = 0;
+                    if(GetRandomValue(1,100) <= 50){
+                        usable.texture = assets.LoadGameTexture("assets/textures/environment/HalfHeartItem.png");
+                        usable.visible = false;
+                        usable.numFrames = 5;
+                    } else {
+                        usable.texture = assets.LoadGameTexture("assets/textures/environment/FullHeartItem.png");
+                        usable.visible = false;
+                        usable.numFrames = 5;
+                    }
+
+                    usable.hitbox = {
+                        entity["x"].get<float>() * scale + room.position.x,
+                        entity["y"].get<float>() * scale + room.position.y,
+                        entity["width"].get<float>() * scale,
+                        entity["height"].get<float>() * scale
+                    };
+
+                    usable.active = false;
+                    usable.animationTime = 1.0f;
+                    usable.animationTimer = 0.0f;
+                    usable.currentFrame = 0;
+
+                    room.roomContent.usables.push_back(usable);
+
                 }
             }
         }

@@ -322,10 +322,10 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
 
     //Animation  
     if(player.movementState == PlayerMovementState::WALKING){
-        player.frameTimer += deltaTime;
+        player.frameTimer -= deltaTime;
 
-        if(player.frameTimer >= player.frameTime){
-            player.frameTimer = 0.0f;
+        if(player.frameTimer <= 0.0f){
+            player.frameTimer = player.frameTime;
             player.currentFrame++;
 
             if (player.currentFrame >= 4)
@@ -336,9 +336,9 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
         player.currentFrame = 0;
         player.frameTimer = 0.0f;
     } else if(player.movementState == PlayerMovementState::DASHING){    
-        player.frameTimer += deltaTime;
+        player.frameTimer -= deltaTime;
         
-        player.currentFrame = (int)((player.frameTimer * player.dashAnimationFrames) / player.dashTime); 
+        player.currentFrame = (int)(((player.frameTime - player.frameTimer) * player.dashAnimationFrames) / player.dashTime); 
 
         if(player.currentFrame >= player.dashAnimationFrames)
         {

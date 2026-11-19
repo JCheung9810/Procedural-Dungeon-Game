@@ -334,20 +334,20 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                     enemies[i].currentFrame = 0;
                     enemies[i].frameTimer = 0.0f;
                 } else if(enemies[i].movementState == EnemyMovementState::WALKING){
-                    enemies[i].frameTimer += deltaTime;
-                    if(enemies[i].frameTimer >= enemies[i].walkingFrameTime){
+                    enemies[i].frameTimer -= deltaTime;
+                    if(enemies[i].frameTimer <= 0.0f){
                         enemies[i].currentFrame++;
                         enemies[i].currentFrame = enemies[i].currentFrame % enemies[i].walkAnimationFrames;
-                        enemies[i].frameTimer = 0.0f;
+                        enemies[i].frameTimer = enemies[i].walkingFrameTime;
                     }
                 }
             } else if(enemies[i].status == EnemyStatus::STUNNED){
-                enemies[i].frameTimer += deltaTime;
-                if(enemies[i].frameTimer >= enemies[i].stunnedFrameTime){
+                enemies[i].frameTimer -= deltaTime;
+                if(enemies[i].frameTimer <= 0.0f){
                     if(enemies[i].currentFrame < enemies[i].deathAnimationFrames - 1){
                         enemies[i].currentFrame++;
                     }
-                    enemies[i].frameTimer = 0.0f;
+                    enemies[i].frameTimer = enemies[i].stunnedFrameTime;
                 }
             }
         } else if(enemies[i].status == EnemyStatus::DEAD){
