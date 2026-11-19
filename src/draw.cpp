@@ -40,8 +40,8 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
 
                 if(room.exists == true){
 
+                    float tileSize;
                     float scale = room.roomContent.roomUnscaledSize.x;
-                    float tileSize = 16 * scale;
 
                     //Draw background
                     DrawTextureEx(
@@ -61,6 +61,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
 
                         RoomDoor& door = room.roomContent.doors[doorIt];
 
+                        tileSize = 16 * scale;
                         int tilesX = (int)roundf(door.hitbox.width / tileSize);
                         int tilesY = (int)roundf(door.hitbox.height / tileSize);
 
@@ -91,6 +92,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
 
                         if(decor.hitbox.height + decor.hitbox.y < player.hurtbox.y + player.hurtbox.height || decor.alwaysOnBottom){
 
+                            tileSize = 16 * scale;
                             int tilesX = (int)roundf(decor.hitbox.width / tileSize);
                             int tilesY = (int)roundf(decor.hitbox.height / tileSize);
 
@@ -115,7 +117,46 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                             }
                         }
                     }
+
+                    //Draw usables
+                    for(int usableIt = 0; usableIt < (int)room.roomContent.usables.size(); usableIt++){
+                        RoomUsable& usable = room.roomContent.usables[usableIt];
+
+                        if(usable.hitbox.height + usable.hitbox.y < player.hurtbox.y + player.hurtbox.height){
+
+                            tileSize = 24 * scale;
+                            int tilesX = (int)roundf(usable.hitbox.width / tileSize);
+                            int tilesY = (int)roundf(usable.hitbox.height / tileSize);
+
+                            for(int x = 0; x < tilesX; x++){
+                                for(int y = 0; y < tilesY; y++){
+                                    Rectangle src{
+                                        usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
+                                        0,
+                                        (float)usable.texture.width / (float)usable.numFrames,
+                                        (float)usable.texture.height / 2
+                                    };
+                                    Rectangle dest = {
+                                        usable.hitbox.x + x * tileSize,
+                                        usable.hitbox.y + y * tileSize,
+                                        tileSize,
+                                        tileSize
+                                    };
+
+                                    DrawTexturePro(
+                                        usable.texture,
+                                        src,
+                                        dest,
+                                        Vector2{0, 0},
+                                        0.0f,
+                                        WHITE
+                                    );
+                                }
+                            }
+                        }
+                    }
                 }
+                
                 fontSize = 30;
                 //Text Type
                 textWidth = MeasureText(dungeon.rooms[roomIt].type, fontSize);
@@ -219,6 +260,46 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                                     DrawTexturePro(
                                         assets.textures.at("assets/textures/environment/dungeonTileset.png"),
                                         assets.spriteInfo[decor.spriteID].textureSrc,
+                                        dest,
+                                        Vector2{0, 0},
+                                        0.0f,
+                                        WHITE
+                                    );
+                                }
+                            }
+                        }
+                    }
+
+                    //Draw usables that is in front of the player
+                    
+                    //Draw usables
+                    for(int usableIt = 0; usableIt < (int)room.roomContent.usables.size(); usableIt++){
+                        RoomUsable& usable = room.roomContent.usables[usableIt];
+
+                        if(usable.hitbox.height + usable.hitbox.y >= player.hurtbox.y + player.hurtbox.height){
+                            
+                            tileSize = 24 * scale;
+                            int tilesX = (int)roundf(usable.hitbox.width / tileSize);
+                            int tilesY = (int)roundf(usable.hitbox.height / tileSize);
+
+                            for(int x = 0; x < tilesX; x++){
+                                for(int y = 0; y < tilesY; y++){
+                                    Rectangle src{
+                                        usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
+                                        0,
+                                        (float)usable.texture.width / (float)usable.numFrames,
+                                        (float)usable.texture.height / 2
+                                    };
+                                    Rectangle dest = {
+                                        usable.hitbox.x + x * tileSize,
+                                        usable.hitbox.y + y * tileSize,
+                                        tileSize,
+                                        tileSize
+                                    };
+
+                                    DrawTexturePro(
+                                        usable.texture,
+                                        src,
                                         dest,
                                         Vector2{0, 0},
                                         0.0f,
