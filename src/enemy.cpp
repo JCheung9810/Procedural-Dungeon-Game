@@ -167,7 +167,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                     enemies[i].despawnTimer = enemies[i].despawnTime;
                 }
             }
-        }  else if(enemies[i].health <= 0.0f){
+        }  else if(enemies[i].health <= 0.0f && enemies[i].status != EnemyStatus::DEAD){
             //Enemy died without being stunned
             enemies[i].status = EnemyStatus::DEAD;
             enemies[i].despawnTimer = enemies[i].despawnTime;

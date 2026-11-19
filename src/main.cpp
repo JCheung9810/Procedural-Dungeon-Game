@@ -196,7 +196,7 @@ int main(void){
                     debug.wall = debug.wall ^ true;
                 }
                 if(IsKeyPressed(KEY_FOUR)){
-                    TraceLog(LOG_DEBUG, "Current Seed: %i",seed);
+                    debug.vision = debug.vision ^ true;
                 }
             }   
 

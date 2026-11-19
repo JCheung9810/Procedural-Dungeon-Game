@@ -10,5 +10,6 @@ struct Debug {
     bool cam = false;
     bool hurtbox = false;
     bool hitbox = false;
+    bool vision = false;
 
 };
