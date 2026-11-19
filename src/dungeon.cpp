@@ -221,15 +221,28 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     usable.yLevel = 0;
                     usable.type = entity["id"];
                     if(entity["id"] == "RoomClearRewardSpawn"){
-                        if(GetRandomValue(1,100) <= 50){
+                        int randomNum = GetRandomValue(1,100);
+                        if(randomNum <= 25){
                             usable.name = "HalfHeartItem";
                             usable.texture = assets.LoadGameTexture("assets/textures/environment/HalfHeartItem.png");
                             usable.visible = false;
                             usable.numFrames = 5;
                             usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
-                        } else {
+                        } else if(randomNum <= 50){
                             usable.name = "FullHeartItem";
                             usable.texture = assets.LoadGameTexture("assets/textures/environment/FullHeartItem.png");
+                            usable.visible = false;
+                            usable.numFrames = 5;
+                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        } else if(randomNum <= 75){
+                            usable.name = "AmmoBoxItem";
+                            usable.texture = assets.LoadGameTexture("assets/textures/environment/AmmoBoxItem.png");
+                            usable.visible = false;
+                            usable.numFrames = 5;
+                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        } else if(randomNum <= 100){
+                            usable.name = "SpreadAmmoBoxItem";
+                            usable.texture = assets.LoadGameTexture("assets/textures/environment/SpreadAmmoBoxItem.png");
                             usable.visible = false;
                             usable.numFrames = 5;
                             usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;

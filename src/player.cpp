@@ -327,14 +327,29 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
             if(IsKeyPressed(KEY_F) && CheckCollisionRecs(usable.hitbox, player.hitbox) && usable.visible){
                 usable.active = true;
 
-                if(usable.name == "FullHeartItem" || usable.name == "HalfHeartItem"){
+                if(usable.name == "FullHeartItem" || usable.name == "HalfHeartItem" || usable.name == "AmmoBoxItem" || usable.name == "SpreadAmmoBoxItem"){
                     usable.visible = false;
                     
                     if(usable.name == "FullHeartItem"){
                         player.health += 2;
                     } else if(usable.name == "HalfHeartItem"){
                         player.health += 1;
-                    }
+                    } else if(usable.name == "AmmoBoxItem"){
+                        player.weapons[player.equippedWeaponIndex].currentAmmo = player.weapons[player.equippedWeaponIndex].maxAmmo;
+                        player.weapons[player.equippedWeaponIndex].mag = player.weapons[player.equippedWeaponIndex].magSize;
+                    } else if(usable.name == "SpreadAmmoBoxItem"){
+                        for(int weaponIt = 0; weaponIt < (int)player.weapons.size(); weaponIt++){
+                            if(weaponIt != player.equippedWeaponIndex){
+                                player.weapons[weaponIt].currentAmmo += (player.weapons[weaponIt].maxAmmo / 5);
+                            } else {
+                                player.weapons[weaponIt].currentAmmo += (player.weapons[weaponIt].maxAmmo / 2);
+                            }
+                            if(player.weapons[weaponIt].currentAmmo > player.weapons[weaponIt].maxAmmo){
+                                player.weapons[weaponIt].currentAmmo = player.weapons[weaponIt].maxAmmo;
+                            }
+                            player.weapons[weaponIt].mag = player.weapons[weaponIt].magSize;
+                        }
+                    } 
                 }
 
                 
