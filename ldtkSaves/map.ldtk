@@ -5285,44 +5285,6 @@
 					"entityInstances": [
 						{
 							"__identifier": "RoomClearRewardSpawn",
-							"__grid": [232,239],
-							"__pivot": [0,0],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 324, "x": 0, "y": 0, "w": 1024, "h": 1024 },
-							"__smartColor": "#63C74D",
-							"iid": "087375c0-bde0-11f1-a6be-07b1c396777f",
-							"width": 24,
-							"height": 24,
-							"defUid": 323,
-							"px": [464,478],
-							"fieldInstances": [
-								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 325, "realEditorValues": [] },
-								{ "__identifier": "visible", "__type": "Bool", "__value": false, "__tile": null, "defUid": 326, "realEditorValues": [] }
-							],
-							"__worldX": 224,
-							"__worldY": -306
-						},
-						{
-							"__identifier": "RoomClearRewardSpawn",
-							"__grid": [58,57],
-							"__pivot": [0,0],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 324, "x": 0, "y": 0, "w": 1024, "h": 1024 },
-							"__smartColor": "#63C74D",
-							"iid": "f15e8900-bde0-11f1-a6be-c51d4b21affa",
-							"width": 10,
-							"height": 10,
-							"defUid": 323,
-							"px": [116,114],
-							"fieldInstances": [
-								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 325, "realEditorValues": [] },
-								{ "__identifier": "visible", "__type": "Bool", "__value": false, "__tile": null, "defUid": 326, "realEditorValues": [] }
-							],
-							"__worldX": -124,
-							"__worldY": -670
-						},
-						{
-							"__identifier": "RoomClearRewardSpawn",
 							"__grid": [114,114],
 							"__pivot": [0,0],
 							"__tags": ["Spawning"],
@@ -49666,25 +49628,6 @@
 					"overrideTilesetUid": null,
 					"gridTiles": [],
 					"entityInstances": [
-						{
-							"__identifier": "RoomClearRewardSpawn",
-							"__grid": [232,239],
-							"__pivot": [0,0],
-							"__tags": ["Spawning"],
-							"__tile": { "tilesetUid": 324, "x": 0, "y": 0, "w": 1024, "h": 1024 },
-							"__smartColor": "#63C74D",
-							"iid": "190937d0-bde0-11f1-a6be-4f5af5476170",
-							"width": 24,
-							"height": 24,
-							"defUid": 323,
-							"px": [464,478],
-							"fieldInstances": [
-								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 325, "realEditorValues": [] },
-								{ "__identifier": "visible", "__type": "Bool", "__value": false, "__tile": null, "defUid": 326, "realEditorValues": [] }
-							],
-							"__worldX": 224,
-							"__worldY": 238
-						},
 						{
 							"__identifier": "RoomClearRewardSpawn",
 							"__grid": [114,114],

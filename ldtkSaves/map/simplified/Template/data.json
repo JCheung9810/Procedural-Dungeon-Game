@@ -16,34 +16,6 @@
 		"RoomClearRewardSpawn": [
 			{
 				"id": "RoomClearRewardSpawn",
-				"iid": "087375c0-bde0-11f1-a6be-07b1c396777f",
-				"layer": "Usable",
-				"x": 464,
-				"y": 478,
-				"width": 24,
-				"height": 24,
-				"color": 6539085,
-				"customFields": {
-					"active": false,
-					"visible": false
-				}
-			},
-			{
-				"id": "RoomClearRewardSpawn",
-				"iid": "f15e8900-bde0-11f1-a6be-c51d4b21affa",
-				"layer": "Usable",
-				"x": 116,
-				"y": 114,
-				"width": 10,
-				"height": 10,
-				"color": 6539085,
-				"customFields": {
-					"active": false,
-					"visible": false
-				}
-			},
-			{
-				"id": "RoomClearRewardSpawn",
 				"iid": "0e9d69a0-bde0-11f1-a6be-7d94474e1ba4",
 				"layer": "Usable",
 				"x": 228,
