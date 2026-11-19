@@ -1,9 +1,12 @@
 #include "camera.h"
 
+#include "debug.h"
 #include "dungeon.h"
 #include "player.h"
 
 #include <raymath.h>
+
+extern Debug debug;
 
 void InitializeCamera(Camera2D& camera, Player player, int screenHeight, int screenWidth){
     camera.target = player.center;
@@ -12,7 +15,7 @@ void InitializeCamera(Camera2D& camera, Player player, int screenHeight, int scr
     
 }
 
-void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera, bool debugCam){
+void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera){
     //Camera
     int playerRoom = -1;
 
@@ -69,7 +72,7 @@ void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera, bool de
     }
 
     //Camera mode
-    if(debugCam){
+    if(debug.cam){
         camera.target = player.center;
         camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
     } else {

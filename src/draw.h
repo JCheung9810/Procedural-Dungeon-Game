@@ -11,11 +11,10 @@
 void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles,  
             Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture, Font font,
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
-            int screenWidth, int screenHeight, 
-            bool debugHurtbox, bool debugHitbox,  
+            int screenWidth, int screenHeight,  
             bool exitWindowRequested
 );
 
-void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox);
+void DrawPlayer(const Player& player);
 void DrawEnemies(vector<Enemy>& enemies);
 void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& enemies);

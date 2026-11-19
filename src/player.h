@@ -69,4 +69,4 @@ struct Player {
 };
 
 void InitializePlayer(Player& player);
-void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall);
+void UpdatePlayer(Player& player, Dungeon& dungeon);

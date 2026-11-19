@@ -14,15 +14,13 @@ struct Projectile;
 
 enum class EnemyMovementState {
     IDLE,
-    WALKING,
-    STUNNED
+    WALKING
 };
 
 enum class EnemyAttackState {
     IDLE,
     ATTACKING,
-    RELOADING,
-    STUNNED
+    RELOADING
 };
 
 enum class EnemyStatus {
@@ -74,9 +72,10 @@ struct Enemy {
     int walkAnimationFrames;
     int deathAnimationFrames;
 
-    float frameTimer;       //Timer for changing frames
-    float frameTime;        //What the timer is set to for changing frames
-    int currentFrame;       //Current animation frame
+    float frameTimer;               //Timer for changing frames
+    float walkingFrameTime;         //What the timer is set to for changing walking frames
+    float stunnedFrameTime;           //What the timer is set to for changing stunned frames
+    int currentFrame;               //Current animation frame
 
     float despawnTime;      //What the time is set to for despawn time
     float despawnTimer;     //Timer for despawning

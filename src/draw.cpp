@@ -1,5 +1,6 @@
 #include "draw.h"
 
+#include "debug.h"
 #include "player.h"
 #include "dungeon.h"
 #include "enemy.h"
@@ -8,11 +9,12 @@
 
 #include <raymath.h>
 
+extern Debug debug;
+
 void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
             Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture, Font font, 
             float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
-            int screenWidth, int screenHeight,
-            bool debugHurtbox, bool debugHitbox,            
+            int screenWidth, int screenHeight,          
             bool exitWindowRequested){
                 
                 
@@ -150,7 +152,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
             }
 
             //Draw player
-            DrawPlayer(player, debugHurtbox, debugHitbox);
+            DrawPlayer(player);
 
             //Draw enemies
             DrawEnemies(enemies);
@@ -364,7 +366,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
     EndDrawing();
 }
 
-void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
+void DrawPlayer(const Player& player){
     
     int fontSize;
     int textWidth;
@@ -384,11 +386,11 @@ void DrawPlayer(const Player& player, bool debugHurtbox, bool debugHitbox){
     }
     
     //Draw hurtbox
-    if(debugHurtbox){
+    if(debug.hurtbox){
         DrawRectangleRec(player.hurtbox, BLUE);  
     }
     //Draw hitbox
-    if(debugHitbox){
+    if(debug.hitbox){
         DrawRectangleRec(player.hitbox, ORANGE);
     }
     
@@ -458,12 +460,10 @@ void DrawEnemies(vector<Enemy>& enemies){
                 float frameWidth = (float)enemies[i].texture.width / enemies[i].walkAnimationFrames;
                 int textureRow;
                 if(enemies[i].status != EnemyStatus::DEAD){
-                    if(enemies[i].movementState != EnemyMovementState::STUNNED){
+                    if(enemies[i].status == EnemyStatus::ALIVE){
                         textureRow = 0;
-                        //DrawRectangleRec(enemies[i].hitbox, RED);
-                    } else {
+                    } else if(enemies[i].status == EnemyStatus::STUNNED){
                         textureRow = 1;
-                        //DrawRectangleRec(enemies[i].hitbox, Color{255, 207 ,207, 255});
                     }
                 } else {
                     textureRow = 2;
@@ -491,7 +491,10 @@ void DrawEnemies(vector<Enemy>& enemies){
                     enemyTextureSize.x,
                     enemyTextureSize.y
                 };
-            
+
+                if(debug.hurtbox){
+                    DrawRectangleRec(enemies[i].hitbox, RED);
+                }
                 if(enemies[i].status != EnemyStatus::DEAD){
                     DrawTexturePro(enemies[i].texture, srcRec, destRec, Vector2{0, 0}, 0, WHITE);
                 } else {

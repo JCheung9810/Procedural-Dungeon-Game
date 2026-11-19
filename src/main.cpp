@@ -18,6 +18,9 @@ using namespace std;
 //Assets
 AssetManager assets;
 
+//Debugging
+Debug debug{};
+
 //------------------------------MAIN------------------------------
 int main(void){
     
@@ -44,9 +47,6 @@ int main(void){
 
     //FPS
     SetTargetFPS(60);
-    
-    //Debugging
-    Debug debug{};
 
     //Disable escape key to close window
     SetExitKey(KEY_NULL);
@@ -113,7 +113,7 @@ int main(void){
         if(!exitWindowRequested && player.health > 0.0f){
             //------------------------------PLAYER------------------------------
             //Update player
-            UpdatePlayer(player, dungeon, debug.speed, debug.wall);
+            UpdatePlayer(player, dungeon);
             
             //Weapon swap
             if(IsKeyPressed(KEY_Q)){
@@ -165,7 +165,7 @@ int main(void){
             UpdateProjectiles(projectiles, dungeon, enemies, player);
 
             //------------------------------CAMERA------------------------------      
-            UpdateGameCamera(dungeon, player, camera, debug.cam);
+            UpdateGameCamera(dungeon, player, camera);
 
             //------------------------------DUNGEON------------------------------
             UpdateDungeon(dungeon, player, enemies);
@@ -231,7 +231,6 @@ int main(void){
             heartTexture, weaponHudBoxTexture, weaponHudBoxBackgroundTexture, font,
             playerToMouseRotation, cursorTexture, cursorSize, 
             screenWidth, screenHeight,
-            debug.hurtbox, debug.hitbox,
             exitWindowRequested);
     }
     

@@ -1,6 +1,7 @@
 #include "player.h"
 
 #include "assetManager.h"
+#include "debug.h"
 #include "dungeon.h"
 
 #include "json.hpp"
@@ -13,6 +14,8 @@ using json = nlohmann::json;
 using namespace std;
 
 #include <raymath.h>
+
+extern Debug debug;
 
 void InitializePlayer(Player& player){
 
@@ -97,7 +100,7 @@ void InitializePlayer(Player& player){
     } 
 }
 
-void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugWall){
+void UpdatePlayer(Player& player, Dungeon& dungeon){
 
     float deltaTime = GetFrameTime();
 
@@ -109,7 +112,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     float xDir = 0;
     float yDir = 0;
     
-    if(debugSpeed){
+    if(debug.speed){
         player.currentSpeed = player.baseSpeed * 2.0f;
     } else {
         player.currentSpeed = player.baseSpeed;
@@ -182,7 +185,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     player.position.x += movementDirection.x * deltaTime;
     player.hurtbox.x = player.position.x;
     player.hitbox.x = player.position.x;
-    if(!debugWall){
+    if(!debug.wall){
         for(int i = 0; i < (int)dungeon.rooms.size(); i++){
             if(dungeon.rooms[i].exists == true){
                 //Wall collision
@@ -229,7 +232,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon, bool debugSpeed, bool debugW
     player.position.y += movementDirection.y * deltaTime;
     player.hurtbox.y = player.position.y;
     player.hitbox.y = player.position.y + player.hurtbox.height - 3.0f;
-    if(!debugWall){
+    if(!debug.wall){
         for(int i = 0; i < (int)dungeon.rooms.size(); i++){
             if(dungeon.rooms[i].exists == true){
                 //Wall collision

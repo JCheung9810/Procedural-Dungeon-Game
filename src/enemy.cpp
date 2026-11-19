@@ -69,7 +69,8 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.deathAnimationFrames = item.at("deathAnimationFrames").get<int>();
 
                 newEnemy.currentFrame = 0;
-                newEnemy.frameTime = 0.1f;
+                newEnemy.walkingFrameTime = 0.1f;
+                newEnemy.stunnedFrameTime = newEnemy.stunTime / 4.0f;
                 newEnemy.frameTimer = 0.0f;
 
                 newEnemy.despawnTime = 3.0f;
@@ -117,10 +118,23 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
     //Check every enemy
     for(int i = 0; i < (int)enemies.size(); i++){
 
-        if(enemies[i].status != EnemyStatus::DEAD && enemies[i].health <= 0.0f){
-            enemies[i].status = EnemyStatus::DEAD;
-            enemies[i].movementState = EnemyMovementState::STUNNED;
-            enemies[i].despawnTimer = enemies[i].despawnTime;
+        //Update stun
+        if(enemies[i].stunDuration > 0.0f){
+            enemies[i].stunDuration -= deltaTime;
+            enemies[i].movementState = EnemyMovementState::IDLE;
+            enemies[i].attackState = EnemyAttackState::IDLE;
+            enemies[i].status = EnemyStatus::STUNNED;
+
+            if(enemies[i].stunDuration <= 0.0f){
+                enemies[i].stunDuration = 0.0f;
+                enemies[i].status = EnemyStatus::ALIVE;
+                
+                //Check if dead
+                if(enemies[i].health <= 0.0f){
+                    enemies[i].status = EnemyStatus::DEAD;
+                    enemies[i].despawnTimer = enemies[i].despawnTime;
+                }
+            }
         }
             
         if(enemies[i].status != EnemyStatus::DEAD){
@@ -134,21 +148,8 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
 
             enemies[i].movementVector = Vector2Scale({(cos(rot) * enemies[i].speed), (sin(rot) * enemies[i].speed)}, deltaTime);
 
-            //Enemy stun state
-            if(enemies[i].stunDuration > 0.0f){
-                enemies[i].stunDuration -= deltaTime;
-                enemies[i].movementState = EnemyMovementState::STUNNED;
-                enemies[i].attackState = EnemyAttackState::STUNNED;
-
-                if(enemies[i].stunDuration <= 0.0f){
-                    enemies[i].stunDuration = 0.0f;
-                    enemies[i].movementState = EnemyMovementState::IDLE;
-                    enemies[i].attackState = EnemyAttackState::IDLE;
-                }
-            }
-
             //Movement pattern
-            if(enemies[i].movementState != EnemyMovementState::STUNNED){
+            if(enemies[i].status != EnemyStatus::STUNNED){
                 if(TextIsEqual(enemies[i].name,"Dummy Pistol") || TextIsEqual(enemies[i].name,"Dummy Double Barrel")){
                     if(TextIsEqual(enemies[i].name,"Dummy Pistol")){
                         maxDistanceToPlayer = 250.0f;
@@ -179,7 +180,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                     enemies[i].movementState = EnemyMovementState::WALKING;
                 }
 
-            } else if(enemies[i].movementState == EnemyMovementState::STUNNED){
+            } else if(enemies[i].status == EnemyStatus::STUNNED){
                 //Handle knockback
                 Vector2 knockbackVelocity = KnockbackHandler(enemies[i]);
 
@@ -194,7 +195,6 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             enemies[i].hitbox.x = enemies[i].position.x;
             enemies[i].hitbox.y = enemies[i].position.y;
             enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
-
 
             //Check x
             for(int j = 0; j < (int)dungeon.rooms.size(); j++){
@@ -294,7 +294,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
 
             Vector2 predictedPlayerPosition = Vector2Add(player.center, Vector2Scale(player.direction, (timeToReachPlayer * leadAmount)));
             
-            if(enemies[i].attackState != EnemyAttackState::STUNNED){
+            if(enemies[i].status != EnemyStatus::STUNNED){
 
                 //Update enemy aim angle
                 enemies[i].aimAngle = atan2f(predictedPlayerPosition.y - enemies[i].center.y, predictedPlayerPosition.x - enemies[i].center.x);
@@ -329,19 +329,21 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
 
         //Animation
         if(enemies[i].status != EnemyStatus::DEAD){
-            if(enemies[i].movementState == EnemyMovementState::IDLE){
-                enemies[i].currentFrame = 0;
-                enemies[i].frameTimer = 0.0f;
-            } else if(enemies[i].movementState == EnemyMovementState::WALKING){
-                enemies[i].frameTimer += deltaTime;
-                if(enemies[i].frameTimer >= enemies[i].frameTime){
-                    enemies[i].currentFrame++;
-                    enemies[i].currentFrame = enemies[i].currentFrame % enemies[i].walkAnimationFrames;
+            if(enemies[i].status == EnemyStatus::ALIVE){
+                if(enemies[i].movementState == EnemyMovementState::IDLE){
+                    enemies[i].currentFrame = 0;
                     enemies[i].frameTimer = 0.0f;
+                } else if(enemies[i].movementState == EnemyMovementState::WALKING){
+                    enemies[i].frameTimer += deltaTime;
+                    if(enemies[i].frameTimer >= enemies[i].walkingFrameTime){
+                        enemies[i].currentFrame++;
+                        enemies[i].currentFrame = enemies[i].currentFrame % enemies[i].walkAnimationFrames;
+                        enemies[i].frameTimer = 0.0f;
+                    }
                 }
-            } else if(enemies[i].movementState == EnemyMovementState::STUNNED){
+            } else if(enemies[i].status == EnemyStatus::STUNNED){
                 enemies[i].frameTimer += deltaTime;
-                if(enemies[i].frameTimer >= enemies[i].frameTime){
+                if(enemies[i].frameTimer >= enemies[i].stunnedFrameTime){
                     if(enemies[i].currentFrame < enemies[i].deathAnimationFrames - 1){
                         enemies[i].currentFrame++;
                     }
@@ -350,26 +352,6 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             }
         } else if(enemies[i].status == EnemyStatus::DEAD){
             enemies[i].currentFrame = 0;
-
-            if(enemies[i].movementState == EnemyMovementState::STUNNED){
-                //Handle knockback
-                Vector2 knockbackVelocity = KnockbackHandler(enemies[i]);
-
-                //Update enemy positions
-                enemies[i].position.x += knockbackVelocity.x * deltaTime;
-                enemies[i].position.y += knockbackVelocity.y * deltaTime;
-
-                enemies[i].hitbox.x = enemies[i].position.x;
-                enemies[i].hitbox.y = enemies[i].position.y;
-                enemies[i].center = Vector2{enemies[i].position.x + enemies[i].size.x/2, enemies[i].position.y + enemies[i].size.y/2};
-            
-                if(enemies[i].stunDuration > 0.0f){
-                    enemies[i].stunDuration -= deltaTime;
-                    if(enemies[i].stunDuration <= 0.0f){
-                        enemies[i].stunDuration = 0.0f;
-                    }
-                }
-            }
         }
 
         //Remove inactive enemy
