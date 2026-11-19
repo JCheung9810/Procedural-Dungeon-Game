@@ -21,7 +21,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Pickups (ammo,health)
+  - Pickups (ammo)
   - Add shields (temp health, always takes a full 1 hit no matter the damage)
   - Make a boss entrance
   - Make floor exit
@@ -45,3 +45,4 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
+- load enemies initially, push presets when adding

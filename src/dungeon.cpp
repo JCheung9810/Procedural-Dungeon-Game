@@ -218,14 +218,22 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 
                     usable.visible = true;
                     usable.numFrames = 0;
-                    if(GetRandomValue(1,100) <= 50){
-                        usable.texture = assets.LoadGameTexture("assets/textures/environment/HalfHeartItem.png");
-                        usable.visible = false;
-                        usable.numFrames = 5;
-                    } else {
-                        usable.texture = assets.LoadGameTexture("assets/textures/environment/FullHeartItem.png");
-                        usable.visible = false;
-                        usable.numFrames = 5;
+                    usable.yLevel = 0;
+                    usable.type = entity["id"];
+                    if(entity["id"] == "RoomClearRewardSpawn"){
+                        if(GetRandomValue(1,100) <= 50){
+                            usable.name = "HalfHeartItem";
+                            usable.texture = assets.LoadGameTexture("assets/textures/environment/HalfHeartItem.png");
+                            usable.visible = false;
+                            usable.numFrames = 5;
+                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        } else {
+                            usable.name = "FullHeartItem";
+                            usable.texture = assets.LoadGameTexture("assets/textures/environment/FullHeartItem.png");
+                            usable.visible = false;
+                            usable.numFrames = 5;
+                            usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        }
                     }
 
                     usable.hitbox = {
@@ -236,7 +244,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     };
 
                     usable.active = false;
-                    usable.animationTime = 1.0f;
+                    usable.animationTime = 0.25f;
                     usable.animationTimer = 0.0f;
                     usable.currentFrame = 0;
 
@@ -1177,6 +1185,12 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
                     for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
                         dungeon.rooms[i].roomContent.doors[j].active = false;
                     }
+                    //Spawn room clear reward
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.usables.size(); j++){
+                        if(dungeon.rooms[i].roomContent.usables[j].type == "RoomClearRewardSpawn"){
+                            dungeon.rooms[i].roomContent.usables[j].visible = true;
+                        }
+                    }
                 } else {
                     int spawnedThisWave = 0;
                     //Spawn next wave of enemies
@@ -1200,6 +1214,23 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
         } else if(dungeon.rooms[i].state == RoomState::INACTIVE){
             if(ActiveRoomAdjacent(dungeon, dungeon.rooms[i])){
                 dungeon.rooms[i].state = RoomState::DISCOVERED;
+            }
+        }
+
+        //Room content animation
+        float deltaTime = GetFrameTime();
+        if(deltaTime > 0.05f){
+            deltaTime = 0.05f;
+        }
+
+        for(int usableIt = 0; usableIt < (int)dungeon.rooms[i].roomContent.usables.size(); usableIt++){
+            RoomUsable& usable = dungeon.rooms[i].roomContent.usables[usableIt];
+
+            usable.animationTimer -= deltaTime;
+
+            if(usable.animationTimer <= 0.0f){
+                usable.animationTimer = usable.animationTime;
+                usable.currentFrame = (usable.currentFrame + 1) % usable.numFrames;
             }
         }
     }

@@ -47,9 +47,12 @@ struct RoomBreakable {
 };
 
 struct RoomUsable {
+    string name;
+    string type;
     Rectangle hitbox;
     Texture2D texture;
 
+    float yLevel;
     int currentFrame;
     int numFrames;
     float animationTimer;

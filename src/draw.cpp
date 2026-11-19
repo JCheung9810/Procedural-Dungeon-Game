@@ -122,36 +122,45 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int usableIt = 0; usableIt < (int)room.roomContent.usables.size(); usableIt++){
                         RoomUsable& usable = room.roomContent.usables[usableIt];
 
-                        if(usable.hitbox.height + usable.hitbox.y < player.hitbox.y + player.hitbox.height){
+                        if(usable.visible){
+                            if(usable.yLevel < player.hitbox.y + player.hitbox.height){
 
-                            tileSize = 24 * scale;
-                            int tilesX = (int)roundf(usable.hitbox.width / tileSize);
-                            int tilesY = (int)roundf(usable.hitbox.height / tileSize);
+                                tileSize = 24 * scale;
+                                int tilesX = (int)roundf(usable.hitbox.width / tileSize);
+                                int tilesY = (int)roundf(usable.hitbox.height / tileSize);
 
-                            for(int x = 0; x < tilesX; x++){
-                                for(int y = 0; y < tilesY; y++){
-                                    Rectangle src{
-                                        usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
-                                        0,
-                                        (float)usable.texture.width / (float)usable.numFrames,
-                                        (float)usable.texture.height / 2
-                                    };
-                                    Rectangle dest = {
-                                        usable.hitbox.x + x * tileSize,
-                                        usable.hitbox.y + y * tileSize,
-                                        tileSize,
-                                        tileSize
-                                    };
+                                int spriteRow;
+                                if(CheckCollisionRecs(usable.hitbox, player.hurtbox)){
+                                    spriteRow = 1;
+                                } else {
+                                    spriteRow = 0;
+                                }
 
-                                    DrawRectangleV({usable.hitbox.x,usable.hitbox.y}, {usable.hitbox.width, usable.hitbox.height}, WHITE);
-                                    DrawTexturePro(
-                                        usable.texture,
-                                        src,
-                                        dest,
-                                        Vector2{0, 0},
-                                        0.0f,
-                                        WHITE
-                                    );
+                                for(int x = 0; x < tilesX; x++){
+                                    for(int y = 0; y < tilesY; y++){
+                                        Rectangle src{
+                                            usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
+                                            spriteRow * (float)usable.texture.height / 2,
+                                            (float)usable.texture.width / (float)usable.numFrames,
+                                            (float)usable.texture.height / 2
+                                        };
+                                        Rectangle dest = {
+                                            usable.hitbox.x + x * tileSize,
+                                            usable.hitbox.y + y * tileSize,
+                                            tileSize,
+                                            tileSize
+                                        };
+
+                                        //DrawRectangleV({usable.hitbox.x,usable.hitbox.y}, {usable.hitbox.width, usable.hitbox.height}, WHITE);
+                                        DrawTexturePro(
+                                            usable.texture,
+                                            src,
+                                            dest,
+                                            Vector2{0, 0},
+                                            0.0f,
+                                            WHITE
+                                        );
+                                    }
                                 }
                             }
                         }
@@ -277,36 +286,45 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                     for(int usableIt = 0; usableIt < (int)room.roomContent.usables.size(); usableIt++){
                         RoomUsable& usable = room.roomContent.usables[usableIt];
 
-                        if(usable.hitbox.height + usable.hitbox.y >= player.hitbox.y + player.hitbox.height){
-                            
-                            tileSize = 24 * scale;
-                            int tilesX = (int)roundf(usable.hitbox.width / tileSize);
-                            int tilesY = (int)roundf(usable.hitbox.height / tileSize);
+                        if(usable.visible){
+                            if(usable.yLevel >= player.hitbox.y + player.hitbox.height){
+                                
+                                tileSize = 24 * scale;
+                                int tilesX = (int)roundf(usable.hitbox.width / tileSize);
+                                int tilesY = (int)roundf(usable.hitbox.height / tileSize);
 
-                            for(int x = 0; x < tilesX; x++){
-                                for(int y = 0; y < tilesY; y++){
-                                    Rectangle src{
-                                        (usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames) + 256,
-                                        256,
-                                        (float)usable.texture.width / (float)usable.numFrames - 544,
-                                        (float)usable.texture.height / 2 - 480
-                                    };
-                                    Rectangle dest = {
-                                        usable.hitbox.x + x * tileSize,
-                                        usable.hitbox.y + y * tileSize,
-                                        tileSize,
-                                        tileSize
-                                    };
+                                int spriteRow;
+                                if(CheckCollisionRecs(usable.hitbox, player.hurtbox)){
+                                    spriteRow = 1;
+                                } else {
+                                    spriteRow = 0;
+                                }
 
-                                    DrawRectangleV({usable.hitbox.x,usable.hitbox.y}, {usable.hitbox.width, usable.hitbox.height}, WHITE);
-                                    DrawTexturePro(
-                                        usable.texture,
-                                        src,
-                                        dest,
-                                        Vector2{0, 0},
-                                        0.0f,
-                                        WHITE
-                                    );
+                                for(int x = 0; x < tilesX; x++){
+                                    for(int y = 0; y < tilesY; y++){
+                                        Rectangle src{
+                                            usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
+                                            spriteRow * (float)usable.texture.height / 2,
+                                            (float)usable.texture.width / (float)usable.numFrames,
+                                            (float)usable.texture.height / 2
+                                        };
+                                        Rectangle dest = {
+                                            usable.hitbox.x + x * tileSize,
+                                            usable.hitbox.y + y * tileSize,
+                                            tileSize,
+                                            tileSize
+                                        };
+
+                                        //DrawRectangleV({usable.hitbox.x,usable.hitbox.y}, {usable.hitbox.width, usable.hitbox.height}, WHITE);
+                                        DrawTexturePro(
+                                            usable.texture,
+                                            src,
+                                            dest,
+                                            Vector2{0, 0},
+                                            0.0f,
+                                            WHITE
+                                        );
+                                    }
                                 }
                             }
                         }

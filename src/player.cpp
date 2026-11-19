@@ -319,6 +319,30 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
         player.attackState = PlayerAttackState::IDLE;
     }
 
+    //Usables
+    for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
+        for(int usableIt = 0; usableIt < (int)dungeon.rooms[roomIt].roomContent.usables.size(); usableIt++){
+            RoomUsable& usable = dungeon.rooms[roomIt].roomContent.usables[usableIt];
+
+            if(IsKeyPressed(KEY_F) && CheckCollisionRecs(usable.hitbox, player.hitbox) && usable.visible){
+                usable.active = true;
+
+                if(usable.name == "FullHeartItem" || usable.name == "HalfHeartItem"){
+                    usable.visible = false;
+                    
+                    if(usable.name == "FullHeartItem"){
+                        player.health += 2;
+                    } else if(usable.name == "HalfHeartItem"){
+                        player.health += 1;
+                    }
+                }
+
+                
+
+            }
+        }
+    }
+
 
     //Animation  
     if(player.movementState == PlayerMovementState::WALKING){
