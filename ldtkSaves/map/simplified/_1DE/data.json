@@ -38,6 +38,21 @@
 		"Foreground.png"
 	],
 	"entities": {
+		"RoomClearRewardSpawn": [
+			{
+				"id": "RoomClearRewardSpawn",
+				"iid": "8650b920-bde0-11f1-a6be-ef2fe2d30b51",
+				"layer": "Usable",
+				"x": 228,
+				"y": 228,
+				"width": 24,
+				"height": 24,
+				"color": 6539085,
+				"customFields": {
+					"active": false
+				}
+			}
+		],
 		"EnemySpawnPoint": [
 			{
 				"id": "EnemySpawnPoint",

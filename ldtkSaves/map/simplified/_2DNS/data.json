@@ -26,6 +26,34 @@
 		"Foreground.png"
 	],
 	"entities": {
+		"RoomClearRewardSpawn": [
+			{
+				"id": "RoomClearRewardSpawn",
+				"iid": "190937d0-bde0-11f1-a6be-4f5af5476170",
+				"layer": "Usable",
+				"x": 464,
+				"y": 478,
+				"width": 24,
+				"height": 24,
+				"color": 6539085,
+				"customFields": {
+					"active": false
+				}
+			},
+			{
+				"id": "RoomClearRewardSpawn",
+				"iid": "4ffa0c50-bde0-11f1-a6be-8d2ee0516b86",
+				"layer": "Usable",
+				"x": 228,
+				"y": 228,
+				"width": 24,
+				"height": 24,
+				"color": 6539085,
+				"customFields": {
+					"active": false
+				}
+			}
+		],
 		"EnemySpawnPoint": [
 			{
 				"id": "EnemySpawnPoint",
