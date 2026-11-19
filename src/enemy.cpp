@@ -48,6 +48,7 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.size = {size[0], size[1]};
 
                 newEnemy.attackRate = item.at("attackRate").get<float>();
+                newEnemy.attackCD = newEnemy.attackRate * (GetRandomValue(33,66) / 100.0f);
                 newEnemy.minRange = item.at("minRange").get<float>();
                 newEnemy.maxRange = item.at("maxRange").get<float>();
 
@@ -58,7 +59,6 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
                 newEnemy.center = position;
                 newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
                 newEnemy.position = Vector2{newEnemy.center.x - newEnemy.size.x/2 ,newEnemy.center.y - newEnemy.size.y/2};
-                newEnemy.attackCD = newEnemy.attackRate;
 
                 newEnemy.aimAngle = 0.0f;
 
