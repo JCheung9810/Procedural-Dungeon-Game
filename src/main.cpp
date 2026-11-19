@@ -58,9 +58,12 @@ int main(void){
     InitializePlayer(player);
     
     //Enemies
+    vector<EnemyData> enemyData;
     vector<Enemy> enemies;
+
+    LoadEnemyData(enemyData);
     
-    AddEnemy(enemies, "Dummy God", Vector2{300, -300});
+    AddEnemy(enemies, enemyData, "Dummy God", Vector2{300, -300});
     
     //Camera
     Camera2D camera = {};
@@ -168,7 +171,7 @@ int main(void){
             UpdateGameCamera(dungeon, player, camera);
 
             //------------------------------DUNGEON------------------------------
-            UpdateDungeon(dungeon, player, enemies);
+            UpdateDungeon(dungeon, enemyData, player, enemies);
             
             //Debug
             if(debug.active){

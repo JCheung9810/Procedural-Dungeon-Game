@@ -29,6 +29,23 @@ enum class EnemyStatus {
     DEAD
 };
 
+struct EnemyData {
+    const char* name;
+    const char* type;
+
+    float intelligence;
+    float health;
+    float speed;
+    Vector2 size;
+    float attackRate;
+    float minRange;
+    float maxRange;
+    Weapon weapon;
+    Texture2D texture;
+    int walkAnimationFrames;
+    int stunnedAnimationFrames;
+};
+
 struct Enemy {
     const char* name;
     const char* type;
@@ -70,7 +87,7 @@ struct Enemy {
     Texture2D texture;
 
     int walkAnimationFrames;
-    int deathAnimationFrames;
+    int stunnedAnimationFrames;
 
     float frameTimer;               //Timer for changing frames
     float walkingFrameTime;         //What the timer is set to for changing walking frames
@@ -82,6 +99,7 @@ struct Enemy {
     
 };
 
-void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position);
+void LoadEnemyData(vector<EnemyData>& enemyData);
+void AddEnemy(vector<Enemy>& enemies, vector<EnemyData>& enemyData, const char* name, Vector2 position);
 Vector2 KnockbackHandler(Enemy& enemy);
 void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vector<Projectile>& projectiles);

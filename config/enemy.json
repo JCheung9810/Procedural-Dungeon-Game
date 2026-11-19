@@ -13,7 +13,7 @@
             "weapon": "Enemy Pistol",
             "texturePath": "assets/textures/enemies/PistolEnemy.png",
             "walkAnimationFrames": 4,
-            "deathAnimationFrames": 2
+            "stunnedAnimationFrames": 2
         },
         {
             "name": "Dummy Double Barrel",
@@ -28,7 +28,7 @@
             "weapon": "Enemy Double Barrel",
             "texturePath": "assets/textures/enemies/ShotgunEnemy.png",
             "walkAnimationFrames": 4,
-            "deathAnimationFrames": 2
+            "stunnedAnimationFrames": 2
         },
         {
             "name": "Dummy Suicide Bomber",
@@ -43,7 +43,7 @@
             "weapon": "Enemy Suicide Bomb",
             "texturePath": "assets/textures/enemies/GrenadeEnemy.png",
             "walkAnimationFrames": 4,
-            "deathAnimationFrames": 2
+            "stunnedAnimationFrames": 2
         },
         {
             "name": "Dummy God",
@@ -58,7 +58,7 @@
             "weapon": "Enemy Suicide Bomb",
             "texturePath": "assets/textures/enemies/PistolEnemy.png",
             "walkAnimationFrames": 4,
-            "deathAnimationFrames": 2
+            "stunnedAnimationFrames": 2
         }
     ]
 }

@@ -2,7 +2,6 @@
 
 #include "assetManager.h"
 #include "player.h"
-#include "enemy.h"
 
 #include "json.hpp"
 
@@ -1161,7 +1160,7 @@ bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
     return activeRoomAdjacent;
 }
 
-void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
+void UpdateDungeon(Dungeon& dungeon, vector<EnemyData>& enemyData, Player& player, vector<Enemy>& enemies){
     for(int i = 0; i < (int)dungeon.rooms.size(); i++){
         //Update room state to active if player is in the room
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hurtbox)){
@@ -1174,7 +1173,7 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
             //Spawn first wave of enemies
             for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
                 if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
-                    AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
+                    AddEnemy(enemies, enemyData, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
                     dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
                     dungeon.rooms[i].numEnemiesSpawned++;
                 }
@@ -1209,7 +1208,7 @@ void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies){
                     //Spawn next wave of enemies
                     for(int spawnIndex = 0; spawnIndex < (int)dungeon.rooms[i].roomContent.enemySpawnPoints.size(); spawnIndex++){
                         if(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.size() != 0 && dungeon.rooms[i].numEnemiesSpawned < dungeon.rooms[i].numEnemiesToSpawn){
-                            AddEnemy(enemies, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
+                            AddEnemy(enemies, enemyData, dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names[0], dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].position);
                             dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.erase(dungeon.rooms[i].roomContent.enemySpawnPoints[spawnIndex].names.begin());
                             dungeon.rooms[i].numEnemiesSpawned++;
                             spawnedThisWave++;

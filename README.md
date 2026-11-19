@@ -45,4 +45,3 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
-- load enemies initially, push presets when adding

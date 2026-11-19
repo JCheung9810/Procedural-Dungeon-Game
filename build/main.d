@@ -1,14 +1,14 @@
 build/main.o: src/main.cpp C:/raylib/raylib/src/raylib.h \
  C:/raylib/raylib/src/raymath.h src/player.h src/dungeon.h \
- src/assetManager.h src/weapon.h src/enemy.h src/projectile.h \
+ src/assetManager.h src/enemy.h src/weapon.h src/projectile.h \
  src/camera.h src/draw.h src/debug.h
 C:/raylib/raylib/src/raylib.h:
 C:/raylib/raylib/src/raymath.h:
 src/player.h:
 src/dungeon.h:
 src/assetManager.h:
-src/weapon.h:
 src/enemy.h:
+src/weapon.h:
 src/projectile.h:
 src/camera.h:
 src/draw.h:

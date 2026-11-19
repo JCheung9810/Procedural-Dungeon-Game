@@ -17,13 +17,14 @@
 using json = nlohmann::json;
 using namespace std;
 
-void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
-    Enemy newEnemy;
+void LoadEnemyData(vector<EnemyData>& enemyData){
+    EnemyData newEnemy;
 
     ifstream file("config/enemy.json");
 
     if(!file.is_open()) {
         TraceLog(LOG_ERROR, "Failed to open enemy json: config/enemy.json");
+        return;
     }
 
     try {
@@ -31,69 +32,100 @@ void AddEnemy(vector<Enemy>& enemies, const char* name, Vector2 position){
         file >> data;
 
         for (const auto& item : data.at("enemies")) {
-            if (item.at("name").get<string>() == name) {
 
-                string type = item.at("type").get<string>();
-                newEnemy.type = strdup(type.c_str());
+            string name = item.at("name").get<string>();
+            newEnemy.name = strdup(name.c_str());
 
-                newEnemy.intelligence = item.at("intelligence").get<float>();
+            string type = item.at("type").get<string>();
+            newEnemy.type = strdup(type.c_str());
 
-                newEnemy.health = item.at("health").get<float>();
-                newEnemy.speed = item.at("speed").get<float>();
+            newEnemy.intelligence = item.at("intelligence").get<float>();
 
-                newEnemy.stunDuration = 0.0f;
-                newEnemy.stunTime = 0.5f;
+            newEnemy.health = item.at("health").get<float>();
+            newEnemy.speed = item.at("speed").get<float>();
 
-                vector<float> size = item.at("size").get<vector<float>>();
-                newEnemy.size = {size[0], size[1]};
+            vector<float> size = item.at("size").get<vector<float>>();
+            newEnemy.size = {size[0], size[1]};
 
-                newEnemy.attackRate = item.at("attackRate").get<float>();
-                newEnemy.attackCD = newEnemy.attackRate * (GetRandomValue(33,66) / 100.0f);
-                newEnemy.minRange = item.at("minRange").get<float>();
-                newEnemy.maxRange = item.at("maxRange").get<float>();
+            newEnemy.attackRate = item.at("attackRate").get<float>();
+            newEnemy.minRange = item.at("minRange").get<float>();
+            newEnemy.maxRange = item.at("maxRange").get<float>();
 
-                string weapon = item.at("weapon").get<string>();
-                newEnemy.weapon = LoadWeapon(weapon.c_str());
+            string weapon = item.at("weapon").get<string>();
+            newEnemy.weapon = LoadWeapon(weapon.c_str());
 
-                newEnemy.name = name;
-                newEnemy.center = position;
-                newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
-                newEnemy.position = Vector2{newEnemy.center.x - newEnemy.size.x/2 ,newEnemy.center.y - newEnemy.size.y/2};
 
-                newEnemy.aimAngle = 0.0f;
+            string texturePath = item.at("texturePath").get<string>();
+            newEnemy.texture = assets.LoadGameTexture(texturePath.c_str());
 
-                string texturePath = item.at("texturePath").get<string>();
-                newEnemy.texture = assets.LoadGameTexture(texturePath.c_str());
+            newEnemy.walkAnimationFrames = item.at("walkAnimationFrames").get<int>();
+            newEnemy.stunnedAnimationFrames = item.at("stunnedAnimationFrames").get<int>();
 
-                newEnemy.walkAnimationFrames = item.at("walkAnimationFrames").get<int>();
-                newEnemy.deathAnimationFrames = item.at("deathAnimationFrames").get<int>();
-
-                newEnemy.currentFrame = 0;
-                newEnemy.walkingFrameTime = 0.1f;
-                newEnemy.stunnedFrameTime = newEnemy.stunTime / 4.0f;
-                newEnemy.frameTimer = 0.0f;
-
-                newEnemy.despawnTime = 3.0f;
-                newEnemy.despawnTimer = 0.0f;
-
-                newEnemy.movementState = EnemyMovementState::IDLE;
-                newEnemy.attackState = EnemyAttackState::IDLE;
-                newEnemy.status = EnemyStatus::ALIVE;
-
-                newEnemy.knockbackDirection = {0,0};
-                newEnemy.knockbackForce = 0.0f;
-
-                enemies.push_back(newEnemy);
-                break;
-            }
+            enemyData.push_back(newEnemy);
         }
-
-
-
     }
     catch (const exception& e)
     {
         TraceLog(LOG_ERROR, "Error reading enemy JSON: %s", e.what());
+    }
+}
+
+void AddEnemy(vector<Enemy>& enemies, vector<EnemyData>& enemyData, const char* name, Vector2 position){
+    Enemy newEnemy;
+
+    for (int enemyIt = 0; enemyIt < (int)enemyData.size(); enemyIt++) {
+        if (TextIsEqual(enemyData[enemyIt].name, name)) {
+            EnemyData& copiedEnemy = enemyData[enemyIt];
+
+            newEnemy.type = copiedEnemy.type;
+
+            newEnemy.intelligence = copiedEnemy.intelligence;
+
+            newEnemy.health = copiedEnemy.health;
+            newEnemy.speed = copiedEnemy.speed;
+
+            newEnemy.stunDuration = 0.0f;
+            newEnemy.stunTime = 0.5f;
+
+            newEnemy.size = copiedEnemy.size;
+
+            newEnemy.attackRate = copiedEnemy.attackRate;
+            newEnemy.attackCD = newEnemy.attackRate * (GetRandomValue(33,66) / 100.0f);
+            newEnemy.minRange = copiedEnemy.minRange;
+            newEnemy.maxRange = copiedEnemy.maxRange;
+
+            newEnemy.weapon = copiedEnemy.weapon;
+
+            newEnemy.name = name;
+            newEnemy.center = position;
+            newEnemy.hitbox = {newEnemy.position.x, newEnemy.position.y, newEnemy.size.x, newEnemy.size.y};
+            newEnemy.position = Vector2{newEnemy.center.x - newEnemy.size.x/2 ,newEnemy.center.y - newEnemy.size.y/2};
+
+            newEnemy.aimAngle = 0.0f;
+
+            newEnemy.texture = copiedEnemy.texture;
+
+            newEnemy.walkAnimationFrames = copiedEnemy.walkAnimationFrames;
+            newEnemy.stunnedAnimationFrames = copiedEnemy.stunnedAnimationFrames;
+
+            newEnemy.currentFrame = 0;
+            newEnemy.walkingFrameTime = 0.1f;
+            newEnemy.stunnedFrameTime = newEnemy.stunTime / 4.0f;
+            newEnemy.frameTimer = 0.0f;
+
+            newEnemy.despawnTime = 3.0f;
+            newEnemy.despawnTimer = 0.0f;
+
+            newEnemy.movementState = EnemyMovementState::IDLE;
+            newEnemy.attackState = EnemyAttackState::IDLE;
+            newEnemy.status = EnemyStatus::ALIVE;
+
+            newEnemy.knockbackDirection = {0,0};
+            newEnemy.knockbackForce = 0.0f;
+
+            enemies.push_back(newEnemy);
+            break;
+        }
     }
 }
 
@@ -348,7 +380,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             } else if(enemies[i].status == EnemyStatus::STUNNED){
                 enemies[i].frameTimer -= deltaTime;
                 if(enemies[i].frameTimer <= 0.0f){
-                    if(enemies[i].currentFrame < enemies[i].deathAnimationFrames - 1){
+                    if(enemies[i].currentFrame < enemies[i].stunnedAnimationFrames - 1){
                         enemies[i].currentFrame++;
                     }
                     enemies[i].frameTimer = enemies[i].stunnedFrameTime;

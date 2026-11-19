@@ -23,6 +23,7 @@ void InitializePlayer(Player& player){
 
     if (!file.is_open()) {
         TraceLog(LOG_ERROR, "Could not open player config: config/player.json");
+        return;
     }
 
     try {

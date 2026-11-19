@@ -1,6 +1,7 @@
 #pragma once
 
 #include "assetManager.h"
+#include "enemy.h"
 
 #include "raylib.h"
 
@@ -180,4 +181,4 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position);
 void GenerateDungeon(Dungeon& dungeon);
 
 bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom);
-void UpdateDungeon(Dungeon& dungeon, Player& player, vector<Enemy>& enemies);
+void UpdateDungeon(Dungeon& dungeon, vector<EnemyData>& enemyData, Player& player, vector<Enemy>& enemies);
