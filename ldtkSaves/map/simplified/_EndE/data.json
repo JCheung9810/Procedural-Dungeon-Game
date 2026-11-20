@@ -38,6 +38,19 @@
 		"Foreground.png"
 	],
 	"entities": {
+		"Staircase": [
+			{
+				"id": "Staircase",
+				"iid": "ebb90320-bde0-11f1-a57e-4d89f503cacb",
+				"layer": "Usable",
+				"x": 224,
+				"y": 224,
+				"width": 32,
+				"height": 32,
+				"color": 4098376,
+				"customFields" : {}
+			}
+		],
 		"VerticalDoor": [
 			{
 				"id": "VerticalDoor",
