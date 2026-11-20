@@ -21,7 +21,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Make a boss entrance
   - Make floor exit
   - Minimap/map
   - Special rooms (Shop,chest)

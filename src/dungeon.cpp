@@ -89,6 +89,18 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 }
 
 void SetRoomInfo(Dungeon& dungeon, Room& room) {
+    bool isEnd =
+            (TextIsEqual(room.type, "EndN") ||
+            TextIsEqual(room.type, "EndE") ||
+            TextIsEqual(room.type, "EndS") ||
+            TextIsEqual(room.type, "EndW"));
+
+    bool isBossEntrance =
+        (TextIsEqual(room.type, "BossEntranceN") ||
+        TextIsEqual(room.type, "BossEntranceE") ||
+        TextIsEqual(room.type, "BossEntranceS") ||
+        TextIsEqual(room.type, "BossEntranceW"));
+
     //Reset room contents
     room.roomContent.walls.clear();
     room.roomContent.doors.clear();
@@ -98,13 +110,14 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     room.roomContent.enemySpawnPoints.clear();
     room.wave = 0;
     room.numEnemiesSpawned = 0;
+
     
     if(TextIsEqual(room.type, "Spawn")){
         room.state = RoomState::CLEARED;
     } else if(TextIsEqual(room.type, "BossN") || TextIsEqual(room.type, "BossE") || TextIsEqual(room.type, "BossS") || TextIsEqual(room.type, "BossW")){
         room.numEnemiesToSpawn = 1;
         room.state = RoomState::INACTIVE;
-    } else if(!room.exists || TextIsEqual(room.type, "EndN") || TextIsEqual(room.type, "EndE") || TextIsEqual(room.type, "EndS") || TextIsEqual(room.type, "EndW")){
+    } else if(!room.exists || isEnd || isBossEntrance){
         room.numEnemiesToSpawn = 0;
         room.state = RoomState::INACTIVE;
         
@@ -384,6 +397,7 @@ bool ValidRoomInDirection(const char* type, char direction){
     bool valid = false;
     bool isBoss;
     bool isEnd;
+    bool isBossEntrance;
     
     isBoss =
         (TextIsEqual(type, "BossN") ||
@@ -396,8 +410,14 @@ bool ValidRoomInDirection(const char* type, char direction){
          TextIsEqual(type, "EndE") ||
          TextIsEqual(type, "EndS") ||
          TextIsEqual(type, "EndW"));
+
+    isBossEntrance =
+        (TextIsEqual(type, "BossEntranceN") ||
+         TextIsEqual(type, "BossEntranceE") ||
+         TextIsEqual(type, "BossEntranceS") ||
+         TextIsEqual(type, "BossEntranceW"));
     
-    if(TextIsEqual(type,"4DNESW") || TextIsEqual(type,"Spawn") || isBoss || isEnd){
+    if(TextIsEqual(type,"4DNESW") || TextIsEqual(type,"Spawn") || isBoss || isEnd || isBossEntrance){
         return true;
     }
     
@@ -663,6 +683,7 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
     bool isEmpty;
     bool isBoss;
     bool isEnd;
+    bool isBossEntrance;
     
     isEmpty =
         (TextIsEqual(type, "EmptyN") ||
@@ -681,6 +702,12 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
          TextIsEqual(type, "EndE") ||
          TextIsEqual(type, "EndS") ||
          TextIsEqual(type, "EndW"));
+
+    isBossEntrance =
+        (TextIsEqual(type, "BossEntranceN") ||
+         TextIsEqual(type, "BossEntranceE") ||
+         TextIsEqual(type, "BossEntranceS") ||
+         TextIsEqual(type, "BossEntranceW"));
        
     
     //Set current room up
@@ -719,7 +746,7 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         dungeon.rooms.push_back(room);
         
     //Check if boss type
-    } else if(isBoss){ 
+    } else if(isBoss || isBossEntrance){ 
         //Add boss room
         room.exists = true;
         dungeon.rooms.push_back(room);
@@ -739,6 +766,23 @@ void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){
         } else if(TextIsEqual(type, "BossW")){
             //Add possible room locations
             AddRoom(dungeon, "EmptyW", room.gridPos + Vector2{-3,0});
+
+        } else if(TextIsEqual(type, "BossEntranceN")){
+            //Add possible room locations
+            AddRoom(dungeon, "EmptyN", room.gridPos + Vector2{0,-1});
+                    
+        } else if(TextIsEqual(type, "BossEntranceE")){
+            //Add possible room locations
+            AddRoom(dungeon, "EmptyE", room.gridPos + Vector2{1,0});
+                    
+        } else if(TextIsEqual(type, "BossEntranceS")){
+            //Add possible room locations
+            AddRoom(dungeon, "EmptyS", room.gridPos + Vector2{0,1});
+                    
+        } else if(TextIsEqual(type, "BossEntranceW")){
+            //Add possible room locations
+            AddRoom(dungeon, "EmptyW", room.gridPos + Vector2{-1,0});
+                    
         }
         
         dungeon.currentRooms++;
@@ -904,7 +948,7 @@ void GenerateDungeon(Dungeon& dungeon){
     
     while(generateDungeon){
         
-        while(dungeon.currentRooms < dungeon.maxRooms - 2){     //account for boss and end room
+        while(dungeon.currentRooms < dungeon.maxRooms - 3){     //account for boss, boss entrance and end room
             
             chosenEmptyRoom = -1;
             
@@ -1036,7 +1080,37 @@ void GenerateDungeon(Dungeon& dungeon){
                 break;
                 
             }            
-        }   
+        }
+        
+        int bossEntranceIndex = -1;
+
+        //Choose boss entrance
+        for(int i = (int)dungeon.rooms.size() - 1; i > -1; i--){
+            if(dungeon.rooms[i].exists == false){
+                bossEntranceIndex = i;
+                break;
+            }
+        }
+
+        //If valid
+        if(bossEntranceIndex != -1){
+            if(TextIsEqual(dungeon.rooms[bossEntranceIndex].type, "EmptyN")){
+                AddRoom(dungeon, "BossEntranceN", dungeon.rooms[bossEntranceIndex].gridPos);
+            } else if(TextIsEqual(dungeon.rooms[bossEntranceIndex].type, "EmptyE")){
+                AddRoom(dungeon, "BossEntranceE", dungeon.rooms[bossEntranceIndex].gridPos);
+            } else if(TextIsEqual(dungeon.rooms[bossEntranceIndex].type, "EmptyS")){
+                AddRoom(dungeon, "BossEntranceS", dungeon.rooms[bossEntranceIndex].gridPos);
+            } else if(TextIsEqual(dungeon.rooms[bossEntranceIndex].type, "EmptyW")){
+                AddRoom(dungeon, "BossEntranceW", dungeon.rooms[bossEntranceIndex].gridPos);
+            }
+        } else {
+            //Reset generation because we cant spawn boss room
+            dungeon.currentRooms = 0;
+            dungeon.rooms.clear();
+            AddRoom(dungeon, "Spawn", Vector2{0,0});
+            break;
+        }
+
         
         int bossRoomIndex = -1;
         const char* bossRoomOpening;
@@ -1052,7 +1126,6 @@ void GenerateDungeon(Dungeon& dungeon){
         
         //If valid
         if(bossRoomIndex != -1){
-            generateDungeon = false;  
             if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyN")){
                 bossRoomOpening = "S";
                 AddRoom(dungeon, "BossN", dungeon.rooms[bossRoomIndex].gridPos);
@@ -1088,6 +1161,7 @@ void GenerateDungeon(Dungeon& dungeon){
         //If valid
         if(endRoomIndex != -1){
             const char* endType;
+            generateDungeon = false;  
             
             if(TextIsEqual(bossRoomOpening, "N")){
                 endType = "EndN";

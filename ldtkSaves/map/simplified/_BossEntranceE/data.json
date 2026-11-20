@@ -1,0 +1,182 @@
+{
+	"identifier": "_BossEntranceE",
+	"uniqueIdentifer": "40e390d0-bde0-11f1-8bc7-8f338ffda079",
+	"x": -2672,
+	"y": 448,
+	"width": 480,
+	"height": 480,
+	"bgColor": "#696A79",
+	"neighbourLevels": [
+		{
+			"levelIid": "81b5b480-bde0-11f1-9a4f-29384f27505b",
+			"dir": "e"
+		},
+		{
+			"levelIid": "57952080-bde0-11f1-8bc7-e586e113525a",
+			"dir": "s"
+		},
+		{
+			"levelIid": "82de7d10-bde0-11f1-9a4f-15771452fe79",
+			"dir": "se"
+		},
+		{
+			"levelIid": "598685b0-bde0-11f1-8bc7-256fe0650fcf",
+			"dir": "n"
+		}
+	],
+	"customFields" : {},
+	"layers": [
+		"Background.png",
+		"Foreground.png"
+	],
+	"entities": {
+		"RoomClearRewardSpawn": [
+			{
+				"id": "RoomClearRewardSpawn",
+				"iid": "3e638ac0-bde0-11f1-8bc7-fd92384615d7",
+				"layer": "Usable",
+				"x": 228,
+				"y": 228,
+				"width": 24,
+				"height": 24,
+				"color": 6539085,
+				"customFields": {
+					"active": false,
+					"visible": false
+				}
+			}
+		],
+		"Wall": [
+			{
+				"id": "Wall",
+				"iid": "40e3b7e4-bde0-11f1-8bc7-2b5123c3051c",
+				"layer": "Walls",
+				"x": 0,
+				"y": 160,
+				"width": 160,
+				"height": 48,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e3b7e6-bde0-11f1-8bc7-b5b1694146e1",
+				"layer": "Walls",
+				"x": 0,
+				"y": 0,
+				"width": 480,
+				"height": 160,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e3b7e7-bde0-11f1-8bc7-bd2f1bdfec9f",
+				"layer": "Walls",
+				"x": 320,
+				"y": 160,
+				"width": 160,
+				"height": 48,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e3b7e8-bde0-11f1-8bc7-170a46d32d59",
+				"layer": "Walls",
+				"x": 320,
+				"y": 248,
+				"width": 160,
+				"height": 232,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e40600-bde0-11f1-8bc7-5db02dedfe81",
+				"layer": "Walls",
+				"x": 0,
+				"y": 312,
+				"width": 320,
+				"height": 168,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e40601-bde0-11f1-8bc7-a1dc662f4030",
+				"layer": "Walls",
+				"x": 0,
+				"y": 248,
+				"width": 160,
+				"height": 64,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": true
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e40602-bde0-11f1-8bc7-bf74166336fc",
+				"layer": "Walls",
+				"x": 0,
+				"y": 208,
+				"width": 160,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e40603-bde0-11f1-8bc7-9d0cc7c32f67",
+				"layer": "Walls",
+				"x": 160,
+				"y": 160,
+				"width": 160,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			},
+			{
+				"id": "Wall",
+				"iid": "40e40605-bde0-11f1-8bc7-9b8f425e039d",
+				"layer": "Walls",
+				"x": 320,
+				"y": 208,
+				"width": 160,
+				"height": 16,
+				"color": 16690740,
+				"customFields": {
+					"projectileCollision": false
+				}
+			}
+		],
+		"RoomHitbox": [
+			{
+				"id": "RoomHitbox",
+				"iid": "40e40607-bde0-11f1-8bc7-3da97cb04793",
+				"layer": "RoomHitbox",
+				"x": 112,
+				"y": 112,
+				"width": 256,
+				"height": 256,
+				"color": 14120515,
+				"customFields" : {}
+			}
+		]
+	}
+}
