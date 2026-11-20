@@ -21,7 +21,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room enemy encounter trigger
 
 # To Do Priority List (Highest to Lowest)
-  - Add shields (temp health, always takes a full 1 hit no matter the damage)
   - Make a boss entrance
   - Make floor exit
   - Minimap/map
@@ -34,6 +33,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
   - Reload bar above head
   
 # Distant Features
+- Add shields (temp health, always takes a full 1 hit no matter the damage)
 - Item inventory
 - Breakable room objects
 - Usable/Interactable room objects
