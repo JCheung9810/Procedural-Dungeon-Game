@@ -397,7 +397,6 @@ bool ValidRoomInDirection(const char* type, char direction){
     bool valid = false;
     bool isBoss;
     bool isEnd;
-    bool isBossEntrance;
     
     isBoss =
         (TextIsEqual(type, "BossN") ||
@@ -410,14 +409,8 @@ bool ValidRoomInDirection(const char* type, char direction){
          TextIsEqual(type, "EndE") ||
          TextIsEqual(type, "EndS") ||
          TextIsEqual(type, "EndW"));
-
-    isBossEntrance =
-        (TextIsEqual(type, "BossEntranceN") ||
-         TextIsEqual(type, "BossEntranceE") ||
-         TextIsEqual(type, "BossEntranceS") ||
-         TextIsEqual(type, "BossEntranceW"));
     
-    if(TextIsEqual(type,"4DNESW") || TextIsEqual(type,"Spawn") || isBoss || isEnd || isBossEntrance){
+    if(TextIsEqual(type,"4DNESW") || TextIsEqual(type,"Spawn") || isBoss || isEnd){
         return true;
     }
     
@@ -428,7 +421,9 @@ bool ValidRoomInDirection(const char* type, char direction){
             TextIsEqual(type,"2DSW") || 
             TextIsEqual(type,"3DESW") || 
             TextIsEqual(type,"3DNES") || 
-            TextIsEqual(type,"3DNSW"));
+            TextIsEqual(type,"3DNSW") ||
+            TextIsEqual(type, "BossEntranceS") ||
+            TextIsEqual(type, "BossEntranceN"));
     } else if(direction == 'E'){
         valid = (
             TextIsEqual(type,"2DEW") || 
@@ -436,7 +431,9 @@ bool ValidRoomInDirection(const char* type, char direction){
             TextIsEqual(type,"2DNW") || 
             TextIsEqual(type,"3DNSW") || 
             TextIsEqual(type,"3DESW") || 
-            TextIsEqual(type,"3DNEW"));
+            TextIsEqual(type,"3DNEW") ||
+            TextIsEqual(type, "BossEntranceW") ||
+            TextIsEqual(type, "BossEntranceE"));
     } else if(direction == 'S'){
         valid = (
             TextIsEqual(type,"2DNS") || 
@@ -444,7 +441,9 @@ bool ValidRoomInDirection(const char* type, char direction){
             TextIsEqual(type,"2DNE") || 
             TextIsEqual(type,"3DNEW") || 
             TextIsEqual(type,"3DNSW") || 
-            TextIsEqual(type,"3DNES"));
+            TextIsEqual(type,"3DNES") ||
+            TextIsEqual(type, "BossEntranceN") ||
+            TextIsEqual(type, "BossEntranceS"));
     } else if(direction == 'W'){
         valid = (
             TextIsEqual(type,"2DEW") || 
@@ -452,7 +451,9 @@ bool ValidRoomInDirection(const char* type, char direction){
             TextIsEqual(type,"2DES") || 
             TextIsEqual(type,"3DNES") || 
             TextIsEqual(type,"3DNEW") || 
-            TextIsEqual(type,"3DESW"));
+            TextIsEqual(type,"3DESW") ||
+            TextIsEqual(type, "BossEntranceE") ||
+            TextIsEqual(type, "BossEntranceW"));
     }
     
     return valid;

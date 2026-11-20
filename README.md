@@ -43,3 +43,4 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
+- can shorten end room spawning with simple empty type check
