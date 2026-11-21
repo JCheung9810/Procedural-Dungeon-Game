@@ -152,6 +152,7 @@ int main(void){
         if(IsKeyPressed(KEY_M) && !exitWindowRequested){
             minimap = minimap ^ true;
             pause = pause ^ true;
+            player.center / minimapScale;
         }
 
         if(minimap && pause && !exitWindowRequested){

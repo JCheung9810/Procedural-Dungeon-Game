@@ -11,7 +11,7 @@
 
 extern Debug debug;
 
-void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
+void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
             Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture, Font font, 
             Vector2 mouseScreenPos, float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
             bool minimap, Vector2 minimapPos, float minimapScale,
@@ -454,7 +454,7 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
         }
 
         //Minimap
-        DrawMinimap(minimap, minimapPos, minimapScale, dungeon, screenWidth, screenHeight);
+        DrawMinimap(minimap, minimapPos, minimapScale, player, dungeon, screenWidth, screenHeight);
     } else if(exitWindowRequested){  
     
         //Exit menu
@@ -667,7 +667,7 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
     }
 }
 
-void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Dungeon& dungeon, int screenWidth, int screenHeight){
+void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Player& player, Dungeon& dungeon, int screenWidth, int screenHeight){
     if(minimap){
         Rectangle srcRec;
         DrawRectangle(0,0, screenWidth, screenHeight, Color{0,0,0, 130});
@@ -807,6 +807,13 @@ void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Dungeon& 
                 };
 
                 DrawTexturePro(texture, srcRec, destRec, {0.0f,0.0f}, 0.0f, WHITE);
+                DrawRectangle(
+                    player.position.x / minimapScale - minimapPos.x + screenWidth / 2.0f,
+                    player.position.y / minimapScale - minimapPos.y + screenHeight / 2.0f,
+                    player.size.x / minimapScale,
+                    player.size.y / minimapScale,
+                    GREEN
+                );
             }
         }
     }
