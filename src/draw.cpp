@@ -13,12 +13,12 @@ extern Debug debug;
 
 void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
             Texture2D heartTexture, Texture2D weaponHudBoxTexture, Texture2D weaponHudBoxBackgroundTexture, Font font, 
-            float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
+            Vector2 mouseScreenPos, float playerToMouseRotation, Texture2D cursorTexture, float cursorSize, 
+            bool minimap, Vector2 minimapPos, float minimapScale,
             int screenWidth, int screenHeight,          
             bool exitWindowRequested){
                 
                 
-    Vector2 mouseScreenPos = GetMousePosition();
     Rectangle cursorRec;
     Rectangle cursorDestination;
     Vector2 cursorOrigin;
@@ -345,7 +345,6 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
         EndMode2D();
         
         //Draw cursor
-        mouseScreenPos = GetMousePosition();
         cursorRec = {0, 0, (float)cursorTexture.width, (float)cursorTexture.height};
         cursorDestination = {mouseScreenPos.x + (float)cursorTexture.width/2.0f - cursorSize/2.0f, mouseScreenPos.y + (float)cursorTexture.height/2.0f - cursorSize/2.0f, cursorSize, cursorSize};
 
@@ -453,7 +452,9 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                 WHITE
             );
         }
-        
+
+        //Minimap
+        DrawMinimap(minimap, minimapPos, minimapScale, dungeon, screenWidth, screenHeight);
     } else if(exitWindowRequested){  
     
         //Exit menu
@@ -662,6 +663,28 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
             } else {
                 DrawTexturePro(enemies[i].weapon.texture, gunSrc, gunDest, Vector2{0, gunDest.height / 2.0f}, enemies[i].aimAngle * RAD2DEG, Color{255,255,255,130});
             }
+        }
+    }
+}
+
+void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Dungeon& dungeon, int screenWidth, int screenHeight){
+    if(minimap){
+        DrawRectangle(0,0, screenWidth, screenHeight, Color{0,0,0, 130});
+        Color roomColor = {100,100,100,255};
+
+        for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
+            Room room = dungeon.rooms[roomIt];
+
+            float x = roundf(room.position.x / minimapScale - minimapPos.x + screenWidth / 2.0f);
+            float y = roundf(room.position.y / minimapScale - minimapPos.y + screenHeight / 2.0f);
+            float w = roundf(room.size.x / minimapScale);
+            float h = roundf(room.size.y / minimapScale);
+
+            DrawRectangle(x, y, w + 1, h + 1, roomColor);
+
+            roomColor.b += 5;
+            roomColor.g += 5;
+            roomColor.r += 5;
         }
     }
 }

@@ -70,6 +70,7 @@ int main(void){
     InitializeCamera(camera, player, screenHeight, screenWidth);
     
     //Mouse
+    Vector2 mouseScreenPos = GetMousePosition();
     Vector2 mouseWorldPos;
     float playerToMouseRotation = 0.0f;
     float cursorSize = 60.0f;
@@ -100,6 +101,11 @@ int main(void){
 
     //Minimap
     bool minimap = false;
+    float minimapScale = 10.0f;
+    Vector2 minimapPos = player.center / minimapScale;
+
+    //Pausing
+    bool pause = false;
     
     //Dungeon
     int seed = GetRandomValue(100000, 999999);
@@ -115,8 +121,71 @@ int main(void){
     
     //------------------------------MAIN GAME LOOP----------------------------------------------------------------------------------
     while (!exitWindow){
+
+        //Debug
+        if(debug.active){
+            if(IsKeyPressed(KEY_ZERO)){
+                seed = GetRandomValue(100000, 999999);
+                SetRandomSeed(seed);
+                GenerateDungeon(dungeon);
+            }
+            if(IsKeyPressed(KEY_FIVE)){
+                debug.hitbox = debug.hitbox ^ true;
+            }
+            if(IsKeyPressed(KEY_SIX)){
+                debug.hurtbox = debug.hurtbox ^ true;
+            }
+            if(IsKeyPressed(KEY_SEVEN)){
+                debug.speed = debug.speed ^ true;
+            }
+            if(IsKeyPressed(KEY_EIGHT)){
+                debug.cam = debug.cam ^ true;
+            }
+            if(IsKeyPressed(KEY_NINE)){
+                debug.wall = debug.wall ^ true;
+            }
+            if(IsKeyPressed(KEY_FOUR)){
+                debug.vision = debug.vision ^ true;
+            }
+        }   
+
+        if(IsKeyPressed(KEY_M) && !exitWindowRequested){
+            minimap = minimap ^ true;
+            pause = pause ^ true;
+        }
+
+        if(minimap && pause && !exitWindowRequested){
+            if(IsKeyDown(KEY_D)){
+                minimapPos.x += 4.0f;
+            }
+            if(IsKeyDown(KEY_A)){
+                minimapPos.x -= 4.0f;
+            }
+            if(IsKeyDown(KEY_W)){
+                minimapPos.y -= 4.0f;
+            }
+            if(IsKeyDown(KEY_S)){
+                minimapPos.y += 4.0f;
+            }
+
+            float scroll = GetMouseWheelMove();
+
+            if (scroll != 0.0f){
+                minimapScale += -scroll * 0.1f;
+            }
+
+        }
+
+        //Exit confirmation
+        if(WindowShouldClose() || IsKeyPressed(KEY_ESCAPE)){
+            exitWindowRequested = true;
+            pause = true;
+        }
         
-        if(!exitWindowRequested && player.health > 0.0f){
+        if(!exitWindowRequested && player.health > 0.0f && !pause){
+            //Update mouse
+            mouseScreenPos = GetMousePosition();
+
             //------------------------------PLAYER------------------------------
             //Update player
             UpdatePlayer(player, dungeon);
@@ -176,38 +245,6 @@ int main(void){
             //------------------------------DUNGEON------------------------------
             UpdateDungeon(dungeon, enemyData, player, enemies);
             
-            //Debug
-            if(debug.active){
-                if(IsKeyPressed(KEY_ZERO)){
-                    seed = GetRandomValue(100000, 999999);
-                    SetRandomSeed(seed);
-                    GenerateDungeon(dungeon);
-                }
-                if(IsKeyPressed(KEY_FIVE)){
-                    debug.hitbox = debug.hitbox ^ true;
-                }
-                if(IsKeyPressed(KEY_SIX)){
-                    debug.hurtbox = debug.hurtbox ^ true;
-                }
-                if(IsKeyPressed(KEY_SEVEN)){
-                    debug.speed = debug.speed ^ true;
-                }
-                if(IsKeyPressed(KEY_EIGHT)){
-                    debug.cam = debug.cam ^ true;
-                }
-                if(IsKeyPressed(KEY_NINE)){
-                    debug.wall = debug.wall ^ true;
-                }
-                if(IsKeyPressed(KEY_FOUR)){
-                    debug.vision = debug.vision ^ true;
-                }
-            }   
-
-            //Exit confirmation
-            if(WindowShouldClose() || IsKeyPressed(KEY_ESCAPE)){
-                exitWindowRequested = true;
-            }
-            
         } else if (exitWindowRequested){ 
             if (IsKeyPressed(KEY_Y)){ 
                 exitWindow = true;
@@ -215,6 +252,7 @@ int main(void){
             
             }else if (IsKeyPressed(KEY_N)){
                 exitWindowRequested = false;
+                pause = false;
             }
             
         } else if(!exitWindowRequested && player.health <= 0.0f){
@@ -235,7 +273,8 @@ int main(void){
         //------------------------------DRAW------------------------------
         DrawGame(camera, player, dungeon, enemies, projectiles,  
             heartTexture, weaponHudBoxTexture, weaponHudBoxBackgroundTexture, font,
-            playerToMouseRotation, cursorTexture, cursorSize, 
+            mouseScreenPos, playerToMouseRotation, cursorTexture, cursorSize,
+            minimap, minimapPos, minimapScale,
             screenWidth, screenHeight,
             exitWindowRequested);
     }
