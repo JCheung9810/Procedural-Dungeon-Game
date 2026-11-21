@@ -141,8 +141,8 @@ struct Room {
     string layoutType;
     
     Vector2 size;
-    Vector2 position;
-    Vector2 gridPos;
+    Vector2 position;       //Top left corner
+    Vector2 gridPos;        //Where the empty room is replaced when spawned
     int distance;
     bool exists = false;
     

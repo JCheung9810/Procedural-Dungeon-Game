@@ -669,22 +669,145 @@ void DrawWeapons(Player& player, float playerToMouseRotation, vector<Enemy>& ene
 
 void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Dungeon& dungeon, int screenWidth, int screenHeight){
     if(minimap){
+        Rectangle srcRec;
         DrawRectangle(0,0, screenWidth, screenHeight, Color{0,0,0, 130});
-        Color roomColor = {100,100,100,255};
 
         for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
             Room room = dungeon.rooms[roomIt];
+            bool isBoss =
+                (TextIsEqual(room.type, "BossN") ||
+                TextIsEqual(room.type, "BossE") ||
+                TextIsEqual(room.type, "BossS") ||
+                TextIsEqual(room.type, "BossW"));
 
-            float x = roundf(room.position.x / minimapScale - minimapPos.x + screenWidth / 2.0f);
-            float y = roundf(room.position.y / minimapScale - minimapPos.y + screenHeight / 2.0f);
-            float w = roundf(room.size.x / minimapScale);
-            float h = roundf(room.size.y / minimapScale);
+            bool isEnd =
+                (TextIsEqual(room.type, "EndN") ||
+                TextIsEqual(room.type, "EndE") ||
+                TextIsEqual(room.type, "EndS") ||
+                TextIsEqual(room.type, "EndW"));
 
-            DrawRectangle(x, y, w + 1, h + 1, roomColor);
+            if(room.state != RoomState::INACTIVE){
+                Texture2D texture = assets.LoadGameTexture("assets/textures/UI/dungeonMinimap.png");
 
-            roomColor.b += 5;
-            roomColor.g += 5;
-            roomColor.r += 5;
+                float x = (room.position.x / minimapScale - minimapPos.x + screenWidth / 2.0f);
+                float y = (room.position.y / minimapScale - minimapPos.y + screenHeight / 2.0f);
+                float w = (room.size.x / minimapScale);
+                float h = (room.size.y / minimapScale);
+
+                int row = -1;
+                int col = -1;
+
+                if(room.state == RoomState::CLEARED){
+                    if(room.layoutType == "2DNS" || room.layoutType == "BossEntranceN" || room.layoutType == "BossEntranceS"){
+                        row = 0;
+                        col = 0;
+                    } else if(room.layoutType == "2DEW" || room.layoutType == "BossEntranceE" || room.layoutType == "BossEntranceW"){
+                        row = 0;
+                        col = 1;
+                    } else if(room.layoutType == "2DNE"){
+                        row = 1;
+                        col = 0;
+                    } else if(room.layoutType == "2DES"){
+                        row = 1;
+                        col = 1;
+                    } else if(room.layoutType == "2DSW"){
+                        row = 1;
+                        col = 2;
+                    } else if(room.layoutType == "2DNW"){
+                        row = 1;
+                        col = 3;
+                    } else if(room.layoutType == "3DNEW"){
+                        row = 2;
+                        col = 0;
+                    } else if(room.layoutType == "3DNES"){
+                        row = 2;
+                        col = 1;
+                    } else if(room.layoutType == "3DESW"){
+                        row = 2;
+                        col = 2;
+                    } else if(room.layoutType == "3DNSW"){
+                        row = 2;
+                        col = 3;
+                    } else if(room.layoutType == "1DN" || room.layoutType == "EndN"){
+                        row = 3;
+                        col = 0;
+                    } else if(room.layoutType == "1DE" || room.layoutType == "EndE"){
+                        row = 3;
+                        col = 1;
+                    } else if(room.layoutType == "1DS" || room.layoutType == "EndS"){
+                        row = 3;
+                        col = 2;
+                    } else if(room.layoutType == "1DW" || room.layoutType == "EndW"){
+                        row = 3;
+                        col = 3;
+                    } else if(room.layoutType == "4DNESW" || room.layoutType == "Spawn"){
+                        row = 4;
+                        col = 0;
+                    } else if(room.layoutType == "BossE" || room.layoutType == "BossW"){
+                        row = 5;
+                        col = 0;
+                    } else if(room.layoutType == "BossN" || room.layoutType == "BossS"){
+                        row = 5;
+                        col = 1;
+                    }
+                } else if(room.state == RoomState::ACTIVE || room.state == RoomState::DISCOVERED){
+                    row = 6;
+                    for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+                        float spaceToCheck;
+                        if(!isEnd){
+                            spaceToCheck = 1.0f;
+                        } else {
+                            spaceToCheck = 3.0f;
+                        }
+                        if(dungeon.rooms[i].gridPos == room.gridPos + Vector2{0,-spaceToCheck} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'N') && dungeon.rooms[i].state == RoomState::CLEARED){
+                            col = 0;
+                        } else if (dungeon.rooms[i].gridPos == room.gridPos + Vector2{spaceToCheck,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'E') && dungeon.rooms[i].state == RoomState::CLEARED){
+                            col = 1;
+                        } else if (dungeon.rooms[i].gridPos == room.gridPos + Vector2{0,spaceToCheck} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'S') && dungeon.rooms[i].state == RoomState::CLEARED){
+                            col = 2;
+                        } else if(dungeon.rooms[i].gridPos == room.gridPos + Vector2{-spaceToCheck,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'W') && dungeon.rooms[i].state == RoomState::CLEARED){
+                            col = 3;
+                        }
+                    }
+
+                    if(room.layoutType == "BossN"){
+                        x += w/3;
+                        y += 2 * (h/3);
+                    } else if(room.layoutType == "BossE"){
+                        y += h/3;
+                    } else if(room.layoutType == "BossS"){
+                        x += w/3;
+                    } else if(room.layoutType == "BossW"){
+                        x += + 2 * (w/3);
+                        y += h/3;
+                    }
+                }
+
+                if(!isBoss){
+                    srcRec = {
+                        col * (texture.width / 4.0f),
+                        row * (texture.height / 7.0f),
+                        texture.width / 4.0f / 3.0f,
+                        texture.height / 7.0f / 3.0f
+                    };
+                } else {
+                    srcRec = {
+                        col * (texture.width / 4.0f),
+                        row * (texture.height / 7.0f),
+                        texture.width / 4.0f,
+                        texture.height / 7.0f
+                    };
+                }
+
+                Rectangle destRec = {
+                    x,
+                    y,
+                    w,
+                    h
+                };
+
+                DrawTexturePro(texture, srcRec, destRec, {0.0f,0.0f}, 0.0f, WHITE);
+            }
         }
     }
 }

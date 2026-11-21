@@ -1225,15 +1225,31 @@ void GenerateDungeon(Dungeon& dungeon){
 
 bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
     bool activeRoomAdjacent = false;
+    bool isBoss;
     
     for(int i = 0; i < (int)dungeon.rooms.size(); i++){
+        isBoss =
+        (TextIsEqual(dungeon.rooms[i].type, "BossN") ||
+         TextIsEqual(dungeon.rooms[i].type, "BossE") ||
+         TextIsEqual(dungeon.rooms[i].type, "BossS") ||
+         TextIsEqual(dungeon.rooms[i].type, "BossW"));
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::CLEARED){
-            if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'N'))|| 
-               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{1,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'E'))|| 
-               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'S'))|| 
-               (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{-1,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'W'))){
-                activeRoomAdjacent = true;
-                break;
+            if(!isBoss){
+                if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'N'))|| 
+                (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{1,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'E'))|| 
+                (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'S'))|| 
+                (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{-1,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'W'))){
+                    activeRoomAdjacent = true;
+                    break;
+                }
+            } else {
+                if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-3} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'N'))|| 
+                (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{3,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'E'))|| 
+                (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,3} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'S'))|| 
+                (dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{-3,0} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'W'))){
+                    activeRoomAdjacent = true;
+                    break;
+                }
             }
         }
     }
@@ -1247,8 +1263,10 @@ void UpdateDungeon(Dungeon& dungeon, vector<EnemyData>& enemyData, Player& playe
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hurtbox)){
             dungeon.rooms[i].state = RoomState::ACTIVE;
             //Close doors
-            for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
-                dungeon.rooms[i].roomContent.doors[j].active = true;
+            if(dungeon.rooms[i].numEnemiesToSpawn != 0){
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
+                    dungeon.rooms[i].roomContent.doors[j].active = true;
+                }
             }
 
             //Spawn first wave of enemies
