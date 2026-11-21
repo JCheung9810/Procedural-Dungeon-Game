@@ -1,5 +1,5 @@
 {
-    "maxRooms": 20,
+    "maxRooms": 10,
     "roomSize": 1500,
     "straight": 30.0,
     "turn": 30.0,
@@ -8,8 +8,8 @@
     "floorSpawnPool": [
         {
             "floorNum": 0,
-            "minEnemiesPerRoom": 9,
-            "maxEnemiesPerRoom": 9,
+            "minEnemiesPerRoom": 2,
+            "maxEnemiesPerRoom": 4,
             "enemyPool": [
                 {   
                     "name": "Dummy Pistol",
@@ -31,12 +31,35 @@
             "maxEnemiesPerRoom": 6,
             "enemyPool": [
                 {   
-                    "name": "Dummy",
-                    "spawnWeight": 0.50
+                    "name": "Dummy Pistol",
+                    "spawnWeight": 0.55
                 },
                 {
-                    "name": "Dummy",
-                    "spawnWeight": 0.50
+                    "name": "Dummy Double Barrel",
+                    "spawnWeight": 0.30
+                },
+                {   
+                    "name": "Dummy Suicide Bomber",
+                    "spawnWeight": 0.15
+                }
+            ]
+        },
+        {
+            "floorNum": 2,
+            "minEnemiesPerRoom": 4,
+            "maxEnemiesPerRoom": 8,
+            "enemyPool": [
+                {   
+                    "name": "Dummy Pistol",
+                    "spawnWeight": 0.45
+                },
+                {
+                    "name": "Dummy Double Barrel",
+                    "spawnWeight": 0.35
+                },
+                {   
+                    "name": "Dummy Suicide Bomber",
+                    "spawnWeight": 0.20
                 }
             ]
         }

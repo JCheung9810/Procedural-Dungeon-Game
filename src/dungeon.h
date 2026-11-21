@@ -61,6 +61,7 @@ struct RoomUsable {
     
     bool active;
     bool visible;
+    bool collision;
 };
 
 struct RoomClearItemSpawnPool {

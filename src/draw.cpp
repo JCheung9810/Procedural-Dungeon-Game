@@ -125,7 +125,11 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         if(usable.visible){
                             if(usable.yLevel < player.hitbox.y + player.hitbox.height){
 
-                                tileSize = 24 * scale;
+                                if(usable.type == "RoomClearRewardSpawn"){
+                                    tileSize = 24 * scale;
+                                } else if(usable.type == "Staircase"){
+                                    tileSize = 32 * scale;
+                                }
                                 int tilesX = (int)roundf(usable.hitbox.width / tileSize);
                                 int tilesY = (int)roundf(usable.hitbox.height / tileSize);
 
@@ -291,7 +295,11 @@ void DrawGame(Camera2D camera, Player player, Dungeon& dungeon, vector<Enemy>& e
                         if(usable.visible){
                             if(usable.yLevel >= player.hitbox.y + player.hitbox.height){
                                 
-                                tileSize = 24 * scale;
+                                if(usable.type == "RoomClearRewardSpawn"){
+                                    tileSize = 24 * scale;
+                                } else if(usable.type == "Staircase"){
+                                    tileSize = 32 * scale;
+                                }
                                 int tilesX = (int)roundf(usable.hitbox.width / tileSize);
                                 int tilesY = (int)roundf(usable.hitbox.height / tileSize);
 

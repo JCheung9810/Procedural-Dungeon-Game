@@ -97,6 +97,9 @@ int main(void){
     
     //Projectile
     vector<Projectile> projectiles;
+
+    //Minimap
+    bool minimap = false;
     
     //Dungeon
     int seed = GetRandomValue(100000, 999999);

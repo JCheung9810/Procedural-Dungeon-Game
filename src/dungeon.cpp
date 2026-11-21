@@ -244,6 +244,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                     usable.numFrames = 0;
                     usable.yLevel = 0;
                     usable.type = entity["id"];
+                    usable.collision = false;
                     if(entity["id"] == "RoomClearRewardSpawn"){
                         int randomNum = GetRandomValue(1,100);
                         for(int roomClearItemIt = 0; roomClearItemIt < (int)dungeon.roomClearItemSpawnPool.size(); roomClearItemIt++){
@@ -258,6 +259,12 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                                 randomNum -= dungeon.roomClearItemSpawnPool[roomClearItemIt].spawnWeight * 100;
                             }
                         }
+                    } else if(entity["id"] == "Staircase"){
+                            usable.name = entity["id"];
+                            usable.numFrames = 1;
+                            usable.texture = assets.LoadGameTexture("assets/textures/environment/Staircase.png");
+                            usable.yLevel = entity["y"].get<float>() * scale + room.position.y;
+                            usable.collision = true;
                     }
 
                     usable.hitbox = {
