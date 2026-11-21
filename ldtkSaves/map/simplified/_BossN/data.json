@@ -1,6 +1,6 @@
 {
 	"identifier": "_BossN",
-	"uniqueIdentifer": "473f3fa0-bde0-11f1-8f43-4fc72feafebb",
+	"uniqueIdentifer": "7bcde650-e4f0-11f1-87ea-4dbc100ced11",
 	"x": -8944,
 	"y": 384,
 	"width": 1440,
@@ -8,7 +8,7 @@
 	"bgColor": "#696A79",
 	"neighbourLevels": [
 		{
-			"levelIid": "564c17c0-bde0-11f1-8f43-c5610411973f",
+			"levelIid": "43fbe420-e4f0-11f1-87ea-27bc96759d01",
 			"dir": "e"
 		}
 	],
@@ -21,7 +21,7 @@
 		"EnemySpawnPoint": [
 			{
 				"id": "EnemySpawnPoint",
-				"iid": "473f3fa2-bde0-11f1-8f43-a38f937132a5",
+				"iid": "7bcde653-e4f0-11f1-87ea-6f02c6ab8220",
 				"layer": "EnemySpawnPoint",
 				"x": 728,
 				"y": 728,
@@ -31,34 +31,10 @@
 				"customFields" : {}
 			}
 		],
-		"VerticalDoor": [
-			{
-				"id": "VerticalDoor",
-				"iid": "473f3fa4-bde0-11f1-8f43-1f2e299f6c42",
-				"layer": "Doors",
-				"x": 896,
-				"y": 704,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			},
-			{
-				"id": "VerticalDoor",
-				"iid": "473f66b0-bde0-11f1-8f43-49670528d923",
-				"layer": "Doors",
-				"x": 528,
-				"y": 704,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			}
-		],
 		"HorizontalDoor": [
 			{
 				"id": "HorizontalDoor",
-				"iid": "473f66b1-bde0-11f1-8f43-f5c8651e67a6",
+				"iid": "7bcde655-e4f0-11f1-87ea-6bc6fa4c17f5",
 				"layer": "Doors",
 				"x": 704,
 				"y": 528,
@@ -69,7 +45,7 @@
 			},
 			{
 				"id": "HorizontalDoor",
-				"iid": "473f66b2-bde0-11f1-8f43-15e34f9f7b1d",
+				"iid": "7bcde656-e4f0-11f1-87ea-5f66958895b8",
 				"layer": "Doors",
 				"x": 704,
 				"y": 928,
@@ -82,7 +58,7 @@
 		"Wall": [
 			{
 				"id": "Wall",
-				"iid": "473f66b4-bde0-11f1-8f43-65b72d22a5c3",
+				"iid": "7bcde658-e4f0-11f1-87ea-7795049e6a62",
 				"layer": "Walls",
 				"x": 560,
 				"y": 888,
@@ -95,7 +71,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f66b5-bde0-11f1-8f43-7b9560de8778",
+				"iid": "7bcde659-e4f0-11f1-87ea-f7ecad8655be",
 				"layer": "Walls",
 				"x": 736,
 				"y": 888,
@@ -108,20 +84,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f66b6-bde0-11f1-8f43-75892418a186",
-				"layer": "Walls",
-				"x": 880,
-				"y": 688,
-				"width": 560,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "473f66b7-bde0-11f1-8f43-774ef991ea65",
+				"iid": "7bcde65a-e4f0-11f1-87ea-0f25bb937fc1",
 				"layer": "Walls",
 				"x": 736,
 				"y": 544,
@@ -134,7 +97,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f66b8-bde0-11f1-8f43-039d8b6db236",
+				"iid": "7bce8290-e4f0-11f1-87ea-15906c852bd8",
 				"layer": "Walls",
 				"x": 560,
 				"y": 544,
@@ -147,12 +110,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f66b9-bde0-11f1-8f43-fb265c98719c",
+				"iid": "7bce8291-e4f0-11f1-87ea-e74d6b50f66a",
 				"layer": "Walls",
 				"x": 880,
-				"y": 728,
+				"y": 0,
 				"width": 560,
-				"height": 712,
+				"height": 1440,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -160,12 +123,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f8dc0-bde0-11f1-8f43-35072cb7e681",
+				"iid": "7bce8292-e4f0-11f1-87ea-93ac344a1c09",
 				"layer": "Walls",
 				"x": 0,
-				"y": 728,
+				"y": 0,
 				"width": 560,
-				"height": 712,
+				"height": 1440,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -173,7 +136,7 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f8dc1-bde0-11f1-8f43-a37763cc4fa5",
+				"iid": "7bce8293-e4f0-11f1-87ea-059f9301b472",
 				"layer": "Walls",
 				"x": 560,
 				"y": 0,
@@ -186,51 +149,12 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "473f8dc2-bde0-11f1-8f43-d3c6b21edf0a",
-				"layer": "Walls",
-				"x": 0,
-				"y": 0,
-				"width": 560,
-				"height": 688,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "473f8dc3-bde0-11f1-8f43-47c58dda9205",
-				"layer": "Walls",
-				"x": 0,
-				"y": 688,
-				"width": 560,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "473f8dc4-bde0-11f1-8f43-a7b7515a90d2",
+				"iid": "7bce8294-e4f0-11f1-87ea-dbac5720860b",
 				"layer": "Walls",
 				"x": 736,
 				"y": 0,
 				"width": 144,
 				"height": 544,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "473f8dc5-bde0-11f1-8f43-e938d35c5385",
-				"layer": "Walls",
-				"x": 880,
-				"y": 0,
-				"width": 560,
-				"height": 688,
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": true
@@ -240,7 +164,7 @@
 		"RoomHitbox": [
 			{
 				"id": "RoomHitbox",
-				"iid": "473f8dc7-bde0-11f1-8f43-67da67f4b230",
+				"iid": "7bce8296-e4f0-11f1-87ea-112f050f2e5a",
 				"layer": "RoomHitbox",
 				"x": 560,
 				"y": 560,

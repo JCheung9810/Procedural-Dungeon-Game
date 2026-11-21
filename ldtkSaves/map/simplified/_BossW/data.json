@@ -55,30 +55,6 @@
 				"customFields" : {}
 			}
 		],
-		"HorizontalDoor": [
-			{
-				"id": "HorizontalDoor",
-				"iid": "58ce2ec2-bde0-11f1-8f43-15f176becc23",
-				"layer": "Doors",
-				"x": 704,
-				"y": 528,
-				"width": 32,
-				"height": 16,
-				"color": 15389866,
-				"customFields" : {}
-			},
-			{
-				"id": "HorizontalDoor",
-				"iid": "58ce2ec3-bde0-11f1-8f43-5deaef5dcb4c",
-				"layer": "Doors",
-				"x": 704,
-				"y": 928,
-				"width": 32,
-				"height": 16,
-				"color": 15389866,
-				"customFields" : {}
-			}
-		],
 		"Wall": [
 			{
 				"id": "Wall",
@@ -86,20 +62,7 @@
 				"layer": "Walls",
 				"x": 560,
 				"y": 888,
-				"width": 144,
-				"height": 552,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "58ce2ec6-bde0-11f1-8f43-bdefcd80b090",
-				"layer": "Walls",
-				"x": 736,
-				"y": 888,
-				"width": 144,
+				"width": 320,
 				"height": 552,
 				"color": 16690740,
 				"customFields": {
@@ -121,24 +84,11 @@
 			},
 			{
 				"id": "Wall",
-				"iid": "58ce2ec8-bde0-11f1-8f43-e3001e98b77d",
-				"layer": "Walls",
-				"x": 736,
-				"y": 544,
-				"width": 144,
-				"height": 16,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
 				"iid": "58ce2ec9-bde0-11f1-8f43-41eeb9a35282",
 				"layer": "Walls",
 				"x": 560,
 				"y": 544,
-				"width": 144,
+				"width": 320,
 				"height": 16,
 				"color": 16690740,
 				"customFields": {
@@ -177,7 +127,7 @@
 				"layer": "Walls",
 				"x": 560,
 				"y": 0,
-				"width": 144,
+				"width": 320,
 				"height": 544,
 				"color": 16690740,
 				"customFields": {
@@ -208,19 +158,6 @@
 				"color": 16690740,
 				"customFields": {
 					"projectileCollision": false
-				}
-			},
-			{
-				"id": "Wall",
-				"iid": "58ce2ecf-bde0-11f1-8f43-21d3f0114747",
-				"layer": "Walls",
-				"x": 736,
-				"y": 0,
-				"width": 144,
-				"height": 544,
-				"color": 16690740,
-				"customFields": {
-					"projectileCollision": true
 				}
 			},
 			{
