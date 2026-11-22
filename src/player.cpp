@@ -89,8 +89,9 @@ void InitializePlayer(Player& player){
         player.dashTimer = 0.0f;
         player.dashCDTimer = 0.0f;
 
-        player.maxWeapons = 3;
+        player.maxWeapons = 4;
         player.weapons.push_back(LoadWeapon("Pistol"));
+        player.weapons.push_back(LoadWeapon("Uzi"));
         player.weapons.push_back(LoadWeapon("Double Barrel"));
         player.weapons.push_back(LoadWeapon("Dev Gun"));
 

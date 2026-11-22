@@ -261,13 +261,29 @@ int main(void){
             
         } else if(!exitWindowRequested && player.health <= 0.0f){
             if(IsKeyPressed(KEY_SPACE)){
-                //InitializePlayer(player, playerConfig);
                 
                 player.center = {0,0};
                 player.position = {
-                    player.center.x - (player.hurtbox.width/2.0f), 
-                    player.center.y - (player.hurtbox.height/2.0f)
+                    player.center.x - (player.size.x/2.0f), 
+                    player.center.y - (player.size.y/2.0f)
                 };
+                player.hurtbox = {
+                    player.position.x, 
+                    player.position.y, 
+                    player.size.x, 
+                    player.size.y
+                };
+                player.hitbox = {
+                    player.position.x + 1.0f,
+                    player.position.y + player.hurtbox.height - 4.0f,
+                    player.size.x - 2.0f,
+                    3.0f
+                };
+
+                dungeon.maxRooms -= dungeon.floor * 2;
+                dungeon.floor = 0;
+                
+                GenerateDungeon(dungeon);
                 player.health = player.maxHealth;
                 
             }
