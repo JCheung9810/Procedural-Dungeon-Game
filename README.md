@@ -19,6 +19,8 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - UI shows current weapon, magSize, bullets left, reload on counter
 - LDTK level loading
 - Room enemy encounter trigger
+- Map view
+- Room clear rewards
 
 # To Do Priority List (Highest to Lowest)
   - Special rooms (Shop,chest)

@@ -103,6 +103,7 @@ int main(void){
     bool minimap = false;
     float minimapScale = 10.0f;
     Vector2 minimapPos = player.center / minimapScale;
+    assets.LoadGameTexture("assets/textures/UI/dungeonMinimap.png");
 
     //Pausing
     bool pause = false;
@@ -153,26 +154,28 @@ int main(void){
             minimap = minimap ^ true;
             pause = pause ^ true;
             minimapPos = player.center / minimapScale;
+            minimapScale = 10.0f;
         }
 
         if(minimap && pause && !exitWindowRequested){
             if(IsKeyDown(KEY_D)){
-                minimapPos.x += 4.0f;
+                minimapPos.x += 8.0f;
             }
             if(IsKeyDown(KEY_A)){
-                minimapPos.x -= 4.0f;
+                minimapPos.x -= 8.0f;
             }
             if(IsKeyDown(KEY_W)){
-                minimapPos.y -= 4.0f;
+                minimapPos.y -= 8.0f;
             }
             if(IsKeyDown(KEY_S)){
-                minimapPos.y += 4.0f;
+                minimapPos.y += 8.0f;
             }
 
             float scroll = GetMouseWheelMove();
 
             if (scroll != 0.0f){
-                minimapScale += -scroll * 0.1f;
+                minimapScale += -scroll * 0.9f;
+                minimapScale = Clamp(minimapScale, 1.0f, 30.0f);
             }
 
         }
