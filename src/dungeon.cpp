@@ -92,11 +92,11 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 
     bool isEnd = room.layoutType.find("End") != string::npos;
 
-    bool isBoss = room.layoutType.find("Boss") != string::npos && room.layoutType.find("Entrance") != string::npos;;
+    bool isBoss = room.layoutType.find("Boss") != string::npos && room.layoutType.find("Entrance") == string::npos;
 
     bool isBossEntrance = room.layoutType.find("BossEntrance") != string::npos;;
 
-    bool isSpecial = room.layoutType.find("Chest") != string::npos || room.layoutType.find("Shop") != string::npos;;
+    bool isSpecial = room.layoutType.find("Chest") != string::npos || room.layoutType.find("Shop") != string::npos;
 
     //Reset room contents
     room.roomContent.walls.clear();
@@ -409,20 +409,10 @@ bool RoomForBoss(Dungeon& dungeon, const Room& emptyRoom){
 
 bool ValidRoomInDirection(const char* type, char direction){
     bool valid = false;
-    bool isBoss;
-    bool isEnd;
     
-    isBoss =
-        (TextIsEqual(type, "BossN") ||
-         TextIsEqual(type, "BossE") ||
-         TextIsEqual(type, "BossS") ||
-         TextIsEqual(type, "BossW"));
+    bool isBoss = strstr(type, "Boss") != nullptr && !strstr(type, "Entrance");
          
-    isEnd =
-        (TextIsEqual(type, "EndN") ||
-         TextIsEqual(type, "EndE") ||
-         TextIsEqual(type, "EndS") ||
-         TextIsEqual(type, "EndW"));
+    bool isEnd = strstr(type, "End") != nullptr;
     
     if(TextIsEqual(type,"4DNESW") || TextIsEqual(type,"Spawn") || isBoss || isEnd){
         return true;
@@ -639,11 +629,8 @@ const char* TestDeadEnd(Dungeon& dungeon, const Room& currentRoom){
             //Find boss gridPos
             Vector2 bossGridPos;
             for(int j = 0; j < (int)dungeon.rooms.size(); j++){
-                bool isBoss =
-                (TextIsEqual(dungeon.rooms[j].type, "BossN") ||
-                 TextIsEqual(dungeon.rooms[j].type, "BossE") ||
-                 TextIsEqual(dungeon.rooms[j].type, "BossS") ||
-                 TextIsEqual(dungeon.rooms[j].type, "BossW"));
+
+                bool isBoss = strstr(dungeon.rooms[j].type, "Boss") != nullptr && !strstr(dungeon.rooms[j].type, "Entrance");
                  
                 if(isBoss){
                     bossGridPos = dungeon.rooms[j].gridPos;
@@ -1107,7 +1094,6 @@ void GenerateDungeon(Dungeon& dungeon){
 
         
         int bossRoomIndex = -1;
-        const char* bossRoomOpening;
     
         //Choose boss room
         for(int i = (int)dungeon.rooms.size() - 1; i > -1; i--){
@@ -1121,16 +1107,12 @@ void GenerateDungeon(Dungeon& dungeon){
         //If valid
         if(bossRoomIndex != -1){
             if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyN")){
-                bossRoomOpening = "S";
                 AddRoom(dungeon, "BossN", dungeon.rooms[bossRoomIndex].gridPos);
             } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyE")){
-                bossRoomOpening = "W";
                 AddRoom(dungeon, "BossE", dungeon.rooms[bossRoomIndex].gridPos);
             } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyS")){
-                bossRoomOpening = "N";
                 AddRoom(dungeon, "BossS", dungeon.rooms[bossRoomIndex].gridPos);
             } else if(TextIsEqual(dungeon.rooms[bossRoomIndex].type, "EmptyW")){
-                bossRoomOpening = "E";
                 AddRoom(dungeon, "BossW", dungeon.rooms[bossRoomIndex].gridPos);
             }
         } else {
@@ -1157,13 +1139,13 @@ void GenerateDungeon(Dungeon& dungeon){
             const char* endType;
             generateDungeon = false;  
             
-            if(TextIsEqual(bossRoomOpening, "N")){
+            if(TextIsEqual(dungeon.rooms[endRoomIndex].type, "EmptyS")){
                 endType = "EndN";
-            } else if(TextIsEqual(bossRoomOpening, "E")){
+            } else if(TextIsEqual(dungeon.rooms[endRoomIndex].type, "EmptyW")){
                 endType = "EndE";
-            } if(TextIsEqual(bossRoomOpening, "S")){
+            } if(TextIsEqual(dungeon.rooms[endRoomIndex].type, "EmptyN")){
                 endType = "EndS";
-            } if(TextIsEqual(bossRoomOpening, "W")){
+            } if(TextIsEqual(dungeon.rooms[endRoomIndex].type, "EmptyE")){
                 endType = "EndW";
             }
 
@@ -1224,11 +1206,9 @@ bool ActiveRoomAdjacent(Dungeon& dungeon, const Room& currentRoom){
     bool isBoss;
     
     for(int i = 0; i < (int)dungeon.rooms.size(); i++){
-        isBoss =
-        (TextIsEqual(dungeon.rooms[i].type, "BossN") ||
-         TextIsEqual(dungeon.rooms[i].type, "BossE") ||
-         TextIsEqual(dungeon.rooms[i].type, "BossS") ||
-         TextIsEqual(dungeon.rooms[i].type, "BossW"));
+
+        isBoss = strstr(dungeon.rooms[i].type, "Boss") != nullptr && !strstr(dungeon.rooms[i].type, "Entrance");
+        
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::CLEARED){
             if(!isBoss){
                 if((dungeon.rooms[i].gridPos == currentRoom.gridPos + Vector2{0,-1} && ValidRoomInDirection(dungeon.rooms[i].layoutType.c_str(), 'N'))|| 

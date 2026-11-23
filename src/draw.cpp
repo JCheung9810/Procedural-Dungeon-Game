@@ -9,6 +9,10 @@
 
 #include <raymath.h>
 
+#include <cstring>
+
+using namespace std;
+
 extern Debug debug;
 
 void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& enemies, vector<Projectile>& projectiles, 
@@ -686,17 +690,9 @@ void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Player& p
 
         for(int roomIt = 0; roomIt < (int)dungeon.rooms.size(); roomIt++){
             Room room = dungeon.rooms[roomIt];
-            bool isBoss =
-                (TextIsEqual(room.type, "BossN") ||
-                TextIsEqual(room.type, "BossE") ||
-                TextIsEqual(room.type, "BossS") ||
-                TextIsEqual(room.type, "BossW"));
+            bool isBoss = strstr(room.type, "Boss") != nullptr && !strstr(room.type, "Entrance");
 
-            bool isEnd =
-                (TextIsEqual(room.type, "EndN") ||
-                TextIsEqual(room.type, "EndE") ||
-                TextIsEqual(room.type, "EndS") ||
-                TextIsEqual(room.type, "EndW"));
+            bool isEnd = strstr(room.type, "End") != nullptr;
 
             if(room.state != RoomState::INACTIVE){
                 Texture2D texture = assets.LoadGameTexture("assets/textures/UI/dungeonMinimap.png");

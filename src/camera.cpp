@@ -6,6 +6,10 @@
 
 #include <raymath.h>
 
+#include <cstring>
+
+using namespace std;
+
 extern Debug debug;
 
 void InitializeCamera(Camera2D& camera, Player player, int screenHeight, int screenWidth){
@@ -64,11 +68,7 @@ void UpdateGameCamera(Dungeon& dungeon, Player player, Camera2D& camera){
 
     bool isBoss = false;
     if(playerRoom != -1){
-        isBoss =
-        (TextIsEqual(dungeon.rooms[playerRoom].type, "BossN") ||
-            TextIsEqual(dungeon.rooms[playerRoom].type, "BossE") ||
-            TextIsEqual(dungeon.rooms[playerRoom].type, "BossS") ||
-            TextIsEqual(dungeon.rooms[playerRoom].type, "BossW"));
+        isBoss = strstr(dungeon.rooms[playerRoom].type, "Boss") != nullptr && !strstr(dungeon.rooms[playerRoom].type, "Entrance");
     }
 
     //Camera mode

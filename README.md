@@ -23,15 +23,16 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room clear rewards
 
 # To Do Priority List (Highest to Lowest)
-  - Special rooms (Shop)
+  - Update boss
   - Lobby/main menu
-  - Black layer, change opacity over time when passed through door, 
-  - Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
-  - Remove camera clamp, make camera positioned at some point between player and mouse
-  - Reload mouse cursor
-  - Reload bar above head
   
 # Distant Features
+- Black layer, change opacity over time when passed through door, 
+- Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
+- Remove camera clamp, make camera positioned at some point between player and mouse
+- Shop room
+- Reload mouse cursor
+- Reload bar above head
 - Add shields (temp health, always takes a full 1 hit no matter the damage)
 - Item inventory
 - Breakable room objects
@@ -43,8 +44,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
-- can shorten end room spawning with simple empty type check
-- update isBoss etc with new code
 - Fix usable bools and vals, make it cleaner
 - Build special spawn chance and caps into dungeon.json
 - Make chest drop weapons
