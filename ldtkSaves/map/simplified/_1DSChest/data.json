@@ -36,7 +36,10 @@
 				"width": 24,
 				"height": 24,
 				"color": 1199753,
-				"customFields" : {}
+				"customFields": {
+					"active": false,
+					"visible": true
+				}
 			}
 		],
 		"Wall": [

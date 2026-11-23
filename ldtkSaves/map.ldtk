@@ -11,7 +11,7 @@
 	"iid": "0d346600-bde0-11f1-a8a5-fd950294a5af",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 342,
+	"nextUid": 348,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "Free",
@@ -5160,7 +5160,10 @@
 					"max": null,
 					"regex": null,
 					"acceptFileTypes": null,
-					"defaultOverride": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ false ]
+					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
 					"autoChainRef": true,
@@ -5205,7 +5208,85 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "active",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 347,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "visible",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 346,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ true ]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "Chest",
@@ -5240,7 +5321,85 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "active",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 344,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "visible",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 345,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ true ]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -10355,7 +10514,10 @@
 							"height": 24,
 							"defUid": 337,
 							"px": [228,228],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 344, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 345, "realEditorValues": [] }
+							],
 							"__worldX": -2428,
 							"__worldY": 2580
 						}
@@ -15075,7 +15237,10 @@
 							"height": 24,
 							"defUid": 337,
 							"px": [228,228],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 344, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 345, "realEditorValues": [] }
+							],
 							"__worldX": -1948,
 							"__worldY": 2580
 						}
@@ -19711,7 +19876,10 @@
 							"height": 24,
 							"defUid": 337,
 							"px": [228,228],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 344, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 345, "realEditorValues": [] }
+							],
 							"__worldX": -2428,
 							"__worldY": 2100
 						}
@@ -24316,7 +24484,10 @@
 							"height": 24,
 							"defUid": 337,
 							"px": [228,228],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 344, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 345, "realEditorValues": [] }
+							],
 							"__worldX": -1948,
 							"__worldY": 2100
 						}
@@ -36530,7 +36701,10 @@
 							"height": 32,
 							"defUid": 333,
 							"px": [224,224],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 347, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 346, "realEditorValues": [] }
+							],
 							"__worldX": 944,
 							"__worldY": 2384
 						}
@@ -63725,7 +63899,10 @@
 							"height": 32,
 							"defUid": 333,
 							"px": [224,224],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 347, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 346, "realEditorValues": [] }
+							],
 							"__worldX": 1424,
 							"__worldY": 2384
 						}
@@ -68499,7 +68676,10 @@
 							"height": 32,
 							"defUid": 333,
 							"px": [224,224],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 347, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 346, "realEditorValues": [] }
+							],
 							"__worldX": 464,
 							"__worldY": 2384
 						}
@@ -75687,7 +75867,10 @@
 							"height": 32,
 							"defUid": 333,
 							"px": [224,224],
-							"fieldInstances": [],
+							"fieldInstances": [
+								{ "__identifier": "active", "__type": "Bool", "__value": false, "__tile": null, "defUid": 347, "realEditorValues": [] },
+								{ "__identifier": "visible", "__type": "Bool", "__value": true, "__tile": null, "defUid": 346, "realEditorValues": [] }
+							],
 							"__worldX": -16,
 							"__worldY": 2384
 						}
