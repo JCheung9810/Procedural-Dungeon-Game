@@ -44,7 +44,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Different sized rooms
 
 # Notes to Self
-- Make weapon pickup retain data (ammo)
 - Build special spawn chance and caps into dungeon.json
 - Make usable json
 - Make chest drop weapons

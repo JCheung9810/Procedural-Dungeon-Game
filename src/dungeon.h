@@ -53,6 +53,10 @@ struct RoomUsable {
     Rectangle hitbox;
     Texture2D texture;
 
+    //Weapon data
+    int mag;            //Current ammo in mag
+    int currentAmmo;    //Current ammo in reserve
+
     float yLevel;
     int currentFrame;
     int numFrames;              //For animation

@@ -408,13 +408,19 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                     //If full swap
                     if((int)player.weapons.size() >= player.maxWeapons){
                         string newItemName = usable.name;
+                        int newItemMag = usable.mag;
+                        int newItemCurrentAmmo = usable.currentAmmo;
 
                         usable.name = player.weapons[player.equippedWeaponIndex].name;
                         string itemName = usable.name;
                         itemName.erase(remove(itemName.begin(), itemName.end(), ' '), itemName.end());
                         usable.texture = assets.LoadGameTexture(TextFormat("assets/textures/environment/%sItem.png", itemName.c_str()));
+                        usable.mag = player.weapons[player.equippedWeaponIndex].mag;
+                        usable.currentAmmo = player.weapons[player.equippedWeaponIndex].currentAmmo;
 
                         player.weapons[player.equippedWeaponIndex] = LoadWeapon(newItemName.c_str());
+                        player.weapons[player.equippedWeaponIndex].mag = newItemMag;
+                        player.weapons[player.equippedWeaponIndex].currentAmmo = newItemCurrentAmmo;
                     } else {
                         //If not full, add
                         player.weapons.push_back(LoadWeapon(usable.name.c_str()));
@@ -435,6 +441,10 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                         newUsable.name = "Pistol";
                     }
 
+                    Weapon newWeapon = LoadWeapon(newUsable.name.c_str());
+
+                    newUsable.mag = newWeapon.magSize;
+                    newUsable.currentAmmo = newWeapon.maxAmmo;
                     string itemName = newUsable.name;
                     itemName.erase(remove(itemName.begin(), itemName.end(), ' '), itemName.end());
                     newUsable.texture = assets.LoadGameTexture(TextFormat("assets/textures/environment/%sItem.png", itemName.c_str()));
