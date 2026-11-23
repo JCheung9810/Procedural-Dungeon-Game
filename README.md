@@ -23,7 +23,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room clear rewards
 
 # To Do Priority List (Highest to Lowest)
-  - Special rooms (Shop,chest)
+  - Special rooms (Shop)
   - Lobby/main menu
   - Black layer, change opacity over time when passed through door, 
   - Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
@@ -44,3 +44,6 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 
 # Notes to Self
 - can shorten end room spawning with simple empty type check
+- update isBoss etc with new code
+- Fix usable bools and vals, make it cleaner
+- Build special spawn chance and caps into dungeon.json

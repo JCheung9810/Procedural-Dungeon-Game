@@ -55,13 +55,15 @@ struct RoomUsable {
 
     float yLevel;
     int currentFrame;
-    int numFrames;
+    int numFrames;              //For animation
     float animationTimer;
     float animationTime;
+    int totalFrames;            //For static
     
     bool active;
     bool visible;
     bool collision;
+    bool animated;
 };
 
 struct RoomClearItemSpawnPool {

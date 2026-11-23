@@ -89,17 +89,14 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
 }
 
 void SetRoomInfo(Dungeon& dungeon, Room& room) {
-    bool isEnd =
-            (TextIsEqual(room.type, "EndN") ||
-            TextIsEqual(room.type, "EndE") ||
-            TextIsEqual(room.type, "EndS") ||
-            TextIsEqual(room.type, "EndW"));
 
-    bool isBossEntrance =
-        (TextIsEqual(room.type, "BossEntranceN") ||
-        TextIsEqual(room.type, "BossEntranceE") ||
-        TextIsEqual(room.type, "BossEntranceS") ||
-        TextIsEqual(room.type, "BossEntranceW"));
+    bool isEnd = room.layoutType.find("End") != string::npos;
+
+    bool isBoss = room.layoutType.find("Boss") != string::npos && room.layoutType.find("Entrance") != string::npos;;
+
+    bool isBossEntrance = room.layoutType.find("BossEntrance") != string::npos;;
+
+    bool isSpecial = room.layoutType.find("Chest") != string::npos || room.layoutType.find("Shop") != string::npos;;
 
     //Reset room contents
     room.roomContent.walls.clear();
@@ -114,10 +111,10 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
     
     if(TextIsEqual(room.type, "Spawn")){
         room.state = RoomState::CLEARED;
-    } else if(TextIsEqual(room.type, "BossN") || TextIsEqual(room.type, "BossE") || TextIsEqual(room.type, "BossS") || TextIsEqual(room.type, "BossW")){
+    } else if(isBoss){
         room.numEnemiesToSpawn = 1;
         room.state = RoomState::INACTIVE;
-    } else if(!room.exists || isEnd || isBossEntrance){
+    } else if(!room.exists || isEnd || isBossEntrance || isSpecial){
         room.numEnemiesToSpawn = 0;
         room.state = RoomState::INACTIVE;
         
@@ -259,12 +256,22 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                                 randomNum -= dungeon.roomClearItemSpawnPool[roomClearItemIt].spawnWeight * 100;
                             }
                         }
+                        usable.animated = true;
                     } else if(entity["id"] == "Staircase"){
-                            usable.name = entity["id"];
-                            usable.numFrames = 1;
-                            usable.texture = assets.LoadGameTexture("assets/textures/environment/Staircase.png");
-                            usable.yLevel = entity["y"].get<float>() * scale + room.position.y;
-                            usable.collision = true;
+                        usable.name = entity["id"];
+                        usable.numFrames = 1;
+                        usable.texture = assets.LoadGameTexture("assets/textures/environment/Staircase.png");
+                        usable.yLevel = entity["y"].get<float>() * scale + room.position.y;
+                        usable.collision = true;
+                        usable.animated = false;
+                        usable.totalFrames = 1;
+                    } else if(entity["id"] == "Chest"){
+                        usable.name = entity["id"];
+                        usable.numFrames = 2;
+                        usable.texture = assets.LoadGameTexture("assets/textures/environment/Chest.png");
+                        usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        usable.animated = false;
+                        usable.totalFrames = 2;
                     }
 
                     usable.hitbox = {
@@ -688,35 +695,14 @@ void SortRooms(Dungeon& dungeon){
 void AddRoom(Dungeon& dungeon, const char* type, Vector2 position){   
     
     Vector2 roomPositionOffset;
-    bool isEmpty;
-    bool isBoss;
-    bool isEnd;
-    bool isBossEntrance;
     
-    isEmpty =
-        (TextIsEqual(type, "EmptyN") ||
-         TextIsEqual(type, "EmptyE") ||
-         TextIsEqual(type, "EmptyS") ||
-         TextIsEqual(type, "EmptyW"));
+    bool isEmpty = strstr(type, "Empty") != nullptr;
          
-    isBoss =
-        (TextIsEqual(type, "BossN") ||
-         TextIsEqual(type, "BossE") ||
-         TextIsEqual(type, "BossS") ||
-         TextIsEqual(type, "BossW"));
+    bool isBoss = strstr(type, "Boss") != nullptr && !strstr(type, "Entrance");
         
-    isEnd =
-        (TextIsEqual(type, "EndN") ||
-         TextIsEqual(type, "EndE") ||
-         TextIsEqual(type, "EndS") ||
-         TextIsEqual(type, "EndW"));
+    bool isEnd = strstr(type, "End") != nullptr;
 
-    isBossEntrance =
-        (TextIsEqual(type, "BossEntranceN") ||
-         TextIsEqual(type, "BossEntranceE") ||
-         TextIsEqual(type, "BossEntranceS") ||
-         TextIsEqual(type, "BossEntranceW"));
-       
+    bool isBossEntrance = strstr(type, "BossEntrance") != nullptr;
     
     //Set current room up
     Room room;
@@ -1208,6 +1194,16 @@ void GenerateDungeon(Dungeon& dungeon){
                     newType[0]--;
                 }
             }
+
+
+            if(newType.substr(0, 2) == "1D"){
+                
+                int rand = GetRandomValue(1,100);
+
+                if(rand > 75){
+                    newType = newType + "Chest";
+                }
+            }
             
             dungeon.rooms[i].layoutType = newType;
             SetRoomInfo(dungeon, dungeon.rooms[i]);
@@ -1337,11 +1333,13 @@ void UpdateDungeon(Dungeon& dungeon, vector<EnemyData>& enemyData, Player& playe
         for(int usableIt = 0; usableIt < (int)dungeon.rooms[i].roomContent.usables.size(); usableIt++){
             RoomUsable& usable = dungeon.rooms[i].roomContent.usables[usableIt];
 
-            usable.animationTimer -= deltaTime;
+            if(usable.animated){
+                usable.animationTimer -= deltaTime;
 
-            if(usable.animationTimer <= 0.0f){
-                usable.animationTimer = usable.animationTime;
-                usable.currentFrame = (usable.currentFrame + 1) % usable.numFrames;
+                if(usable.animationTimer <= 0.0f){
+                    usable.animationTimer = usable.animationTime;
+                    usable.currentFrame = (usable.currentFrame + 1) % usable.numFrames;
+                }
             }
         }
     }

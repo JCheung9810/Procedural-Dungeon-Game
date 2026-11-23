@@ -351,7 +351,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
         for(int usableIt = 0; usableIt < (int)dungeon.rooms[roomIt].roomContent.usables.size(); usableIt++){
             RoomUsable& usable = dungeon.rooms[roomIt].roomContent.usables[usableIt];
 
-            if(IsKeyPressed(KEY_F) && CheckCollisionRecs(usable.hitbox, player.hurtbox) && usable.visible){
+            if(IsKeyPressed(KEY_F) && CheckCollisionRecs(usable.hitbox, player.hurtbox) && usable.visible && !usable.active){
                 usable.active = true;
 
                 if(usable.type == "RoomClearRewardSpawn"){
@@ -402,6 +402,8 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                     }
                     dungeon.maxRooms += 2;
                     GenerateDungeon(dungeon);
+                } else if(usable.type == "Chest"){
+                    usable.currentFrame++;
                 }
 
                 

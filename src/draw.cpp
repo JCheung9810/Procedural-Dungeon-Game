@@ -125,7 +125,7 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
                         if(usable.visible){
                             if(usable.yLevel < player.hitbox.y + player.hitbox.height){
 
-                                if(usable.type == "RoomClearRewardSpawn"){
+                                if(usable.type == "RoomClearRewardSpawn" || usable.type == "Chest"){
                                     tileSize = 24 * scale;
                                 } else if(usable.type == "Staircase"){
                                     tileSize = 32 * scale;
@@ -134,7 +134,7 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
                                 int tilesY = (int)roundf(usable.hitbox.height / tileSize);
 
                                 int spriteRow;
-                                if(CheckCollisionRecs(usable.hitbox, player.hurtbox)){
+                                if(CheckCollisionRecs(usable.hitbox, player.hurtbox) && !usable.active){
                                     spriteRow = 1;
                                 } else {
                                     spriteRow = 0;
@@ -142,10 +142,16 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
 
                                 for(int x = 0; x < tilesX; x++){
                                     for(int y = 0; y < tilesY; y++){
+                                        float width;
+                                        if(usable.animated){
+                                            width = (float)usable.texture.width / (float)usable.numFrames;
+                                        } else {
+                                            width = (float)usable.texture.width / (float)usable.totalFrames;
+                                        }
                                         Rectangle src{
                                             usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
                                             spriteRow * (float)usable.texture.height / 2,
-                                            (float)usable.texture.width / (float)usable.numFrames,
+                                            width,
                                             (float)usable.texture.height / 2
                                         };
                                         Rectangle dest = {
@@ -295,7 +301,7 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
                         if(usable.visible){
                             if(usable.yLevel >= player.hitbox.y + player.hitbox.height){
                                 
-                                if(usable.type == "RoomClearRewardSpawn"){
+                                if(usable.type == "RoomClearRewardSpawn" || usable.type == "Chest"){
                                     tileSize = 24 * scale;
                                 } else if(usable.type == "Staircase"){
                                     tileSize = 32 * scale;
@@ -304,7 +310,7 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
                                 int tilesY = (int)roundf(usable.hitbox.height / tileSize);
 
                                 int spriteRow;
-                                if(CheckCollisionRecs(usable.hitbox, player.hurtbox)){
+                                if(CheckCollisionRecs(usable.hitbox, player.hurtbox) && !usable.active){
                                     spriteRow = 1;
                                 } else {
                                     spriteRow = 0;
@@ -312,10 +318,16 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
 
                                 for(int x = 0; x < tilesX; x++){
                                     for(int y = 0; y < tilesY; y++){
+                                        float width;
+                                        if(usable.animated){
+                                            width = (float)usable.texture.width / (float)usable.numFrames;
+                                        } else {
+                                            width = (float)usable.texture.width / (float)usable.totalFrames;
+                                        }
                                         Rectangle src{
                                             usable.currentFrame * (float)usable.texture.width / (float)usable.numFrames,
                                             spriteRow * (float)usable.texture.height / 2,
-                                            (float)usable.texture.width / (float)usable.numFrames,
+                                            width,
                                             (float)usable.texture.height / 2
                                         };
                                         Rectangle dest = {
@@ -728,16 +740,16 @@ void DrawMinimap(bool minimap, Vector2 minimapPos, float minimapScale, Player& p
                     } else if(room.layoutType == "3DNSW"){
                         row = 2;
                         col = 3;
-                    } else if(room.layoutType == "1DN" || room.layoutType == "EndN"){
+                    } else if(room.layoutType == "1DN" || room.layoutType == "EndN" || room.layoutType == "1DNChest"){
                         row = 3;
                         col = 0;
-                    } else if(room.layoutType == "1DE" || room.layoutType == "EndE"){
+                    } else if(room.layoutType == "1DE" || room.layoutType == "EndE" || room.layoutType == "1DEChest"){
                         row = 3;
                         col = 1;
-                    } else if(room.layoutType == "1DS" || room.layoutType == "EndS"){
+                    } else if(room.layoutType == "1DS" || room.layoutType == "EndS" || room.layoutType == "1DSChest"){
                         row = 3;
                         col = 2;
-                    } else if(room.layoutType == "1DW" || room.layoutType == "EndW"){
+                    } else if(room.layoutType == "1DW" || room.layoutType == "EndW" || room.layoutType == "1DWChest"){
                         row = 3;
                         col = 3;
                     } else if(room.layoutType == "4DNESW" || room.layoutType == "Spawn"){
