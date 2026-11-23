@@ -47,3 +47,4 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - update isBoss etc with new code
 - Fix usable bools and vals, make it cleaner
 - Build special spawn chance and caps into dungeon.json
+- Make chest drop weapons
