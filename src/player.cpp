@@ -6,6 +6,7 @@
 
 #include "json.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <cstring>
 #include <string>
@@ -402,12 +403,63 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                     }
                     dungeon.maxRooms += 2;
                     GenerateDungeon(dungeon);
+                } else if(usable.type == "Weapon"){
+
+                    //If full swap
+                    if((int)player.weapons.size() >= player.maxWeapons){
+                        string newItemName = usable.name;
+
+                        usable.name = player.weapons[player.equippedWeaponIndex].name;
+                        string itemName = usable.name;
+                        itemName.erase(remove(itemName.begin(), itemName.end(), ' '), itemName.end());
+                        usable.texture = assets.LoadGameTexture(TextFormat("assets/textures/environment/%sItem.png", itemName.c_str()));
+
+                        player.weapons[player.equippedWeaponIndex] = LoadWeapon(newItemName.c_str());
+                    } else {
+                        //If not full, add
+                        player.weapons.push_back(LoadWeapon(usable.name.c_str()));
+                    }
+                    usable.active = false;
                 } else if(usable.type == "Chest"){
                     usable.currentFrame++;
+
+                    RoomUsable newUsable;
+
+                    int rand = GetRandomValue(1,100);
+
+                    if(rand <= 25){
+                        newUsable.name = "Uzi";
+                    } else if(rand <= 50){
+                        newUsable.name = "Double Barrel";
+                    } else if(rand <= 100){
+                        newUsable.name = "Pistol";
+                    }
+
+                    string itemName = newUsable.name;
+                    itemName.erase(remove(itemName.begin(), itemName.end(), ' '), itemName.end());
+                    newUsable.texture = assets.LoadGameTexture(TextFormat("assets/textures/environment/%sItem.png", itemName.c_str()));
+
+
+                    newUsable.type = "Weapon";
+                    newUsable.hitbox = {usable.hitbox.x + (usable.hitbox.width/2.0f) - 40.0f, usable.hitbox.y + (usable.hitbox.height/2.0f) - 50.0f, 90.0f, 90.0f};
+                    
+                    newUsable.yLevel = 1000.0f;
+                    newUsable.currentFrame = 0;
+                    newUsable.numFrames = 1;              //For animation
+                    newUsable.animationTimer = 0.0f;
+                    newUsable.animationTime = 0.0f;
+                    newUsable.totalFrames = 1;            //For static
+                    
+                    newUsable.active = false;
+                    newUsable.visible = true;
+                    newUsable.collision = false;
+                    newUsable.animated = false;
+
+                    dungeon.rooms[roomIt].roomContent.usables.push_back(newUsable);
                 }
 
                 
-
+                break;
             }
         }
     }

@@ -270,6 +270,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                         usable.numFrames = 2;
                         usable.texture = assets.LoadGameTexture("assets/textures/environment/Chest.png");
                         usable.yLevel = (entity["y"].get<float>() + 17) * scale + room.position.y;
+                        usable.collision = true;
                         usable.animated = false;
                         usable.totalFrames = 2;
                     }
@@ -1182,7 +1183,7 @@ void GenerateDungeon(Dungeon& dungeon){
                 
                 int rand = GetRandomValue(1,100);
 
-                if(rand > 75){
+                if(rand > 0){
                     newType = newType + "Chest";
                 }
             }
