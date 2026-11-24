@@ -215,13 +215,13 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                         player.hitbox.x = player.position.x + 1.0f;
                     }
                 }
-                //Door collision
-                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
-                    if(dungeon.rooms[i].roomContent.doors[j].active && CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.doors[j].hitbox)){
+                //Gate collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.gates.size(); j++){
+                    if(dungeon.rooms[i].roomContent.gates[j].active && CheckCollisionRecs(player.hitbox,dungeon.rooms[i].roomContent.gates[j].hitbox)){
                         if (movementDirection.x > 0){
-                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x - player.hitbox.width - 1.0f;
+                            player.position.x = dungeon.rooms[i].roomContent.gates[j].hitbox.x - player.hitbox.width - 1.0f;
                         } else if (movementDirection.x < 0){
-                            player.position.x = dungeon.rooms[i].roomContent.doors[j].hitbox.x + dungeon.rooms[i].roomContent.doors[j].hitbox.width - 1.0f;
+                            player.position.x = dungeon.rooms[i].roomContent.gates[j].hitbox.x + dungeon.rooms[i].roomContent.gates[j].hitbox.width - 1.0f;
                         }
                         player.hurtbox.x = player.position.x;
                         player.hitbox.x = player.position.x + 1.0f;
@@ -277,13 +277,13 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                         player.hitbox.y = player.position.y + player.hurtbox.height - 4.0f;
                     }
                 }
-                //Door collision
-                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
-                    if(dungeon.rooms[i].roomContent.doors[j].active && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.doors[j].hitbox)){
+                //Gate collision
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.gates.size(); j++){
+                    if(dungeon.rooms[i].roomContent.gates[j].active && CheckCollisionRecs(player.hitbox, dungeon.rooms[i].roomContent.gates[j].hitbox)){
                         if(movementDirection.y > 0){
-                            player.position.y = dungeon.rooms[i].roomContent.doors[j].hitbox.y - (player.hitbox.y - player.position.y) - player.hitbox.height;
+                            player.position.y = dungeon.rooms[i].roomContent.gates[j].hitbox.y - (player.hitbox.y - player.position.y) - player.hitbox.height;
                         } else if(movementDirection.y < 0){
-                            player.position.y = dungeon.rooms[i].roomContent.doors[j].hitbox.y + dungeon.rooms[i].roomContent.doors[j].hitbox.height - (player.hitbox.y - player.position.y);
+                            player.position.y = dungeon.rooms[i].roomContent.gates[j].hitbox.y + dungeon.rooms[i].roomContent.gates[j].hitbox.height - (player.hitbox.y - player.position.y);
                         }
                         player.hurtbox.y = player.position.y;
                         player.hitbox.y = player.position.y + player.hurtbox.height - 4.0f;

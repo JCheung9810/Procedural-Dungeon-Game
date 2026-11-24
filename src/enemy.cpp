@@ -247,15 +247,15 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                             }
                         }
                     }
-                    //Doors collision
-                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
-                        Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
+                    //Gates collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.gates.size(); k++){
+                        Rectangle gate = dungeon.rooms[j].roomContent.gates[k].hitbox;
 
-                        if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
-                            if(previousPosition.x + enemies[i].hitbox.width <= door.x){
-                                enemies[i].position.x = door.x - enemies[i].hitbox.width;
-                            } else if(previousPosition.x >= door.x + door.width){
-                                enemies[i].position.x = door.x + door.width;
+                        if(dungeon.rooms[j].roomContent.gates[k].active && CheckCollisionRecs(enemies[i].hitbox, gate)){
+                            if(previousPosition.x + enemies[i].hitbox.width <= gate.x){
+                                enemies[i].position.x = gate.x - enemies[i].hitbox.width;
+                            } else if(previousPosition.x >= gate.x + gate.width){
+                                enemies[i].position.x = gate.x + gate.width;
                             }
                         }
                     }
@@ -289,15 +289,15 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                             }
                         }
                     }
-                    //Doors collision
-                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
-                        Rectangle door = dungeon.rooms[j].roomContent.doors[k].hitbox;
+                    //Gates collision
+                    for(int k = 0; k < (int)dungeon.rooms[j].roomContent.gates.size(); k++){
+                        Rectangle gate = dungeon.rooms[j].roomContent.gates[k].hitbox;
 
-                        if(dungeon.rooms[j].roomContent.doors[k].active && CheckCollisionRecs(enemies[i].hitbox, door)){
-                            if(previousPosition.y + enemies[i].hitbox.height <= door.y){
-                                enemies[i].position.y = door.y - enemies[i].hitbox.height;
-                            } else if(previousPosition.y >= door.y + door.height){
-                                enemies[i].position.y = door.y + door.height;
+                        if(dungeon.rooms[j].roomContent.gates[k].active && CheckCollisionRecs(enemies[i].hitbox, gate)){
+                            if(previousPosition.y + enemies[i].hitbox.height <= gate.y){
+                                enemies[i].position.y = gate.y - enemies[i].hitbox.height;
+                            } else if(previousPosition.y >= gate.y + gate.height){
+                                enemies[i].position.y = gate.y + gate.height;
                             }
                         }
                     }

@@ -117,7 +117,7 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
 
     //Reset room contents
     room.roomContent.walls.clear();
-    room.roomContent.doors.clear();
+    room.roomContent.gates.clear();
     room.roomContent.decor.clear();
     room.roomContent.breakables.clear();
     room.roomContent.usables.clear();
@@ -238,19 +238,19 @@ void SetRoomInfo(Dungeon& dungeon, Room& room) {
                         entity["height"].get<float>() * scale
                     };
                 } else if(entity["layer"] == "Doors"){
-                    RoomDoor door;
+                    RoomGate gate;
 
-                    door.spriteID = GetSpriteID(i.key());
+                    gate.spriteID = GetSpriteID(i.key());
 
-                    door.hitbox = {
+                    gate.hitbox = {
                         entity["x"].get<float>() * scale + room.position.x,
                         entity["y"].get<float>() * scale + room.position.y,
                         entity["width"].get<float>() * scale,
                         entity["height"].get<float>() * scale
                     };
 
-                    door.active = false;
-                    room.roomContent.doors.push_back(door);
+                    gate.active = false;
+                    room.roomContent.gates.push_back(gate);
                 } else if(entity["layer"] == "Usable"){
                     RoomUsable usable;
 
@@ -1261,10 +1261,10 @@ void UpdateDungeon(Dungeon& dungeon, vector<EnemyData>& enemyData, Player& playe
         //Update room state to active if player is in the room
         if(dungeon.rooms[i].exists && dungeon.rooms[i].state == RoomState::DISCOVERED && CheckCollisionRecs(dungeon.rooms[i].roomContent.hitbox, player.hurtbox)){
             dungeon.rooms[i].state = RoomState::ACTIVE;
-            //Close doors
+            //Close gates
             if(dungeon.rooms[i].numEnemiesToSpawn != 0){
-                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
-                    dungeon.rooms[i].roomContent.doors[j].active = true;
+                for(int j = 0; j < (int)dungeon.rooms[i].roomContent.gates.size(); j++){
+                    dungeon.rooms[i].roomContent.gates[j].active = true;
                 }
             }
 
@@ -1291,9 +1291,9 @@ void UpdateDungeon(Dungeon& dungeon, vector<EnemyData>& enemyData, Player& playe
                 if(dungeon.rooms[i].numEnemiesSpawned >= dungeon.rooms[i].numEnemiesToSpawn){
                     //Room cleared
                     dungeon.rooms[i].state = RoomState::CLEARED;
-                    //Open doors
-                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.doors.size(); j++){
-                        dungeon.rooms[i].roomContent.doors[j].active = false;
+                    //Open gates
+                    for(int j = 0; j < (int)dungeon.rooms[i].roomContent.gates.size(); j++){
+                        dungeon.rooms[i].roomContent.gates[j].active = false;
                     }
                     //Spawn room clear reward
                     for(int j = 0; j < (int)dungeon.rooms[i].roomContent.usables.size(); j++){

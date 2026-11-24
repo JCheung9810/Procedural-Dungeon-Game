@@ -56,31 +56,31 @@ void DrawGame(Camera2D camera, Player& player, Dungeon& dungeon, vector<Enemy>& 
                         WHITE
                     );
 
-                    //Draw doors
-                    for(int doorIt = 0; doorIt < (int)room.roomContent.doors.size(); doorIt++){
-                        //Temporary: Only draw active doors
-                        if(!room.roomContent.doors[doorIt].active){
+                    //Draw gates
+                    for(int gateIt = 0; gateIt < (int)room.roomContent.gates.size(); gateIt++){
+                        //Temporary: Only draw active gates
+                        if(!room.roomContent.gates[gateIt].active){
                             continue;
                         }
 
-                        RoomDoor& door = room.roomContent.doors[doorIt];
+                        RoomGate& gate = room.roomContent.gates[gateIt];
 
                         tileSize = 16 * scale;
-                        int tilesX = (int)roundf(door.hitbox.width / tileSize);
-                        int tilesY = (int)roundf(door.hitbox.height / tileSize);
+                        int tilesX = (int)roundf(gate.hitbox.width / tileSize);
+                        int tilesY = (int)roundf(gate.hitbox.height / tileSize);
 
                         for(int x = 0; x < tilesX; x++){
                             for(int y = 0; y < tilesY; y++){
                                 Rectangle dest = {
-                                    door.hitbox.x + x * tileSize,
-                                    door.hitbox.y + y * tileSize,
+                                    gate.hitbox.x + x * tileSize,
+                                    gate.hitbox.y + y * tileSize,
                                     tileSize,
                                     tileSize
                                 };
 
                                 DrawTexturePro(
                                     assets.textures.at("assets/textures/environment/dungeonTileset.png"),
-                                    assets.spriteInfo[door.spriteID].textureSrc,
+                                    assets.spriteInfo[gate.spriteID].textureSrc,
                                     dest,
                                     Vector2{0, 0},
                                     0.0f,

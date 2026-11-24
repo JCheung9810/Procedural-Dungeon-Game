@@ -168,7 +168,7 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
 
         bool collisionDetected = false;
 
-        //Check walls/decor/doors collision
+        //Check walls/decor/gates collision
         for(int j = 0; j < (int)dungeon.rooms.size() && !collisionDetected; j++){
 
             if(!dungeon.rooms[j].exists)
@@ -218,10 +218,10 @@ void UpdateProjectiles(vector<Projectile>& projectiles, Dungeon& dungeon, vector
             if(collisionDetected)
                 break;
 
-            for(int k = 0; k < (int)dungeon.rooms[j].roomContent.doors.size(); k++){
+            for(int k = 0; k < (int)dungeon.rooms[j].roomContent.gates.size(); k++){
 
-                if(dungeon.rooms[j].roomContent.doors[k].active &&
-                   CheckCollisionRecs(dungeon.rooms[j].roomContent.doors[k].hitbox, projectiles[i].hitbox)){
+                if(dungeon.rooms[j].roomContent.gates[k].active &&
+                   CheckCollisionRecs(dungeon.rooms[j].roomContent.gates[k].hitbox, projectiles[i].hitbox)){
                     collisionDetected = true;
                     break;
                 }
