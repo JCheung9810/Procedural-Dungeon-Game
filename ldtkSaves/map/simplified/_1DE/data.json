@@ -100,9 +100,9 @@
 				"customFields" : {}
 			}
 		],
-		"VerticalDoor": [
+		"VerticalGate": [
 			{
-				"id": "VerticalDoor",
+				"id": "VerticalGate",
 				"iid": "e72cf5c1-bde0-11f1-bcee-539eee532c17",
 				"layer": "Doors",
 				"x": 384,

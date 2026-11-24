@@ -92,9 +92,9 @@
 				"customFields" : {}
 			}
 		],
-		"HorizontalDoor": [
+		"HorizontalGate": [
 			{
-				"id": "HorizontalDoor",
+				"id": "HorizontalGate",
 				"iid": "bc1b43a3-bde0-11f1-bcee-bda4f5821055",
 				"layer": "Doors",
 				"x": 224,

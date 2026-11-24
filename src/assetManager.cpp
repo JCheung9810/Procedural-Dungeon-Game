@@ -116,8 +116,8 @@ void AssetManager::LoadSpriteInfo(){
     SetSpriteInfo(MediumWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(LargeWall, 12, 1, borderSpacing, spacing, size);
     SetSpriteInfo(FitWall, 12, 1, borderSpacing, spacing, size);
-    SetSpriteInfo(VerticalDoor, 13, 1, borderSpacing, spacing, size);
-    SetSpriteInfo(HorizontalDoor, 13, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(VerticalGate, 13, 1, borderSpacing, spacing, size);
+    SetSpriteInfo(HorizontalGate, 13, 1, borderSpacing, spacing, size);
 
     //Decor walls
     SetSpriteInfo(HalfWallBottom, 13, 2, borderSpacing, spacing, size);
@@ -162,8 +162,8 @@ SpriteID GetSpriteID(const string& name) {
         {"MediumWall", MediumWall},
         {"LargeWall", LargeWall},
         {"FitWall", FitWall},
-        {"VerticalDoor", VerticalDoor},
-        {"HorizontalDoor", HorizontalDoor},
+        {"VerticalGate", VerticalGate},
+        {"HorizontalGate", HorizontalGate},
         {"HalfWallBottom", HalfWallBottom},
         {"WallLeft", WallLeft},
         {"WallRight", WallRight},

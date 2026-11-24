@@ -88,9 +88,9 @@
 				"customFields" : {}
 			}
 		],
-		"VerticalDoor": [
+		"VerticalGate": [
 			{
-				"id": "VerticalDoor",
+				"id": "VerticalGate",
 				"iid": "f8afa556-bde0-11f1-bcee-abc1ea81f890",
 				"layer": "Doors",
 				"x": 80,
@@ -101,9 +101,9 @@
 				"customFields" : {}
 			}
 		],
-		"HorizontalDoor": [
+		"HorizontalGate": [
 			{
-				"id": "HorizontalDoor",
+				"id": "HorizontalGate",
 				"iid": "f8afa557-bde0-11f1-bcee-d75192c41e3c",
 				"layer": "Doors",
 				"x": 224,

@@ -100,9 +100,9 @@
 				"customFields" : {}
 			}
 		],
-		"VerticalDoor": [
+		"VerticalGate": [
 			{
-				"id": "VerticalDoor",
+				"id": "VerticalGate",
 				"iid": "3eb66f25-bde0-11f1-bcee-11797a8d9531",
 				"layer": "Doors",
 				"x": 384,
@@ -113,9 +113,9 @@
 				"customFields" : {}
 			}
 		],
-		"HorizontalDoor": [
+		"HorizontalGate": [
 			{
-				"id": "HorizontalDoor",
+				"id": "HorizontalGate",
 				"iid": "3eb66f27-bde0-11f1-bcee-2bc2eb9fd68b",
 				"layer": "Doors",
 				"x": 224,
@@ -126,11 +126,11 @@
 				"customFields" : {}
 			},
 			{
-				"id": "HorizontalDoor",
+				"id": "HorizontalGate",
 				"iid": "3eb66f28-bde0-11f1-bcee-912bf3dfc3d5",
 				"layer": "Doors",
 				"x": 224,
-				"y": 384,
+				"y": 400,
 				"width": 32,
 				"height": 16,
 				"color": 15389866,

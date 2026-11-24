@@ -26,34 +26,21 @@
 				"customFields" : {}
 			}
 		],
-		"VerticalDoor": [
+		"HorizontalGate": [
 			{
-				"id": "VerticalDoor",
-				"iid": "a21bdbb5-bde0-11f1-8f43-a7ef4b757e24",
+				"id": "HorizontalGate",
+				"iid": "f46d7a90-e4f0-11f1-93ae-0f0798ac2ae5",
 				"layer": "Doors",
-				"x": 896,
-				"y": 704,
-				"width": 16,
-				"height": 32,
+				"x": 704,
+				"y": 928,
+				"width": 32,
+				"height": 16,
 				"color": 15389866,
 				"customFields" : {}
 			},
 			{
-				"id": "VerticalDoor",
-				"iid": "a21bdbb6-bde0-11f1-8f43-150f9c5f451a",
-				"layer": "Doors",
-				"x": 528,
-				"y": 704,
-				"width": 16,
-				"height": 32,
-				"color": 15389866,
-				"customFields" : {}
-			}
-		],
-		"HorizontalDoor": [
-			{
-				"id": "HorizontalDoor",
-				"iid": "31441cc0-bde0-11f1-8f43-bfbce4f451ad",
+				"id": "HorizontalGate",
+				"iid": "f534c230-e4f0-11f1-93ae-b7d19b3305bc",
 				"layer": "Doors",
 				"x": 704,
 				"y": 528,
@@ -61,15 +48,28 @@
 				"height": 16,
 				"color": 15389866,
 				"customFields" : {}
+			}
+		],
+		"VerticalGate": [
+			{
+				"id": "VerticalGate",
+				"iid": "f641ec70-e4f0-11f1-93ae-bdf455430610",
+				"layer": "Doors",
+				"x": 528,
+				"y": 704,
+				"width": 16,
+				"height": 32,
+				"color": 15389866,
+				"customFields" : {}
 			},
 			{
-				"id": "HorizontalDoor",
-				"iid": "3206f790-bde0-11f1-8f43-bf5ecbb7ef2f",
+				"id": "VerticalGate",
+				"iid": "f70c4150-e4f0-11f1-93ae-d7cba3ebd162",
 				"layer": "Doors",
-				"x": 704,
-				"y": 928,
-				"width": 32,
-				"height": 16,
+				"x": 896,
+				"y": 704,
+				"width": 16,
+				"height": 32,
 				"color": 15389866,
 				"customFields" : {}
 			}

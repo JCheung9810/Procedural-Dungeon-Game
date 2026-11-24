@@ -92,9 +92,9 @@
 				"customFields" : {}
 			}
 		],
-		"VerticalDoor": [
+		"VerticalGate": [
 			{
-				"id": "VerticalDoor",
+				"id": "VerticalGate",
 				"iid": "2a101f56-bde0-11f1-b98d-85e66794f4d3",
 				"layer": "Doors",
 				"x": 384,
@@ -105,7 +105,7 @@
 				"customFields" : {}
 			},
 			{
-				"id": "VerticalDoor",
+				"id": "VerticalGate",
 				"iid": "2a101f57-bde0-11f1-b98d-7386698cb1a1",
 				"layer": "Doors",
 				"x": 80,
@@ -116,9 +116,9 @@
 				"customFields" : {}
 			}
 		],
-		"HorizontalDoor": [
+		"HorizontalGate": [
 			{
-				"id": "HorizontalDoor",
+				"id": "HorizontalGate",
 				"iid": "2a101f58-bde0-11f1-b98d-812b51f6bfa0",
 				"layer": "Doors",
 				"x": 224,
@@ -129,11 +129,11 @@
 				"customFields" : {}
 			},
 			{
-				"id": "HorizontalDoor",
+				"id": "HorizontalGate",
 				"iid": "2a101f59-bde0-11f1-b98d-c11d918487c8",
 				"layer": "Doors",
 				"x": 224,
-				"y": 384,
+				"y": 400,
 				"width": 32,
 				"height": 16,
 				"color": 15389866,
