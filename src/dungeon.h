@@ -90,6 +90,7 @@ struct FloorSpawnPool {
     int maxEnemiesPerWave;
 
     vector<EnemySpawnInfo> enemySpawnInfo;
+    vector<EnemySpawnInfo> bossSpawnInfo;
     
 };
 

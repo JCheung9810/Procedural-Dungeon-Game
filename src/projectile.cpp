@@ -141,9 +141,6 @@ void FireProjectile(vector<Projectile>& projectiles, float* playerToMouseRotatio
         PlaySound(enemy->weapon.shotSound);
         enemy->attackCD = enemy->attackRate;
         enemy->attackState = EnemyAttackState::IDLE;
-        if(TextIsEqual(enemy->name, "Dummy Suicide Bomber")){
-            enemy->health = 0.0f;
-        }
     }
 }
 

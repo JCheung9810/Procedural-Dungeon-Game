@@ -45,6 +45,7 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
             floorSpawnPool.minEnemiesPerRoom = floorInfo.at("minEnemiesPerRoom").get<int>();
             floorSpawnPool.maxEnemiesPerRoom = floorInfo.at("maxEnemiesPerRoom").get<int>();
 
+            //Normal enemy spawn pool
             const auto& enemyPool = floorInfo.at("enemyPool");
 
             for(int j = 0; j < (int)enemyPool.size(); j++){
@@ -58,6 +59,22 @@ void InitializeDungeon(const char* filePath, Dungeon& dungeon) {
                 enemySpawnInfo.spawnWeight = enemyPool[j].at("spawnWeight").get<float>();
                 
                 floorSpawnPool.enemySpawnInfo.push_back(enemySpawnInfo);
+            }
+
+            //Boss spawn bool
+            const auto& enemyBossPool = floorInfo.at("enemyBossPool");
+
+            for(int j = 0; j < (int)enemyBossPool.size(); j++){
+
+                EnemySpawnInfo bossSpawnInfo;
+                
+                string name = enemyBossPool[j].at("name").get<string>();
+
+                bossSpawnInfo.name = strdup(name.c_str());
+
+                bossSpawnInfo.spawnWeight = enemyBossPool[j].at("spawnWeight").get<float>();
+                
+                floorSpawnPool.bossSpawnInfo.push_back(bossSpawnInfo);
             }
             
             dungeon.floorSpawnPools.push_back(floorSpawnPool);
@@ -320,7 +337,11 @@ void AssignRoomEnemies(Dungeon& dungeon, Room& room) {
     if(dungeon.floor < 0 || dungeon.floor >= (int)dungeon.floorSpawnPools.size()) 
         return;
 
-    const auto& spawnPool = dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo;
+    bool isBoss = room.layoutType.find("Boss") != string::npos && room.layoutType.find("Entrance") == string::npos;
+
+    const auto& spawnPool = isBoss
+    ? dungeon.floorSpawnPools[dungeon.floor].bossSpawnInfo
+    : dungeon.floorSpawnPools[dungeon.floor].enemySpawnInfo;
 
     if(spawnPool.empty()) 
         return;
@@ -329,6 +350,7 @@ void AssignRoomEnemies(Dungeon& dungeon, Room& room) {
 
     for(int k = 0; k < room.numEnemiesToSpawn; k++){
         float randomNum = (float)GetRandomValue(0, 9999) / 10000.0f;
+
 
         for(int entityIt = 0; entityIt < (int)spawnPool.size(); entityIt++){
             const EnemySpawnInfo& enemyInfo = spawnPool[entityIt];
@@ -1183,7 +1205,7 @@ void GenerateDungeon(Dungeon& dungeon){
                 
                 int rand = GetRandomValue(1,100);
 
-                if(rand > 0){
+                if(rand > 75){
                     newType = newType + "Chest";
                 }
             }

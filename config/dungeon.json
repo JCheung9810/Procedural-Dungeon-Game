@@ -23,6 +23,20 @@
                     "name": "Dummy Suicide Bomber",
                     "spawnWeight": 0.10
                 }
+            ],
+            "enemyBossPool": [
+                {   
+                    "name": "Dummy Pistol Boss",
+                    "spawnWeight": 0.55
+                },
+                {
+                    "name": "Dummy Double Barrel Boss",
+                    "spawnWeight": 0.30
+                },
+                {   
+                    "name": "Dummy Suicide Bomber Boss",
+                    "spawnWeight": 0.15
+                }
             ]
         },
         {
@@ -40,6 +54,20 @@
                 },
                 {   
                     "name": "Dummy Suicide Bomber",
+                    "spawnWeight": 0.15
+                }
+            ],
+            "enemyBossPool": [
+                {   
+                    "name": "Dummy Pistol Boss",
+                    "spawnWeight": 0.55
+                },
+                {
+                    "name": "Dummy Double Barrel Boss",
+                    "spawnWeight": 0.30
+                },
+                {   
+                    "name": "Dummy Suicide Bomber Boss",
                     "spawnWeight": 0.15
                 }
             ]
@@ -60,6 +88,20 @@
                 {   
                     "name": "Dummy Suicide Bomber",
                     "spawnWeight": 0.20
+                }
+            ],
+            "enemyBossPool": [
+                {   
+                    "name": "Dummy Pistol Boss",
+                    "spawnWeight": 0.55
+                },
+                {
+                    "name": "Dummy Double Barrel Boss",
+                    "spawnWeight": 0.30
+                },
+                {   
+                    "name": "Dummy Suicide Bomber Boss",
+                    "spawnWeight": 0.15
                 }
             ]
         }

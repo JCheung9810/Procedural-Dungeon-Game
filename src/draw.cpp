@@ -589,6 +589,9 @@ void DrawEnemies(vector<Enemy>& enemies){
                 Rectangle srcRec;
                 Rectangle destRec;
                 Vector2 enemyTextureSize = {80.0f, 80.0f};
+                if(strstr(enemies[i].name, "Boss")){
+                    enemyTextureSize *= 2.0f;
+                }
                 float frameWidth = (float)enemies[i].texture.width / enemies[i].walkAnimationFrames;
                 int textureRow;
                 if(enemies[i].status != EnemyStatus::DEAD){

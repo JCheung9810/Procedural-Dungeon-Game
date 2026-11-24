@@ -179,26 +179,14 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
             Vector2 previousPosition = enemies[i].position;
             Vector2 vectorToPlayer = player.center - enemies[i].center;
             float distanceToPlayer = Vector2Length(vectorToPlayer);
-            float minDistanceToPlayer;
-            float maxDistanceToPlayer;
+            float maxDistanceToPlayer = enemies[i].maxRange;
+            float minDistanceToPlayer = enemies[i].minRange;
 
             enemies[i].movementVector = Vector2Scale({(cos(rot) * enemies[i].speed), (sin(rot) * enemies[i].speed)}, deltaTime);
 
             //Movement pattern
             if(enemies[i].status != EnemyStatus::STUNNED){
-                if(TextIsEqual(enemies[i].name,"Dummy Pistol") || TextIsEqual(enemies[i].name,"Dummy Double Barrel")){
-                    if(TextIsEqual(enemies[i].name,"Dummy Pistol")){
-                        maxDistanceToPlayer = 250.0f;
-                        minDistanceToPlayer = 225.0f;
-                    } else if(TextIsEqual(enemies[i].name,"Dummy Double Barrel")){
-                        maxDistanceToPlayer = 180.0f;
-                        minDistanceToPlayer = 150.0f;
-                    } else {
-                        maxDistanceToPlayer = 60.0f;
-                        minDistanceToPlayer = 50.0f;
-                        TraceLog(LOG_ERROR, "Enemy max and min distance not set");
-                    }
-
+                if(TextIsEqual(enemies[i].type, "Ranged")){
                     if(distanceToPlayer >= maxDistanceToPlayer){
                         enemies[i].position.x += enemies[i].movementVector.x;
                         enemies[i].position.y += enemies[i].movementVector.y;
@@ -210,7 +198,7 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                     } else {
                         enemies[i].movementState = EnemyMovementState::IDLE;
                     }
-                } else if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber") || TextIsEqual(enemies[i].name,"Dummy God")){
+                } else if(TextIsEqual(enemies[i].type, "Melee")){
                     enemies[i].position.x += enemies[i].movementVector.x;
                     enemies[i].position.y += enemies[i].movementVector.y;
                     enemies[i].movementState = EnemyMovementState::WALKING;
@@ -344,9 +332,10 @@ void UpdateEnemies(vector<Enemy>& enemies, Player& player, Dungeon& dungeon, vec
                 }
 
                 if(enemies[i].attackState == EnemyAttackState::ATTACKING){
-                    if(TextIsEqual(enemies[i].name,"Dummy Suicide Bomber")){
-                        if(distanceToPlayer < 50.0f){
+                    if(TextIsEqual(enemies[i].type, "Melee")){
+                        if(distanceToPlayer <= enemies[i].maxRange){
                             FireProjectile(projectiles, nullptr, "Enemy", player, &enemies[i]);
+                            enemies[i].health -= enemies[i].health;
                         }
                     } else {
                         FireProjectile(projectiles, nullptr, "Enemy", player, &enemies[i]);

@@ -23,13 +23,11 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Room clear rewards
 
 # To Do Priority List (Highest to Lowest)
-  - Update boss
-  - Lobby/main menu
-  
-# Distant Features
 - Black layer, change opacity over time when passed through door, 
 - Make door initially closed until walked through, door is not gate, gate locks player in, door is for exploration
 - Remove camera clamp, make camera positioned at some point between player and mouse
+  
+# Distant Features
 - Shop room
 - Reload mouse cursor
 - Reload bar above head
@@ -38,6 +36,7 @@ A 1 player dungeon game where each playthrough features a uniquely generated dun
 - Breakable room objects
 - Usable/Interactable room objects
 - Door animation
+- Lobby/main menu
 - Better projectile hitbox (for guns that dont shoot circular projectiles)
 - Advanced enemy AI (path finding)
 - Free placed rooms instead of grid

@@ -453,7 +453,7 @@ void UpdatePlayer(Player& player, Dungeon& dungeon){
                     newUsable.type = "Weapon";
                     newUsable.hitbox = {usable.hitbox.x + (usable.hitbox.width/2.0f) - 40.0f, usable.hitbox.y + (usable.hitbox.height/2.0f) - 50.0f, 90.0f, 90.0f};
                     
-                    newUsable.yLevel = 1000.0f;
+                    newUsable.yLevel = 9999999999.0f;
                     newUsable.currentFrame = 0;
                     newUsable.numFrames = 1;              //For animation
                     newUsable.animationTimer = 0.0f;

@@ -282,6 +282,8 @@ int main(void){
 
                 dungeon.maxRooms -= dungeon.floor * 2;
                 dungeon.floor = 0;
+
+                enemies.clear();
                 
                 GenerateDungeon(dungeon);
                 player.health = player.maxHealth;
